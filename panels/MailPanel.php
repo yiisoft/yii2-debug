@@ -73,6 +73,11 @@ class MailPanel extends Panel
                                 $body = $part->getBody();
                                 break;
                             }
+                            if ($part->getContentType() == 'text/html') {
+                                $messageData['charset'] = $part->getCharset();
+                                $body = $part->getBody();
+                                break;
+                            }
                         }
                     }
                 }
