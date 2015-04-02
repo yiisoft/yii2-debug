@@ -8,7 +8,7 @@ and display the specific data you want. Below we'll describe the process of crea
 - Shows the number of views rendered in the toolbar
 - Allows you to check the view names in the debugger
 
-The assumption is that you're using the basic application template.
+The assumption is that you're using the basic project template.
 
 First we need to implement the `Panel` class in `panels/ViewsPanel.php`:
 
