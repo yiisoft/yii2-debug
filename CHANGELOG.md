@@ -5,7 +5,7 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Enh #7655: Added ability to filter access by hostname (thiagotalma)
-- Chg: Reverted #7222 because it was messing with managing direction via CSS (samdark)
+- Bug #7222: Improved debug toolbar display in rtl pages (mohammadhosain, cebe, samdark)
 
 
 2.0.3 March 01, 2015
