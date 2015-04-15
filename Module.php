@@ -44,11 +44,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * 
      * $config['modules']['debug'] = ['class'=>'yii\debug\Module','username'=>'user','password'=>'pass'];
      * 
-      * */
+     */
     public $username='';
     /**
      * @var string|false see $username
-     * */
+     */
     public $password='';
     /**
      * @var string session name for developer login.
