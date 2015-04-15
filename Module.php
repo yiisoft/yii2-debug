@@ -52,7 +52,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $password='';
     /**
      * @var string session name for developer login.
-     * /
+     */
     public $session='debug-session';
     /**
      * @inheritdoc
