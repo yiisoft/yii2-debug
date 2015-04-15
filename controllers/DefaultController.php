@@ -48,26 +48,26 @@ class DefaultController extends Controller
     }
 
     public function beforeAction($action){
-		if(parent::beforeAction($action) && $this->module->beforeAction($action)){
-			//debug access without login(useful for localhost).
-			if($this->module->username === false || $this->module->password === false){
-				if($action->id === 'login'){
-					return $this->redirect(['index']);
-				}
-				return true;
-			}
+	if(parent::beforeAction($action) && $this->module->beforeAction($action)){
+		//debug access without login(useful for localhost).
+		if($this->module->username === false || $this->module->password === false){
 			if($action->id === 'login'){
-				return true;
+				return $this->redirect(['index']);
 			}
-			if(Yii::$app->getSession()->has($this->module->session)){
-				return true;
-			}
-			if($action->id === 'toolbar'){
-				return false;
-			}
-			return $this->redirect(['login']);
+			return true;
 		}
-		return false;
+		if($action->id === 'login'){
+			return true;
+		}
+		if(Yii::$app->getSession()->has($this->module->session)){
+			return true;
+		}
+		if($action->id === 'toolbar'){
+			return false;
+		}
+		return $this->redirect(['login']);
+	}
+	return false;
 
 	}
 	
