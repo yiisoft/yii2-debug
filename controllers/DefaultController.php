@@ -47,6 +47,44 @@ class DefaultController extends Controller
         return $actions;
     }
 
+    public function beforeAction($action){
+		if(parent::beforeAction($action) && $this->module->beforeAction($action)){
+			//debug access without login(useful for localhost).
+			if($this->module->username === false || $this->module->password === false){
+				if($action->id === 'login'){
+					return $this->redirect(['index']);
+				}
+				return true;
+			}
+			if($action->id === 'login'){
+				return true;
+			}
+			if(Yii::$app->getSession()->has($this->module->session)){
+				return true;
+			}
+			if($action->id === 'toolbar'){
+				return false;
+			}
+			return $this->redirect(['login']);
+		}
+		return false;
+
+	}
+	
+	public function actionLogin(){
+		$loginForm=new LoginForm();
+		if($loginForm->load(Yii::$app->request->post()) && $loginForm->login($this->module->username,$this->module->password)){
+			Yii::$app->getSession()->set($this->module->session,true);
+			return $this->redirect(['index']);
+		}
+		return $this->render('login',['model'=>$loginForm]);
+	}
+	
+	public function actionLogout(){
+		Yii::$app->getSession()->remove($this->module->session);
+		return $this->redirect(['login']);
+	}
+
     public function actionIndex()
     {
         $searchModel = new Debug();
