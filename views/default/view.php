@@ -43,7 +43,20 @@ $this->title = 'Yii Debugger';
                 </div>
             </div>
             <div class="col-lg-10 col-md-10">
-                <div class="callout callout-primary">
+                <?php
+                $statusCode = $summary['statusCode'];
+                if ($statusCode === null) {
+                    $statusCode = 200;
+                }
+                if ($statusCode >= 200 && $statusCode < 300) {
+                    $calloutClass = 'callout-success';
+                } elseif ($statusCode >= 300 && $statusCode < 400) {
+                    $calloutClass = 'callout-info';
+                } else {
+                    $calloutClass = 'callout-important';
+                }
+                ?>
+                <div class="callout <?= $calloutClass ?>">
                     <?php
                         $count = 0;
                         $items = [];
