@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\View;
 
 ?>
 <h1><?= $panel->getName(); ?> Queries</h1>
@@ -53,7 +54,7 @@ echo GridView::widget([
         ],
         [
             'attribute' => 'query',
-            'value' => function ($data) {
+            'value' => function ($data) use ($hasExplain) {
                 $query = Html::encode($data['query']);
 
                 if (!empty($data['trace'])) {
@@ -65,6 +66,16 @@ echo GridView::widget([
                     ]);
                 }
 
+                if ($hasExplain && $data['type'] !== 'SHOW') {
+                    $query .= Html::tag('p', '', ['class' => 'db-explain-text']);
+
+                    $query .= Html::tag(
+                        'div',
+                        Html::a('[+] Explain', (['db-explain', 'seq' => $data['seq'], 'tag' => Yii::$app->controller->summary['tag']])),
+                        ['class' => 'db-explain']
+                    );
+                }
+
                 return $query;
             },
             'format' => 'html',
@@ -74,3 +85,36 @@ echo GridView::widget([
         ]
     ],
 ]);
+
+if ($hasExplain) {
+    echo Html::tag(
+        'div',
+        Html::a('[+] Explain all', '#'),
+        ['id' => 'db-explain-all']
+    );
+}
+
+$this->registerJs('debug_db_detail();', View::POS_READY);
+?>
+
+<script>
+function debug_db_detail() {
+    $('.db-explain a').click(function(e) {
+        e.preventDefault();
+        
+        var $explain = $('.db-explain-text', $(this).parent().parent());
+
+        if ($explain.is(':visible')) {
+            $explain.hide();
+        } else {
+            $explain.load($(this).attr('href')).show();
+        }
+    });
+
+    $('#db-explain-all a').click(function(e) {
+        e.preventDefault();
+        
+        $('.db-explain a').click();
+    });
+}
+</script>

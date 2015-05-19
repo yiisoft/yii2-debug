@@ -11,6 +11,33 @@ ul.trace {
     white-space: normal;
 }
 
+#db-panel-detailed-grid table tbody tr td {
+    position: relative;
+}
+
+.db-explain {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 10px;
+}
+
+.db-explain-text {
+    display: none;
+    margin: 10px 0 0px 0;
+    font-size: 13px;
+    width: 100%;
+    word-break: break-all;
+}
+
+#db-explain-all {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 12px;
+    margin-right: 15px;
+}
+
 ul.assets {
     margin: 2px 0 0 0;
     padding: 0;
