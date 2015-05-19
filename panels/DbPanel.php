@@ -36,6 +36,22 @@ class DbPanel extends Panel
     public $db = 'db';
 
     /**
+     * @var array the default ordering of the database queries. In the format of
+     * [ property => sort direction ], for example: [ 'duration' => SORT_DESC ]
+     * @since 2.0.7
+     */
+    public $defaultOrder = [
+        'duration' => SORT_DESC
+    ];
+
+    /**
+     * @var array the default filter to apply to the database queries. In the format
+     * of [ property => value ], for example: [ 'type' => 'SELECT' ]
+     * @since 2.0.7
+     */
+    public $defaultFilter = [];
+
+    /**
      * @var array db queries info extracted to array as models, to use with data provider.
      */
     private $_models;
@@ -95,7 +111,13 @@ class DbPanel extends Panel
     public function getDetail()
     {
         $searchModel = new Db();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
+
+        if (!$searchModel->load(Yii::$app->request->getQueryParams())) {
+            $searchModel->load($this->defaultFilter, '');
+        }
+
+        $dataProvider = $searchModel->search($this->getModels());
+        $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
 
         return Yii::$app->view->render('panels/db/detail', [
             'panel' => $this,

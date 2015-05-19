@@ -94,6 +94,27 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 > Note: Make sure to disable debug mode in production environments since it may have a significant and adverse performance
 effect. Further, the debug mode may expose sensitive information to end users.
 
+### Configuring Database panel
+
+Database panel default sorting and filtering can be configured like the following:
+
+```php
+$config['modules']['debug'] = [
+    'class' => 'yii\debug\Module',
+    'panels' => [
+        'db' => [
+            'class' => 'yii\debug\panels\DbPanel',
+            'defaultOrder' => [
+                'seq' => SORT_ASC
+            ],
+            'defaultFilter' => [
+                'type' => 'SELECT'
+            ]
+        ],
+    ],
+];
+```
+
 ### Extra configuration for opening in IDE's
 
 Wouldn't it be nice to be able to open files directly from the debug trace? 
