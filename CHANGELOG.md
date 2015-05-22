@@ -4,7 +4,8 @@ Yii Framework 2 debug extension Change Log
 2.0.5 under development
 -----------------------
 
-- Bug #7305: Logging of Exception objects resulted in failure of the logger and no debug data was present (cebe) 
+- Bug #7305: Logging of Exception objects resulted in failure of the logger and no debug data was present (cebe)
+- Enh #19: Mark selected log item in dropdown list with bold font and an arrow (idMolotov)
 
 
 2.0.4 May 10, 2015

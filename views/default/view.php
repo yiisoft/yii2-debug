@@ -61,7 +61,8 @@ $this->title = 'Yii Debugger';
                         $count = 0;
                         $items = [];
                         foreach ($manifest as $meta) {
-                            $label = $meta['tag'] . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
+                            $label = ($meta['tag'] == $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
+                                . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
                                 . ', ' . date('Y-m-d h:i:s a', $meta['time'])
                                 . ', ' . $meta['ip'];
                             $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
@@ -81,7 +82,7 @@ $this->title = 'Yii Debugger';
                                 ButtonDropdown::widget([
                                     'label' => 'Last 10',
                                     'options' => ['class' => 'btn-default btn-sm'],
-                                    'dropdown' => ['items' => $items],
+                                    'dropdown' => ['items' => $items, 'encodeLabels' => false],
                                 ]),
                             ],
                         ]);
