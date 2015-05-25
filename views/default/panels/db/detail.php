@@ -99,19 +99,21 @@ $this->registerJs('debug_db_detail();', View::POS_READY);
 
 <script>
 function debug_db_detail() {
-    $('.db-explain a').click(function(e) {
+    $('.db-explain a').on('click', function(e) {
         e.preventDefault();
         
         var $explain = $('.db-explain-text', $(this).parent().parent());
 
         if ($explain.is(':visible')) {
             $explain.hide();
+            $(this).text('[+] Explain');
         } else {
             $explain.load($(this).attr('href')).show();
+            $(this).text('[-] Explain');
         }
     });
 
-    $('#db-explain-all a').click(function(e) {
+    $('#db-explain-all a').on('click', function(e) {
         e.preventDefault();
         
         $('.db-explain a').click();

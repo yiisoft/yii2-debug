@@ -2,12 +2,16 @@
 namespace yii\debug\actions\db;
 
 use yii\base\Action;
+use yii\debug\panels\DbPanel;
 use yii\web\HttpException;
 
+/**
+ * ExplainAction provides EXPLAIN information for SQL queries
+ */
 class ExplainAction extends Action
 {
     /**
-     * @var DebugPanel
+     * @var DbPanel
      */
     public $panel;
 
@@ -39,4 +43,3 @@ class ExplainAction extends Action
         return implode('<br/>', $output);
     }
 }
-

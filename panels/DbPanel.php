@@ -45,6 +45,9 @@ class DbPanel extends Panel
      */
     private $_timings;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         $this->actions['db-explain'] = [
@@ -233,7 +236,6 @@ class DbPanel extends Panel
             case 'pgsql':
             case 'cubrid':
                 return true;
-
             default:
                 return false;
         }
