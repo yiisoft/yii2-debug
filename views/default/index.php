@@ -121,7 +121,7 @@ if (isset($this->context->module->panels['db']) && isset($this->context->module-
                     } elseif ($statusCode >= 300 && $statusCode < 400) {
                         $class = 'label-info';
                     } else {
-                        $class = 'label-important';
+                        $class = 'label-danger';
                     }
                     return "<span class=\"label {$class}\">$statusCode</span>";
                 },
