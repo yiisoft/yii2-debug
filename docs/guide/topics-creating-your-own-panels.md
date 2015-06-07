@@ -4,9 +4,9 @@ Creating your own panels
 Both the toolbar and debugger are highly configurable and customizable. To do so, you can create your own panels that collect
 and display the specific data you want. Below we'll describe the process of creating a simple custom panel that:
 
-- Collects the views rendered during a request
-- Shows the number of views rendered in the toolbar
-- Allows you to check the view names in the debugger
+- collects the views rendered during a request;
+- shows the number of views rendered in the toolbar;
+- allows you to check the view names in the debugger.
 
 The assumption is that you're using the basic project template.
 

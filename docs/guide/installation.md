@@ -64,7 +64,7 @@ If you are using `enableStrictParsing` URL manager option, add the following to 
 ### Extra configuration for logging and profiling
 
 Logging and profiling are simple but powerful tools that may help you to understand the execution flow of both the
-framework and the application. These tools are useful for development and production environments alike.
+framework and the application. These tools are useful for development and production environments NOT alike.
 
 While in a production environment, you should log only significantly important  messages manually, as described in
 [logging guide section](https://github.com/yiisoft/yii2/blob/master/docs/guide/runtime-logging.md). It hurts performance too much to continue to log all messages in production.

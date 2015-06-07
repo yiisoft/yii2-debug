@@ -10,14 +10,14 @@ previously collected (i.e., to confirm the values of variables).
 
 Out of the box these tools allow you to:
 
-- Quickly get the framework version, PHP version, response status, current controller and action, performance info and
-  more via toolbar
-- Browse the application and PHP configuration
-- View the request data, request and response headers, session data, and environment variables
-- See, search, and filter the logs
-- View any profiling results
-- View the database queries executed by the page
-- View the emails sent by the application
+- quickly get the framework version, PHP version, response status, current controller and action, performance info and
+  more via toolbar;
+- browse the application and PHP configuration;
+- view the request data, request and response headers, session data, and environment variables;
+- see, search, and filter the logs;
+- view any profiling results;
+- view the database queries executed by the page;
+- view the emails sent by the application.
 
 All of this information will be available per request, allowing you to revisit the information for past requests as well.
 
