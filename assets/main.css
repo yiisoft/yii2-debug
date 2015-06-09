@@ -1,3 +1,7 @@
+.main-container {
+    width: auto;
+}
+
 span.indent {
     color: #ccc;
 }
@@ -79,6 +83,10 @@ td, th {
 .request-table td {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     word-break: break-all;
+}
+
+.request-table tr > th:first-child {
+    width: 25%;
 }
 
 .config-php-info-table td.v {

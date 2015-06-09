@@ -7,6 +7,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #7305: Logging of Exception objects resulted in failure of the logger and no debug data was present (cebe)
 - Enh #16: Added ability to EXPLAIN queries in Database panel for MySQL, SQLite, PostgreSQL and Cubrid (laszlovl, samdark)
 - Enh #19: Mark selected log item in dropdown list with bold font and an arrow (idMolotov)
+- Enh #25: Make use of full screen width in debug toolbar backend (dynasource, cebe)
 - Enh: More compact toolbar (samdark)
 - Enh: Display colorful status at index page (samdark)
 - Enh: More readable format for date and time at index page (samdark)
