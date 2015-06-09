@@ -27,7 +27,7 @@ $this->title = 'Yii Debugger';
         <?php endforeach; ?>
     </div>
 
-    <div class="container">
+    <div class="container main-container">
         <div class="row">
             <div class="col-lg-2 col-md-2">
                 <div class="list-group">
