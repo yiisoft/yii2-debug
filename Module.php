@@ -210,14 +210,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * @param \yii\web\User $user the user object
      * @return boolean whether the rule applies to the role
      */
-    protected function matchRole($user)
+    protected function matchRoles()
     {
         if (empty($this->allowedRoles)) {
             return true;
         }
+        $user = Yii::$app->user;
         foreach ($this->allowedRoles as $role) {
             if ($role === '?') {
                 if ($user->getIsGuest()) {
@@ -241,7 +241,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     protected function checkAccess()
     {
         $ip = Yii::$app->getRequest()->getUserIP();
-        if ($this->matchRole(Yii::$app->user)) {
+        if ($this->matchRoles()) {
             foreach ($this->allowedIPs as $filter) {
                 if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
                     return true;
