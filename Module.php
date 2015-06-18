@@ -38,10 +38,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $allowedHosts = [];
     /**
-     * @var array the list of roles that are allowed to access this module.
-     * Each array element is a hostname that will be resolved to an IP address that is compared
-     * with the IP address of the user. A use case is to use a dynamic DNS (DDNS) to allow access.
-     * The default value is `[]`.
      * @var array list of roles that this rule applies to. Two special roles are recognized, and
      * they are checked via [[User::isGuest]]:
      *
