@@ -212,7 +212,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @return boolean whether the rule applies to the role
      */
-    protected function matchRoles()
+    protected function matchRole()
     {
         if (empty($this->allowedRoles)) {
             return true;
@@ -241,7 +241,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     protected function checkAccess()
     {
         $ip = Yii::$app->getRequest()->getUserIP();
-        if ($this->matchRoles()) {
+        if ($this->matchRole()) {
             foreach ($this->allowedIPs as $filter) {
                 if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
                     return true;
