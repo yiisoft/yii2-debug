@@ -40,7 +40,9 @@ Once the extension is installed, simply modify your application configuration as
 return [
     'bootstrap' => ['debug'],
     'modules' => [
-        'debug' => 'yii\debug\Module',
+        'debug' => [
+            'class' => 'yii\debug\Module',
+        ],
         // ...
     ],
     ...

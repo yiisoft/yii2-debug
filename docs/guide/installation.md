@@ -27,7 +27,9 @@ To enable extension, add these lines to your configuration file to enable the de
 ```php
 'bootstrap' => ['debug'],
 'modules' => [
-    'debug' => 'yii\debug\Module',
+    'debug' => [
+        'class' => 'yii\debug\Module',
+    ],
 ]
 ```
 
