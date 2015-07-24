@@ -10,6 +10,7 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\web\ForbiddenHttpException;
@@ -185,11 +186,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $url = Url::toRoute(['/' . $this->id . '/default/toolbar',
             'tag' => $this->logTarget->tag,
         ]);
-        echo '<div id="yii-debug-toolbar" data-url="' . $url . '" style="display:none"></div>';
+        echo '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none"></div>';
         /* @var $view View */
         $view = $event->sender;
-        echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.css') . '</style>';
-        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.js') . '</script>';
+        $view->registerCss($view->renderPhpFile(__DIR__ . '/assets/toolbar.css'));
+        $view->registerJs($view->renderPhpFile(__DIR__ . '/assets/toolbar.js'));
     }
 
     /**

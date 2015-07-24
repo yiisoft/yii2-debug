@@ -12,6 +12,8 @@ Yii Framework 2 debug extension Change Log
 - Enh: More compact toolbar (samdark)
 - Enh: Display colorful status at index page (samdark)
 - Enh: More readable format for date and time at index page (samdark)
+- Enh: Toolbar script and styles are now properly registered instead of just echoed (samdark)
+- Enh: Toolbar data URL is now HTML-escaped producing valid HTML (samdark) 
 
 
 2.0.4 May 10, 2015
