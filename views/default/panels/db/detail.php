@@ -45,7 +45,7 @@ echo GridView::widget([
         [
             'attribute' => 'type',
             'value' => function ($data) {
-                return Html::encode(mb_strtoupper($data['type'], 'utf8'));
+                return Html::encode($data['type']);
             },
             'filter' => $panel->getTypes(),
         ],

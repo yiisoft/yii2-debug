@@ -194,7 +194,7 @@ class DbPanel extends Panel
         $timing = ltrim($timing);
         preg_match('/^([a-zA-z]*)/', $timing, $matches);
 
-        return count($matches) ? $matches[0] : '';
+        return count($matches) ? strtoupper($matches[0]) : '';
     }
 
     /**
@@ -250,7 +250,7 @@ class DbPanel extends Panel
      */
     public static function canBeExplained($type)
     {
-        return $type !== 'show';
+        return $type !== 'SHOW';
     }
 
     /**
