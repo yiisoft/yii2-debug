@@ -186,7 +186,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $url = Url::toRoute(['/' . $this->id . '/default/toolbar',
             'tag' => $this->logTarget->tag,
         ]);
-        echo '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none"></div>';
+        echo '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
         /* @var $view View */
         $view = $event->sender;
         $view->registerCss($view->renderPhpFile(__DIR__ . '/assets/toolbar.css'));

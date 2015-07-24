@@ -6,6 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #33: Fixed `LogTarget::collect()` to call `export()` in a proper way (cornernote) 
 - Bug #7305: Logging of Exception objects resulted in failure of the logger and no debug data was present (cebe)
+- Bug #9112: Fixed initial state of debug toolbar placeholder to prevent "blink" on loading (samdark) 
 - Enh #16: Added ability to EXPLAIN queries in Database panel for MySQL, SQLite, PostgreSQL and Cubrid (laszlovl, samdark)
 - Enh #19: Mark selected log item in dropdown list with bold font and an arrow (idMolotov)
 - Enh #25: Make use of full screen width in debug toolbar backend (dynasource, cebe)
