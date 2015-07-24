@@ -248,7 +248,7 @@ class DbPanel extends Panel
      * @param string $type query type
      * @return boolean
      */
-    public static function canExplained($type)
+    public static function canBeExplained($type)
     {
         return $type !== 'show';
     }

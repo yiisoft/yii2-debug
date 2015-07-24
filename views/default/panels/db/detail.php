@@ -63,7 +63,7 @@ echo GridView::widget([
                     ]);
                 }
 
-                if ($hasExplain && $panel::canExplained($data['type'])) {
+                if ($hasExplain && $panel::canBeExplained($data['type'])) {
                     $query .= Html::tag('p', '', ['class' => 'db-explain-text']);
 
                     $query .= Html::tag(
