@@ -40,6 +40,7 @@ class DbPanel extends Panel
      * @var array db queries info extracted to array as models, to use with data provider.
      */
     private $_models;
+
     /**
      * @var array current database request timings
      */
@@ -239,6 +240,17 @@ class DbPanel extends Panel
             default:
                 return false;
         }
+    }
+
+    /**
+     * Check if given query type can be explained.
+     *
+     * @param string $type query type
+     * @return boolean
+     */
+    public static function canExplained($type)
+    {
+        return $type !== 'show';
     }
 
     /**

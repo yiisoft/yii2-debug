@@ -7,10 +7,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\web\View;
 
-?>
-<h1><?= $panel->getName(); ?> Queries</h1>
-
-<?php
+echo Html::tag('h1', $panel->getName() . ' Queries');
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -54,7 +51,7 @@ echo GridView::widget([
         ],
         [
             'attribute' => 'query',
-            'value' => function ($data) use ($hasExplain) {
+            'value' => function ($data) use ($hasExplain, $panel) {
                 $query = Html::encode($data['query']);
 
                 if (!empty($data['trace'])) {
@@ -66,7 +63,7 @@ echo GridView::widget([
                     ]);
                 }
 
-                if ($hasExplain && $data['type'] !== 'SHOW') {
+                if ($hasExplain && $panel::canExplained($data['type'])) {
                     $query .= Html::tag('p', '', ['class' => 'db-explain-text']);
 
                     $query .= Html::tag(
