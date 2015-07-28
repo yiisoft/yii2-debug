@@ -40,6 +40,7 @@ class DbPanel extends Panel
      * @var array db queries info extracted to array as models, to use with data provider.
      */
     private $_models;
+
     /**
      * @var array current database request timings
      */
@@ -193,7 +194,7 @@ class DbPanel extends Panel
         $timing = ltrim($timing);
         preg_match('/^([a-zA-z]*)/', $timing, $matches);
 
-        return count($matches) ? $matches[0] : '';
+        return count($matches) ? strtoupper($matches[0]) : '';
     }
 
     /**
@@ -239,6 +240,17 @@ class DbPanel extends Panel
             default:
                 return false;
         }
+    }
+
+    /**
+     * Check if given query type can be explained.
+     *
+     * @param string $type query type
+     * @return boolean
+     */
+    public static function canBeExplained($type)
+    {
+        return $type !== 'SHOW';
     }
 
     /**
