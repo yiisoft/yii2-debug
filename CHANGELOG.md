@@ -1,10 +1,10 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.0.5 under development
------------------------
+2.0.5 August 06, 2015
+---------------------
 
-- Bug #33: Fixed `LogTarget::collect()` to call `export()` in a proper way (cornernote) 
+- Bug #33: Fixed `LogTarget::collect()` to call `export()` in a proper way (cornernote)
 - Bug #7305: Logging of Exception objects resulted in failure of the logger and no debug data was present (cebe)
 - Bug #9112: Fixed initial state of debug toolbar placeholder to prevent "blink" on loading (samdark)
 - Bug #9169: Fixed incorrect toolbar image mime causing XML5605 errors in IE console (samdark)
@@ -16,7 +16,7 @@ Yii Framework 2 debug extension Change Log
 - Enh: Display colorful status at index page (samdark)
 - Enh: More readable format for date and time at index page (samdark)
 - Enh: Toolbar script and styles are now properly registered instead of just echoed (samdark)
-- Enh: Toolbar data URL is now HTML-escaped producing valid HTML (samdark) 
+- Enh: Toolbar data URL is now HTML-escaped producing valid HTML (samdark)
 
 
 2.0.4 May 10, 2015
