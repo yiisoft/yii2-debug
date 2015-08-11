@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.6 under development
 -----------------------
 
+- Bug #41: Debug toolbar was unable to work without asset manager (samdark)
 
 
 2.0.5 August 06, 2015

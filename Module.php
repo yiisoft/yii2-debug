@@ -189,7 +189,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
         echo '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
         /* @var $view View */
         $view = $event->sender;
-        ToolbarAsset::register($view);
+
+        // echo is used in order to support cases where asset manager is not available
+        echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.css') . '</style>';
+        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.js') . '</script>';
     }
 
     /**
