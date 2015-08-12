@@ -93,7 +93,8 @@ class DefaultController extends Controller
         $manifest = $this->getManifest();
         $prevTag = array_keys($manifest)[1];
         $data = $manifest[$prevTag];
-        if($data['method']=='POST'){
+
+        if($data['statusCode']===302 && $data['method']=='POST'){
             $this->loadData($prevTag, 5);
 
             $bars[] = $this->renderPartial('_toolbar', [
