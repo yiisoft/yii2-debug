@@ -23,14 +23,14 @@ if (window.localStorage) {
 EOD;
 
 $firstPanel = reset($panels);
-$url = $firstPanel->getUrl();   
+$url = $firstPanel->getUrl();
 ?>
 <div id="yii-debug-toolbar" class="yii-debug-toolbar-<?= $position ?> hidden-print">
     <?php
     echo $content;
     ?>
     <span class="yii-debug-toolbar-toggler" onclick="<?= $minJs ?>">›</span>
-</div>  
+</div>
 <div id="yii-debug-toolbar-min" class="hidden-print">
     <a href="<?= $url ?>" title="Open Yii Debugger" id="yii-debug-toolbar-logo">
         <img width="29" height="30" alt="" src="<?= \yii\debug\Module::getYiiLogo() ?>">
