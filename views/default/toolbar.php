@@ -23,7 +23,7 @@ if (window.localStorage) {
 EOD;
 
 $firstPanel = reset($panels);
-$url = $firstPanel->getUrl();   
+$url = $firstPanel->getUrl();
 ?>
 <div id="yii-debug-toolbar" class="yii-debug-toolbar-<?= $position ?> hidden-print">
     <?php
