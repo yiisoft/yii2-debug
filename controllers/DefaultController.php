@@ -89,12 +89,28 @@ class DefaultController extends Controller
 
     public function actionToolbar($tag)
     {
-        $this->loadData($tag, 5);
 
-        return $this->renderPartial('toolbar', [
+        $manifest = $this->getManifest();
+        $prevTag = array_keys($manifest)[1];
+        $data = $manifest[$prevTag];
+        if($data['method']=='POST'){
+            $this->loadData($prevTag, 5);
+
+            $bars[] = $this->renderPartial('_toolbar', [
+                'tag' => $prevTag,
+                'panels' => $this->module->panels,
+            ]);            
+        }        
+        $this->loadData($tag, 5);        
+        $bars[] =  $this->renderPartial('_toolbar', [
             'tag' => $tag,
             'panels' => $this->module->panels,
-            'position' => 'bottom',
+        ]);
+        
+        return $this->renderPartial('toolbar', [
+            'content' => implode($bars),
+            'panels' => $this->module->panels,
+            'position' => 'bottom',            
         ]);
     }
 

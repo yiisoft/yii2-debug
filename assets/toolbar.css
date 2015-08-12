@@ -18,6 +18,16 @@
     direction: ltr;
 }
 
+.yii-debug-toolbar-row{
+    width:100%;
+    border-bottom:1px solid #ddd;
+    float:left;
+}
+.yii-debug-toolbar-row:nth-of-type(2) .yii-debug-toolbar-block.title,
+.yii-debug-toolbar-row:nth-of-type(2) .yii-debug-toolbar-block.config{
+    opacity:0;
+}
+
 .yii-debug-toolbar-top {
     margin: 0 0 20px 0;
     border-bottom: 1px solid #e4e4e4;
