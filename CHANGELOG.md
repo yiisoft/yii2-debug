@@ -6,6 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #41: Debug toolbar was unable to work without asset manager (samdark)
 - Enh #44: Improved display of memory usage to use 3 decimals (dynasource)
+- Enh #47: LogTarget storage directory is now created recursively if it does not exist (thiagotalma)
 
 
 2.0.5 August 06, 2015
