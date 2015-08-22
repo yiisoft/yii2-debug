@@ -45,7 +45,7 @@ class LogTarget extends Target
     {
         $path = $this->module->dataPath;
         if (!is_dir($path)) {
-            mkdir($path);
+            mkdir($path, 0777, true);
         }
 
         $summary = $this->collectSummary();
