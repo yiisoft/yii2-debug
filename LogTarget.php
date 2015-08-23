@@ -9,6 +9,7 @@ namespace yii\debug;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\helpers\FileHelper;
 use yii\log\Target;
 
 /**
@@ -44,9 +45,7 @@ class LogTarget extends Target
     public function export()
     {
         $path = $this->module->dataPath;
-        if (!is_dir($path)) {
-            mkdir($path, 0777, true);
-        }
+        FileHelper::createDirectory($path);
 
         $summary = $this->collectSummary();
         $dataFile = "$path/{$this->tag}.data";
