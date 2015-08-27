@@ -191,8 +191,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $view = $event->sender;
 
         // echo is used in order to support cases where asset manager is not available
-        echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.css') . '</style>';
-        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.js') . '</script>';
+        $view->registerCss($view->renderPhpFile(__DIR__ . '/assets/toolbar.css'));
+        $view->registerJs($view->renderPhpFile(__DIR__ . '/assets/toolbar.js'), view::POS_END);
     }
 
     /**
