@@ -35,7 +35,7 @@ class ExplainAction extends Action
 
         foreach ($results as $result) {
             $output[] = '<tr>' . implode(array_map(function($value) {
-                return '<td>' . (empty($value) ? 'NULL' : $value) . '</td>';
+                return '<td>' . (empty($value) ? 'NULL' : htmlspecialchars($value)) . '</td>';
             }, $result)) . '</tr>';
         }
         $output[] = '</tbody></table>';
