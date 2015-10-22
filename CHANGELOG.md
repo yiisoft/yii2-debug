@@ -8,6 +8,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #51: Explain wasn't displayig all data available (lichunqiang)
 - Enh #44: Improved display of memory usage to use 3 decimals (dynasource)
 - Enh #47: LogTarget storage directory is now created recursively if it does not exist (thiagotalma)
+- Enh #63: Enhanced reliablity of request panel in case session is misconfigured (arisk)
 
 2.0.5 August 06, 2015
 ---------------------
