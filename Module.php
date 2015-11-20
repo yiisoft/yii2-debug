@@ -59,15 +59,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $dataPath = '@runtime/debug';
     /**
      * @var integer the permission to be set for newly created debugger data files.
-     * This value will be used by PHP chmod() function. No umask will be applied.
+     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
      * If not set, the permission will be determined by the current environment.
+     * @since 2.0.6
      */
     public $fileMode;
     /**
      * @var integer the permission to be set for newly created directories.
-     * This value will be used by PHP chmod() function. No umask will be applied.
+     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
      * Defaults to 0775, meaning the directory is read-writable by owner and group,
      * but read-only for other users.
+     * @since 2.0.6
      */
     public $dirMode = 0775;
     /**
