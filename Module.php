@@ -144,11 +144,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
             $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
         });
-
-        $app->getUrlManager()->addRules([
+        $urlManager = $app->getUrlManager();
+        $originConfigClass = $urlManager->ruleConfig['class'];
+        $urlManager->ruleConfig['class'] = 'yii\web\UrlRule';
+        $urlManager->addRules([
             $this->id => $this->id,
             $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>' => $this->id . '/<controller>/<action>',
         ], false);
+        $urlManager->ruleConfig['class'] = $originConfigClass;
     }
 
     /**
