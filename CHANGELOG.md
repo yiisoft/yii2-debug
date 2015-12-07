@@ -11,6 +11,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #47: LogTarget storage directory is now created recursively if it does not exist (thiagotalma)
 - Enh #63: Enhanced reliablity of request panel in case session is misconfigured (arisk)
 - Enh #67: Ability to change permissions for debugger data files and directories (mg-code)
+- Bug #70: Exception was throwed when `UrlManager::ruleConfig` class was setted with `yii\rest\UrlRule` (lichunqiang)
 
 2.0.5 August 06, 2015
 ---------------------
