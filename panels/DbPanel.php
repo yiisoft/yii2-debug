@@ -231,7 +231,11 @@ class DbPanel extends Panel
      */
     protected function hasExplain()
     {
-        switch ($this->getDb()->getDriverName()) {
+        $db = $this->getDb();
+        if (!($db instanceof \yii\db\Connection)) {
+            return false;
+        }
+        switch ($db->getDriverName()) {
             case 'mysql':
             case 'sqlite':
             case 'pgsql':
