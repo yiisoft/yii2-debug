@@ -228,6 +228,7 @@ class DbPanel extends Panel
 
     /**
      * @return boolean Whether the DB component has support for EXPLAIN queries
+     * @since 2.0.5
      */
     protected function hasExplain()
     {
@@ -263,6 +264,7 @@ class DbPanel extends Panel
      * Returns a reference to the DB component associated with the panel
      * 
      * @return \yii\db\Connection
+     * @since 2.0.5
      */
     public function getDb()
     {
