@@ -1,7 +1,7 @@
 <?php
 /* @var $panel yii\debug\panels\ConfigPanel */
 ?>
-<div class="yii-debug-toolbar-block">
+<div class="yii-debug-toolbar-block config">
     <a href="<?= $panel->getUrl() ?>">
         <span class="label"><?= $panel->data['application']['yii'] ?></span>
         PHP
