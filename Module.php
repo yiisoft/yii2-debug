@@ -39,6 +39,23 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $allowedHosts = [];
     /**
+     * @var string|false if you want to access this module withou login, set username or/and password `false`.
+     * and if you want to deny any access to this module set username or/and password to empty string.
+     * else you can access this module with username and password that are set in config file :
+     * 
+     * $config['modules']['debug'] = ['class'=>'yii\debug\Module','username'=>'user','password'=>'pass'];
+     * 
+     */
+    public $username=false;
+    /**
+     * @var string|false see $username
+     */
+    public $password=false;
+    /**
+     * @var string session name for developer login.
+     */
+    public $session='debug-session';
+    /**
      * @inheritdoc
      */
     public $controllerNamespace = 'yii\debug\controllers';
