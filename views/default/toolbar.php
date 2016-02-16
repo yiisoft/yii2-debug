@@ -35,11 +35,11 @@ $url = $firstPanel->getUrl();
     <?php foreach ($panels as $panel): ?>
         <?= $panel->getSummary() ?>
     <?php endforeach; ?>
-    <span class="yii-debug-toolbar-toggler" onclick="<?= $minJs ?>">›</span>
+    <span class="yii-debug-toolbar-toggler" onclick="<?= $minJs ?>">&rsaquo;</span>
 </div>
 <div id="yii-debug-toolbar-min" class="hidden-print">
     <a href="<?= $url ?>" title="Open Yii Debugger" id="yii-debug-toolbar-logo">
         <img width="29" height="30" alt="" src="<?= \yii\debug\Module::getYiiLogo() ?>">
     </a>
-    <span class="yii-debug-toolbar-toggler" onclick="<?= $maxJs ?>">‹</span>
+    <span class="yii-debug-toolbar-toggler" onclick="<?= $maxJs ?>">&lsaquo;</span>
 </div>
