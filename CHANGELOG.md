@@ -6,6 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #41: Debug toolbar was unable to work without asset manager (samdark)
 - Bug #51: Explain wasn't displayig all data available (lichunqiang)
+- Bug #66: Fixed debug panel not working inside applications with response format different from HTML (creocoder, cebe)
 - Bug #70: Exception was throwed when `UrlManager::ruleConfig` class was setted with `yii\rest\UrlRule` (lichunqiang)
 - Bug: Fixed error when `Yii::$app->db` is not an instance of `yii\db\Connection` (cebe, jafaripur)
 - Enh #44: Improved display of memory usage to use 3 decimals (dynasource)
@@ -13,6 +14,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #63: Enhanced reliablity of request panel in case session is misconfigured (arisk)
 - Enh #67: Ability to change permissions for debugger data files and directories (mg-code)
 - Enh #83: Debug toolbar now works at the page in async manner (JiLiZART)
+
 
 2.0.5 August 06, 2015
 ---------------------

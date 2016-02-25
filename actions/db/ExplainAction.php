@@ -15,6 +15,7 @@ class ExplainAction extends Action
      */
     public $panel;
 
+
     public function run($seq, $tag)
     {
         $this->controller->loadData($tag);
