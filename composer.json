@@ -25,6 +25,9 @@
         "yiisoft/yii2": ">=2.0.4",
         "yiisoft/yii2-bootstrap": "*"
     },
+    "conflict": {
+        "yiisoft/yii2-debug": "*"
+    },
     "autoload": {
         "psr-4": {
             "yii\\debug\\": ""
