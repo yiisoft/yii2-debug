@@ -156,6 +156,20 @@ class LogTarget extends Target
         if (isset($this->module->panels['mail'])) {
             $summary['mailCount'] = count($this->module->panels['mail']->getMessages());
         }
+        
+        //-------------------------
+        // Change by Jin Chen.
+        // Add counter for summary.
+        //-------------------------
+        $summary['errorCount'] = $summary['warningCount'] = 0;
+        foreach ($this->messages as $message) {
+            if (\yii\log\Logger::LEVEL_ERROR & $message[1]) {
+                ++$summary['errorCount'];
+            } elseif (\yii\log\Logger::LEVEL_WARNING & $message[1]) {
+                ++$summary['warningCount'];
+            }
+        }
+        //-------------------------
 
         return $summary;
     }
