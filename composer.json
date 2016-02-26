@@ -1,5 +1,5 @@
 {
-    "name": "yiisoft/yii2-debug",
+    "name": "mole-chen/yii2-debug",
     "description": "The debugger extension for the Yii framework",
     "keywords": ["yii2", "debug", "debugger"],
     "type": "yii2-extension",
@@ -15,6 +15,10 @@
         {
             "name": "Qiang Xue",
             "email": "qiang.xue@gmail.com"
+        },
+        {
+            "name": "Jin Chen",
+            "email": "jmole.chen@gmail.com"
         }
     ],
     "require": {
