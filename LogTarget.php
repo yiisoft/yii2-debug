@@ -142,14 +142,17 @@ class LogTarget extends Target
     {
         $request = Yii::$app->getRequest();
         $response = Yii::$app->getResponse();
+        
+        // Change by Jin Chen.
+        $isCli = PHP_SAPI === 'cli';
         $summary = [
             'tag' => $this->tag,
-            'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int) $request->getIsAjax(),
-            'method' => $request->getMethod(),
-            'ip' => $request->getUserIP(),
+            'url' => $isCli ? Yii::$app->requestedRoute : $request->getAbsoluteUrl(),
+            'ajax' => $isCli ? 0 : (int) $request->getIsAjax(),
+            'method' => $isCli ? 'console' : $request->getMethod(),
+            'ip' => $isCli ? '0.0.0.0' : $request->getUserIP(),
             'time' => time(),
-            'statusCode' => $response->statusCode,
+            'statusCode' => $isCli ? ($response->exitStatus == 0 ? 200 : 500) : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
         ];
 

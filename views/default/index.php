@@ -30,7 +30,7 @@ $this->title = 'Yii Debugger';
         <div class="row">
 <?php
 
-if (isset($this->context->module->panels['db']) && isset($this->context->module->panels['request'])) {
+if (isset($this->context->module->panels['db'])) {
 
     echo "			<h1>Available Debug Data</h1>";
 
@@ -98,7 +98,7 @@ if (isset($this->context->module->panels['db']) && isset($this->context->module-
             ],
             [
                 'attribute' => 'method',
-                'filter' => ['get' => 'GET', 'post' => 'POST', 'delete' => 'DELETE', 'put' => 'PUT', 'head' => 'HEAD']
+                'filter' => ['get' => 'GET', 'post' => 'POST', 'delete' => 'DELETE', 'put' => 'PUT', 'head' => 'HEAD', 'console' => 'CONSOLE']
             ],
             
             //-------------------------
