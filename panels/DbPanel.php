@@ -113,7 +113,7 @@ class DbPanel extends Panel
     public function calculateTimings()
     {
         if ($this->_timings === null) {
-            $this->_timings = Yii::getLogger()->calculateTimings($this->data['messages']);
+            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
         }
 
         return $this->_timings;

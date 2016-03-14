@@ -9,6 +9,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #66: Fixed debug panel not working inside applications with response format different from HTML (creocoder, cebe)
 - Bug #70: Exception was throwed when `UrlManager::ruleConfig` class was setted with `yii\rest\UrlRule` (lichunqiang)
 - Bug: Fixed error when `Yii::$app->db` is not an instance of `yii\db\Connection` (cebe, jafaripur)
+- Bug: Fixed exception when no data was recorded for db and profiling panel (cebe, jafaripur)
 - Enh #44: Improved display of memory usage to use 3 decimals (dynasource)
 - Enh #47: LogTarget storage directory is now created recursively if it does not exist (thiagotalma)
 - Enh #63: Enhanced reliablity of request panel in case session is misconfigured (arisk)
