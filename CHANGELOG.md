@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.7 under development
 -----------------------
 
-- no changes in this release.
+- Enh: Mouse wheel click, or Ctrl+Click opens debugger in new tab (silverfire)
 
 
 2.0.6 March 17, 2016
