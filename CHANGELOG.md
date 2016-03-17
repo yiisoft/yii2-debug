@@ -1,10 +1,10 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.0.6 under development
------------------------
+2.0.6 March 17, 2016
+--------------------
 
-- Bug #41: Debug toolbar was unable to work without asset manager (samdark)
+- Bug #41: Debug toolbar was unable to work without asset manager, removed `ToolbarAsset` class (samdark)
 - Bug #51: Explain wasn't displayig all data available (lichunqiang)
 - Bug #66: Fixed debug panel not working inside applications with response format different from HTML (creocoder, cebe)
 - Bug #70: Exception was throwed when `UrlManager::ruleConfig` class was setted with `yii\rest\UrlRule` (lichunqiang)
