@@ -141,9 +141,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $this->logTarget = Yii::$app->getLog()->targets['debug'] = new LogTarget($this);
 
         // delay attaching event handler to the view component after it is fully configured
-        $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
-            $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
-        });
+        // $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
+        //     $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
+        // });
 
         $app->getUrlManager()->addRules([
             [
@@ -245,14 +245,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function corePanels()
     {
-        return [
+        $cores = [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
-            'request' => ['class' => 'yii\debug\panels\RequestPanel'],
             'log' => ['class' => 'yii\debug\panels\LogPanel'],
             'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
             'db' => ['class' => 'yii\debug\panels\DbPanel'],
-            'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
         ];
+        
+        if (!(PHP_SAPI === 'cli')) {
+            $cores['request'] = ['class' => 'yii\debug\panels\RequestPanel'];
+            $cores['assets'] = ['class' => 'yii\debug\panels\AssetPanel'];
+        }
+        
+        return $cores;
     }
 }

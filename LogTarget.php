@@ -142,20 +142,37 @@ class LogTarget extends Target
     {
         $request = Yii::$app->getRequest();
         $response = Yii::$app->getResponse();
+        
+        // Change by Jin Chen.
+        $isCli = PHP_SAPI === 'cli';
         $summary = [
             'tag' => $this->tag,
-            'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int) $request->getIsAjax(),
-            'method' => $request->getMethod(),
-            'ip' => $request->getUserIP(),
+            'url' => $isCli ? Yii::$app->requestedRoute : $request->getAbsoluteUrl(),
+            'ajax' => $isCli ? 0 : (int) $request->getIsAjax(),
+            'method' => $isCli ? 'console' : $request->getMethod(),
+            'ip' => $isCli ? '0.0.0.0' : $request->getUserIP(),
             'time' => time(),
-            'statusCode' => $response->statusCode,
+            'statusCode' => $isCli ? ($response->exitStatus == 0 ? 200 : 500) : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
         ];
 
         if (isset($this->module->panels['mail'])) {
             $summary['mailCount'] = count($this->module->panels['mail']->getMessages());
         }
+        
+        //-------------------------
+        // Change by Jin Chen.
+        // Add counter for summary.
+        //-------------------------
+        $summary['errorCount'] = $summary['warningCount'] = 0;
+        foreach ($this->messages as $message) {
+            if (\yii\log\Logger::LEVEL_ERROR & $message[1]) {
+                ++$summary['errorCount'];
+            } elseif (\yii\log\Logger::LEVEL_WARNING & $message[1]) {
+                ++$summary['warningCount'];
+            }
+        }
+        //-------------------------
 
         return $summary;
     }

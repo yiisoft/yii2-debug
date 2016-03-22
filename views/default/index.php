@@ -30,7 +30,7 @@ $this->title = 'Yii Debugger';
         <div class="row">
 <?php
 
-if (isset($this->context->module->panels['db']) && isset($this->context->module->panels['request'])) {
+if (isset($this->context->module->panels['db'])) {
 
     echo "			<h1>Available Debug Data</h1>";
 
@@ -98,8 +98,39 @@ if (isset($this->context->module->panels['db']) && isset($this->context->module-
             ],
             [
                 'attribute' => 'method',
-                'filter' => ['get' => 'GET', 'post' => 'POST', 'delete' => 'DELETE', 'put' => 'PUT', 'head' => 'HEAD']
+                'filter' => ['get' => 'GET', 'post' => 'POST', 'delete' => 'DELETE', 'put' => 'PUT', 'head' => 'HEAD', 'console' => 'CONSOLE']
             ],
+            
+            //-------------------------
+            // Changed by Jin Chen.
+            // Add Error Count Column.
+            //-------------------------
+            [
+                'attribute' => 'errorCount',
+                'label' => 'Error Count',
+                'value' => function ($data) {
+                    if (isset($data['errorCount']) && $data['errorCount'] > 0) {
+                        return Html::a("<span class=\"label label-danger\"> {$data['errorCount']} </span>", ['view', 'tag' => $data['tag'], 'panel' => 'log', 'Log[level]' => \yii\log\Logger::LEVEL_ERROR]);
+                    }
+                    
+                    return 0;
+                },
+                'format' => 'html',
+            ],
+            [
+                'attribute' => 'warningCount',
+                'label' => 'Warning Count',
+                'value' => function ($data) {
+                    if (isset($data['warningCount']) && $data['warningCount'] > 0) {
+                        return Html::a("<span class=\"label label-warning\"> {$data['warningCount']} </span>", ['view', 'tag' => $data['tag'], 'panel' => 'log', 'Log[level]' => \yii\log\Logger::LEVEL_WARNING]);
+                    }
+                    
+                    return 0;
+                },
+                'format' => 'html',
+            ],
+            //-------------------------
+            
             [
                 'attribute'=>'ajax',
                 'value' => function ($data) {
