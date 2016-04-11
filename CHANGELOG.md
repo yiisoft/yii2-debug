@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Enh: Mouse wheel click, or Ctrl+Click opens debugger in new tab (silverfire)
+- Bug #99: Avoid serializing php7 errors (zuozp8)
 
 
 2.0.6 March 17, 2016
