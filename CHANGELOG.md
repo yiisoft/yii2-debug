@@ -7,7 +7,7 @@ Yii Framework 2 debug extension Change Log
 - Enh: Mouse wheel click, or Ctrl+Click opens debugger in new tab (silverfire)
 - Bug #99: Avoid serializing php7 errors (zuozp8)
 - Bug #111: Fixed `LogTarget` to work properly when tests are ran via Codeception (samdark, nlmedina)
-
+- Bug #93: Fixed `AssetPanel` error when bundle `$js` or `$css` contained `jsOptions` overrides (Razzwan, samdark)
 
 2.0.6 March 17, 2016
 --------------------
