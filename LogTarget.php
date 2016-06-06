@@ -140,6 +140,10 @@ class LogTarget extends Target
      */
     protected function collectSummary()
     {
+        if (Yii::$app === null) {
+            return '';
+        }
+
         $request = Yii::$app->getRequest();
         $response = Yii::$app->getResponse();
         $summary = [
