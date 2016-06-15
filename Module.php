@@ -86,6 +86,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
 
     /**
+     * @var bool boolean whether to disable debug toolbar when you need.
+     */
+    public $enableToolbar = true;
+
+
+    /**
      * Returns Yii logo ready to use in `<img src="`
      *
      * @return string base64 representation of the image
@@ -140,10 +146,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         $this->logTarget = Yii::$app->getLog()->targets['debug'] = new LogTarget($this);
 
-        // delay attaching event handler to the view component after it is fully configured
-        $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
-            $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
-        });
+        if ($this->enableToolbar) {
+            // delay attaching event handler to the view component after it is fully configured
+            $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
+                $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
+            });
+        }
 
         $app->getUrlManager()->addRules([
             [
