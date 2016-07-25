@@ -22,13 +22,20 @@ if (!empty($extensions)) {
     ]);
 }
 
+$memcache = 'Disabled';
+if ($panel->data['php']['memcache']) {
+    $memcache = 'Enabled (memcache)';
+} elseif ($panel->data['php']['memcached']) {
+    $memcache = 'Enabled (memcached)';
+}
+
 echo $this->render('table', [
     'caption' => 'PHP Configuration',
     'values' => [
         'PHP Version' => $panel->data['php']['version'],
         'Xdebug' => $panel->data['php']['xdebug'] ? 'Enabled' : 'Disabled',
         'APC' => $panel->data['php']['apc'] ? 'Enabled' : 'Disabled',
-        'Memcache' => $panel->data['php']['memcache'] ? 'Enabled' : 'Disabled',
+        'Memcache' =>  $memcache,
     ],
 ]);
 

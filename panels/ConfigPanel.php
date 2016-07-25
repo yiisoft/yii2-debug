@@ -97,6 +97,7 @@ class ConfigPanel extends Panel
                 'xdebug' => extension_loaded('xdebug'),
                 'apc' => extension_loaded('apc'),
                 'memcache' => extension_loaded('memcache'),
+                'memcached' => extension_loaded('memcached'),
             ],
             'extensions' => Yii::$app->extensions,
         ];
