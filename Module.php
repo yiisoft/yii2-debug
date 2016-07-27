@@ -54,6 +54,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $panels = [];
     /**
+     * @var string the name of the panel that should be visible when opening the debug panel.
+     * The default value is 'log'.
+     * @since 2.0.7
+     */
+    public $defaultPanel = 'log';
+    /**
      * @var string the directory storing the debugger data files. This can be specified using a path alias.
      */
     public $dataPath = '@runtime/debug';
