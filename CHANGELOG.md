@@ -10,6 +10,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #93: Fixed `AssetPanel` error when bundle `$js` or `$css` contained `jsOptions` overrides (Razzwan, samdark)
 - Enh #105: Enhanced `ConfigPanel` to detect and report memcached extension presence (samdark)
 - Enh #115: Make the default panel configurable and set it to `log` (mikehaertl)
+- Enh: Added ability to customize the logo with `Module::setYiiLogo()` (brandonkelly)
 
 2.0.6 March 17, 2016
 --------------------
