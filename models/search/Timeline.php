@@ -12,10 +12,10 @@ use yii\debug\components\search\Filter;
 use yii\debug\components\search\matchers\GreaterThanOrEqual;
 
 /**
- * Search model for current request timeline.
+ * Search model for timeline data.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
- * @since 2.0
+ * @since 2.0.7
  */
 class Timeline extends Base
 {
@@ -25,6 +25,9 @@ class Timeline extends Base
      */
     public $category;
 
+    /**
+     * @var integer duration attribute input search value
+     */
     public $duration = 0;
 
     /**

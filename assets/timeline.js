@@ -1,6 +1,9 @@
 (function () {
     'use strict';
 
+    /**
+     * @param {jQuery} open popover
+     */
     var _popoverOpen;
 
     var Timeline = function (options) {
@@ -14,17 +17,15 @@
                 delete this.options.$focus;
             }
 
-            setTimeout(function () {
-                self.options.$timeline.find('[data-toggle="popover"]')
-                    .on('show.bs.popover', function () {
-                        var $this = $(this);
-                        if (_popoverOpen && _popoverOpen.data('i') != $this.data('i')) {
-                            _popoverOpen.popover('hide');
-                        }
-                        _popoverOpen = $this;
-                    })
-                    .popover();
-            }, 500);
+            self.options.$timeline.find('[data-toggle="popover"]')
+                .on('show.bs.popover', function () {
+                    var $this = $(this);
+                    if (_popoverOpen && _popoverOpen.data('i') != $this.data('i')) {
+                        _popoverOpen.popover('hide');
+                    }
+                    _popoverOpen = $this;
+                })
+                .popover();
             self.hidePopover();
             return self;
         };
@@ -53,7 +54,7 @@
         self.options.$timeline.affix({
             offset: {
                 top: function () {
-                    return (this.top = self.options.$timeline.find('b:eq(0)').offset().top)
+                    return (this.top = self.options.$timeline.find('b:first').offset().top)
                 }
             }
         });

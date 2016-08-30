@@ -10,15 +10,9 @@ use yii\debug\TimelineAsset;
 
 TimelineAsset::register($this);
 ?>
-<h1 class="debug-timeline-panel__title">Tilmeline - <?=number_format($panel->getDuration());?> ms</h1>
+<h1 class="debug-timeline-panel__title">Tilmeline - <?= number_format($panel->getDuration()); ?> ms</h1>
 
-<?php $form = ActiveForm::begin([
-    'method' => 'get',
-    'action'=>$panel->getUrl(),
-    'id' => 'debug-timeline-search',
-    'enableClientScript' => false,
-    'options' => ['class' => 'debug-timeline-panel__search']
-]); ?>
+<?php $form = ActiveForm::begin(['method' => 'get', 'action' => $panel->getUrl(), 'id' => 'debug-timeline-search', 'enableClientScript' => false, 'options' => ['class' => 'debug-timeline-panel__search']]); ?>
 <div class="duration">
     <?= Html::activeLabel($searchModel, 'duration') ?>
     <?= Html::activeInput('number', $searchModel, 'duration', ['min' => 0, 'size' => '3']); ?>
@@ -40,7 +34,7 @@ TimelineAsset::register($this);
         <?php foreach ($dataProvider->models as $key => $model): ?>
             <?php $attr = $panel->getHtmlAttribute($model, $key); ?>
             <div class="debug-timeline-panel__item">
-                <?= Html::tag('a', '<span class="category">' . $attr['title'] . '</span>', $attr) ?>
+                <?= Html::tag('a', '<span class="category">' . Html::encode($attr['title']) . '</span>', $attr) ?>
             </div>
         <?php endforeach; ?>
         <?php Pjax::end(); ?>

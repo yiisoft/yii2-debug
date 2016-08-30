@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
  * Timeline asset bundle
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
- * @since 2.0
+ * @since 2.0.7
  */
 class TimelineAsset extends AssetBundle
 {

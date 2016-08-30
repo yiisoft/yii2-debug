@@ -11,12 +11,13 @@ use Yii;
 use yii\log\Logger;
 use yii\debug\Panel;
 use yii\debug\models\search\Timeline;
+use yii\base\InvalidConfigException;
 
 /**
  * Debugger panel that collects and displays timeline data.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
- * @since 2.0
+ * @since 2.0.7
  */
 class TimelinePanel extends Panel
 {
@@ -29,6 +30,17 @@ class TimelinePanel extends Panel
      * @var array
      */
     protected $timestamps = [];
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        if (!isset($this->module->panels['profiling'])) {
+            throw new InvalidConfigException('Unable to determine the profiling panel');
+        }
+        parent::init();
+    }
 
     /**
      * @inheritdoc
@@ -123,6 +135,11 @@ class TimelinePanel extends Panel
 
     /**
      * set timestamps
+     * ```php
+     * $this->timestamps[0] // start request, timestamp milliseconds
+     * $this->timestamps[1] // end request, timestamp milliseconds
+     * $this->timestamps[2] // request duration, milliseconds
+     * ```
      */
     protected function initTimestamp()
     {
@@ -138,25 +155,28 @@ class TimelinePanel extends Panel
     }
 
     /**
+     * ruler items, key milliseconds, value offset left
      * @param int $line
      * @return array
      */
     public function getRulers($line = 10)
     {
         --$line;
-        $data[0] = 0;
+        $data = [0];
         $percent = ($this->timestamps[2] / 100);
         $row = $this->timestamps[2] / $line;
         $precision = $row > 100 ? -2 : -1;
         for ($i = 1; $i < $line; $i++) {
-            $_t = round($i * $row, $precision);
-            $data[$_t] = $_t / $percent;
+            $ms = round($i * $row, $precision);
+            $data[$ms] = $ms / $percent;
         }
         return $data;
     }
 
     /**
-     * @param array $data
+     * html attributes item element
+     * @param $data
+     * @param int $i
      * @return array
      */
     public function getHtmlAttribute($data, $i = 0)
@@ -184,7 +204,7 @@ class TimelinePanel extends Panel
     public function getCssLeft($data, $percent = true)
     {
         $left = $this->getTime($data) / ($this->timestamps[2] / 100);
-        return ($percent) ? $left . '%' : $left;
+        return $percent ? $left . '%' : $left;
     }
 
     /**
@@ -194,7 +214,7 @@ class TimelinePanel extends Panel
      */
     public function getTime($data)
     {
-        return ($data['timestamp'] - $this->timestamps[0]);
+        return $data['timestamp'] - $this->timestamps[0];
     }
 
     /**

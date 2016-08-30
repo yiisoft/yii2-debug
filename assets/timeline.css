@@ -33,7 +33,7 @@
   position: absolute;
   line-height: 20px;
   padding: 0 10px;
-  color: #555555;
+  color: #555;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -70,11 +70,11 @@
   padding: 0;
 }
 .debug-timeline-panel .time.time-trace {
-  background-color: #777777;
+  background-color: #777;
 }
 .debug-timeline-panel .time.time-trace + .popover .popover-title {
-  background-color: #777777;
-  border: 1px solid #444444;
+  background-color: #777;
+  border: 1px solid #444;
   color: white;
 }
 .debug-timeline-panel .time.time-profile {
