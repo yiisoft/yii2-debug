@@ -1,0 +1,151 @@
+.debug-timeline-panel {
+  border: 1px solid #ddd;
+  position: relative;
+  border-left: 0;
+}
+.debug-timeline-panel.inline {
+  border-bottom: 0;
+}
+.debug-timeline-panel.inline .debug-timeline-panel__item {
+  height: 20px;
+  margin-top: -20px;
+}
+.debug-timeline-panel.inline .debug-timeline-panel__item:first-child {
+  margin: 0;
+}
+.debug-timeline-panel.inline .debug-timeline-panel__item:hover {
+  background-color: transparent;
+}
+.debug-timeline-panel.inline .debug-timeline-panel__items .time {
+  box-shadow: inset 1px 0 6px -1px rgba(255, 255, 255, 0.7);
+}
+.debug-timeline-panel.inline .debug-timeline-panel__items .category {
+  display: none;
+}
+.debug-timeline-panel.affix .ruler b {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+}
+.debug-timeline-panel .category {
+  opacity: 1;
+  font-size: 10px;
+  position: absolute;
+  line-height: 20px;
+  padding: 0 10px;
+  color: #555555;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.debug-timeline-panel .right > .category {
+  right: 100%;
+}
+.debug-timeline-panel .left > .category {
+  left: 100%;
+}
+.debug-timeline-panel .ruler {
+  position: absolute;
+  content: '';
+  font-size: 10px;
+  padding-top: 5px;
+  padding-left: 2px;
+  top: 0;
+  height: 100%;
+  border-left: 1px solid #ddd;
+}
+.debug-timeline-panel .ruler b {
+  color: black;
+  font-weight: bold;
+  white-space: nowrap;
+  background-color: white;
+  min-width: 40px;
+  display: block;
+  text-align: center;
+}
+.debug-timeline-panel .time {
+  position: relative;
+  min-height: 20px;
+  display: block;
+  min-width: 1px;
+  padding: 0;
+}
+.debug-timeline-panel .time.time-trace {
+  background-color: #777777;
+}
+.debug-timeline-panel .time.time-trace + .popover .popover-title {
+  background-color: #777777;
+  border: 1px solid #444444;
+  color: white;
+}
+.debug-timeline-panel .time.time-profile {
+  background-color: #468847;
+}
+.debug-timeline-panel .time.time-profile + .popover .popover-title {
+  background-color: #468847;
+  border: 1px solid #234524;
+  color: white;
+}
+.debug-timeline-panel .time.time-info {
+  background-color: #3a87ad;
+}
+.debug-timeline-panel .time.time-info + .popover .popover-title {
+  background-color: #3a87ad;
+  border: 1px solid #204b61;
+  color: white;
+}
+.debug-timeline-panel .time.time-error {
+  background-color: #b94a48;
+}
+.debug-timeline-panel .time.time-error + .popover .popover-title {
+  background-color: #b94a48;
+  border: 1px solid #702c2b;
+  color: white;
+}
+.debug-timeline-panel .time + .popover {
+  max-width: 300px;
+}
+.debug-timeline-panel__header,
+.debug-timeline-panel__item {
+  min-height: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.debug-timeline-panel__item:last-child {
+  border-bottom: 0;
+}
+.debug-timeline-panel__item:nth-child(2n) {
+  background-color: #f9f9f9;
+}
+.debug-timeline-panel__item:hover {
+  background-color: rgba(51, 122, 183, 0.16);
+}
+.debug-timeline-panel__item.active {
+  color: #fff;
+  background-color: #337ab7;
+}
+.debug-timeline-panel__search {
+  background-color: #f9f9f9;
+  padding: 10px 10px 0px 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.debug-timeline-panel__search > div {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.debug-timeline-panel__search .duration {
+  margin-right: 20px;
+}
+.debug-timeline-panel__search label {
+  width: 70px;
+}
+.debug-timeline-panel__search input {
+  font-size: 16px;
+  padding: 4px;
+}
+.debug-timeline-panel__search input#timeline-duration {
+  width: 55px;
+  text-align: right;
+}
+.debug-timeline-panel__search input#timeline-category {
+  min-width: 195px;
+}
