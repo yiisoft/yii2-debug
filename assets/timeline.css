@@ -104,6 +104,9 @@
 .debug-timeline-panel .time + .popover {
   max-width: 300px;
 }
+.debug-timeline-panel .time + .popover .popover-content{
+  word-wrap: break-word;
+}
 .debug-timeline-panel__header,
 .debug-timeline-panel__item {
   min-height: 20px;
