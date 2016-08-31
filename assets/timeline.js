@@ -40,9 +40,18 @@
             this.options.$focus = $elem;
             return $elem;
         };
+        this.affixTop = function (refresh) {
+            if (!this.options.affixTop || refresh) {
+                this.options.affixTop = self.options.$timeline.find('b:first').offset().top;
+            }
+            return this.options.affixTop;
+        };
 
         $(document).on('pjax:success', function () {
             self.init()
+        });
+        $(window).on('resize', function () {
+            self.affixTop(true);
         });
         self.options.$inline.on('dblclick', function () {
             self.options.$timeline.toggleClass('inline');
@@ -54,7 +63,7 @@
         self.options.$timeline.affix({
             offset: {
                 top: function () {
-                    return (this.top = self.options.$timeline.find('b:first').offset().top)
+                    return self.affixTop()
                 }
             }
         });

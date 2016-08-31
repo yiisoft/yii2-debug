@@ -2,18 +2,17 @@
   border: 1px solid #ddd;
   position: relative;
   border-left: 0;
-}
-.debug-timeline-panel.inline {
-  border-bottom: 0;
+  margin-bottom: 20px;
 }
 .debug-timeline-panel.inline .debug-timeline-panel__item {
   height: 20px;
   margin-top: -20px;
+  border-bottom: 0;
 }
 .debug-timeline-panel.inline .debug-timeline-panel__item:first-child {
   margin: 0;
 }
-.debug-timeline-panel.inline .debug-timeline-panel__item:hover {
+.debug-timeline-panel.inline .debug-timeline-panel__item:not(.empty):hover {
   background-color: transparent;
 }
 .debug-timeline-panel.inline .debug-timeline-panel__items .time {
@@ -47,18 +46,20 @@
   position: absolute;
   content: '';
   font-size: 10px;
-  padding-top: 5px;
   padding-left: 2px;
   top: 0;
   height: 100%;
   border-left: 1px solid #ddd;
 }
 .debug-timeline-panel .ruler b {
+  position: absolute;
+  z-index: 2;
   color: black;
   font-weight: bold;
   white-space: nowrap;
-  background-color: white;
+  background-color: rgba(255,255,255,.4);
   min-width: 40px;
+  line-height: 19px;
   display: block;
   text-align: center;
 }
@@ -106,11 +107,14 @@
 }
 .debug-timeline-panel .time + .popover .popover-content{
   word-wrap: break-word;
+  max-height: 150px;
+  overflow: auto;
 }
 .debug-timeline-panel__header,
 .debug-timeline-panel__item {
   min-height: 20px;
   border-bottom: 1px solid #ddd;
+  overflow: hidden;
 }
 .debug-timeline-panel__item:last-child {
   border-bottom: 0;
@@ -121,9 +125,14 @@
 .debug-timeline-panel__item:hover {
   background-color: rgba(51, 122, 183, 0.16);
 }
-.debug-timeline-panel__item.active {
-  color: #fff;
-  background-color: #337ab7;
+.debug-timeline-panel__item.empty {
+  background-color: #f9f9f9;
+  line-height: 20px;
+  padding-left: 10px;
+}
+.debug-timeline-panel__item.empty span {
+  position: absolute;
+  background-color: inherit;
 }
 .debug-timeline-panel__search {
   background-color: #f9f9f9;
@@ -151,4 +160,9 @@
 }
 .debug-timeline-panel__search input#timeline-category {
   min-width: 195px;
+}
+@media (max-width:767px) {
+  .debug-timeline-panel .ruler:nth-child(2n) b{
+    display: none;
+  }
 }

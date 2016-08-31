@@ -31,12 +31,18 @@ TimelineAsset::register($this);
     </div>
     <div class="debug-timeline-panel__items">
         <?php Pjax::begin(['formSelector' => '#debug-timeline-search', 'linkSelector' => false, 'options' => ['id' => 'debug-timeline-panel__pjax']]); ?>
-        <?php foreach ($dataProvider->models as $key => $model): ?>
-            <?php $attr = $panel->getHtmlAttribute($model, $key); ?>
-            <div class="debug-timeline-panel__item">
-                <?= Html::tag('a', '<span class="category">' . Html::encode($attr['title']) . '</span>', $attr) ?>
+        <?php if (($models = $dataProvider->models) === []): ?>
+            <div class="debug-timeline-panel__item empty">
+                <span><?= Yii::t('yii', 'No results found.'); ?></span>
             </div>
-        <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($models as $key => $model): ?>
+                <?php $attr = $panel->getHtmlAttribute($model, $key); ?>
+                <div class="debug-timeline-panel__item">
+                    <?= Html::tag('a', '<span class="category">' . Html::encode($attr['title']) . '</span>', $attr) ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <?php Pjax::end(); ?>
     </div>
 </div>

@@ -161,7 +161,6 @@ class TimelinePanel extends Panel
      */
     public function getRulers($line = 10)
     {
-        --$line;
         $data = [0];
         $percent = ($this->timestamps[2] / 100);
         $row = $this->timestamps[2] / $line;
