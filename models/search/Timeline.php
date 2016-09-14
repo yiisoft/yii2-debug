@@ -7,9 +7,9 @@
 
 namespace yii\debug\models\search;
 
-use yii\data\ArrayDataProvider;
 use yii\debug\components\search\Filter;
 use yii\debug\components\search\matchers\GreaterThanOrEqual;
+use yii\debug\components\TimelineDataProvider;
 
 /**
  * Search model for timeline data.
@@ -41,22 +41,30 @@ class Timeline extends Base
     }
 
     /**
-     * Returns data provider with filled models. Filter applied if needed.
-     *
-     * @param array $params an array of parameter values indexed by parameter names
-     * @param array $models data to return provider for
-     * @return \yii\data\ArrayDataProvider
+     * @inheritdoc
      */
-    public function search($params, $models)
+    public function attributeLabels()
     {
-        $dataProvider = new ArrayDataProvider([
+        return [
+            'duration' => 'Duration ≥'
+        ];
+    }
+
+    /**
+     * @param array $params $params an array of parameter values indexed by parameter names
+     * @param array $models $models data to return provider for
+     * @param array $timestamps timestamps data
+     * @return TimelineDataProvider
+     */
+    public function search($params, $models, $timestamps)
+    {
+        $dataProvider = new TimelineDataProvider([
+            'start' => $timestamps[0],
+            'end' => $timestamps[1],
+            'duration' => $timestamps[2],
             'allModels' => $models,
-            'pagination' => false,
             'sort' => [
-                'attributes' => ['category', 'timestamp'],
-                'defaultOrder' => [
-                    'timestamp' => SORT_ASC,
-                ],
+                'attributes' => ['category', 'timestamp']
             ],
         ]);
 
@@ -67,7 +75,7 @@ class Timeline extends Base
         $filter = new Filter();
         $this->addCondition($filter, 'category', true);
         if ($this->duration > 0) {
-            $filter->addMatcher('duration', new GreaterThanOrEqual(['value' => $this->duration]));
+            $filter->addMatcher('duration', new GreaterThanOrEqual(['value' => $this->duration / 1000 ]));
         }
         $dataProvider->allModels = $filter->filter($models);
 
