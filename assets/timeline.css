@@ -87,12 +87,14 @@
   display: block;
   min-width: 1px;
   padding: 0;
-}
-.debug-timeline-panel .time {
-  background-color: #468847;
-}
-.debug-timeline-panel .time.has-child {
   background-color: #989898;
+}
+.debug-timeline-panel .time + .tooltip .tooltip-inner{
+  max-width: 300px;
+  max-height: 180px;
+  overflow: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .debug-timeline-panel__header {
   -webkit-user-select: none;
@@ -104,6 +106,28 @@
   min-height: 20px;
   border-bottom: 1px solid #ddd;
   overflow: hidden;
+}
+.debug-timeline-panel__header .control {
+  position: absolute;
+  margin-left: -20px;
+  top:0;
+}
+.debug-timeline-panel__header .control button {
+  display: none;
+  padding: 0;
+}
+.debug-timeline-panel__header .control button:focus{
+  outline: none;
+}
+.debug-timeline-panel__header .control button:hover{
+  fill:  #337ab7;
+}
+.debug-timeline-panel:not(.inline) .debug-timeline-panel__header .control button.inline,
+.debug-timeline-panel.inline .debug-timeline-panel__header .control button.open{
+  display: block;
+}
+.debug-timeline-panel.affix .debug-timeline-panel__header .control{
+  position: fixed;
 }
 .debug-timeline-panel__item:last-child {
   border-bottom: 0;
@@ -155,3 +179,9 @@
     display: none;
   }
 }
+@media (max-width: 991px) {
+  .debug-timeline-panel__header .control{
+    margin-left: -17px;
+  }
+}
+

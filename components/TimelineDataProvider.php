@@ -47,10 +47,9 @@ class TimelineDataProvider extends ArrayDataProvider
             $model['timestamp'] *= 1000;
             $model['duration'] *= 1000;
             $model['child'] = 0;
-            $model['css'] = [
-                'width' => $this->getWidth($model),
-                'left' => $this->getLeft($model),
-            ];
+            $model['css']['width'] = $this->getWidth($model);
+            $model['css']['left'] = $this->getLeft($model);
+            $model['css']['color'] = $this->getColor($model);
             foreach ($child as $id => $timestamp) {
                 if ($timestamp > $model['timestamp']) {
                     ++$models[$id]['child'];
@@ -61,6 +60,25 @@ class TimelineDataProvider extends ArrayDataProvider
             $child[$key] = $model['timestamp'] + $model['duration'];
         }
         return $models;
+    }
+
+    /**
+     * item, hex color
+     * @param array $model
+     * @return string
+     */
+    public function getColor($model)
+    {
+        $width = isset($model['css']['width']) ? $model['css']['width'] : $this->getWidth($model);
+        $color = '#d6e685';
+        if ($width > 20) {
+            $color = '#1e6823';
+        } elseif ($width > 10) {
+            $color = '#44a340';
+        } elseif ($width > 1) {
+            $color = '#8cc665';
+        }
+        return $color;
     }
 
     /**
@@ -101,9 +119,6 @@ class TimelineDataProvider extends ArrayDataProvider
     public function getCssClass($model)
     {
         $class = 'time';
-        if ($model['child']) {
-            $class .= ' has-child';
-        }
         $class .= ($model['css']['left'] + $model['css']['width'] > 50) ? ' right' : ' left';
         return $class;
     }

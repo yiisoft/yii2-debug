@@ -19,7 +19,7 @@
         };
         this.affixTop = function (refresh) {
             if (!this.options.affixTop || refresh) {
-                this.options.affixTop = self.options.$inline.offset().top;
+                this.options.affixTop = self.options.$header.offset().top;
             }
             return this.options.affixTop;
         };
@@ -30,9 +30,13 @@
         $(window).on('resize', function () {
             self.affixTop(true);
         });
-        self.options.$inline.on('dblclick', function () {
-            self.options.$timeline.toggleClass('inline');
-        })
+        self.options.$header
+            .on('dblclick', function () {
+                self.options.$timeline.toggleClass('inline');
+            })
+            .on('click', 'button', function () {
+                self.options.$timeline.toggleClass('inline');
+            })
         self.options.$search.on('change', function () {
             self.setFocus($(this)).submit();
         })
@@ -48,7 +52,7 @@
 
     (new Timeline({
         '$timeline': $('.debug-timeline-panel'),
-        '$inline': $('.debug-timeline-panel__header'),
+        '$header': $('.debug-timeline-panel__header'),
         '$search': $('.debug-timeline-panel__search input')
     }));
 })();
