@@ -1,7 +1,6 @@
 .debug-timeline-panel {
   border: 1px solid #ddd;
   position: relative;
-  border-left: 0;
   margin-bottom: 20px;
 }
 .debug-timeline-panel.inline .debug-timeline-panel__item {
@@ -60,6 +59,9 @@
   top: 0;
   height: 100%;
   border-left: 1px solid #ddd;
+}
+.debug-timeline-panel .ruler:first-child{
+  border-left: none;
 }
 .debug-timeline-panel .ruler.ruler-start {
   top: auto;

@@ -10,7 +10,7 @@ use yii\debug\TimelineAsset;
 
 TimelineAsset::register($this);
 ?>
-<h1 class="debug-timeline-panel__title">Tilmeline - <?= number_format($dataProvider->duration); ?> ms</h1>
+<h1 class="debug-timeline-panel__title">Tilmeline - <?= number_format($panel->getDuration()); ?> ms</h1>
 
 <?php $form = ActiveForm::begin(['method' => 'get', 'action' => $panel->getUrl(), 'id' => 'debug-timeline-search', 'enableClientScript' => false, 'options' => ['class' => 'debug-timeline-panel__search']]); ?>
 <div class="duration">
@@ -25,6 +25,9 @@ TimelineAsset::register($this);
 <?php ActiveForm::end(); ?>
 <div class="debug-timeline-panel">
     <div class="debug-timeline-panel__header">
+        <?php foreach ($dataProvider->getRulers() as $ms => $left): ?>
+            <span class="ruler" style="margin-left: <?= $left ?>%"><b><?= sprintf('%.1f ms', $ms) ?></b></span>
+        <?php endforeach; ?>
         <div class="control">
             <button type="button" class="inline btn-link">
                 <svg aria-hidden="true" height="16" viewBox="0 0 14 16" width="14">
@@ -37,9 +40,6 @@ TimelineAsset::register($this);
                 </svg>
             </button>
         </div>
-        <?php foreach ($dataProvider->getRulers() as $ms => $left): ?>
-            <span class="ruler" style="margin-left: <?= $left ?>%"><b><?= sprintf('%.1f ms', $ms) ?></b></span>
-        <?php endforeach; ?>
     </div>
     <div class="debug-timeline-panel__items">
         <?php Pjax::begin(['formSelector' => '#debug-timeline-search', 'linkSelector' => false, 'options' => ['id' => 'debug-timeline-panel__pjax']]); ?>

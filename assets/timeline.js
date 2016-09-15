@@ -6,7 +6,7 @@
         this.options = options;
         var self = this;
         this.init = function () {
-            if (this.options.$focus !== undefined) {
+            if (this.options.$focus) {
                 this.options.$focus.focus();
                 delete this.options.$focus;
             }
@@ -36,10 +36,10 @@
             })
             .on('click', 'button', function () {
                 self.options.$timeline.toggleClass('inline');
-            })
+            });
         self.options.$search.on('change', function () {
             self.setFocus($(this)).submit();
-        })
+        });
         self.options.$timeline.affix({
             offset: {
                 top: function () {

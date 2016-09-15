@@ -51,17 +51,16 @@ class Timeline extends Base
     }
 
     /**
+     * Returns data provider with filled models. Filter applied if needed.
+     *
      * @param array $params $params an array of parameter values indexed by parameter names
-     * @param array $models $models data to return provider for
-     * @param array $timestamps timestamps data
+     * @param TimeLinePanel $panel
      * @return TimelineDataProvider
      */
-    public function search($params, $models, $timestamps)
+    public function search($params, $panel)
     {
-        $dataProvider = new TimelineDataProvider([
-            'start' => $timestamps[0],
-            'end' => $timestamps[1],
-            'duration' => $timestamps[2],
+        $models = $panel->models;
+        $dataProvider = new TimelineDataProvider($panel, [
             'allModels' => $models,
             'sort' => [
                 'attributes' => ['category', 'timestamp']
@@ -75,7 +74,7 @@ class Timeline extends Base
         $filter = new Filter();
         $this->addCondition($filter, 'category', true);
         if ($this->duration > 0) {
-            $filter->addMatcher('duration', new GreaterThanOrEqual(['value' => $this->duration / 1000 ]));
+            $filter->addMatcher('duration', new GreaterThanOrEqual(['value' => $this->duration / 1000]));
         }
         $dataProvider->allModels = $filter->filter($models);
 

@@ -8,6 +8,7 @@
 namespace yii\debug\components;
 
 use yii\data\ArrayDataProvider;
+use yii\debug\panels\TimelinePanel;
 
 /**
  * TimelineDataProvider implements a data provider based on a data array.
@@ -16,23 +17,22 @@ use yii\data\ArrayDataProvider;
  */
 class TimelineDataProvider extends ArrayDataProvider
 {
-    /**
-     * start request, timestamp
-     * @var float
-     */
-    public $start;
 
     /**
-     * end request, timestamp
-     * @var float
+     * @var TimelinePanel
      */
-    public $end;
+    protected $panel;
 
     /**
-     * request duration
-     * @var float
+     * TimelineDataProvider constructor.
+     * @param TimelinePanel $panel
+     * @param array $config
      */
-    public $duration;
+    public function __construct(TimelinePanel $panel, $config = [])
+    {
+        $this->panel = $panel;
+        parent::__construct($config);
+    }
 
     /**
      * @inheritdoc
@@ -63,56 +63,53 @@ class TimelineDataProvider extends ArrayDataProvider
     }
 
     /**
-     * item, hex color
+     * Getting HEX color based on model duration
      * @param array $model
      * @return string
      */
     public function getColor($model)
     {
         $width = isset($model['css']['width']) ? $model['css']['width'] : $this->getWidth($model);
-        $color = '#d6e685';
-        if ($width > 20) {
-            $color = '#1e6823';
-        } elseif ($width > 10) {
-            $color = '#44a340';
-        } elseif ($width > 1) {
-            $color = '#8cc665';
+        foreach ($this->panel->colors as $percent => $color) {
+            if ($width >= $percent) {
+                return $color;
+            }
         }
-        return $color;
+        return '#d6e685';
     }
 
     /**
-     * item, left percent
+     * Returns the offset left item, percentage of the total width
      * @param array $model
      * @return float
      */
     public function getLeft($model)
     {
-        return $this->getTime($model) / ($this->duration / 100);
+        return $this->getTime($model) / ($this->panel->duration / 100);
     }
 
     /**
-     * item, duration
+     * Returns item duration, milliseconds
      * @param array $model
      * @return float
      */
     public function getTime($model)
     {
-        return $model['timestamp'] - $this->start;
+        return $model['timestamp'] - $this->panel->start;
     }
 
     /**
-     * item, width percent
+     * Returns item width percent of the total width
      * @param array $model
      * @return float
      */
     public function getWidth($model)
     {
-        return $model['duration'] / ($this->duration / 100);
+        return $model['duration'] / ($this->panel->duration / 100);
     }
 
     /**
-     * item, css class
+     * Returns item, css class
      * @param array $model
      * @return string
      */
@@ -125,14 +122,17 @@ class TimelineDataProvider extends ArrayDataProvider
 
     /**
      * ruler items, key milliseconds, value offset left
-     * @param int $line
+     * @param int $line number of columns
      * @return array
      */
     public function getRulers($line = 10)
     {
+        if ($line == 0) {
+            return [];
+        }
         $data = [0];
-        $percent = ($this->duration / 100);
-        $row = $this->duration / $line;
+        $percent = ($this->panel->duration / 100);
+        $row = $this->panel->duration / $line;
         $precision = $row > 100 ? -2 : -1;
         for ($i = 1; $i < $line; $i++) {
             $ms = round($i * $row, $precision);

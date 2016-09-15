@@ -20,6 +20,6 @@ class GreaterThanOrEqual extends Base
      */
     public function match($value)
     {
-        return ($value >= $this->baseValue);
+        return $value >= $this->baseValue;
     }
 }
