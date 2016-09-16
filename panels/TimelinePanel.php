@@ -17,7 +17,7 @@ use yii\base\InvalidConfigException;
  *
  * @property array $models Returns an array of models that represents logs of the current request. This property is read-only.
  * @property float $duration request duration, milliseconds. This property is read-only.
- * @property integer $start timestamp start request. This property is read-only.
+ * @property float $start timestamp start request. This property is read-only.
  * @property array $colors color indicators
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
@@ -44,13 +44,13 @@ class TimelinePanel extends Panel
 
     /**
      * start request, timestamp
-     * @var integer
+     * @var float
      */
     private $_start;
 
     /**
      * end request, timestamp
-     * @var integer
+     * @var float
      */
     private $_end;
 
@@ -154,7 +154,7 @@ class TimelinePanel extends Panel
 
     /**
      * start request, timestamp
-     * @return int
+     * @return float
      */
     public function getStart()
     {
