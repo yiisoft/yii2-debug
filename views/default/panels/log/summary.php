@@ -11,15 +11,12 @@ use yii\log\Logger;
 $title = 'Logged ' . count($data['messages']) . ' messages';
 $errorCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_ERROR));
 $warningCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_WARNING));
-$output = [];
 
-if ($errorCount) {
-    $output[] = "<span class=\"yii-debug-toolbar__label yii-debug-toolbar__label_important\">$errorCount</span>";
+if ($errorCount){
     $title .= ", $errorCount errors";
 }
 
 if ($warningCount) {
-    $output[] = "<span class=\"yii-debug-toolbar__label yii-debug-toolbar__label_warning\">$warningCount</span>";
     $title .= ", $warningCount warnings";
 }
 ?>
@@ -27,6 +24,15 @@ if ($warningCount) {
 <div class="yii-debug-toolbar__block">
     <a href="<?= $panel->getUrl() ?>" title="<?= $title ?>">Log
         <span class="yii-debug-toolbar__label"><?= count($data['messages']) ?></span>
-        <?= implode('&nbsp;', $output) ?>
     </a>
+    <? if ($errorCount): ?>
+    <a href="<?= $panel->getUrl(['Log[level]' => Logger::LEVEL_ERROR])?>" title="<?= $title ?>">
+        <span class="yii-debug-toolbar__label yii-debug-toolbar__label_important"><?= $errorCount ?></span>
+    </a>
+    <? endif; ?>
+    <? if ($warningCount): ?>
+        <a href="<?= $panel->getUrl(['Log[level]' => Logger::LEVEL_WARNING])?>" title="<?= $title ?>">
+            <span class="yii-debug-toolbar__label yii-debug-toolbar__label_warning"><?= $warningCount ?></span>
+        </a>
+    <? endif; ?>
 </div>
