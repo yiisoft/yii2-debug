@@ -12,7 +12,7 @@ $title = 'Logged ' . count($data['messages']) . ' messages';
 $errorCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_ERROR));
 $warningCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_WARNING));
 
-if ($errorCount){
+if ($errorCount) {
     $title .= ", $errorCount errors";
 }
 
