@@ -27,7 +27,7 @@ class TimelinePanel extends Panel
 {
 
     /**
-     * color indicators item profile,
+     * Color indicators item profile,
      * key: percentages of time request, value: hex color
      * @var array
      */
@@ -43,19 +43,19 @@ class TimelinePanel extends Panel
     private $_models;
 
     /**
-     * start request, timestamp
+     * Start request, timestamp (obtained by microtime(true))
      * @var float
      */
     private $_start;
 
     /**
-     * end request, timestamp
+     * End request, timestamp (obtained by microtime(true))
      * @var float
      */
     private $_end;
 
     /**
-     * request duration, milliseconds
+     * Request duration, milliseconds
      * @var float
      */
     private $_duration;
@@ -143,7 +143,7 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * color indicators item profile,
+     * Color indicators item profile,
      * key: percentages of time request, value: hex color
      * @return array
      */
@@ -153,7 +153,7 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * start request, timestamp
+     * Start request, timestamp (obtained by microtime(true))
      * @return float
      */
     public function getStart()
@@ -162,7 +162,7 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * request duration, milliseconds
+     * Request duration, milliseconds
      * @return float
      */
     public function getDuration()
