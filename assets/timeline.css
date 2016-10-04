@@ -60,7 +60,7 @@
   height: 100%;
   border-left: 1px solid #ddd;
 }
-.debug-timeline-panel .ruler:first-child{
+.debug-timeline-panel__header .ruler:first-child{
   border-left: none;
 }
 .debug-timeline-panel .ruler.ruler-start {

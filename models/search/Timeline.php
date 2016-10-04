@@ -21,12 +21,12 @@ class Timeline extends Base
 {
 
     /**
-     * @var string method attribute input search value
+     * @var string attribute search
      */
     public $category;
 
     /**
-     * @var integer duration attribute input search value
+     * @var integer attribute search
      */
     public $duration = 0;
 
