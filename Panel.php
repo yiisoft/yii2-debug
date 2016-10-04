@@ -100,7 +100,7 @@ class Panel extends Component
      * @param null|array $additionalParams Optional additional parameters to add to the route
      * @return string URL pointing to panel detail view
      */
-    public function getUrl($additionalParams=null)
+    public function getUrl($additionalParams = null)
     {
         $route = [
             '/' . $this->module->id . '/default/view',
