@@ -12,6 +12,8 @@ Yii Framework 2 debug extension Change Log
 - Enh #115: Make the default panel configurable and set it to `log` (mikehaertl)
 - Enh #117: Added ability to customize the logo with `Module::setYiiLogo()` (brandonkelly)
 - Enh #58: Added timeline panel (bashkarev)
+- Enh: The error and warning labels of the log section on the summary bar now link directly to the log page filtered by log level type
+
 
 2.0.6 March 17, 2016
 --------------------
