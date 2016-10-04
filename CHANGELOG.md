@@ -11,6 +11,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #105: Enhanced `ConfigPanel` to detect and report memcached extension presence (samdark)
 - Enh #115: Make the default panel configurable and set it to `log` (mikehaertl)
 - Enh #117: Added ability to customize the logo with `Module::setYiiLogo()` (brandonkelly)
+- Enh #58: Added timeline panel (bashkarev)
 
 2.0.6 March 17, 2016
 --------------------
