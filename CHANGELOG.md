@@ -12,6 +12,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #115: Make the default panel configurable and set it to `log` (mikehaertl)
 - Enh #117: Added ability to customize the logo with `Module::setYiiLogo()` (brandonkelly)
 - Enh #58: Added timeline panel (bashkarev)
+- Bug #120: Jumps toolbar
 
 2.0.6 March 17, 2016
 --------------------

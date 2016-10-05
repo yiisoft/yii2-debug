@@ -10,13 +10,16 @@
     text-align: left;
     width: 96px;
     height: 42px;
-    transition: width .3s ease;
     z-index: 1000000;
+    background: rgb(255, 255, 255);
+}
+
+.yii-debug-toolbar:not(.yii-debug-toolbar_resizing) {
+    transition: all .3s ease;
 }
 
 .yii-debug-toolbar_active {
     width: 100%;
-    height: auto;
 }
 
 .yii-debug-toolbar_position_top {
@@ -39,7 +42,6 @@
     height: 40px;
     overflow: hidden;
 
-    background: rgb(255, 255, 255);
     background: -moz-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -61,7 +63,6 @@
     height: 0;
     overflow: hidden;
     background: white;
-    transition: height .3s ease;
 }
 
 .yii-debug-toolbar__view iframe {

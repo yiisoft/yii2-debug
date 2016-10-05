@@ -1,6 +1,5 @@
 (function () {
     'use strict';
-
     var findToolbar = function () {
             return document.querySelector('#yii-debug-toolbar');
         },
@@ -33,7 +32,10 @@
         CACHE_KEY = 'yii-debug-toolbar',
         ACTIVE_STATE = 'active',
 
+        animationTime = 300,
+
         activeClass = 'yii-debug-toolbar_active',
+        resizeClass = 'yii-debug-toolbar_resizing',
         iframeActiveClass = 'yii-debug-toolbar_iframe_active',
         titleClass = 'yii-debug-toolbar__title',
         blockClass = 'yii-debug-toolbar__block',
@@ -64,24 +66,31 @@
             externalEl = toolbarEl.querySelector(externalSelector),
             blockEls = barEl.querySelectorAll(blockSelector),
             iframeEl = viewEl.querySelector('iframe'),
-            iframeHeight = function () {
-                return (window.innerHeight * 0.7) + 'px';
+            setHeight = function (iframeActive) {
+                if (iframeActive) {
+                    var height = (window.innerHeight * 0.7);
+                    toolbarEl.style.height = barEl.offsetHeight + height + 'px';
+                    viewEl.style.height = height + 'px';
+                } else {
+                    viewEl.style.height = '';
+                    toolbarEl.style.height = '';
+                }
             },
             isIframeActive = function () {
                 return toolbarEl.classList.contains(iframeActiveClass);
             },
             showIframe = function (href) {
+                setHeight(true);
                 toolbarEl.classList.add(iframeActiveClass);
-
                 iframeEl.src = externalEl.href = href;
-                viewEl.style.height = iframeHeight();
             },
             hideIframe = function () {
-                toolbarEl.classList.remove(iframeActiveClass);
-                removeActiveBlocksCls();
-
-                externalEl.href = '#';
-                viewEl.style.height = '';
+                setHeight(false);
+                setTimeout(function () {
+                    externalEl.href = '#';
+                    toolbarEl.classList.remove(iframeActiveClass);
+                    removeActiveBlocksCls();
+                }, animationTime);
             },
             removeActiveBlocksCls = function () {
                 [].forEach.call(blockEls, function (el) {
@@ -127,9 +136,14 @@
         }
 
         window.onresize = function () {
-            if (toolbarEl.classList.contains(iframeActiveClass)) {
-                viewEl.style.height = iframeHeight();
+            var iframeActive = isIframeActive();
+            if (iframeActive) {
+                toolbarEl.classList.add(resizeClass);
+                setTimeout(function () {
+                    toolbarEl.classList.remove(resizeClass);
+                }, 300);
             }
+            setHeight(iframeActive);
         };
 
         barEl.onclick = function (e) {
