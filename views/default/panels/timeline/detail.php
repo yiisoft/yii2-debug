@@ -10,7 +10,7 @@ use yii\debug\TimelineAsset;
 
 TimelineAsset::register($this);
 ?>
-<h1 class="debug-timeline-panel__title">Tilmeline - <?= number_format($panel->getDuration()); ?> ms</h1>
+<h1 class="debug-timeline-panel__title">Timeline - <?= number_format($panel->getDuration()); ?> ms</h1>
 
 <?php $form = ActiveForm::begin(['method' => 'get', 'action' => $panel->getUrl(), 'id' => 'debug-timeline-search', 'enableClientScript' => false, 'options' => ['class' => 'debug-timeline-panel__search']]); ?>
 <div class="duration">

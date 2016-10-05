@@ -25,40 +25,34 @@ use yii\base\InvalidConfigException;
  */
 class TimelinePanel extends Panel
 {
-
     /**
-     * Color indicators item profile,
-     * key: percentages of time request, value: hex color
-     * @var array
+     * @var array Color indicators item profile.
+     *
+     * - keys: percentages of time request
+     * - values: hex color
      */
     private $_colors = [
         20 => '#1e6823',
         10 => '#44a340',
         1 => '#8cc665'
     ];
-
     /**
      * @var array log messages extracted to array as models, to use with data provider.
      */
     private $_models;
-
     /**
-     * Start request, timestamp (obtained by microtime(true))
-     * @var float
+     * @var float Start request, timestamp (obtained by microtime(true))
      */
     private $_start;
-
     /**
-     * End request, timestamp (obtained by microtime(true))
-     * @var float
+     * @var float End request, timestamp (obtained by microtime(true))
      */
     private $_end;
-
     /**
-     * Request duration, milliseconds
-     * @var float
+     * @var float Request duration, milliseconds
      */
     private $_duration;
+
 
     /**
      * @inheritdoc

@@ -17,11 +17,11 @@ use yii\debug\panels\TimelinePanel;
  */
 class TimelineDataProvider extends ArrayDataProvider
 {
-
     /**
      * @var TimelinePanel
      */
     protected $panel;
+
 
     /**
      * TimelineDataProvider constructor.

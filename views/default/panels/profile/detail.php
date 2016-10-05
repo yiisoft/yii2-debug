@@ -10,7 +10,13 @@ use yii\helpers\Html;
 
 ?>
 <h1>Performance Profiling</h1>
-<p>Total processing time: <b><?= $time ?></b>; Peak memory: <b><?= $memory ?></b>.</p>
+<p>
+    Total processing time: <b><?= $time ?></b>; Peak memory: <b><?= $memory ?></b>.
+    <?= Html::a('Show Profiling Timeline', ['/' . $panel->module->id . '/default/view',
+        'panel' => 'timeline',
+        'tag' => $panel->tag,
+    ]) ?>
+</p>
 <?php
 echo GridView::widget([
     'dataProvider' => $dataProvider,

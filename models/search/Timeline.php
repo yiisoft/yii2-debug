@@ -10,6 +10,7 @@ namespace yii\debug\models\search;
 use yii\debug\components\search\Filter;
 use yii\debug\components\search\matchers\GreaterThanOrEqual;
 use yii\debug\components\TimelineDataProvider;
+use yii\debug\panels\TimelinePanel;
 
 /**
  * Search model for timeline data.
@@ -19,16 +20,15 @@ use yii\debug\components\TimelineDataProvider;
  */
 class Timeline extends Base
 {
-
     /**
      * @var string attribute search
      */
     public $category;
-
     /**
      * @var integer attribute search
      */
     public $duration = 0;
+
 
     /**
      * @inheritdoc
