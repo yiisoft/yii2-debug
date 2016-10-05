@@ -136,14 +136,11 @@
         }
 
         window.onresize = function () {
-            var iframeActive = isIframeActive();
-            if (iframeActive) {
-                toolbarEl.classList.add(resizeClass);
-                setTimeout(function () {
-                    toolbarEl.classList.remove(resizeClass);
-                }, 300);
-            }
-            setHeight(iframeActive);
+            toolbarEl.classList.add(resizeClass);
+            setTimeout(function () {
+                toolbarEl.classList.remove(resizeClass);
+            }, 300);
+            setHeight(isIframeActive());
         };
 
         barEl.onclick = function (e) {
