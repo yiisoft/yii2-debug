@@ -81,16 +81,16 @@
             },
             showIframe = function (href) {
                 setHeight(true);
-                toolbarEl.classList.add(iframeActiveClass);
                 iframeEl.src = externalEl.href = href;
+                setTimeout(function () {
+                    toolbarEl.classList.add(iframeActiveClass);
+                }, animationTime)
             },
             hideIframe = function () {
+                toolbarEl.classList.remove(iframeActiveClass);
                 setHeight(false);
-                setTimeout(function () {
-                    externalEl.href = '#';
-                    toolbarEl.classList.remove(iframeActiveClass);
-                    removeActiveBlocksCls();
-                }, animationTime);
+                externalEl.href = '#';
+                removeActiveBlocksCls();
             },
             removeActiveBlocksCls = function () {
                 [].forEach.call(blockEls, function (el) {
