@@ -60,7 +60,6 @@
     height: 0;
     overflow: hidden;
     background: white;
-    transition: height .3s ease;
 }
 
 .yii-debug-toolbar__view iframe {
@@ -74,6 +73,10 @@
 
 .yii-debug-toolbar_iframe_active .yii-debug-toolbar__view {
     height: 100%;
+}
+
+.yii-debug-toolbar_iframe_animating .yii-debug-toolbar__view {
+    transition: height .3s ease;
 }
 
 .yii-debug-toolbar__block {
