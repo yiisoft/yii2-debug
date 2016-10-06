@@ -9,14 +9,12 @@
     font: 11px Verdana, Arial, sans-serif;
     text-align: left;
     width: 96px;
-    height: 42px;
     transition: width .3s ease;
     z-index: 1000000;
 }
 
 .yii-debug-toolbar_active {
     width: 100%;
-    height: auto;
 }
 
 .yii-debug-toolbar_position_top {
