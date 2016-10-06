@@ -36,6 +36,7 @@
     text-align: left;
     height: 40px;
     overflow: hidden;
+    box-sizing: content-box;
 
     background: rgb(255, 255, 255);
     background: -moz-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 100%); /* FF3.6-15 */
