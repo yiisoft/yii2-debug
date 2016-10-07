@@ -12,7 +12,7 @@ $titles = ['all' => Yii::$app->i18n->format('Logged {n,plural,=1{1 message} othe
 $errorCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_ERROR));
 $warningCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_WARNING));
 
-if ($errorCount){
+if ($errorCount) {
     $titles['errors'] = Yii::$app->i18n->format('{n,plural,=1{1 error} other{# errors}}', ['n' => $errorCount], 'en-US');
 }
 
