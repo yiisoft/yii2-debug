@@ -9,6 +9,7 @@ namespace yii\debug;
 
 use Yii;
 use yii\base\Component;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /**
@@ -96,13 +97,21 @@ class Panel extends Component
     }
 
     /**
+     * @param null|array $additionalParams Optional additional parameters to add to the route
      * @return string URL pointing to panel detail view
      */
-    public function getUrl()
+    public function getUrl($additionalParams = null)
     {
-        return Url::toRoute(['/' . $this->module->id . '/default/view',
+        $route = [
+            '/' . $this->module->id . '/default/view',
             'panel' => $this->id,
             'tag' => $this->tag,
-        ]);
+        ];
+
+        if (is_array($additionalParams)){
+            $route = ArrayHelper::merge($route, $additionalParams);
+        }
+
+        return Url::toRoute($route);
     }
 }
