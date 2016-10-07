@@ -33,8 +33,11 @@
         CACHE_KEY = 'yii-debug-toolbar',
         ACTIVE_STATE = 'active',
 
+        animationTime = 300,
+
         activeClass = 'yii-debug-toolbar_active',
         iframeActiveClass = 'yii-debug-toolbar_iframe_active',
+        iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
         titleClass = 'yii-debug-toolbar__title',
         blockClass = 'yii-debug-toolbar__block',
         blockActiveClass = 'yii-debug-toolbar__block_active';
@@ -71,17 +74,25 @@
                 return toolbarEl.classList.contains(iframeActiveClass);
             },
             showIframe = function (href) {
+                toolbarEl.classList.add(iframeAnimatingClass);
                 toolbarEl.classList.add(iframeActiveClass);
 
                 iframeEl.src = externalEl.href = href;
                 viewEl.style.height = iframeHeight();
+                setTimeout(function() {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
             },
             hideIframe = function () {
+                toolbarEl.classList.add(iframeAnimatingClass);
                 toolbarEl.classList.remove(iframeActiveClass);
                 removeActiveBlocksCls();
 
                 externalEl.href = '#';
                 viewEl.style.height = '';
+                setTimeout(function() {
+                    toolbarEl.classList.remove(iframeAnimatingClass);
+                }, animationTime);
             },
             removeActiveBlocksCls = function () {
                 [].forEach.call(blockEls, function (el) {
