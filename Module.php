@@ -199,6 +199,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         // do not display debug toolbar when in debug view mode
         Yii::$app->getView()->off(View::EVENT_END_BODY, [$this, 'renderToolbar']);
+        Yii::$app->getResponse()->off(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
 
         if ($this->checkAccess()) {
             $this->resetGlobalSettings();
@@ -216,7 +217,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function setDebugHeaders($event)
     {
-        if (!$this->enableDebugLogs || !$this->checkAccess() || !Yii::$app->getRequest()->getIsAjax()) {
+        if (!$this->checkAccess() || !Yii::$app->getRequest()->getIsAjax()) {
             return;
         }
         $url = Url::toRoute(['/' . $this->id . '/default/view',
