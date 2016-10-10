@@ -10,6 +10,7 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -164,6 +165,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
             $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
+            $app->getResponse()->on(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
         });
 
         $app->getUrlManager()->addRules([
@@ -207,6 +209,23 @@ class Module extends \yii\base\Module implements BootstrapInterface
         } else {
             throw new ForbiddenHttpException('You are not allowed to access this page.');
         }
+    }
+
+    /**
+     * @param \yii\base\Event $event
+     */
+    public function setDebugHeaders($event)
+    {
+        if (!$this->enableDebugLogs && !$this->checkAccess() || !Yii::$app->getRequest()->getIsAjax()) {
+            return;
+        }
+        $url = Url::toRoute(['/' . $this->id . '/default/view',
+            'tag' => $this->logTarget->tag,
+        ]);
+        $event->sender->getHeaders()
+            ->set('X-Debug-Tag', $this->logTarget->tag)
+            ->set('X-Debug-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1))
+            ->set('X-Debug-Link', $url);
     }
 
     /**
