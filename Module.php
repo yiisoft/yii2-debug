@@ -216,7 +216,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function setDebugHeaders($event)
     {
-        if (!$this->enableDebugLogs && !$this->checkAccess() || !Yii::$app->getRequest()->getIsAjax()) {
+        if (!$this->enableDebugLogs || !$this->checkAccess() || !Yii::$app->getRequest()->getIsAjax()) {
             return;
         }
         $url = Url::toRoute(['/' . $this->id . '/default/view',
