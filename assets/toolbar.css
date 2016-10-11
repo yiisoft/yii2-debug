@@ -274,10 +274,11 @@ a.yii-debug-toolbar__label:focus {
 
 .yii-debug-toolbar__ajax:hover .yii-debug-toolbar__ajax_info,
 .yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info {
-    display: block;
+    visibility: visible;
 }
 .yii-debug-toolbar__ajax_info {
-    display: none;
+    visibility: hidden;
+    transition: visibility .2s linear;
     background-color: white;
     box-shadow: inset 0 -10px 10px -10px #e1e1e1;
     position: absolute;
