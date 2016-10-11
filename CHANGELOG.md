@@ -17,6 +17,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #143: Added application version display at `ConfigPanel` (klimov-paul)
 - Enh #145: The error and warning labels of the log section on the summary bar now link directly to the log page filtered by log level type (rhertogh)
 - Bug #150: Fixed "Cannot read property 'replaceChild' of null" error (BetsuNo)
+- Enh #97: Added AJAX requests handling (bashkarev)
 
 
 2.0.6 March 17, 2016
