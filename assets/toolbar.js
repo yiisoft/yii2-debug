@@ -221,7 +221,7 @@
                     var durationCell = document.createElement('td');
                     durationCell.className = 'yii-debug-toolbar__ajax_request_duration';
                     if (request.duration) {
-                        durationCell.innerText = request.duration + "ms";
+                        durationCell.innerText = request.duration + " ms";
                     } else {
                         durationCell.innerText = '-';
                     }
@@ -240,7 +240,7 @@
                     row.appendChild(profilerCell);
 
                     if (request.error) {
-                        if (state != "loading" && i > requestStack.length - 4) {
+                        if (state !== "loading" && i > requestStack.length - 4) {
                             state = 'error';
                         }
                     } else if (request.loading) {
