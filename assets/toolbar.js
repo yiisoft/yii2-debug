@@ -50,7 +50,7 @@
                 div = document.createElement('div');
                 div.innerHTML = xhr.responseText;
 
-                toolbarEl.parentNode.replaceChild(div, toolbarEl);
+                toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
 
                 showToolbar(findToolbar());
             },
