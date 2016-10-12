@@ -89,6 +89,7 @@ class ConfigPanel extends Panel
             'application' => [
                 'yii' => Yii::getVersion(),
                 'name' => Yii::$app->name,
+                'version' => Yii::$app->version,
                 'env' => YII_ENV,
                 'debug' => YII_DEBUG,
             ],

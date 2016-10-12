@@ -10,6 +10,7 @@ echo $this->render('table', [
     'values' => [
         'Yii Version' => $panel->data['application']['yii'],
         'Application Name' => $panel->data['application']['name'],
+        'Application Version' => $panel->data['application']['version'],
         'Environment' => $panel->data['application']['env'],
         'Debug Mode' => $panel->data['application']['debug'] ? 'Yes' : 'No',
     ],
