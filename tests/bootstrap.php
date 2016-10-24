@@ -12,4 +12,5 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
 Yii::setAlias('@yiiunit/extensions/debug', __DIR__);
+Yii::setAlias('@yiiunit', __DIR__ . '/../tests');
 Yii::setAlias('@yii/debug', dirname(__DIR__));
