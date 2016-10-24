@@ -2,7 +2,12 @@
 
 namespace yiiunit\extensions\debug;
 
+use yii\base\Event;
+use yii\caching\FileCache;
+use yii\debug\LogTarget;
 use yii\debug\Module;
+use Yii;
+use yii\widgets\FragmentCache;
 
 class ModuleTest extends TestCase
 {
@@ -62,5 +67,45 @@ class ModuleTest extends TestCase
         $module->allowedIPs = $allowedIPs;
         $_SERVER['REMOTE_ADDR'] = $userIp;
         $this->assertEquals($expectedResult, $this->invoke($module, 'checkAccess'));
+    }
+
+    /**
+     * Test to verify toolbars html
+     */
+    public function testGetToolbarHtml()
+    {
+        $module = new Module('debug');
+        $module->bootstrap(Yii::$app);
+        Yii::getLogger()->dispatcher = $this->getMock('yii\\log\\Dispatcher', ['dispatch']);
+
+        $this->assertEquals(<<<HTML
+<div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
+HTML
+        ,$module->getToolbarHtml());
+    }
+
+    /**
+     * Test to ensure toolbar is never cached
+     */
+    public function testNonCachedToolbarHtml()
+    {
+        $module = new Module('debug');
+        $module->allowedIPs = ['*'];
+        Yii::$app->setModule('debug',$module);
+        $module->bootstrap(Yii::$app);
+        Yii::getLogger()->dispatcher = $this->getMock('yii\\log\\Dispatcher', ['dispatch']);
+        Yii::$app->set('cache', new FileCache(['cachePath' => '@yiiunit/runtime/cache']));
+
+        $view = Yii::$app->view;
+        for($i=0;$i<=1;$i++){
+            ob_start();
+            $module->logTarget->tag = 'tag' . $i;
+            if($view->beginCache(__FUNCTION__,['duration'=>3])){
+                $module->renderToolbar(new Event(['sender' => $view]));
+                $view->endCache();
+            }
+            $output[$i] = ob_get_clean();
+        }
+        $this->assertNotEquals($output[0],$output[1]);
     }
 } 

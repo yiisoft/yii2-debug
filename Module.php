@@ -242,6 +242,18 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
+     * Gets the Toolbars html
+     * @since 2.0.7
+     */
+    public function getToolbarHtml()
+    {
+        $url = Url::toRoute(['/' . $this->id . '/default/toolbar',
+            'tag' => $this->logTarget->tag,
+        ]);
+        return '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
+    }
+
+    /**
      * Renders mini-toolbar at the end of page body.
      *
      * @param \yii\base\Event $event
@@ -251,12 +263,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
         if (!$this->checkAccess() || Yii::$app->getRequest()->getIsAjax()) {
             return;
         }
-        $url = Url::toRoute(['/' . $this->id . '/default/toolbar',
-            'tag' => $this->logTarget->tag,
-        ]);
-        echo '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
+
         /* @var $view View */
         $view = $event->sender;
+        echo $view->renderDynamic('return Yii::$app->getModule("debug")->getToolbarHtml();');
 
         // echo is used in order to support cases where asset manager is not available
         echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.css') . '</style>';
