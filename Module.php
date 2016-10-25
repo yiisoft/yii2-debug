@@ -10,6 +10,7 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\helpers\Json;
 use yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -310,5 +311,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel']
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @since 2.0.7
+     */
+    protected function defaultVersion()
+    {
+        $packageInfo = Json::decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'composer.json'));
+        $extensionName = $packageInfo['name'];
+        if (isset(Yii::$app->extensions[$extensionName])) {
+            return Yii::$app->extensions[$extensionName]['version'];
+        }
+        return parent::defaultVersion();
     }
 }

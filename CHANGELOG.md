@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Enh: Mouse wheel click, or Ctrl+Click opens debugger in new tab (silverfire)
+- Enh: `yii\debug\Module::defaultVersion()` implemented to pick up 'yiisoft/yii2-debug' extension version (klimov-paul)
 - Bug #99: Avoid serializing php7 errors (zuozp8)
 - Bug #111: Fixed `LogTarget` to work properly when tests are ran via Codeception (samdark, nlmedina)
 - Bug #120: Fixed toolbar height changing when opened/closed and when using bootstrap (nkovacs)
