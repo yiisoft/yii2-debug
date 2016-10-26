@@ -40,6 +40,9 @@ $url = $firstPanel->getUrl();
             <?= $panel->getSummary() ?>
         <?php endforeach; ?>
 
+        <div class="yii-debug-toolbar__block_last">
+
+        </div>
         <a class="yii-debug-toolbar__external" href="#" target="_blank">
             <span class="yii-debug-toolbar__external-icon"></span>
         </a>

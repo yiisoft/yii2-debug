@@ -19,6 +19,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #150: Fixed "Cannot read property 'replaceChild' of null" error (BetsuNo)
 - Enh #97: Added AJAX requests handling (bashkarev)
 - Bug #61: Fixed toolbar not to be cached by using renderDynamic (dynasource)
+- Bug #160: Remove height as it prevents the background from stretching, causing unreadable overlapping texts over background (dynasource)
 
 2.0.6 March 17, 2016
 --------------------
