@@ -108,4 +108,16 @@ HTML
         }
         $this->assertNotEquals($output[0],$output[1]);
     }
+
+    public function testDefaultVersion()
+    {
+        Yii::$app->extensions['yiisoft/yii2-debug'] = [
+            'name' => 'yiisoft/yii2-debug',
+            'version' => '2.0.7',
+        ];
+
+        $module = new Module('debug');
+
+        $this->assertEquals('2.0.7', $module->getVersion());
+    }
 } 
