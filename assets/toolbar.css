@@ -34,7 +34,6 @@
     padding: 0;
     font: 11px Verdana, Arial, sans-serif;
     text-align: left;
-    height: 40px;
     overflow: hidden;
     box-sizing: content-box;
 
@@ -52,6 +51,9 @@
 
 .yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar {
     overflow: visible;
+}
+.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar {
+    height:40px;
 }
 
 .yii-debug-toolbar__bar:after {
@@ -190,6 +192,12 @@ a.yii-debug-toolbar__label:focus {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0); /* IE6-9 */
 }
 
+.yii-debug-toolbar__block_last{ /* creates space for .yii-debug-toolbar__toggle, .yii-debug-toolbar__external */
+    width: 80px;
+    height: 40px;
+    float: left;
+}
+
 .yii-debug-toolbar__toggle,
 .yii-debug-toolbar__external {
     cursor: pointer;
@@ -229,7 +237,7 @@ a.yii-debug-toolbar__label:focus {
 
 .yii-debug-toolbar__toggle {
     right: 10px;
-    top: 4px;
+    bottom: 4px;
 }
 
 .yii-debug-toolbar__toggle-icon {
@@ -254,7 +262,7 @@ a.yii-debug-toolbar__label:focus {
 .yii-debug-toolbar__external {
     display: none;
     right: 50px;
-    top: 4px;
+    bottom: 4px;
 }
 
 .yii-debug-toolbar_iframe_active .yii-debug-toolbar__external {
