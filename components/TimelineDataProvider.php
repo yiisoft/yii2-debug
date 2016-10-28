@@ -116,7 +116,11 @@ class TimelineDataProvider extends ArrayDataProvider
     public function getCssClass($model)
     {
         $class = 'time';
-        $class .= (($model['css']['left'] > 15) && ($model['css']['left'] + $model['css']['width'] > 50)) ? ' right' : ' left';
+        if ($model['css']['width'] > 80) {
+            $class .= ' inset';
+        } else {
+            $class .= (($model['css']['left'] > 15) && ($model['css']['left'] + $model['css']['width'] > 50)) ? ' right' : ' left';
+        }
         return $class;
     }
 
