@@ -114,4 +114,22 @@ class Panel extends Component
 
         return Url::toRoute($route);
     }
+
+    /**
+     * @param array $trace The log trace
+     *
+     * @return string the trace line
+     */
+    public function traceLink($trace)
+    {
+        if (is_callable($this->module->traceLink)) {
+            return call_user_func($this->module->traceLink, $trace, $this);
+        }
+
+        if (is_string($this->module->traceLink)) {
+            return strtr($this->module->traceLink, ['{file}' => $trace['file'], '{line}' => $trace['line']]);
+        }
+
+        return "{$trace['file']}:{$trace['line']}";
+    }
 }

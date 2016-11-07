@@ -57,8 +57,8 @@ echo GridView::widget([
                 if (!empty($data['trace'])) {
                     $query .= Html::ul($data['trace'], [
                         'class' => 'trace',
-                        'item' => function ($trace) {
-                            return "<li>{$trace['file']} ({$trace['line']})</li>";
+                        'item' => function ($trace) use ($panel) {
+                            return '<li>' . $panel->traceLink($trace) . '</li>';
                         },
                     ]);
                 }
@@ -98,7 +98,7 @@ $this->registerJs('debug_db_detail();', View::POS_READY);
 function debug_db_detail() {
     $('.db-explain a').on('click', function(e) {
         e.preventDefault();
-        
+
         var $explain = $('.db-explain-text', $(this).parent().parent());
 
         if ($explain.is(':visible')) {
@@ -112,7 +112,7 @@ function debug_db_detail() {
 
     $('#db-explain-all a').on('click', function(e) {
         e.preventDefault();
-        
+
         $('.db-explain a').click();
     });
 }

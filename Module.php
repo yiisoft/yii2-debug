@@ -91,6 +91,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * You may want to enable the debug logs if you want to investigate how the debug module itself works.
      */
     public $enableDebugLogs = false;
+    /**
+     * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace line string.
+     * The placeholders are {file} and {line} and the signature of the anonymous function should be as follows,
+     *
+     * ```php
+     * function($trace, $panel) {
+     *     // compute line string
+     *     return $line;
+     * }
+     * ```
+     * @since 2.0.7
+     */
+    public $traceLink;
 
     /**
      * @var string Yii logo URL
