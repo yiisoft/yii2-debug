@@ -66,7 +66,7 @@ return [
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
-            'traceLink' => 'phpstorm://open?url={file}&line={line}',
+            'traceLink' => '<a href="phpstorm://open?url={file}&line={line}">{file}:{line}</a>',
         ],
         // ...
     ],
