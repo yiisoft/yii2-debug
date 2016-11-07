@@ -67,7 +67,7 @@ echo GridView::widget([
                 };
                 return $message;
             },
-            'format' => 'html',
+            'format' => 'raw',
             'options' => [
                 'width' => '50%',
             ],

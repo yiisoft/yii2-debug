@@ -75,7 +75,7 @@ echo GridView::widget([
 
                 return $query;
             },
-            'format' => 'html',
+            'format' => 'raw',
             'options' => [
                 'width' => '60%',
             ],
