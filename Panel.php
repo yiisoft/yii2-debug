@@ -116,20 +116,26 @@ class Panel extends Component
     }
 
     /**
-     * @param array $trace The log trace
+     * @param array $options The array with trace
      *
      * @return string the trace line
      * @since 2.0.7
      */
-    public function traceLink($trace)
+    public function traceLink($options)
     {
+        if (!isset($options['text'])) {
+            $options['text'] = "{$options['file']}:{$options['line']}";
+        }
+        if ($this->module->traceLink === null) {
+            return $options['text'];
+        }
         if (is_callable($this->module->traceLink)) {
-            return call_user_func($this->module->traceLink, $trace, $this);
+            return call_user_func($this->module->traceLink, $options, $this);
         }
         if (is_string($this->module->traceLink)) {
-            return strtr($this->module->traceLink, ['{file}' => $trace['file'], '{line}' => $trace['line']]);
+            return strtr($this->module->traceLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
         }
 
-        return "{$trace['file']}:{$trace['line']}";
+        return null;
     }
 }
