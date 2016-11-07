@@ -98,7 +98,7 @@ $this->registerJs('debug_db_detail();', View::POS_READY);
 function debug_db_detail() {
     $('.db-explain a').on('click', function(e) {
         e.preventDefault();
-
+        
         var $explain = $('.db-explain-text', $(this).parent().parent());
 
         if ($explain.is(':visible')) {
@@ -112,7 +112,7 @@ function debug_db_detail() {
 
     $('#db-explain-all a').on('click', function(e) {
         e.preventDefault();
-
+        
         $('.db-explain a').click();
     });
 }
