@@ -119,13 +119,13 @@ class Panel extends Component
      * @param array $trace The log trace
      *
      * @return string the trace line
+     * @since 2.0.7
      */
     public function traceLink($trace)
     {
         if (is_callable($this->module->traceLink)) {
             return call_user_func($this->module->traceLink, $trace, $this);
         }
-
         if (is_string($this->module->traceLink)) {
             return strtr($this->module->traceLink, ['{file}' => $trace['file'], '{line}' => $trace['line']]);
         }

@@ -93,7 +93,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $enableDebugLogs = false;
     /**
      * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace line string.
-     * The placeholders are {file} and {line} and the signature of the anonymous function should be as follows,
+     * The placeholders are {file} and {line} and the string should be as follows,
+     *
+     * `File: {file} - Line: {line}`
+     *
+     * The signature of the anonymous function should be as follows,
      *
      * ```php
      * function($trace, $panel) {
