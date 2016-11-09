@@ -128,14 +128,11 @@ class Panel extends Component
         }
         if ($this->module->traceLink === null) {
             return $options['text'];
-        }
-        if (is_callable($this->module->traceLink)) {
-            return call_user_func($this->module->traceLink, $options, $this);
-        }
-        if (is_string($this->module->traceLink)) {
-            return strtr($this->module->traceLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
+        }else{
+            $options['file'] = str_replace('\\','/',$options['file']);
+            $rawLink = $this->module->traceLink instanceof \Closure ? call_user_func($this->module->traceLink, $options, $this) : $this->module->traceLink;
+            return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
         }
 
-        return null;
     }
 }
