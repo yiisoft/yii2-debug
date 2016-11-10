@@ -114,7 +114,7 @@ class MailPanel extends Panel
      */
     public function hasSummary()
     {
-        return count($this->data);
+        return count($this->data) > 0;
     }
 
     /**
