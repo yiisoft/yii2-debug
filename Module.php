@@ -25,7 +25,7 @@ use yii\web\ForbiddenHttpException;
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
-    const TRACELINK_PHPSTORM = '<a href="phpstorm://open?url=file://{file}&line={line}">{file}:{line}</a>';
+    const TRACELINK_PHPSTORM = '<a href="phpstorm://open?url=file://{file}&line={line}">{text}</a>';
 
     /**
      * @var array the list of IPs that are allowed to access this module.
