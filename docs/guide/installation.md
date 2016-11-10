@@ -171,7 +171,7 @@ if (match) {
 
 ##### 2) Create a registry file and execute this file 
 
-Create a registry file `C:\Program Files (x86)\JetBrains\open_phpstorm.reg` (example)
+Create a registry file `C:\Program Files (x86)\JetBrains\open_phpstorm.reg` (example for PhpStorm)
 with the following content and make sure the paths are correct:
 
 ```windows.reg
@@ -190,8 +190,8 @@ Now you are able to use the ide:// protocol in your browser.
 When you click such a link, the IDE will automatically open the file and move the cursor to the corresponding line.
 
 ##### Disable links
-Tracelinks are on by default. You have to set the `yii\debug\Module::traceLink` property to false to display
-a textual line only.
+IDE links for traces are created by default. You have to set the property `yii\debug\Module::traceLink` to
+ false to render a textual line only.
 
 ```php
 <?php
