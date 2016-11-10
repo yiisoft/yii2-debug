@@ -15,12 +15,10 @@ use yii\helpers\Url;
 /**
  * Panel is a base class for debugger panel classes. It defines how data should be collected,
  * what should be displayed at debug toolbar and on debugger details view.
- *
  * @property string $detail Content that is displayed in debugger detail view. This property is read-only.
  * @property string $name Name of the panel. This property is read-only.
  * @property string $summary Content that is displayed at debug toolbar. This property is read-only.
  * @property string $url URL pointing to panel detail view. This property is read-only.
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
@@ -68,6 +66,14 @@ class Panel extends Component
     }
 
     /**
+     * @return bool if the panel has a summary
+     */
+    public function hasSummary()
+    {
+        return true;
+    }
+
+    /**
      * @return string content that is displayed in debugger detail view
      */
     public function getDetail()
@@ -78,7 +84,6 @@ class Panel extends Component
     /**
      * Saves data to be later used in debugger detail view.
      * This method is called on every page where debugger is enabled.
-     *
      * @return mixed data to be saved
      */
     public function save()
@@ -88,7 +93,6 @@ class Panel extends Component
 
     /**
      * Loads data into the panel
-     *
      * @param mixed $data
      */
     public function load($data)
@@ -108,7 +112,7 @@ class Panel extends Component
             'tag' => $this->tag,
         ];
 
-        if (is_array($additionalParams)){
+        if (is_array($additionalParams)) {
             $route = ArrayHelper::merge($route, $additionalParams);
         }
 
