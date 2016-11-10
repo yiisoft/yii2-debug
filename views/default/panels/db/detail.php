@@ -57,8 +57,8 @@ echo GridView::widget([
                 if (!empty($data['trace'])) {
                     $query .= Html::ul($data['trace'], [
                         'class' => 'trace',
-                        'item' => function ($trace) {
-                            return "<li>{$trace['file']} ({$trace['line']})</li>";
+                        'item' => function ($trace) use ($panel) {
+                            return '<li>' . $panel->getTraceLine($trace) . '</li>';
                         },
                     ]);
                 }
@@ -75,7 +75,7 @@ echo GridView::widget([
 
                 return $query;
             },
-            'format' => 'html',
+            'format' => 'raw',
             'options' => [
                 'width' => '60%',
             ],
