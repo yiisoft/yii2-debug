@@ -99,13 +99,13 @@ effect. Further, the debug mode may expose sensitive information to end users.
 Wouldn't it be nice to be able to open files directly from the debug trace? 
 
 Well, you can!
-With a few settings and you're ready to go!
+With a few settings you're ready to go!
 
 
 #### Windows
 
 ##### 1) Create a WScript file open_phpstorm.js:
-Create a file `C:\Program Files (x86)\JetBrains\open_phpstorm.js` (example)
+Create a file `C:\Program Files (x86)\JetBrains\open_phpstorm.js` (example for PhpStorm)
 with the following content:
 
 ```js
@@ -129,7 +129,7 @@ var settings = {
 
 // don't change anything below this line, unless you know what you're doing
 var	url = WScript.Arguments(0),
-	match = /^phpstorm:\/\/(?:.+)file:\/\/(.+)&line=(\d+)$/.exec(url),
+	match = /^ide:\/\/(?:.+)file:\/\/(.+)&line=(\d+)$/.exec(url),
 	project = '',
 	editor = '"C:\\' + (settings.x64 ? 'Program Files' : 'Program Files (x86)') + '\\JetBrains\\' + settings.folder_name + '\\bin\\PhpStorm.exe"';
 
@@ -177,20 +177,21 @@ with the following content and make sure the paths are correct:
 ```windows.reg
 Windows Registry Editor Version 5.00
 
-[HKEY_CLASSES_ROOT\phpstorm]
-@="\"URL:phpstorm Protocol\""
+[HKEY_CLASSES_ROOT\ide]
+@="\"URL:ide Protocol\""
 "URL Protocol"=""
 
-[HKEY_CLASSES_ROOT\phpstorm\shell\open\command]
+[HKEY_CLASSES_ROOT\ide\shell\open\command]
 @="wscript \"C:\\Program Files (x86)\\JetBrains\\open_phpstorm.js\" %1"
 ```
 
-Now you are able to use the phpstorm:// protocol in your browser. 
+Now you are able to use the ide:// protocol in your browser. 
 
-##### 3) Prepare the links
-Now it's time to prepare the links. You have to set the `yii\debug\Module::traceLink` property 
-in your application config to enable the trace links. Once these are set, you
-can refresh your browser to see the links in action. Off you go!
+When you click such a link, the IDE will automatically open the file and move the cursor to the corresponding line.
+
+##### Disable links
+Tracelinks are on by default. You have to set the `yii\debug\Module::traceLink` property to false to display
+a textual line only.
 
 ```php
 <?php
@@ -199,9 +200,7 @@ can refresh your browser to see the links in action. Off you go!
 'modules' => [
     'debug' => [
         'class' => 'yii\debug\Module',
-        'traceLink' => function(){
-            return \yii\debug\Module::TRACELINK_PHPSTORM;
-        }
+        'traceLink' => false
     ]
 ]
 

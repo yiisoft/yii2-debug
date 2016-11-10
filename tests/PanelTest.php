@@ -8,43 +8,85 @@ use yii\debug\Panel;
 
 class PanelTest extends TestCase
 {
-    public function testTraceLink_DefaultText()
+    public function testGetTraceLine_DefaultLink()
     {
-        $panel = new Panel(['module' => new Module('debug')]);
-        $this->assertEquals('file:10', $panel->traceLink(['file' => 'file', 'line' => 10]));
+        $traceConfig = [
+            'file' => 'file.php',
+            'line' => 10
+        ];
+        $panel = $this->getPanel();
+        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">file.php:10</a>', $panel->getTraceLine($traceConfig));
     }
 
-    public function testTraceLink_CustomText()
+    public function testGetTraceLine_DefaultLink_CustomText()
     {
-        $panel = new Panel(['module' => new Module('debug')]);
-        $this->assertEquals('text', $panel->traceLink(['file' => 'file', 'line' => 10, 'text' => 'text']));
+        $traceConfig = [
+            'file' => 'file.php',
+            'line' => 10,
+            'text' => 'custom text'
+        ];
+        $panel = $this->getPanel();
+        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
     }
 
-    public function testTraceLink_TraceLinkByText()
+    public function testGetTraceLine_TextOnly()
     {
-        $panel = new Panel(['module' => new Module('debug')]);
-        $panel->module->traceLink = Module::TRACELINK_PHPSTORM;
-        $this->assertEquals('<a href="phpstorm://open?url=file://path/to/my/file.php&line=10">path/to/my/file.php:10</a>', $panel->traceLink(['file' => 'path/to/my/file.php', 'line' => 10]));
+        $panel = $this->getPanel();
+        $panel->module->traceLine = false;
+        $traceConfig = [
+            'file' => 'file.php',
+            'line' => 10
+        ];
+        $this->assertEquals('file.php:10', $panel->getTraceLine($traceConfig));
     }
 
-    public function testTraceLink_TraceLinkByCallback()
+    public function testGetTraceLine_CustomLinkByString()
     {
-        $panel = new Panel(['module' => new Module('debug')]);
+        $traceConfig = [
+            'file' => 'file.php',
+            'line' => 10
+        ];
+        $panel = $this->getPanel();
+        $panel->module->traceLine = '<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>';
+        $this->assertEquals('<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>', $panel->getTraceLine($traceConfig));
+    }
+
+    public function testGetTraceLine_CustomLinkByCallback()
+    {
+        $traceConfig = [
+            'file' => 'file.php',
+            'line' => 10,
+        ];
+        $panel = $this->getPanel();
         $expected = 'http://my.custom.link';
-        $panel->module->traceLink = function () use ($expected) {
+        $panel->module->traceLine = function () use ($expected) {
             return $expected;
         };
-        $this->assertEquals($expected, $panel->traceLink(['file' => 'file', 'line' => 10]));
+        $this->assertEquals($expected, $panel->getTraceLine($traceConfig));
+    }
 
-        $panel->module->traceLink = function () use ($expected) {
-            return 'phpstorm://open?url={file}&line={line}';
+    public function testGetTraceLine_CustomLinkByCallback_CustomText()
+    {
+        $traceConfig = [
+            'file' => 'file.php',
+            'line' => 10,
+            'text' => 'custom text'
+        ];
+        $panel = $this->getPanel();
+        $panel->module->traceLine = function () {
+            return '<a href="ide://open?url={file}&line={line}">{text}</a>';
         };
-        $this->assertEquals('phpstorm://open?url=file&line=10', $panel->traceLink(['file' => 'file', 'line' => 10]));
+        $this->assertEquals('<a href="ide://open?url=file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
     }
 
     protected function setUp()
     {
         parent::setUp();
         $this->mockWebApplication();
+    }
+
+    private function getPanel()
+    {
+        return new Panel(['module' => new Module('debug')]);
     }
 }
