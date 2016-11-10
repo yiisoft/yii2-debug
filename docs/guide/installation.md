@@ -93,3 +93,117 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 > Note: Make sure to disable debug mode in production environments since it may have a significant and adverse performance
 effect. Further, the debug mode may expose sensitive information to end users.
+
+### Extra configuration for opening in IDE's
+
+Wouldn't it be nice to be able to open files directly from the debug trace? 
+
+Well, you can!
+With a few settings and you're ready to go!
+
+
+#### Windows
+
+##### 1) Create a WScript file open_phpstorm.js:
+Create a file `C:\Program Files (x86)\JetBrains\open_phpstorm.js` (example)
+with the following content:
+
+```js
+
+var settings = {
+	// Set to 'true' (without quotes) if run on Windows 64bit. Set to 'false' (without quotes) otherwise.
+	x64: true,
+
+	// Set to folder name, where PhpStorm was installed to (e.g. 'PhpStorm')
+	folder_name: 'PhpStorm 2016.2.1',
+
+	// Set to window title (only text after dash sign), that you see, when switching to running PhpStorm instance
+	window_title: 'PhpStorm 2016.2.1',
+
+	// In case your file is mapped via a network share and paths do not match.
+	// eg. /var/www will can replaced with Y:/
+	projects_basepath: '',
+	projects_path_alias: ''
+};
+
+
+// don't change anything below this line, unless you know what you're doing
+var	url = WScript.Arguments(0),
+	match = /^phpstorm:\/\/(?:.+)file:\/\/(.+)&line=(\d+)$/.exec(url),
+	project = '',
+	editor = '"C:\\' + (settings.x64 ? 'Program Files' : 'Program Files (x86)') + '\\JetBrains\\' + settings.folder_name + '\\bin\\PhpStorm.exe"';
+
+if (match) {
+
+	var	shell = new ActiveXObject('WScript.Shell'),
+		file_system = new ActiveXObject('Scripting.FileSystemObject'),
+		file = decodeURIComponent(match[1]).replace(/\+/g, ' '),
+		search_path = file.replace(/\//g, '\\');
+
+	if (settings.projects_basepath != '' && settings.projects_path_alias != '') {
+		file = file.replace(new RegExp('^' + settings.projects_basepath), settings.projects_path_alias);
+	}
+
+	while (search_path.lastIndexOf('\\') != -1) {
+		search_path = search_path.substring(0, search_path.lastIndexOf('\\'));
+
+		if(file_system.FileExists(search_path+'\\.idea\\.name')) {
+			project = search_path;
+			break;
+		}
+	}
+
+	if (project != '') {
+		editor += ' "%project%"';
+	}
+
+	editor += ' --line %line% "%file%"';
+
+	var command = editor.replace(/%line%/g, match[2])
+						.replace(/%file%/g, file)
+						.replace(/%project%/g, project)
+						.replace(/\//g, '\\');
+
+	shell.Exec(command);
+	shell.AppActivate(settings.window_title);
+}
+```
+
+##### 2) Create a registry file and execute this file 
+
+Create a registry file `C:\Program Files (x86)\JetBrains\open_phpstorm.reg` (example)
+with the following content and make sure the paths are correct:
+
+```windows.reg
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\phpstorm]
+@="\"URL:phpstorm Protocol\""
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\phpstorm\shell\open\command]
+@="wscript \"C:\\Program Files (x86)\\JetBrains\\open_phpstorm.js\" %1"
+```
+
+Now you are able to use the phpstorm:// protocol in your browser. 
+
+##### 3) Prepare the links
+Now it's time to prepare the links. You have to set the `yii\debug\Module::traceLink` property 
+in your application config to enable the trace links. Once these are set, you
+can refresh your browser to see the links in action. Off you go!
+
+```php
+<?php
+
+...
+'modules' => [
+    'debug' => [
+        'class' => 'yii\debug\Module',
+        'traceLink' => function(){
+            return \yii\debug\Module::TRACELINK_PHPSTORM;
+        }
+    ]
+]
+
+...
+```

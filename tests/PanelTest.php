@@ -23,8 +23,8 @@ class PanelTest extends TestCase
     public function testTraceLink_TraceLinkByText()
     {
         $panel = new Panel(['module' => new Module('debug')]);
-        $panel->module->traceLink = Module::TRACELINK_PHPSTORM_WINDOWS;
-        $this->assertEquals('<a href="phpstorm:// path/to/my/file.php 10">path/to/my/file.php:10</a>', $panel->traceLink(['file' => 'path/to/my/file.php', 'line' => 10]));
+        $panel->module->traceLink = Module::TRACELINK_PHPSTORM;
+        $this->assertEquals('<a href="phpstorm://open?url=file://path/to/my/file.php&line=10">path/to/my/file.php:10</a>', $panel->traceLink(['file' => 'path/to/my/file.php', 'line' => 10]));
     }
 
     public function testTraceLink_TraceLinkByCallback()
