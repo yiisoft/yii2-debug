@@ -61,7 +61,7 @@ echo GridView::widget([
                     $message .= Html::ul($data['trace'], [
                         'class' => 'trace',
                         'item' => function ($trace) use ($panel) {
-                            return '<li>' . $panel->traceLine($trace) . '</li>';
+                            return '<li>' . $panel->getTraceLine($trace) . '</li>';
                         }
                     ]);
                 };
