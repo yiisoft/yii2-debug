@@ -23,6 +23,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #61: Fixed toolbar not to be cached by using renderDynamic (dynasource)
 - Bug #160: Remove height as it prevents the background from stretching, causing unreadable overlapping texts over background (dynasource)
 - Enh #162: Added ability to config the trace file and line number (thiagotalma)
+- Bug #152: Fixed log search to work with non-scalar values (samdark)
 
 2.0.6 March 17, 2016
 --------------------
