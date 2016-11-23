@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.7 under development
 -----------------------
 
+- Bug #168: Fixed wrong toggle button direction (fps01)
 - Enh: Mouse wheel click, or Ctrl+Click opens debugger in new tab (silverfire)
 - Enh: `yii\debug\Module::defaultVersion()` implemented to pick up 'yiisoft/yii2-debug' extension version (klimov-paul)
 - Bug #99: Avoid serializing php7 errors (zuozp8)
