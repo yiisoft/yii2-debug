@@ -27,7 +27,6 @@ echo GridView::widget([
         }
     },
     'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'time',
             'value' => function ($data) {

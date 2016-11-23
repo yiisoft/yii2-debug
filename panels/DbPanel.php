@@ -41,7 +41,7 @@ class DbPanel extends Panel
      * @since 2.0.7
      */
     public $defaultOrder = [
-        'duration' => SORT_DESC
+        'seq' => SORT_ASC
     ];
 
     /**

@@ -25,6 +25,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #162: Added ability to config the trace file and line number (thiagotalma)
 - Bug #152: Fixed log search to work with non-scalar values (samdark)
 - Enh #8: Added ability to configure default sorting and filtering for Database panel (laszlovl)
+- Enh #27: Adjusted sorting defaults, removed row numbers from database, log and profiling panels (samdark)
 
 2.0.6 March 17, 2016
 --------------------

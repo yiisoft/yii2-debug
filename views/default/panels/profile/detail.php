@@ -25,7 +25,6 @@ echo GridView::widget([
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
     'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'seq',
             'label' => 'Time',
