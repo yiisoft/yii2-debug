@@ -4,10 +4,8 @@ namespace yiiunit\extensions\debug;
 
 use yii\base\Event;
 use yii\caching\FileCache;
-use yii\debug\LogTarget;
 use yii\debug\Module;
 use Yii;
-use yii\widgets\FragmentCache;
 
 class ModuleTest extends TestCase
 {

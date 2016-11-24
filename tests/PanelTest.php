@@ -2,7 +2,6 @@
 
 namespace yiiunit\extensions\debug;
 
-use Yii;
 use yii\debug\Module;
 use yii\debug\Panel;
 

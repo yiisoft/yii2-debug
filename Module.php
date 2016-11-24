@@ -262,7 +262,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * Gets the Toolbars html
+     * Gets toolbar HTML
      * @since 2.0.7
      */
     public function getToolbarHtml()
