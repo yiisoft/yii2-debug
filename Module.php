@@ -295,7 +295,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * Checks if current user is allowed to access the module
-     * @return boolean if access is granted
+     * @return bool if access is granted
      */
     protected function checkAccess()
     {

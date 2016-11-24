@@ -12,6 +12,9 @@ use yii\debug\panels\TimelinePanel;
 
 /**
  * TimelineDataProvider implements a data provider based on a data array.
+ *
+ * @property array $rulers This property is read-only.
+ *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.7
  */

@@ -17,13 +17,10 @@ use yii\web\AssetBundle;
  */
 class TimelineAsset extends AssetBundle
 {
-
     public $sourcePath = '@yii/debug/assets';
-
     public $css = [
         'timeline.css',
     ];
-
     public $js = [
         'timeline.js',
     ];
