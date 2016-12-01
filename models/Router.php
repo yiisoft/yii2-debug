@@ -34,7 +34,7 @@ class Router extends Model
     /**
      * ```php
      * [
-     *  [   toDo this name
+     *  [
      *      'rule' => (string),
      *      'match' => (bool),
      * ]
@@ -45,8 +45,14 @@ class Router extends Model
      */
     public $logs = [];
 
+    /**
+     * @var int
+     */
     public $metric = 0;
 
+    /**
+     * @var bool
+     */
     public $hasMatch = false;
 
     public function init()
@@ -56,9 +62,9 @@ class Router extends Model
             return;
         }
         foreach ($this->messages as $message) {
-            if ($message[1] === Logger::LEVEL_TRACE) {
+            if ($message[1] === Logger::LEVEL_TRACE && is_string($message[0])) {
                 $this->message = $message[0];
-            } else {
+            } elseif (isset($message[0]['rule']) && isset($message[0]['match'])) {
                 $this->logs[] = $message[0];
                 ++$this->metric;
                 if ($message[0]['match']) {
