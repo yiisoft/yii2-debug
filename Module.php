@@ -309,7 +309,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'db' => ['class' => 'yii\debug\panels\DbPanel'],
             'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
-            'timeline' => ['class' => 'yii\debug\panels\TimelinePanel']
+            'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
+            'router' => ['class' => 'yii\debug\panels\RouterPanel']
         ];
     }
 
