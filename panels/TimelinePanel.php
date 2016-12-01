@@ -15,10 +15,9 @@ use yii\base\InvalidConfigException;
 /**
  * Debugger panel that collects and displays timeline data.
  *
- * @property array $models Returns an array of models that represents logs of the current request. This property is read-only.
- * @property float $duration request duration, milliseconds. This property is read-only.
- * @property float $start timestamp start request. This property is read-only.
  * @property array $colors color indicators
+ * @property float $duration request duration, milliseconds. This property is read-only.
+ * @property float $start timestamp of starting request. This property is read-only.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.7
@@ -168,7 +167,7 @@ class TimelinePanel extends Panel
      * Returns an array of models that represents logs of the current request.
      * Can be used with data providers, such as \yii\data\ArrayDataProvider.
      *
-     * @param boolean $refresh if need to build models from log messages and refresh them.
+     * @param bool $refresh if need to build models from log messages and refresh them.
      * @return array models
      */
     protected function getModels($refresh = false)

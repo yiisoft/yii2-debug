@@ -25,6 +25,8 @@ use yii\web\ForbiddenHttpException;
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
+    const DEFAULT_IDE_TRACELINE = '<a href="ide://open?url=file://{file}&line={line}">{text}</a>';
+
     /**
      * @var array the list of IPs that are allowed to access this module.
      * Each array element represents a single IP filter which can be either an IP address
@@ -91,6 +93,23 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * You may want to enable the debug logs if you want to investigate how the debug module itself works.
      */
     public $enableDebugLogs = false;
+    /**
+     * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace line string.
+     * The placeholders are {file}, {line} and {text} and the string should be as follows:
+     *
+     * `File: {file} - Line: {line} - Text: {text}`
+     *
+     * The signature of the anonymous function should be as follows:
+     *
+     * ```php
+     * function($trace, $panel) {
+     *     // compute line string
+     *     return $line;
+     * }
+     * ```
+     * @since 2.0.7
+     */
+    public $traceLine = self::DEFAULT_IDE_TRACELINE;
 
     /**
      * @var string Yii logo URL
@@ -243,7 +262,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * Gets the Toolbars html
+     * Gets toolbar HTML
      * @since 2.0.7
      */
     public function getToolbarHtml()
@@ -276,7 +295,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * Checks if current user is allowed to access the module
-     * @return boolean if access is granted
+     * @return bool if access is granted
      */
     protected function checkAccess()
     {
