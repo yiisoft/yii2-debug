@@ -43,19 +43,13 @@
   cursor: pointer;
 }
 .debug-timeline-panel .category span {
-  color: #7d7d7d;
+  color: #7d7d7d;;
 }
 .debug-timeline-panel .right > .category {
   right: 100%;
 }
 .debug-timeline-panel .left > .category {
   left: 100%;
-}
-.debug-timeline-panel .inset > .category {
-  color: white;
-}
-.debug-timeline-panel .inset > .category span {
-  color: #f3f3f3;
 }
 .debug-timeline-panel .ruler {
   position: absolute;
