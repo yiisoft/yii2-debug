@@ -5,56 +5,51 @@
  * @license http://www.yiiframework.com/license/
  */
 
-
-/**
- * toDo desc
- * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
- * @since 2.0.8
- */
-
 namespace yii\debug\models;
-
 
 use yii\base\Model;
 use yii\log\Logger;
 
+/**
+ * Router model
+ *
+ * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
+ * @since 2.0.8
+ */
 class Router extends Model
 {
-
     /**
-     * @var []
+     * @var array logged messages.
      */
     public $messages;
-
     /**
-     * @var string|null
+     * @var string|null info message.
      */
     public $message;
-
     /**
-     * ```php
-     * [
+     * @var array logged rules.
+     *```php
+     *[
      *  [
      *      'rule' => (string),
-     *      'match' => (bool),
-     * ]
-     * ]
-     *
+     *      'match' => (bool)
+     *  ]
+     *]
      * ```
-     * @var array
      */
     public $logs = [];
-
     /**
-     * @var int
+     * @var int count, before match.
      */
-    public $metric = 0;
-
+    public $count = 0;
     /**
      * @var bool
      */
     public $hasMatch = false;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
@@ -66,7 +61,7 @@ class Router extends Model
                 $this->message = $message[0];
             } elseif (isset($message[0]['rule']) && isset($message[0]['match'])) {
                 $this->logs[] = $message[0];
-                ++$this->metric;
+                ++$this->count;
                 if ($message[0]['match']) {
                     $this->hasMatch = true;
                 }
