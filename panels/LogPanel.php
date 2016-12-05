@@ -63,8 +63,12 @@ class LogPanel extends Panel
     public function save()
     {
         $target = $this->module->logTarget;
-        $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE,[],['yii\web\UrlManager::parseRequest']);
-        foreach($messages as &$message) {
+        $except = [];
+        if (isset($this->module->panels['router'])) {
+            $except = $this->module->panels['router']->getCategories();
+        }
+        $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
+        foreach ($messages as &$message) {
             // exceptions may not be serializable if in the call stack somewhere is a Closure
             if ($message[0] instanceof \Throwable || $message[0] instanceof \Exception) {
                 $message[0] = (string) $message[0];

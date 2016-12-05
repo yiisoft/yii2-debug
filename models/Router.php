@@ -21,7 +21,7 @@ class Router extends Model
     /**
      * @var array logged messages.
      */
-    public $messages;
+    public $messages = [];
     /**
      * @var string|null info message.
      */
@@ -32,7 +32,8 @@ class Router extends Model
      *[
      *  [
      *      'rule' => (string),
-     *      'match' => (bool)
+     *      'match' => (bool),
+     *      'parent'=> parent class (string)
      *  ]
      *]
      * ```
@@ -56,15 +57,23 @@ class Router extends Model
         if (empty($this->messages)) {
             return;
         }
+        $last = null;
         foreach ($this->messages as $message) {
             if ($message[1] === Logger::LEVEL_TRACE && is_string($message[0])) {
                 $this->message = $message[0];
-            } elseif (isset($message[0]['rule']) && isset($message[0]['match'])) {
+            } elseif (
+                isset($message[0]['rule'])
+                && isset($message[0]['match'])
+            ) {
+                if (!empty($last['parent']) && $last['parent'] == $message[0]['rule']) {
+                    continue;
+                }
                 $this->logs[] = $message[0];
                 ++$this->count;
                 if ($message[0]['match']) {
                     $this->hasMatch = true;
                 }
+                $last = $message[0];
             }
         }
     }

@@ -18,6 +18,35 @@ use yii\log\Logger;
  */
 class RouterPanel extends Panel
 {
+    /**
+     * @var array
+     */
+    private $_categories = [
+        'yii\web\UrlManager::parseRequest',
+        'yii\web\UrlRule::parseRequest',
+        'yii\web\CompositeUrlRule::parseRequest',
+        'yii\rest\UrlRule::parseRequest'
+    ];
+
+    /**
+     * @param string|array $values
+     */
+    public function setCategories($values)
+    {
+        if (!is_array($values)) {
+            $values = [$values];
+        }
+        $this->_categories = array_merge($this->_categories, $values);
+    }
+
+    /**
+     * Listens categories of the messages.
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->_categories;
+    }
 
     /**
      * @inheritdoc
@@ -42,7 +71,7 @@ class RouterPanel extends Panel
     {
         $target = $this->module->logTarget;
         return [
-            'messages' => $target->filterMessages($target->messages, Logger::LEVEL_TRACE, ['yii\web\UrlManager::parseRequest', 'yii\web\UrlRule::parseRequest'])
+            'messages' => $target->filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories)
         ];
     }
 

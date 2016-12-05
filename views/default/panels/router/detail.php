@@ -3,7 +3,7 @@
 
 use \yii\helpers\Html;
 
-echo '<h1>Routing<small>' . Yii::t('yii', '{n, plural, =0{} =1{ - Tested {n} rule} other{ - Tested {n} rules}} {m, plural, =0{} other{before match}}', ['n' => $model->count, 'm' => (int)$model->hasMatch]) . '</small></h1>';
+echo '<h1>Routing<small>' . Yii::$app->i18n->format('{n, plural, =0{} =1{ - Tested {n} rule} other{ - Tested {n} rules}} {m, plural, =0{} other{before match}}', ['n' => $model->count, 'm' => (int)$model->hasMatch], 'en-US') . '</small></h1>';
 ?>
 <?php if ($model->message !== null): ?>
     <div class="alert alert-info">
@@ -16,6 +16,7 @@ echo '<h1>Routing<small>' . Yii::t('yii', '{n, plural, =0{} =1{ - Tested {n} rul
         <tr>
             <th>#</th>
             <th>Rule</th>
+            <th>Parent</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@ echo '<h1>Routing<small>' . Yii::t('yii', '{n, plural, =0{} =1{ - Tested {n} rul
             <tr<?= $log['match'] ? ' class="success"' : '' ?>>
                 <td><?= $i + 1; ?></td>
                 <td><?= Html::encode($log['rule']); ?></td>
+                <td><?= Html::encode($log['parent']); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
