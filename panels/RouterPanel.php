@@ -42,7 +42,7 @@ class RouterPanel extends Panel
     {
         $target = $this->module->logTarget;
         return [
-            'messages' => $target->filterMessages($target->messages, Logger::LEVEL_PROFILE | Logger::LEVEL_TRACE, ['yii\web\UrlManager::parseRequest', 'yii\web\UrlRule::parseRequest'])
+            'messages' => $target->filterMessages($target->messages, Logger::LEVEL_TRACE, ['yii\web\UrlManager::parseRequest', 'yii\web\UrlRule::parseRequest'])
         ];
     }
 
