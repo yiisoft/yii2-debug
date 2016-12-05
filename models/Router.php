@@ -54,9 +54,6 @@ class Router extends Model
     public function init()
     {
         parent::init();
-        if (empty($this->messages)) {
-            return;
-        }
         $last = null;
         foreach ($this->messages as $message) {
             if ($message[1] === Logger::LEVEL_TRACE && is_string($message[0])) {
