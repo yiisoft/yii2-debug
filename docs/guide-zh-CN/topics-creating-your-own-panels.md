@@ -50,7 +50,7 @@ class ViewsPanel extends Panel
     {
         $url = $this->getUrl();
         $count = count($this->data);
-        return "<div class=\"yii-debug-toolbar-block\"><a href=\"$url\">Views <span class=\"label\">$count</span></a></div>";
+        return "<div class=\"yii-debug-toolbar__block\"><a href=\"$url\">Views <span class=\"yii-debug-toolbar__label yii-debug-toolbar__label_info\">$count</span></a></div>";
     }
 
     /**
