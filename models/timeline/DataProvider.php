@@ -5,20 +5,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\debug\components;
+namespace yii\debug\models\timeline;
 
 use yii\data\ArrayDataProvider;
 use yii\debug\panels\TimelinePanel;
+use yii\helpers\VarDumper;
 
 /**
- * TimelineDataProvider implements a data provider based on a data array.
+ * DataProvider implements a data provider based on a data array.
  *
  * @property array $rulers This property is read-only.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
- * @since 2.0.7
+ * @since 2.0.8
  */
-class TimelineDataProvider extends ArrayDataProvider
+class DataProvider extends ArrayDataProvider
 {
     /**
      * @var TimelinePanel
@@ -27,7 +28,7 @@ class TimelineDataProvider extends ArrayDataProvider
 
 
     /**
-     * TimelineDataProvider constructor.
+     * DataProvider constructor.
      * @param TimelinePanel $panel
      * @param array $config
      */

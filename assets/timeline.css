@@ -176,6 +176,35 @@
 .debug-timeline-panel__search input#timeline-category {
   min-width: 185px;
 }
+.debug-timeline-panel__memory{
+  position: relative;
+  height: 28px;
+  border-bottom: 1px solid #ddd;
+}
+.debug-timeline-panel__memory .range attr {
+  font-size: 10px;
+  line-height: 10px;
+  position: absolute;
+}
+.debug-timeline-panel__memory .range .min {
+  bottom: -4px;
+  left: -25px;
+}
+.debug-timeline-panel__memory .range .min:before {
+  content: '';
+  height: 1px;
+  width: 4px;
+  background-color: #ddd;
+  position: absolute;
+  bottom: 3px;
+  right: -5px;
+}
+.debug-timeline-panel__memory .range .max {
+  top: -10px;
+  right: 0px;
+}
+
+
 @media (max-width:767px) {
   .debug-timeline-panel .ruler:nth-child(2n) b{
     display: none;

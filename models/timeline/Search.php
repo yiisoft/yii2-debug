@@ -5,20 +5,20 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\debug\models\search;
+namespace yii\debug\models\timeline;
 
 use yii\debug\components\search\Filter;
 use yii\debug\components\search\matchers\GreaterThanOrEqual;
-use yii\debug\components\TimelineDataProvider;
+use yii\debug\models\search\Base;
 use yii\debug\panels\TimelinePanel;
 
 /**
  * Search model for timeline data.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
- * @since 2.0.7
+ * @since 2.0.8
  */
-class Timeline extends Base
+class Search extends Base
 {
     /**
      * @var string attribute search
@@ -55,12 +55,12 @@ class Timeline extends Base
      *
      * @param array $params $params an array of parameter values indexed by parameter names
      * @param TimeLinePanel $panel
-     * @return TimelineDataProvider
+     * @return DataProvider
      */
     public function search($params, $panel)
     {
         $models = $panel->models;
-        $dataProvider = new TimelineDataProvider($panel, [
+        $dataProvider = new DataProvider($panel, [
             'allModels' => $models,
             'sort' => [
                 'attributes' => ['category', 'timestamp']

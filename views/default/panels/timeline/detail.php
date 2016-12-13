@@ -1,7 +1,7 @@
 <?php
 /* @var $panel yii\debug\panels\TimelinePanel */
-/* @var $searchModel \yii\debug\models\search\Timeline */
-/* @var $dataProvider \yii\debug\components\TimelineDataProvider */
+/* @var $searchModel \yii\debug\models\timeline\Search */
+/* @var $dataProvider \yii\debug\models\timeline\DataProvider */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -41,6 +41,15 @@ TimelineAsset::register($this);
             </button>
         </div>
     </div>
+    <?php if(!Yii::$app->request->isPjax && $panel->svg->hasPoints()):?>
+    <div class="debug-timeline-panel__memory">
+        <div class="range">
+            <attr class="min" title="mb">0.00</attr>
+            <attr class="max"><?=sprintf('%.2f MB', $panel->memory / 1048576)?> </attr>
+        </div>
+        <?=$panel->svg;?>
+    </div>
+    <?php endif;?>
     <div class="debug-timeline-panel__items">
         <?php Pjax::begin(['formSelector' => '#debug-timeline-search', 'linkSelector' => false, 'options' => ['id' => 'debug-timeline-panel__pjax']]); ?>
         <?php if (($models = $dataProvider->models) === []): ?>

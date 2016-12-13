@@ -9,7 +9,8 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\debug\Panel;
-use yii\debug\models\search\Timeline;
+use yii\debug\models\timeline\Search;
+use yii\debug\models\timeline\Svg;
 use yii\base\InvalidConfigException;
 
 /**
@@ -18,6 +19,8 @@ use yii\base\InvalidConfigException;
  * @property array $colors color indicators
  * @property float $duration request duration, milliseconds. This property is read-only.
  * @property float $start timestamp of starting request. This property is read-only.
+ * @property int $memory Used memory in request. This property is read-only.
+ * @property Svg $svg. This property is read-only.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.7
@@ -51,6 +54,14 @@ class TimelinePanel extends Panel
      * @var float Request duration, milliseconds
      */
     private $_duration;
+    /**
+     * @var Svg|null
+     */
+    private $_svg;
+    /**
+     * @var int Used memory in request
+     */
+    private $_memory;
 
 
     /**
@@ -77,7 +88,7 @@ class TimelinePanel extends Panel
      */
     public function getDetail()
     {
-        $searchModel = new Timeline();
+        $searchModel = new Search();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this);
 
         return Yii::$app->view->render('panels/timeline/detail', [
@@ -111,6 +122,11 @@ class TimelinePanel extends Panel
         if ($this->_duration <= 0) {
             throw new \RuntimeException('Duration cannot be zero');
         }
+
+        if (!isset($data['memory']) || empty($data['memory'])) {
+            throw new \RuntimeException('Unable to determine used memory in request');
+        }
+        $this->_memory = $data['memory'];
     }
 
     /**
@@ -121,6 +137,7 @@ class TimelinePanel extends Panel
         return [
             'start' => YII_BEGIN_TIME,
             'end' => microtime(true),
+            'memory' => memory_get_peak_usage(),
         ];
     }
 
@@ -161,6 +178,28 @@ class TimelinePanel extends Panel
     public function getDuration()
     {
         return $this->_duration;
+    }
+
+    /**
+     * Used memory in request
+     * @return int
+     * @since 2.0.8
+     */
+    public function getMemory()
+    {
+        return $this->_memory;
+    }
+
+    /**
+     * @return Svg
+     * @since 2.0.8
+     */
+    public function getSvg()
+    {
+        if ($this->_svg === null) {
+            $this->_svg = new Svg($this);
+        }
+        return $this->_svg;
     }
 
     /**
