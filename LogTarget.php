@@ -152,7 +152,7 @@ class LogTarget extends Target
             'ajax' => (int) $request->getIsAjax(),
             'method' => $request->getMethod(),
             'ip' => $request->getUserIP(),
-            'time' => time(),
+            'time' => $this->getRequestTime(),
             'statusCode' => $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
         ];
@@ -162,6 +162,21 @@ class LogTarget extends Target
         }
 
         return $summary;
+    }
+
+    /**
+     * Returns request time in seconds
+     *
+     * @return float request time in seconds
+     * @since 2.0.8
+     */
+    protected function getRequestTime()
+    {
+        if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
+            return $_SERVER['REQUEST_TIME_FLOAT'];
+        }
+
+        return microtime(true);
     }
 
     /**
