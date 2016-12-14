@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.8 under development
 -----------------------
 
-- no changes in this release.
+- Bug #176: Use module's real ID instead of hardcoded "debug" (samdark)
 
 
 2.0.7 under development
