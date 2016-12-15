@@ -2,6 +2,7 @@
 
 namespace yiiunit\extensions\debug;
 
+use Yii;
 use yii\debug\LogTarget;
 use yii\debug\Module;
 
@@ -9,10 +10,14 @@ class LogTargetTest extends TestCase
 {
     public function testGetRequestTime()
     {
-        $logTarget = new LogTarget(new Module('debug'));
-        $actual = $this->invoke($logTarget, 'getRequestTime');
-        $this->assertTrue(is_float($actual));
-        $this->assertSame($_SERVER['REQUEST_TIME_FLOAT'],$actual);
+        Yii::$app->getRequest()->setUrl('dummy');
+
+        $module = new Module('debug');
+        $module->bootstrap(Yii::$app);
+
+        $logTarget = new LogTarget($module);
+        $data = $this->invoke($logTarget, 'collectSummary');
+        self::assertSame($_SERVER['REQUEST_TIME_FLOAT'], $data['time']);
     }
 
     protected function setUp()
