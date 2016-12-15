@@ -12,7 +12,7 @@ class LogTargetTest extends TestCase
         $logTarget = new LogTarget(new Module('debug'));
         $actual = $this->invoke($logTarget, 'getRequestTime');
         $this->assertTrue(is_float($actual));
-        $this->assertSame($actual, $_SERVER['REQUEST_TIME_FLOAT']);
+        $this->assertSame($_SERVER['REQUEST_TIME_FLOAT'],$actual);
     }
 
     protected function setUp()
