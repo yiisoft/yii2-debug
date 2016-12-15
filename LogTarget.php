@@ -167,7 +167,8 @@ class LogTarget extends Target
     /**
      * Returns request time in seconds
      *
-     * @return float request time in seconds
+     * @return float request time in seconds.
+     * @see http://php.net/manual/en/function.microtime.php#example-2550
      * @since 2.0.8
      */
     protected function getRequestTime()
@@ -175,7 +176,6 @@ class LogTarget extends Target
         if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
             return $_SERVER['REQUEST_TIME_FLOAT'];
         }
-
         return microtime(true);
     }
 
