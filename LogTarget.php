@@ -165,21 +165,6 @@ class LogTarget extends Target
     }
 
     /**
-     * Returns request time in seconds
-     *
-     * @return float request time in seconds.
-     * @see http://php.net/manual/en/function.microtime.php#example-2550
-     * @since 2.0.8
-     */
-    protected function getRequestTime()
-    {
-        if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
-            return $_SERVER['REQUEST_TIME_FLOAT'];
-        }
-        return microtime(true);
-    }
-
-    /**
      * Returns total sql count executed in current request. If database panel is not configured
      * returns 0.
      * @return int
