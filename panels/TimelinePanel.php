@@ -19,7 +19,7 @@ use yii\base\InvalidConfigException;
  * @property array $colors color indicators
  * @property float $duration request duration, milliseconds. This property is read-only.
  * @property float $start timestamp of starting request. This property is read-only.
- * @property int $memory Used memory in request. This property is read-only.
+ * @property int $memory Memory peak in request. This property is read-only.
  * @property Svg $svg. This property is read-only.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
@@ -42,10 +42,8 @@ class TimelinePanel extends Panel
      * @var array Color indicators svg graph.
      */
     private $_gradient = [
-        10 => '#d6e685',
-        33 => '#8cc665',
-        66 => '#44a340',
-        90 => '#1e6823'
+        10 => '#FAD961',
+        90 => '#F76B1C'
     ];
     /**
      * @var array log messages extracted to array as models, to use with data provider.
@@ -172,8 +170,8 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * Sets color indicators.
-     * key: percentages of time request, value: hex color ToDo
+     * Sets color indicators svg graph,
+     * key: percentages of memory used, value: hex color
      * @param array $colors
      */
     public function setGradient($colors)
@@ -183,8 +181,8 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * Color indicators item profile,
-     * key: percentages of time request, value: hex color ToDo
+     * Color indicators svg graph,
+     * key: percentages of memory used, value: hex color
      * @return array
      */
     public function getGradient()
@@ -211,7 +209,7 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * Used memory in request
+     * Memory peak in request, bytes. (obtained by memory_get_peak_usage(true))
      * @return int
      * @since 2.0.8
      */

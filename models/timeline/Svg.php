@@ -23,7 +23,7 @@ class Svg extends Model
     /**
      * @var int Max coordinate
      */
-    public $y = 28;
+    public $y = 40;
     /**
      * @var array
      */
@@ -31,9 +31,7 @@ class Svg extends Model
     /**
      * @var string
      */
-    public $template = '<svg width="{x}%" height="{y}" viewBox="0 0 {x} {y}" preserveAspectRatio="none">
-            <path  x="0" y="0" transform="scale(1 1)" d="{points}" fill="#9DE281" stroke-width="1" stroke="#FDD000"  />
-        </svg>';
+    public $template = '<svg width="{x}%" height="{y}" viewBox="0 0 {x} {y}" preserveAspectRatio="none"><defs>{linearGradient}</defs><path  x="0" y="0" transform="scale(1 1)" d="{d}" style="stroke: none; fill: url(#gradient);"/></svg>';
     /**
      * [
      *  [x, y]
@@ -74,36 +72,9 @@ class Svg extends Model
         return strtr($this->template, [
             '{x}' => $this->x,
             '{y}' => $this->y,
-            '{points}' => $this->getPoints(),
+            '{d}' => $this->d(),
             '{linearGradient}' => $this->linearGradient()
         ]);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPoints()
-    {
-        $str = '';
-        foreach ($this->points as $point) {
-            $str .= ' L ' . $point[0] . ',' . $point[1];
-        }
-        if ($str === '') {
-            return null;
-        }
-        return "M 0,0{$str} L 100,{$point[1]} z";
-    }
-
-    /**
-     * @return string
-     */
-    protected function linearGradient()
-    {
-        $gradient = '<linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">';
-        foreach ($this->panel->getGradient() as $percent => $color) {
-            $gradient .='<stop offset="'.$percent.'%" stop-color="'.$color.'"></stop>';
-        }
-        return $gradient.'</linearGradient>';
     }
 
     /**
@@ -129,9 +100,34 @@ class Svg extends Model
                 break;
             }
             $x = ($message[3] * 1000 - $this->panel->start) / $xOne;
-            $y = $message[5] / $yOne * $yMax;
+            $y = $this->y - ($message[5] / $yOne * $yMax);
             $this->points->insert([$x, $y]);
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function d()
+    {
+        $str = "M0,{$this->y}";
+        foreach ($this->points as $point) {
+            $str .= ' L' . $point[0] . ',' . $point[1];
+        }
+        $str .= ' L' . ($this->x - 0.001) . ',' . $point[1]; //
+        return "{$str} L{$this->x},{$this->y} z";
+    }
+
+    /**
+     * @return string
+     */
+    protected function linearGradient()
+    {
+        $gradient = '<linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">';
+        foreach ($this->panel->getGradient() as $percent => $color) {
+            $gradient .= '<stop offset="' . $percent . '%" stop-color="' . $color . '"></stop>';
+        }
+        return $gradient . '</linearGradient>';
     }
 
 }

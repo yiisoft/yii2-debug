@@ -44,8 +44,8 @@ TimelineAsset::register($this);
     <?php if(!Yii::$app->request->isPjax && $panel->svg->hasPoints()):?>
     <div class="debug-timeline-panel__memory">
         <div class="range">
-            <attr class="min" title="mb">0.00</attr>
-            <attr class="max"><?=sprintf('%.2f MB', $panel->memory / 1048576)?> </attr>
+            <attr title="mb" style="bottom: 50%;"><span><?= sprintf('%.2f MB', $panel->memory / 2 / 1048576) ?></span></attr>
+            <attr title="mb" style="bottom: 100%;"><span><?= sprintf('%.2f MB', $panel->memory / 1048576) ?></span></attr>
         </div>
         <?=$panel->svg;?>
     </div>
@@ -58,11 +58,22 @@ TimelineAsset::register($this);
             </div>
         <?php else: ?>
             <?php foreach ($models as $key => $model): ?>
+                <?php
+                $memory = null;
+                if (!empty($model['memory'])) {
+                    $memory = ' / <span class="memory">' . sprintf('%.2f', $model['memory'] / 1048576) . '';
+                    if($model['memoryDiff'] !== 0){
+                        $memory .= '<sup><i>' . (($model['memoryDiff'] > 0) ? '+' : '-') . '</i>' . sprintf('%.3f', $model['memoryDiff'] / 1048576).'</sup>';
+                        $memory .= '  MB</span>';
+                    }
+                }
+                ?>
                 <div class="debug-timeline-panel__item">
                     <?php if ($model['child']): ?>
                         <span class="ruler ruler-start" style="height: <?= $model['child'] * 21; ?>px; margin-left: <?= $model['css']['left']; ?>%"></span>
                     <?php endif; ?>
-                    <?= Html::tag('a', '<span class="category">' . Html::encode($model['category']) . ' <span>' . sprintf('%.1f ms', $model['duration']) . '</span></span>', ['tabindex'=>$key+1,'title' => $model['info'], 'class' => $dataProvider->getCssClass($model), 'style' => 'background-color: '.$model['css']['color'].';margin-left:' . $model['css']['left'] . '%;width:' . $model['css']['width'] . '%']); ?>
+                    <?= Html::tag('a', '
+                        <span class="category">' . Html::encode($model['category']) . ' <span>' . sprintf('%.1f ms', $model['duration']) . '</span>'.$memory.'</span>', ['tabindex'=>$key+1,'title' => $model['info'], 'class' => $dataProvider->getCssClass($model), 'style' => 'background-color: '.$model['css']['color'].';margin-left:' . $model['css']['left'] . '%;width:' . $model['css']['width'] . '%']); ?>
                     <?php if ($model['child']): ?>
                         <span class="ruler ruler-end" style="height: <?= $model['child'] * 21; ?>px; margin-left: <?= $model['css']['left'] + $model['css']['width'] . '%'; ?>"></span>
                     <?php endif; ?>

@@ -43,7 +43,7 @@
   cursor: pointer;
 }
 .debug-timeline-panel .category span {
-  color: #7d7d7d;;
+  color: #7d7d7d;
 }
 .debug-timeline-panel .right > .category {
   right: 100%;
@@ -178,30 +178,23 @@
 }
 .debug-timeline-panel__memory{
   position: relative;
-  height: 28px;
+  height: 40px;
+  margin-top: 16px;
   border-bottom: 1px solid #ddd;
 }
 .debug-timeline-panel__memory .range attr {
   font-size: 10px;
   line-height: 10px;
   position: absolute;
+  border-bottom: 1px dashed #ddd;
+  width: 100%;
+  z-index: 4;
 }
-.debug-timeline-panel__memory .range .min {
-  bottom: -4px;
-  left: -25px;
-}
-.debug-timeline-panel__memory .range .min:before {
-  content: '';
-  height: 1px;
-  width: 4px;
-  background-color: #ddd;
+.debug-timeline-panel__memory .range attr span{
   position: absolute;
-  bottom: 3px;
-  right: -5px;
-}
-.debug-timeline-panel__memory .range .max {
-  top: -10px;
-  right: 0px;
+  margin-top: -5px;
+  padding: 0 3px 0 6px;
+  background-color: #fff;
 }
 
 
