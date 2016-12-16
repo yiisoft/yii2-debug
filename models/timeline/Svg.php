@@ -32,20 +32,7 @@ class Svg extends Model
      * @var string
      */
     public $template = '<svg width="{x}%" height="{y}" viewBox="0 0 {x} {y}" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">
-                    <stop offset="10%" stop-color="#d6e685"></stop>
-                    <stop offset="33%" stop-color="#8cc665"></stop>
-                    <stop offset="66%" stop-color="#44a340"></stop>
-                    <stop offset="90%" stop-color="#1e6823"></stop>
-                </linearGradient>
-                <mask id="sparkline" x="0" y="0" width="{x}%" height="{y}">
-                    <polyline transform="translate(0, {y}) scale(1,-1)" points="{points}" fill="transparent" stroke="#8cc665" stroke-width="2"/>
-                </mask>
-            </defs>
-            <g transform="translate(0, 2.0)">
-                <rect x="0" y="0" width="{x}%" height="{y}" style="stroke: none; fill: url(#gradient); mask: url(#sparkline)"></rect>
-            </g>
+            <path  x="0" y="0" transform="scale(1 1)" d="{points}" fill="#9DE281" stroke-width="1" stroke="#FDD000"  />
         </svg>';
     /**
      * [
@@ -87,7 +74,8 @@ class Svg extends Model
         return strtr($this->template, [
             '{x}' => $this->x,
             '{y}' => $this->y,
-            '{points}' => $this->getPoints()
+            '{points}' => $this->getPoints(),
+            '{linearGradient}' => $this->linearGradient()
         ]);
     }
 
@@ -98,12 +86,24 @@ class Svg extends Model
     {
         $str = '';
         foreach ($this->points as $point) {
-            $str .= ' ' . $point[0] . ',' . $point[1];
+            $str .= ' L ' . $point[0] . ',' . $point[1];
         }
         if ($str === '') {
             return null;
         }
-        return "0,0{$str} 100,{$point[1]}";
+        return "M 0,0{$str} L 100,{$point[1]} z";
+    }
+
+    /**
+     * @return string
+     */
+    protected function linearGradient()
+    {
+        $gradient = '<linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">';
+        foreach ($this->panel->getGradient() as $percent => $color) {
+            $gradient .='<stop offset="'.$percent.'%" stop-color="'.$color.'"></stop>';
+        }
+        return $gradient.'</linearGradient>';
     }
 
     /**

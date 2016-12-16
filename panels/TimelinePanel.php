@@ -39,6 +39,15 @@ class TimelinePanel extends Panel
         1 => '#8cc665'
     ];
     /**
+     * @var array Color indicators svg graph.
+     */
+    private $_gradient = [
+        10 => '#d6e685',
+        33 => '#8cc665',
+        66 => '#44a340',
+        90 => '#1e6823'
+    ];
+    /**
      * @var array log messages extracted to array as models, to use with data provider.
      */
     private $_models;
@@ -160,6 +169,27 @@ class TimelinePanel extends Panel
     public function getColors()
     {
         return $this->_colors;
+    }
+
+    /**
+     * Sets color indicators.
+     * key: percentages of time request, value: hex color ToDo
+     * @param array $colors
+     */
+    public function setGradient($colors)
+    {
+        asort($colors);
+        $this->_gradient = $colors;
+    }
+
+    /**
+     * Color indicators item profile,
+     * key: percentages of time request, value: hex color ToDo
+     * @return array
+     */
+    public function getGradient()
+    {
+        return $this->_gradient;
     }
 
     /**
