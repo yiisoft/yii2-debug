@@ -7,52 +7,66 @@
 
 namespace yii\debug\models\timeline;
 
-use yii\base\Model;
+
+use yii\base\Object;
 use yii\debug\panels\TimelinePanel;
 
 /**
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.8
  */
-class Svg extends Model
+class Svg extends Object
 {
     /**
-     * @var int Max coordinate
+     * @var int Max X coordinate
      */
-    public $x = 100;
+    public $x = 1920;
     /**
-     * @var int Max coordinate
+     * @var int Max Y coordinate
      */
     public $y = 40;
     /**
-     * @var array
+     * @var string Stroke color
+     */
+    public $stroke = '#1e6823';
+    /**
+     * @var array Listen messages panels
      */
     public $listenMessages = ['log', 'profiling'];
     /**
-     * @var string
+     * @var array Color indicators svg graph.
      */
-    public $template = '<svg width="{x}%" height="{y}" viewBox="0 0 {x} {y}" preserveAspectRatio="none"><defs>{linearGradient}</defs><path  x="0" y="0" transform="scale(1 1)" d="{d}" style="stroke: none; fill: url(#gradient);"/></svg>';
+    public $gradient = [
+        10 => '#d6e685',
+        60 => '#8cc665',
+        90 => '#44a340',
+        100 => '#1e6823'
+    ];
     /**
+     * @var string Svg template
+     */
+    public $template = '<svg width="{x}" height="{y}" viewBox="0 0 {x} {y}" preserveAspectRatio="none"><defs>{linearGradient}</defs><g><polygon points="{polygon}" fill="url(#gradient)"/><polyline points="{polyline}" fill="none" stroke="{stroke}" stroke-width="1"/></g></svg>';
+    /**
+     * ```php
      * [
      *  [x, y]
      * ]
-     * @var \SplMinHeap
+     * ```
+     * @var array Each point is define by a X and a Y coordinate.
      */
-    protected $points;
+    protected $points = [];
     /**
      * @var TimelinePanel
      */
     protected $panel;
-
 
     /**
      * @inheritdoc
      */
     public function __construct(TimelinePanel $panel, $config = [])
     {
-        $this->panel = $panel;
-        $this->points = new \SplMinHeap();
         parent::__construct($config);
+        $this->panel = $panel;
         foreach ($this->listenMessages as $panel) {
             if (isset($this->panel->module->panels[$panel]->data['messages'])) {
                 $this->addPoints($this->panel->module->panels[$panel]->data['messages']);
@@ -65,57 +79,86 @@ class Svg extends Model
      */
     public function __toString()
     {
-        if ($this->points->count() === 0) {
+        if ($this->points === []) {
             return '';
         }
 
         return strtr($this->template, [
             '{x}' => $this->x,
             '{y}' => $this->y,
-            '{d}' => $this->d(),
+            '{stroke}' => $this->stroke,
+            '{polygon}' => $this->polygon(),
+            '{polyline}' => $this->polyline(),
             '{linearGradient}' => $this->linearGradient()
         ]);
     }
 
     /**
-     * @return bool
+     * @return bool Has points
      */
     public function hasPoints()
     {
-        return ($this->points->count() !== 0);
+        return ($this->points !== []);
     }
 
     /**
-     * @param $messages
+     * @param array $messages log messages. See [[Logger::messages]] for the structure
+     * @return int added points
      */
     protected function addPoints($messages)
     {
-        $yOne = $this->panel->memory / 100; // - 1 percent |rename
-        $yMax = $this->y / 100; // 1 percent coordinate |rename
+        $hasPoints = $this->hasPoints();
 
-        $xOne = $this->panel->duration / $this->x;
+        $memory = $this->panel->memory / 100; // 1 percent memory
+        $yOne = $this->y / 100; // 1 percent Y coordinate
+        $xOne = $this->panel->duration / $this->x; // 1 percent X coordinate
 
+        $i = 0;
         foreach ($messages as $message) {
-            if (!isset($message[5])) {
+            if (empty($message[5])) {
                 break;
             }
-            $x = ($message[3] * 1000 - $this->panel->start) / $xOne;
-            $y = $this->y - ($message[5] / $yOne * $yMax);
-            $this->points->insert([$x, $y]);
+            ++$i;
+            $this->points[] = [
+                ($message[3] * 1000 - $this->panel->start) / $xOne,
+                $this->y - ($message[5] / $memory * $yOne),
+            ];
         }
+
+        if ($hasPoints && $i) {
+            usort($this->points, function ($a, $b) {
+                return ($a[0] < $b[0]) ? -1 : 1;
+            });
+        }
+        return $i;
     }
 
     /**
-     * @return string|null
+     * @return string Points attribute for polygon path
      */
-    protected function d()
+    protected function polygon()
     {
-        $str = "M0,{$this->y}";
+        $str = "0,$this->y ";
         foreach ($this->points as $point) {
-            $str .= ' L' . $point[0] . ',' . $point[1];
+            list($x, $y) = $point;
+            $str .= "{$x},{$y} ";
         }
-        $str .= ' L' . ($this->x - 0.001) . ',' . $point[1]; //
-        return "{$str} L{$this->x},{$this->y} z";
+        $str .= $this->x - 0.001 . ",{$y} {$this->x},{$this->y}";
+        return $str;
+    }
+
+    /**
+     * @return string Points attribute for polyline path
+     */
+    protected function polyline()
+    {
+        $str = "0,$this->y ";
+        foreach ($this->points as $point) {
+            list($x, $y) = $point;
+            $str .= "{$x},{$y} ";
+        }
+        $str .= "$this->x,{$y}";
+        return $str;
     }
 
     /**
@@ -124,7 +167,7 @@ class Svg extends Model
     protected function linearGradient()
     {
         $gradient = '<linearGradient id="gradient" x1="0" x2="0" y1="1" y2="0">';
-        foreach ($this->panel->getGradient() as $percent => $color) {
+        foreach ($this->gradient as $percent => $color) {
             $gradient .= '<stop offset="' . $percent . '%" stop-color="' . $color . '"></stop>';
         }
         return $gradient . '</linearGradient>';

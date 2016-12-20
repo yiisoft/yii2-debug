@@ -39,13 +39,6 @@ class TimelinePanel extends Panel
         1 => '#8cc665'
     ];
     /**
-     * @var array Color indicators svg graph.
-     */
-    private $_gradient = [
-        10 => '#FAD961',
-        90 => '#F76B1C'
-    ];
-    /**
      * @var array log messages extracted to array as models, to use with data provider.
      */
     private $_models;
@@ -65,6 +58,12 @@ class TimelinePanel extends Panel
      * @var Svg|null
      */
     private $_svg;
+    /**
+     * @var array
+     */
+    private $_svgOptions = [
+        'class' => 'yii\debug\models\timeline\Svg'
+    ];
     /**
      * @var int Used memory in request
      */
@@ -170,24 +169,22 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * Sets color indicators svg graph,
-     * key: percentages of memory used, value: hex color
-     * @param array $colors
+     * @param array $options
      */
-    public function setGradient($colors)
+    public function setSvgOptions($options)
     {
-        asort($colors);
-        $this->_gradient = $colors;
+        if ($this->_svg !== null) {
+            $this->_svg = null;
+        }
+        $this->_svgOptions = array_merge($this->_svgOptions, $options);
     }
 
     /**
-     * Color indicators svg graph,
-     * key: percentages of memory used, value: hex color
      * @return array
      */
-    public function getGradient()
+    public function getSvgOptions()
     {
-        return $this->_gradient;
+        return $this->_svgOptions;
     }
 
     /**
@@ -225,7 +222,7 @@ class TimelinePanel extends Panel
     public function getSvg()
     {
         if ($this->_svg === null) {
-            $this->_svg = new Svg($this);
+            $this->_svg = Yii::createObject($this->_svgOptions,[$this]);
         }
         return $this->_svg;
     }

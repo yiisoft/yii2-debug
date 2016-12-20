@@ -145,4 +145,24 @@ class DataProvider extends ArrayDataProvider
         return $data;
     }
 
+    /**
+     * ```php
+     * [
+     *   0 => string, memory usage (MB)
+     *   1 => float, Y position (percent)
+     * ]
+     * @param array $model
+     * @return array|null
+     */
+    public function getMemory($model)
+    {
+        if (empty($model['memory'])) {
+            return null;
+        }
+        return [
+            sprintf('%.2f MB', $model['memory'] / 1048576),
+            $model['memory'] / ($this->panel->memory / 100)
+        ];
+    }
+
 }
