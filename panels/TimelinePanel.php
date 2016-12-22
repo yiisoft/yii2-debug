@@ -206,7 +206,7 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * Memory peak in request, bytes. (obtained by memory_get_peak_usage(true))
+     * Memory peak in request, bytes. (obtained by memory_get_peak_usage())
      * @return int
      * @since 2.0.8
      */

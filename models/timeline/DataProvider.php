@@ -9,7 +9,6 @@ namespace yii\debug\models\timeline;
 
 use yii\data\ArrayDataProvider;
 use yii\debug\panels\TimelinePanel;
-use yii\helpers\VarDumper;
 
 /**
  * DataProvider implements a data provider based on a data array.
