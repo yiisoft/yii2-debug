@@ -5,7 +5,7 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Enh #179: Increased request time logging accuracy and precision (samdark)
-
+- Enh #181: Added user panel (pana1990)
 
 2.0.7 under development
 -----------------------
