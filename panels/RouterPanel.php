@@ -71,7 +71,7 @@ class RouterPanel extends Panel
     {
         $target = $this->module->logTarget;
         return [
-            'messages' => $target->filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories)
+            'messages' => $target::filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories)
         ];
     }
 

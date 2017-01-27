@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Enh #179: Increased request time logging accuracy and precision (samdark)
+- Enh #174: Added routing panel (bashkarev, samdark)
 
 
 2.0.7 under development

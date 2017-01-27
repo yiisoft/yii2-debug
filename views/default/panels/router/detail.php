@@ -2,9 +2,18 @@
 /* @var $model  yii\debug\models\Router */
 
 use \yii\helpers\Html;
-
-echo '<h1>Routing<small>' . Yii::$app->i18n->format('{n, plural, =0{} =1{ - Tested {n} rule} other{ - Tested {n} rules}} {m, plural, =0{} other{before match}}', ['n' => $model->count, 'm' => (int)$model->hasMatch], 'en-US') . '</small></h1>';
 ?>
+
+<h1>
+    Router
+    <small>
+        <?= Yii::$app->i18n->format('{rulesTested, plural, =0{} =1{tested # rule} other{tested # rules}} {hasMatch, plural, =0{} other{before match}}', [
+            'rulesTested' => $model->count,
+            'hasMatch' => (int)$model->hasMatch,
+        ], 'en_US'); ?>
+    </small>
+</h1>
+
 <?php if ($model->message !== null): ?>
     <div class="alert alert-info">
         <?= Html::encode($model->message); ?>

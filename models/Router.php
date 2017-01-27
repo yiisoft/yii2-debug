@@ -58,11 +58,8 @@ class Router extends Model
         foreach ($this->messages as $message) {
             if ($message[1] === Logger::LEVEL_TRACE && is_string($message[0])) {
                 $this->message = $message[0];
-            } elseif (
-                isset($message[0]['rule'])
-                && isset($message[0]['match'])
-            ) {
-                if (!empty($last['parent']) && $last['parent'] == $message[0]['rule']) {
+            } elseif (isset($message[0]['rule'], $message[0]['match'])) {
+                if (!empty($last['parent']) && $last['parent'] === $message[0]['rule']) {
                     continue;
                 }
                 $this->logs[] = $message[0];
