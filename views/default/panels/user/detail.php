@@ -3,7 +3,6 @@
 /* @var $panel yii\debug\panels\UserPanel */
 
 use yii\grid\GridView;
-use yii\helpers\VarDumper;
 use yii\widgets\DetailView;
 
 ?>
