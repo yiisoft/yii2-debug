@@ -7,8 +7,8 @@ Yii Framework 2 debug extension Change Log
 - Enh #34: Added memory graph to timeline panel (bashkarev)
 - Enh #179: Increased request time logging accuracy and precision (samdark)
 - Enh #174: Added routing panel (bashkarev, samdark)
+- Enh #181: Added user panel (pana1990)
 - Enh #185: Added meta tag to prevent indexing of debug by search engines in case it's exposed (aminkt, samdark)
-
 
 2.0.7 under development
 -----------------------
