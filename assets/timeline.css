@@ -43,7 +43,11 @@
   cursor: pointer;
 }
 .debug-timeline-panel .category span {
-  color: #7d7d7d;;
+  color: #7d7d7d;
+}
+.debug-timeline-panel .category span.memory[title] {
+  cursor: help;
+  border-bottom: 1px dotted #777;
 }
 .debug-timeline-panel .right > .category {
   right: 100%;
@@ -176,6 +180,26 @@
 .debug-timeline-panel__search input#timeline-category {
   min-width: 185px;
 }
+.debug-timeline-panel__memory {
+  position: relative;
+  margin-top: 18px;
+  box-sizing: content-box;
+  border-bottom: 1px solid #ddd;
+}
+.debug-timeline-panel__memory svg{
+  width: 100%;
+}
+.debug-timeline-panel__memory .scale {
+  font-size: 12px;
+  line-height: 16px;
+  position: absolute;
+  border-bottom: 1px dashed #000;
+  width: 100%;
+  padding-left: 6px;
+  transition: bottom 0.2s ease;
+}
+
+
 @media (max-width:767px) {
   .debug-timeline-panel .ruler:nth-child(2n) b{
     display: none;
