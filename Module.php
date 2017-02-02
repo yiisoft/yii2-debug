@@ -329,7 +329,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
-            'user' => ['class' => 'yii\debug\panels\UserPanel']
+            'user' => ['class' => 'yii\debug\panels\UserPanel'],
             'router' => ['class' => 'yii\debug\panels\RouterPanel']
         ];
     }
