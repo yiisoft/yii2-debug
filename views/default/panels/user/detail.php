@@ -17,34 +17,38 @@ use yii\widgets\DetailView;
         'attributes' => $panel->data['attributes']
     ]);
 
-    echo "<h2>Roles</h2>";
 
-    echo GridView::widget([
-        'dataProvider' => $panel->data['rolesProvider'],
-        'columns' => [
-            'name',
-            'description',
-            'ruleName',
-            'data',
-            'createdAt:datetime',
-            'updatedAt:datetime'
-        ]
-    ]);
+    if ($panel->data['rolesProvider']) {
+        echo "<h2>Roles</h2>";
 
+        echo GridView::widget([
+            'dataProvider' => $panel->data['rolesProvider'],
+            'columns' => [
+                'name',
+                'description',
+                'ruleName',
+                'data',
+                'createdAt:datetime',
+                'updatedAt:datetime'
+            ]
+        ]);
+    }
 
-    echo "<h2>Permissions</h2>";
+    if ($panel->data['permissionsProvider']) {
+        echo "<h2>Permissions</h2>";
 
-    echo GridView::widget([
-        'dataProvider' => $panel->data['permissionsProvider'],
-        'columns' => [
-            'name',
-            'description',
-            'ruleName',
-            'data',
-            'createdAt:datetime',
-            'updatedAt:datetime'
-        ]
-    ]);
+        echo GridView::widget([
+            'dataProvider' => $panel->data['permissionsProvider'],
+            'columns' => [
+                'name',
+                'description',
+                'ruleName',
+                'data',
+                'createdAt:datetime',
+                'updatedAt:datetime'
+            ]
+        ]);
+    }
 
 } ?>
 

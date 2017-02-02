@@ -54,14 +54,21 @@ class UserPanel extends Panel
             return ;
         }
 
-        $rolesProvider = new ArrayDataProvider([
-            'allModels' => Yii::$app->getAuthManager()->getRolesByUser(Yii::$app->getUser()->id),
-        ]);
+        $authManager = Yii::$app->getAuthManager();
 
-        $permissionsProvider = new ArrayDataProvider([
-            'allModels' => Yii::$app->getAuthManager()->getPermissionsByUser(Yii::$app->getUser()->id),
+        $rolesProvider = null;
+        $permissionsProvider = null;
 
-        ]);
+        if ($authManager) {
+            $rolesProvider = new ArrayDataProvider([
+                'allModels' => $authManager->getRolesByUser(Yii::$app->getUser()->id),
+            ]);
+
+            $permissionsProvider = new ArrayDataProvider([
+                'allModels' => $authManager->getPermissionsByUser(Yii::$app->getUser()->id),
+
+            ]);
+        }
 
         return [
             'identity' => $data,
