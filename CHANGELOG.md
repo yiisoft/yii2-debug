@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.8 under development
 -----------------------
 
+- Bug #176: Use module's real ID instead of hardcoded "debug" (samdark)
 - Enh #34: Added memory graph to timeline panel (bashkarev)
 - Enh #179: Increased request time logging accuracy and precision (samdark)
 - Enh #174: Added routing panel (bashkarev, samdark)
