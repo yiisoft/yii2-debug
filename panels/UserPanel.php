@@ -73,7 +73,6 @@ class UserPanel extends Panel
         return [
             'identity' => $data,
             'attributes' => array_keys(get_object_vars($data)),
-            'cookie' => Yii::$app->getRequest()->getCookies()->get(Yii::$app->user->identityCookie['name']),
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
