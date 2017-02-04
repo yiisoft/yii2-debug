@@ -19,7 +19,7 @@ use yii\widgets\DetailView;
 
 
     if ($panel->data['rolesProvider']) {
-        echo "<h2>Roles</h2>";
+        echo '<h2>Roles</h2>';
 
         echo GridView::widget([
             'dataProvider' => $panel->data['rolesProvider'],
@@ -35,7 +35,7 @@ use yii\widgets\DetailView;
     }
 
     if ($panel->data['permissionsProvider']) {
-        echo "<h2>Permissions</h2>";
+        echo '<h2>Permissions</h2>';
 
         echo GridView::widget([
             'dataProvider' => $panel->data['permissionsProvider'],
