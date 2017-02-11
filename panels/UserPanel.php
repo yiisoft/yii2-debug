@@ -10,6 +10,7 @@ namespace yii\debug\panels;
 use Yii;
 use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
+use yii\db\ActiveRecord;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -70,9 +71,14 @@ class UserPanel extends Panel
             ]);
         }
 
+        $attributes = array_keys(get_object_vars($data));
+        if ($data instanceof ActiveRecord) {
+            $attributes = array_keys($data->getAttributes());
+        }
+        
         return [
             'identity' => $data,
-            'attributes' => array_keys(get_object_vars($data)),
+            'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
