@@ -11,7 +11,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #181: Added user panel (pana1990)
 - Enh #185: Added meta tag to prevent indexing of debug by search engines in case it's exposed (aminkt, samdark)
 
-2.0.7 under development
+2.0.7 November 24, 2016
 -----------------------
 
 - Bug #61: Fixed toolbar not to be cached by using renderDynamic (dynasource)
