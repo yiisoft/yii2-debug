@@ -93,6 +93,28 @@ if (isset($this->context->module->panels['db']) && isset($this->context->module-
                 'format' => 'html',
             ],
             [
+                'attribute' => 'totalTime',
+                'label' => 'Total processing time',
+                'value' => function($data) {
+                        /**
+                         * @var \yii\debug\panels\ProfilingPanel $profilingPanel
+                         */
+                        $profilingPanel = $this->context->module->panels['profile'];
+                        return number_format($profilingPanel->data['time'] * 1000) . ' ms';
+                },
+            ],
+            [
+                'attribute' => 'totalMemory',
+                'label' => 'Total memory',
+                'value' => function($data) {
+                        /**
+                         * @var \yii\debug\panels\ProfilingPanel $profilingPanel
+                         */
+                        $profilingPanel = $this->context->module->panels['profile'];
+                        return sprintf('%.1f MB', $this->data['memory'] / 1048576);
+                },
+            ],
+            [
                 'attribute' => 'mailCount',
                 'visible' => isset($this->context->module->panels['mail']),
             ],
