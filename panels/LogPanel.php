@@ -9,6 +9,7 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\debug\Panel;
+use yii\helpers\VarDumper;
 use yii\log\Logger;
 use yii\debug\models\search\Log;
 
@@ -69,9 +70,13 @@ class LogPanel extends Panel
         }
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
         foreach ($messages as &$message) {
-            // exceptions may not be serializable if in the call stack somewhere is a Closure
-            if ($message[0] instanceof \Throwable || $message[0] instanceof \Exception) {
-                $message[0] = (string) $message[0];
+            if (!is_string($message[0])) {
+                // exceptions may not be serializable if in the call stack somewhere is a Closure
+                if ($message[0] instanceof \Throwable || $message[0] instanceof \Exception) {
+                    $message[0] = (string) $message[0];
+                } else {
+                    $message[0] = VarDumper::export($message[0]);
+                }
             }
         }
         return ['messages' => $messages];
