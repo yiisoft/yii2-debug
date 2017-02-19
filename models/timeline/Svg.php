@@ -7,11 +7,12 @@
 
 namespace yii\debug\models\timeline;
 
-
 use yii\base\Object;
 use yii\debug\panels\TimelinePanel;
 
 /**
+ * Svg is used to draw a graph using SVG
+ *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.8
  */
@@ -46,6 +47,7 @@ class Svg extends Object
      * @var string Svg template
      */
     public $template = '<svg width="{x}" height="{y}" viewBox="0 0 {x} {y}" preserveAspectRatio="none"><defs>{linearGradient}</defs><g><polygon points="{polygon}" fill="url(#gradient)"/><polyline points="{polyline}" fill="none" stroke="{stroke}" stroke-width="1"/></g></svg>';
+
     /**
      * ```php
      * [
@@ -59,6 +61,7 @@ class Svg extends Object
      * @var TimelinePanel
      */
     protected $panel;
+
 
     /**
      * @inheritdoc

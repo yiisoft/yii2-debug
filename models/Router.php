@@ -28,14 +28,14 @@ class Router extends Model
     public $message;
     /**
      * @var array logged rules.
-     *```php
-     *[
+     * ```php
+     * [
      *  [
      *      'rule' => (string),
      *      'match' => (bool),
      *      'parent'=> parent class (string)
      *  ]
-     *]
+     * ]
      * ```
      */
     public $logs = [];
@@ -47,6 +47,7 @@ class Router extends Model
      * @var bool
      */
     public $hasMatch = false;
+
 
     /**
      * @inheritdoc

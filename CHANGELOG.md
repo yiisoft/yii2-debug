@@ -4,14 +4,15 @@ Yii Framework 2 debug extension Change Log
 2.0.8 under development
 -----------------------
 
+- Bug #82: Fixed debug crashing when there's a closure in log message (samdark)
 - Bug #176: Use module's real ID instead of hardcoded "debug" (samdark)
 - Enh #34: Added memory graph to timeline panel (bashkarev)
-- Enh #179: Increased request time logging accuracy and precision (samdark)
 - Enh #174: Added routing panel (bashkarev, samdark)
+- Enh #179: Increased request time logging accuracy and precision (samdark)
 - Enh #181: Added user panel (pana1990)
 - Enh #185: Added meta tag to prevent indexing of debug by search engines in case it's exposed (aminkt, samdark)
 - Enh #196: Added language information to config panel (cebe)
-- Bug #82: Fixed debug crashing when there's a closure in log message (samdark)
+
 
 2.0.7 November 24, 2016
 -----------------------

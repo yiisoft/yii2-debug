@@ -19,8 +19,7 @@ use yii\base\InvalidConfigException;
  * @property array $colors color indicators
  * @property float $duration request duration, milliseconds. This property is read-only.
  * @property float $start timestamp of starting request. This property is read-only.
- * @property int $memory Memory peak in request. This property is read-only.
- * @property Svg $svg. This property is read-only.
+ * @property array $svgOptions
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.7
