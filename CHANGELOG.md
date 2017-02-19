@@ -1,7 +1,13 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.0.8 under development
+2.0.9 under development
+-----------------------
+
+- no changes in this release.
+
+
+2.0.8 February 19, 2017
 -----------------------
 
 - Bug #82: Fixed debug crashing when there's a closure in log message (samdark)
