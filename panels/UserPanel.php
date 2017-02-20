@@ -74,14 +74,16 @@ class UserPanel extends Panel
         $attributes = array_keys(get_object_vars($data));
         if ($data instanceof ActiveRecord) {
             $attributes = array_keys($data->getAttributes());
-        }
 
-        foreach ($attributes as $attribute) {
-                $dataIdentity[$attribute] =  $data->getAttribute($attribute);
+            $attributeValues = [];
+            foreach ($attributes as $attribute) {
+                $attributeValues[$attribute] =  $data->getAttribute($attribute);
+            }
+            $data = $attributeValues;
         }
 
         return [
-            'identity' => $dataIdentity,
+            'identity' => $data,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
