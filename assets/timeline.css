@@ -199,6 +199,12 @@
   transition: bottom 0.2s ease;
 }
 
+.debug-timeline-panel.affix .debug-timeline-panel__memory {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+}
+
 
 @media (max-width:767px) {
   .debug-timeline-panel .ruler:nth-child(2n) b{
