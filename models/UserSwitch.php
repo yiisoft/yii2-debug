@@ -1,9 +1,9 @@
 <?php
 /**
- * Author: Semen Dubina
- * Date: 21.02.17
- * Time: 3:27
- */
+  * @link http://www.yiiframework.com/
+  * @copyright Copyright (c) 2008 Yii Software LLC
+  * @license http://www.yiiframework.com/license/
+  */
 
 namespace yii\debug\models;
 
@@ -11,7 +11,9 @@ namespace yii\debug\models;
 use yii\base\Model;
 use yii\web\IdentityInterface;
 /**
- * User model
+ * UserSwitch is a model used to temporary logging in another user
+ *
+ * @author Semen Dubina <yii2debug@sam002.net>
  *
  * @property IdentityInterface $user
  * @property IdentityInterface $mainUser
@@ -69,14 +71,13 @@ class UserSwitch extends Model
     public function getMainUser()
     {
         $session = \Yii::$app->session;
-        if (empty($this->mainUser)) {
 
+        if (empty($this->mainUser)) {
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
             } else {
                 $mainUserId = \Yii::$app->user->identity->getId();
             }
-
             $this->mainUser = \Yii::$app->user->identity->findIdentity($mainUserId);
         }
 
@@ -90,9 +91,9 @@ class UserSwitch extends Model
     public function setUser(IdentityInterface $user)
     {
 
-        //First - check
+        // Check if user is currently active one
         $isCurrent = ($user === $this->getMainUser());
-        //Second - switch identity
+        // Switch identity
         \Yii::$app->user->switchIdentity($user);
         if (!$isCurrent) {
             \Yii::$app->session->set('main_user', $this->getMainUser()->getId());
@@ -108,5 +109,4 @@ class UserSwitch extends Model
     {
         $this->setUser($this->getMainUser());
     }
-
 }
