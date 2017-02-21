@@ -89,13 +89,12 @@ class UserPanel extends Panel
         if ($identity instanceof Model) {
             $attributes = [];
 
-            foreach ($identityData as $attribute => &$value) {
+            foreach (array_keys($identityData) as $attribute) {
                 $attributes[] = [
                     'attribute' => $attribute,
                     'label' => $identity->getAttributeLabel($attribute)
                 ];
             }
-            unset($value);
         } else {
             // Let the DetailView widget figure the labels out
             $attributes = null;
