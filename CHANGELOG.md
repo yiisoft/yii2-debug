@@ -1,7 +1,7 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.0.9 under development
+2.0.9 February 21, 2017
 -----------------------
 
 - Bug #195: Fixed failure when user model has timestamp behavior attached (sam002)
