@@ -84,13 +84,13 @@ class UserPanel extends Panel
             ]);
         }
 
-        $data = $this->identityData($identity);
+        $identityData = $this->identityData($identity);
 
         // If the identity is a model, let it specify the attribute labels
         if ($identity instanceof Model) {
             $attributes = [];
 
-            foreach ($data as $attribute => &$value) {
+            foreach ($identityData as $attribute => &$value) {
                 $attributes[] = [
                     'attribute' => $attribute,
                     'label' => $identity->getAttributeLabel($attribute)
@@ -103,7 +103,7 @@ class UserPanel extends Panel
         }
 
         return [
-            'identity' => $data,
+            'identity' => $identityData,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
