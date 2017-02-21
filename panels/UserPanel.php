@@ -11,6 +11,7 @@ use Yii;
 use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
 /**
