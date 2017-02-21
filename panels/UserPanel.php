@@ -84,7 +84,23 @@ class UserPanel extends Panel
             ]);
         }
 
-        list($data, $attributes) = $this->identityData($identity);
+        $data = $this->identityData($identity);
+
+        // If the identity is a model, let it specify the attribute labels
+        if ($identity instanceof Model) {
+            $attributes = [];
+
+            foreach ($data as $attribute => &$value) {
+                $attributes[] = [
+                    'attribute' => $attribute,
+                    'label' => $identity->getAttributeLabel($attribute)
+                ];
+            }
+            unset($value);
+        } else {
+            // Let the DetailView widget figure the labels out
+            $attributes = null;
+        }
 
         return [
             'identity' => $data,
@@ -110,34 +126,17 @@ class UserPanel extends Panel
     }
 
     /**
-     * Returns an array containing information about the logged-in user.
-     *
-     * The array should contain two items:
-     * - the model that should be set on [[\yii\widgets\DetailView::model]]
-     * - the array that should be set on [[\yii\widgets\DetailView::attributes]]
+     * Returns the array/object that should be set on [[\yii\widgets\DetailView::model]]
      *
      * @param IdentityInterface $identity
-     * @return array
+     * @return array|object
      */
     protected function identityData(IdentityInterface $identity)
     {
         if ($identity instanceof Model) {
-            $data = $identity->getAttributes();
-            $attributes = [];
-
-            foreach ($data as $attribute => &$value) {
-                $attributes[] = [
-                    'attribute' => $attribute,
-                    'label' => $identity->getAttributeLabel($attribute)
-                ];
-            }
-            unset($value);
-        } else {
-            $data = get_object_vars($identity);
-            // Let the DetailView widget figure the labels out
-            $attributes = null;
+            return $identity->getAttributes();
         }
 
-        return [$data, $attributes];
+        return get_object_vars($identity);
     }
 }
