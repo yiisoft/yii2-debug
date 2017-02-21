@@ -8,11 +8,12 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\base\Model;
 use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+use yii\web\IdentityInterface;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -83,15 +84,10 @@ class UserPanel extends Panel
             ]);
         }
 
-        $attributes = $this->attributes($identity);
-
-        if ($identity instanceof ActiveRecord) {
-            $identity = $identity->getAttributes();
-            $attributes = array_keys($identity);
-        }
+        list($data, $attributes) = $this->identityData($identity);
 
         return [
-            'identity' => $identity,
+            'identity' => $data,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
@@ -111,5 +107,37 @@ class UserPanel extends Panel
         }
 
         return VarDumper::export($data);
+    }
+
+    /**
+     * Returns an array containing information about the logged-in user.
+     *
+     * The array should contain two items:
+     * - the model that should be set on [[\yii\widgets\DetailView::model]]
+     * - the array that should be set on [[\yii\widgets\DetailView::attributes]]
+     *
+     * @param IdentityInterface $identity
+     * @return array
+     */
+    protected function identityData(IdentityInterface $identity)
+    {
+        if ($identity instanceof Model) {
+            $data = $identity->getAttributes();
+            $attributes = [];
+
+            foreach ($data as $attribute => &$value) {
+                $attributes[] = [
+                    'attribute' => $attribute,
+                    'label' => $identity->getAttributeLabel($attribute)
+                ];
+            }
+            unset($value);
+        } else {
+            $data = get_object_vars($identity);
+            // Let the DetailView widget figure the labels out
+            $attributes = null;
+        }
+
+        return [$data, $attributes];
     }
 }
