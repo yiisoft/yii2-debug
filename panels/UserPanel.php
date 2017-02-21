@@ -11,6 +11,7 @@ use Yii;
 use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
 use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -61,13 +62,23 @@ class UserPanel extends Panel
         $permissionsProvider = null;
 
         if ($authManager) {
+            $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
+            foreach ($roles as &$role) {
+                $role['data'] = $this->dataToString($role['data']);
+            }
+            unset($role);
             $rolesProvider = new ArrayDataProvider([
-                'allModels' => $authManager->getRolesByUser(Yii::$app->getUser()->id),
+                'allModels' => $roles,
             ]);
 
-            $permissionsProvider = new ArrayDataProvider([
-                'allModels' => $authManager->getPermissionsByUser(Yii::$app->getUser()->id),
+            $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
+            foreach ($permissions as &$permission) {
+                $permission['data'] = $this->dataToString($permission['data']);
+            }
+            unset($permission);
 
+            $permissionsProvider = new ArrayDataProvider([
+                'allModels' => $permissions,
             ]);
         }
 
@@ -88,5 +99,20 @@ class UserPanel extends Panel
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
+    }
+
+    /**
+     * Converts mixed data to string
+     *
+     * @param mixed $data
+     * @return string
+     */
+    protected function dataToString($data)
+    {
+        if (is_string($data)) {
+            return $data;
+        }
+
+        return VarDumper::export($data);
     }
 }

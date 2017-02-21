@@ -6,6 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #195: Fixed failure when user model has timestamp behavior attached (sam002)
 - Bug #199: Do not use user panel in case component isn't properly defined in the application (samdark)
+- Bug #200: Fixed error in user panel when RBAC role or permission contains non-string data (samdark)
 
 
 2.0.8 February 19, 2017
