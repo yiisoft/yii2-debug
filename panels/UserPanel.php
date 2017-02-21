@@ -125,10 +125,10 @@ class UserPanel extends Panel
     }
 
     /**
-     * Returns the array/object that should be set on [[\yii\widgets\DetailView::model]]
+     * Returns the array that should be set on [[\yii\widgets\DetailView::model]]
      *
      * @param mixed $identity
-     * @return array|object
+     * @return array
      */
     protected function identityData($identity)
     {
