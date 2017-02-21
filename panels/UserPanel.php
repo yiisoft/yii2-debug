@@ -51,9 +51,9 @@ class UserPanel extends Panel
      */
     public function save()
     {
-        $data = Yii::$app->user->identity;
+        $identity = Yii::$app->user->identity;
 
-        if (!isset($data)) {
+        if (!isset($identity)) {
             return ;
         }
 
@@ -83,14 +83,15 @@ class UserPanel extends Panel
             ]);
         }
 
-        $attributes = array_keys(get_object_vars($data));
-        if ($data instanceof ActiveRecord) {
-            $data = $data->getAttributes();
-            $attributes = array_keys($data);
+        $attributes = $this->attributes($identity);
+
+        if ($identity instanceof ActiveRecord) {
+            $identity = $identity->getAttributes();
+            $attributes = array_keys($identity);
         }
 
         return [
-            'identity' => $data,
+            'identity' => $identity,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
