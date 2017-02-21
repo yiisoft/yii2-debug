@@ -90,9 +90,11 @@ class UserSwitch extends Model
     public function setUser(IdentityInterface $user)
     {
 
+        //First - check
+        $isCurrent = ($user === $this->getMainUser());
+        //Second - switch identity
         \Yii::$app->user->switchIdentity($user);
-
-        if ($user !== $this->getMainUser()) {
+        if (!$isCurrent) {
             \Yii::$app->session->set('main_user', $this->getMainUser()->getId());
         } else {
             \Yii::$app->session->remove('main_user');
