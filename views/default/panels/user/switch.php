@@ -1,14 +1,16 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
-use yii\widgets\ActiveForm;
 
+$switch = new \yii\debug\models\UserSwitch();
 ?>
-<?php
-$formSet = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/set-identity'])]);
+<div class="row">
+<div class="col-lg-4">
+<?php $formSet = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/set-identity']), 'layout' => 'horizontal']);
 echo $formSet->field(
-    Yii::$app->user->identity,
-    'id', [])->textInput(['id' => 'user_id', 'name' => 'user_id'])
+    $switch,
+    'user', [ 'options' => ['class' => 'pull-left']])->textInput(['id' => 'user_id', 'name' => 'user_id'])
     ->label('Switch User');
 echo Html::submitButton('Switch', ['class' => 'btn btn-primary']);
 ActiveForm::end();
@@ -36,10 +38,16 @@ $script = <<< JS
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
+?>
 
+</div>
+<div class="col-lg-4">
+<?php
 if (Yii::$app->session->has('main_user')) {
     $formReset = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/reset-identity'])]);
-    echo Html::submitButton('Reset', ['class' => 'btn btn-success']);
+    echo Html::submitButton('Reset to Main User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">'.
+    $switch->getMainUser()->getId().
+    '</span>', ['class' => 'btn btn-success']);
     ActiveForm::end();
 
 $scriptReset = <<< JS
@@ -53,4 +61,7 @@ JS;
 
 }
 ?>
+</div>
+</div>
+<hr/>
 
