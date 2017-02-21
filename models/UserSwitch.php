@@ -91,7 +91,7 @@ class UserSwitch extends Model
     {
 
         //First - check
-        $isCurrent = ($user === $this->getMainUser());
+        $isCurrent = ($user->getId() === $this->getMainUser()->getId());
         //Second - switch identity
         \Yii::$app->user->switchIdentity($user);
         if (!$isCurrent) {
