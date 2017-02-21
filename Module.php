@@ -320,7 +320,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function corePanels()
     {
-        return [
+        $panels = [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
             'request' => ['class' => 'yii\debug\panels\RequestPanel'],
             'log' => ['class' => 'yii\debug\panels\LogPanel'],
@@ -329,9 +329,15 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
-            'user' => ['class' => 'yii\debug\panels\UserPanel'],
-            'router' => ['class' => 'yii\debug\panels\RouterPanel']
         ];
+
+        $components = Yii::$app->getComponents();
+        if (isset($components['user']['identityClass'])) {
+            $panels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
+        }
+        $panels['router'] = ['class' => 'yii\debug\panels\RouterPanel'];
+
+        return $panels;
     }
 
     /**

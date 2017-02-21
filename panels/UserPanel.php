@@ -11,6 +11,8 @@ use Yii;
 use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -61,30 +63,57 @@ class UserPanel extends Panel
         $permissionsProvider = null;
 
         if ($authManager) {
+            $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
+            foreach ($roles as &$role) {
+                $role['data'] = $this->dataToString($role['data']);
+            }
+            unset($role);
             $rolesProvider = new ArrayDataProvider([
-                'allModels' => $authManager->getRolesByUser(Yii::$app->getUser()->id),
+                'allModels' => $roles,
             ]);
 
-            $permissionsProvider = new ArrayDataProvider([
-                'allModels' => $authManager->getPermissionsByUser(Yii::$app->getUser()->id),
+            $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
+            foreach ($permissions as &$permission) {
+                $permission['data'] = $this->dataToString($permission['data']);
+            }
+            unset($permission);
 
+            $permissionsProvider = new ArrayDataProvider([
+                'allModels' => $permissions,
             ]);
         }
 
         $attributes = array_keys(get_object_vars($data));
         if ($data instanceof ActiveRecord) {
             $attributes = array_keys($data->getAttributes());
-        }
 
-        foreach ($attributes as $attribute) {
-                $dataIdentity[$attribute] =  $data->getAttribute($attribute);
+            $attributeValues = [];
+            foreach ($attributes as $attribute) {
+                $attributeValues[$attribute] =  $data->getAttribute($attribute);
+            }
+            $data = $attributeValues;
         }
 
         return [
-            'identity' => $dataIdentity,
+            'identity' => $data,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
+    }
+
+    /**
+     * Converts mixed data to string
+     *
+     * @param mixed $data
+     * @return string
+     */
+    protected function dataToString($data)
+    {
+        if (is_string($data)) {
+            return $data;
+        }
+
+        return VarDumper::export($data);
     }
 }
