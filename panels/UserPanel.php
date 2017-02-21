@@ -13,7 +13,6 @@ use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
-use yii\web\IdentityInterface;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -128,10 +127,10 @@ class UserPanel extends Panel
     /**
      * Returns the array/object that should be set on [[\yii\widgets\DetailView::model]]
      *
-     * @param IdentityInterface $identity
+     * @param mixed $identity
      * @return array|object
      */
-    protected function identityData(IdentityInterface $identity)
+    protected function identityData($identity)
     {
         if ($identity instanceof Model) {
             return $identity->getAttributes();
