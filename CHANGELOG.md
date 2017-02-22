@@ -4,7 +4,8 @@ Yii Framework 2 debug extension Change Log
 2.0.10 under development
 ------------------------
 
-- no changes in this release.
+- Enh #208: All identity models get converted to arrays when saving User panel data now, not just ActiveRecord models (brandonkelly)
+- Enh #208: Identity model packaging for User panels is now done in an `identityData()` method, making it easier for subclasses to customize (brandonkelly) 
 
 
 2.0.9 February 21, 2017
