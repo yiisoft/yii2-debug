@@ -12,7 +12,12 @@ use yii\widgets\DetailView;
 
 <?php
 if (Yii::$app->user->identity) {
-    echo $this->render('switch');
+    echo $this->render(
+        'switch',
+        [
+            'panel' => $panel
+        ]
+    );
 }
 
 if (!Yii::$app->user->isGuest) {

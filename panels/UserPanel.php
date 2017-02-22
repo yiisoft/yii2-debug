@@ -9,10 +9,14 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\debug\controllers\UserController;
+use yii\debug\models\UserSwitch;
 use yii\debug\Panel;
 use yii\db\ActiveRecord;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+use yii\web\User;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -22,6 +26,39 @@ use yii\helpers\VarDumper;
  */
 class UserPanel extends Panel
 {
+
+    /**
+     * @var UserSwitch
+     */
+    public $userSwitch;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->userSwitch = new UserSwitch();
+
+        //clone for reuse form accessControl behavior
+        $mainUser = clone Yii::$app->user;
+        $mainUser->setIdentity($this->userSwitch->getMainUser());
+
+        //create and set access rule for main user
+        $allowedUserSwitch = $this->module->allowedUserSwitch;
+        $allowedUserSwitch['controllers'] = [$this->module->id . '/user'];
+        $this->module->attachBehavior(
+            'access',
+            [
+                'class' => AccessControl::className(),
+                'only' => ['user/*'],
+                'user' => $mainUser,
+                'rules' => [
+                    $allowedUserSwitch
+                ]
+            ]
+        );
+    }
+
     /**
      * @inheritdoc
      */

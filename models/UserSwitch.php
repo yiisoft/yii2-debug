@@ -69,7 +69,7 @@ class UserSwitch extends Model
     public function getMainUser()
     {
         $session = \Yii::$app->session;
-        if (empty($this->mainUser)) {
+        if (empty($this->mainUser) && !\Yii::$app->user->isGuest) {
 
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
@@ -107,6 +107,18 @@ class UserSwitch extends Model
     public function reset()
     {
         $this->setUser($this->getMainUser());
+    }
+
+    /**
+     * Check current user is main or not.
+     * @return bool
+     */
+    public function isMainUser()
+    {
+        if (\Yii::$app->user->isGuest) {
+            return true;
+        }
+        return (\Yii::$app->user->identity->getId() === $this->getMainUser()->getId());
     }
 
 }

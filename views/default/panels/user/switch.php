@@ -3,19 +3,36 @@
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 
-$switch = new \yii\debug\models\UserSwitch();
+/* @var $this \yii\web\View */
+/* @var $panel yii\debug\panels\UserPanel */
+
+//Check allow switch user
+$allowSwitchUser = false;
+
+//todo plz, rewrite check
+$userController = $panel->module->createController('user');
+if (isset($userController[0]) && $userController[0] instanceof \yii\debug\controllers\UserController) {
+    try {
+        $actionSetIdentity = $userController[0]->createAction('set-identity');
+        $allowSwitchUser = $panel->module->beforeAction($actionSetIdentity);
+    } catch (\yii\web\ForbiddenHttpException $e) {
+        $allowSwitchUser = false;
+    }
+}
+
+if ($allowSwitchUser) {
 ?>
 <div class="row">
-<div class="col-lg-4">
-<?php $formSet = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/set-identity']), 'layout' => 'horizontal']);
-echo $formSet->field(
-    $switch,
-    'user', [ 'options' => ['class' => 'pull-left']])->textInput(['id' => 'user_id', 'name' => 'user_id'])
-    ->label('Switch User');
-echo Html::submitButton('Switch', ['class' => 'btn btn-primary']);
-ActiveForm::end();
+    <div class="col-sm-6">
+        <?php $formSet = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/set-identity']), 'layout' => 'horizontal']);
+        echo $formSet->field(
+            $panel->userSwitch,
+            'user', ['options' => ['class' => 'pull-left']])->textInput(['id' => 'user_id', 'name' => 'user_id'])
+            ->label('Switch User');
+        echo Html::submitButton('Switch', ['class' => 'btn btn-primary']);
+        ActiveForm::end();
 
-$script = <<< JS
+        $script = <<< JS
     var sendSetIdentity = function(e) {
         var form = $(this);
         var formData = form.serialize();
@@ -37,31 +54,33 @@ $script = <<< JS
     });
 JS;
 
-$this->registerJs($script, yii\web\View::POS_READY);
-?>
+        $this->registerJs($script, yii\web\View::POS_READY);
+        ?>
 
-</div>
-<div class="col-lg-4">
-<?php
-if (Yii::$app->session->has('main_user')) {
-    $formReset = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/reset-identity'])]);
-    echo Html::submitButton('Reset to Main User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">'.
-    $switch->getMainUser()->getId().
-    '</span>', ['class' => 'btn btn-success']);
-    ActiveForm::end();
+    </div>
+    <div class="col-sm-6">
+        <?php
+        if (!$panel->userSwitch->isMainUser()) {
+            $formReset = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/reset-identity'])]);
+            echo Html::submitButton('Reset to Main User <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">' .
+                $panel->userSwitch->getMainUser()->getId() .
+                '</span>', ['class' => 'btn btn-success']);
+            ActiveForm::end();
 
-$scriptReset = <<< JS
+            $scriptReset = <<< JS
     $('#{$formReset->getId()}').on('beforeSubmit', sendSetIdentity)
     .on('submit', function(e){
         e.preventDefault();
     });
 JS;
 
-    $this->registerJs($scriptReset, yii\web\View::POS_READY);
+            $this->registerJs($scriptReset, yii\web\View::POS_READY);
 
-}
-?>
-</div>
+        }
+        ?>
+    </div>
 </div>
 <hr/>
 
+<?php
+}
