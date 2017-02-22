@@ -23,22 +23,20 @@ use yii\web\Response;
 class UserController extends Controller
 {
     /**
-     * @param \yii\base\Action $action
-     * @return bool
-     * @throws UserException
+     * @inheritdoc
      */
     public function beforeAction($action)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (!Yii::$app->session->hasSessionId) {
-            throw new BadRequestHttpException('Need start session');
+            throw new BadRequestHttpException('Need an active session');
         }
         return parent::beforeAction($action);
     }
 
     /**
      * Set new identity, switch user
-     * @return mixed|\yii\web\User
+     * @return \yii\web\User
      */
     public function actionSetIdentity()
     {
@@ -51,7 +49,7 @@ class UserController extends Controller
 
     /**
      * Reset identity, switch to main user
-     * @return mixed|\yii\web\User
+     * @return \yii\web\User
      */
     public function actionResetIdentity()
     {
