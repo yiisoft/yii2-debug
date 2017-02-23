@@ -331,8 +331,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
         ];
 
-        $components = Yii::$app->getComponents();
-        if (isset($components['user']['identityClass'])) {
+        if (Yii::$app->has('user') && Yii::$app->user->identityClass) {
             $panels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
         }
         $panels['router'] = ['class' => 'yii\debug\panels\RouterPanel'];
