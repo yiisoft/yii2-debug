@@ -55,29 +55,6 @@ You will see a debugger toolbar showing at the bottom of every page of your appl
 You can click on the toolbar to see more detailed debug information.
 
 
-### Switch Users
-
-You can switch users end reset to main if set access rule. By default deny for everyone.
-Settable: _allow, roles, ips, matchCallback, denyCallback_.
-For detail see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html)
-
-```php
-return [
-    'bootstrap' => ['debug'],
-    'modules' => [
-        'debug' => [
-            'class' => 'yii\debug\Module',
-            'allowedUserSwitch' => [
-                        'allow' => true,
-                        'roles' => ['developer'],
-                    ]
-        ],
-        // ...
-    ],
-    ...
-];
-```
-
 Open Files in IDE
 -----
 

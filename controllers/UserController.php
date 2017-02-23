@@ -43,7 +43,8 @@ class UserController extends Controller
         $user_id = Yii::$app->request->post('user_id');
 
         $userSwitch = new UserSwitch();
-        $userSwitch->setUser(\Yii::$app->user->identity->findIdentity($user_id));
+        $newIdentity = Yii::$app->user->identity->findIdentity($user_id);
+        $userSwitch->setUserByIdentity($newIdentity);
         return Yii::$app->user;
     }
 

@@ -10,23 +10,25 @@ namespace yii\debug\models;
 
 use yii\base\Model;
 use yii\web\IdentityInterface;
+use yii\web\User;
+
 /**
  * UserSwitch is a model used to temporary logging in another user
  *
  * @author Semen Dubina <yii2debug@sam002.net>
  *
- * @property IdentityInterface $user
- * @property IdentityInterface $mainUser
+ * @property User $user
+ * @property User $mainUser
  */
 class UserSwitch extends Model
 {
     /**
-     * @var IdentityInterface
+     * @var User
      */
     private $user;
 
     /**
-     * @var IdentityInterface
+     * @var User
      */
     private $mainUser;
 
@@ -54,31 +56,35 @@ class UserSwitch extends Model
 
     /**
      * Get current user
-     * @return null|IdentityInterface
+     * @return null|User
      */
     public function getUser()
     {
         if (empty($this->user)) {
-            $this->user = \Yii::$app->user->identity;
+            $this->user = \Yii::$app->user;
         }
         return $this->user;
     }
 
     /**
      * Get main user
-     * @return IdentityInterface
+     * @return User
      */
     public function getMainUser()
     {
-        $session = \Yii::$app->session;
+        $session = \Yii::$app->getSession();
 
-        if (empty($this->mainUser) && !\Yii::$app->user->isGuest) {
+        if (empty($this->mainUser) && !\Yii::$app->getUser()->isGuest) {
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
             } else {
-                $mainUserId = \Yii::$app->user->identity->getId();
+                $mainUserId = \Yii::$app->user->getId();
             }
-            $this->mainUser = \Yii::$app->user->identity->findIdentity($mainUserId);
+            $mainIdentity = \Yii::$app->user->identity->findIdentity($mainUserId);
+
+            $mainUser = clone \Yii::$app->user;
+            $mainUser->setIdentity($mainIdentity);
+            $this->mainUser = $mainUser;
         }
 
         return $this->mainUser;
@@ -86,20 +92,30 @@ class UserSwitch extends Model
 
     /**
      * Switch user
-     * @param IdentityInterface $user
+     * @param User $user
      */
-    public function setUser(IdentityInterface $user)
+    public function setUser(User $user)
     {
-
         // Check if user is currently active one
         $isCurrent = ($user->getId() === $this->getMainUser()->getId());
         // Switch identity
-        \Yii::$app->user->switchIdentity($user);
+        \Yii::$app->getUser()->switchIdentity($user->identity);
         if (!$isCurrent) {
-            \Yii::$app->session->set('main_user', $this->getMainUser()->getId());
+            \Yii::$app->getSession()->set('main_user', $this->getMainUser()->getId());
         } else {
-            \Yii::$app->session->remove('main_user');
+            \Yii::$app->getSession()->remove('main_user');
         }
+    }
+
+    /**
+     * Switch user by identity
+     * @param IdentityInterface $identity
+     */
+    public function setUserByIdentity(IdentityInterface $identity)
+    {
+        $user = clone \Yii::$app->user;
+        $user->setIdentity($identity);
+        $this->setUser($user);
     }
 
     /**
@@ -119,6 +135,6 @@ class UserSwitch extends Model
         if (\Yii::$app->user->isGuest) {
             return true;
         }
-        return (\Yii::$app->user->identity->getId() === $this->getMainUser()->getId());
+        return (\Yii::$app->user->getId() === $this->getMainUser()->getId());
     }
 }

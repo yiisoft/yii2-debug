@@ -8,12 +8,14 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\base\Controller;
 use yii\data\ArrayDataProvider;
 use yii\debug\controllers\UserController;
 use yii\debug\models\UserSwitch;
 use yii\debug\Panel;
 use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
+use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use yii\web\User;
@@ -28,7 +30,20 @@ class UserPanel extends Panel
 {
 
     /**
-     * @var UserSwitch
+     * @var array the rule which defines who allowed to switch user identity.
+     * Access Control Filter single rule. Ignore: actions, controllers, verbs.
+     * Settable: allow, roles, ips, matchCallback, denyCallback.
+     * By default deny for everyone. Recommendation: can allow for administrator
+     * or developer (if implement) role: ['allow' => true, 'roles' => ['admin']]
+     * @see http://www.yiiframework.com/doc-2.0/guide-security-authorization.html
+     * @since 2.0.10
+     */
+    public $ruleUserSwitch = [
+        'allow' => false
+    ];
+
+    /**
+     * @var UserSwitch object of switching users
      */
     public $userSwitch;
 
@@ -37,26 +52,60 @@ class UserPanel extends Panel
      */
     public function init()
     {
-        $this->userSwitch = new UserSwitch();
+        if (!\Yii::$app->getUser()->isGuest) {
+            $this->userSwitch = new UserSwitch();
+            $this->addAccesRules();
+        }
+    }
 
-        //clone for reuse form accessControl behavior
-        $mainUser = clone Yii::$app->user;
-        $mainUser->setIdentity($this->userSwitch->getMainUser());
+    /**
+     * Add ACF rule. AccessControl attach to debug module.
+     * Access rule for main user.
+     */
+    private function addAccesRules()
+    {
+        $this->ruleUserSwitch['controllers'] = [$this->module->id . '/user'];
 
-        //create and set access rule for main user
-        $allowedUserSwitch = $this->module->allowedUserSwitch;
-        $allowedUserSwitch['controllers'] = [$this->module->id . '/user'];
         $this->module->attachBehavior(
-            'access',
+            'access_debug',
             [
                 'class' => AccessControl::className(),
-                'only' => ['user/*'],
-                'user' => $mainUser,
+                'only' => [$this->module->id.'/user', $this->module->id.'/default'],
+                'user' => $this->userSwitch->getMainUser(),
                 'rules' => [
-                    $allowedUserSwitch
+                    $this->ruleUserSwitch
                 ]
             ]
         );
+    }
+
+    /**
+     * Check can main user switch identity.
+     * @return bool
+     */
+    public function canSwitchUser()
+    {
+        $allowSwitchUser = false;
+
+        $rule = new AccessRule($this->ruleUserSwitch);
+
+        /** @var Controller $userController */
+        $userController = null;
+        $controller = $this->module->createController('user');
+        if (isset($controller[0]) && $controller[0] instanceof UserController) {
+            $userController = $controller[0];
+        }
+
+        //check by rule
+        if ($userController) {
+            $action = $userController->createAction('set-identity');
+            $user = $this->userSwitch->getMainUser();
+            $request = Yii::$app->request;
+
+            $allowSwitchUser = $rule->allows($action, $user, $request) ? : false;
+        }
+
+        return $allowSwitchUser;
     }
 
     /**
