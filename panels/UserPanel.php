@@ -9,6 +9,7 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\Controller;
+use yii\base\Model;
 use yii\data\ArrayDataProvider;
 use yii\debug\controllers\UserController;
 use yii\debug\models\UserSwitch;
@@ -137,9 +138,9 @@ class UserPanel extends Panel
      */
     public function save()
     {
-        $data = Yii::$app->user->identity;
+        $identity = Yii::$app->user->identity;
 
-        if (!isset($data)) {
+        if (!isset($identity)) {
             return ;
         }
 
@@ -169,19 +170,25 @@ class UserPanel extends Panel
             ]);
         }
 
-        $attributes = array_keys(get_object_vars($data));
-        if ($data instanceof ActiveRecord) {
-            $attributes = array_keys($data->getAttributes());
+        $identityData = $this->identityData($identity);
 
-            $attributeValues = [];
-            foreach ($attributes as $attribute) {
-                $attributeValues[$attribute] =  $data->getAttribute($attribute);
+        // If the identity is a model, let it specify the attribute labels
+        if ($identity instanceof Model) {
+            $attributes = [];
+
+            foreach (array_keys($identityData) as $attribute) {
+                $attributes[] = [
+                    'attribute' => $attribute,
+                    'label' => $identity->getAttributeLabel($attribute)
+                ];
             }
-            $data = $attributeValues;
+        } else {
+            // Let the DetailView widget figure the labels out
+            $attributes = null;
         }
 
         return [
-            'identity' => $data,
+            'identity' => $identityData,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
@@ -201,5 +208,20 @@ class UserPanel extends Panel
         }
 
         return VarDumper::export($data);
+    }
+
+    /**
+     * Returns the array that should be set on [[\yii\widgets\DetailView::model]]
+     *
+     * @param mixed $identity
+     * @return array
+     */
+    protected function identityData($identity)
+    {
+        if ($identity instanceof Model) {
+            return $identity->getAttributes();
+        }
+
+        return get_object_vars($identity);
     }
 }
