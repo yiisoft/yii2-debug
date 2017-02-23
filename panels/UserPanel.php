@@ -14,12 +14,10 @@ use yii\data\ArrayDataProvider;
 use yii\debug\controllers\UserController;
 use yii\debug\models\UserSwitch;
 use yii\debug\Panel;
-use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
-use yii\web\User;
 
 /**
  * Debugger panel that collects and displays user data.

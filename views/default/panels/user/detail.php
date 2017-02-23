@@ -18,6 +18,10 @@ if (Yii::$app->user->identity) {
             'panel' => $panel
         ]
     );
+    ?>
+
+<hr/>
+<?php
 }
 
 if (!Yii::$app->user->isGuest) {
