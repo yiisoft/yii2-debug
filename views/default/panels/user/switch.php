@@ -2,6 +2,7 @@
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
+use yii\grid\GridView;
 
 /* @var $this \yii\web\View */
 /* @var $panel yii\debug\panels\UserPanel */
@@ -68,4 +69,22 @@ JS;
 </div>
 
 <?php
+    if ($panel->canSearchUsers()) {
+
+        echo '<h2>Find user</h2>';
+        \yii\widgets\Pjax::begin();
+        echo GridView::widget([
+            'dataProvider' => $panel->getUserDataProvider(),
+            'filterModel' => $panel->getUsersFilterModel(),
+            'options' => [
+                'class' => 'grid-view table-responsive'
+            ],
+            'columns' => $panel->filterColumns,
+            'rowOptions' => [
+                    'onclick' => "$('#{$formSet->getId()} #user_id').val($(this).data('key'));" .
+                        "$('#{$formSet->getId()}').submit()"
+            ]
+        ]);
+        \yii\widgets\Pjax::end();
+    }
 }

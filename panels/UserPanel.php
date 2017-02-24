@@ -18,6 +18,8 @@ use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+use yii\web\IdentityInterface;
+use yii\web\User;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -47,6 +49,16 @@ class UserPanel extends Panel
     public $userSwitch;
 
     /**
+     * @var string|\yii\web\User Implements of User model with _search()_ method.
+     */
+    public $filterModel;
+
+    /**
+     * @var array allowed columns for GridView.
+     */
+    public $filterColumns = ['id'];
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -54,6 +66,10 @@ class UserPanel extends Panel
         if (!\Yii::$app->getUser()->isGuest) {
             $this->userSwitch = new UserSwitch();
             $this->addAccesRules();
+
+            if (!is_object($this->filterModel) && class_exists($this->filterModel)) {
+                $this->filterModel = new $this->filterModel;
+            }
         }
     }
 
@@ -75,6 +91,36 @@ class UserPanel extends Panel
                     $this->ruleUserSwitch
                 ]
             ]
+        );
+    }
+
+    /**
+     * Get model for GridView -> FilterModel
+     * @return string|User
+     */
+    public function getUsersFilterModel()
+    {
+        return $this->filterModel;
+    }
+
+    /**
+     * Get model for GridView -> DataProvider
+     * @return string|User
+     */
+    public function getUserDataProvider()
+    {
+        return $this->getUsersFilterModel()->search(Yii::$app->request->queryParams);
+    }
+
+    /**
+     * Check is available search of users
+     * @return bool
+     */
+    public function canSearchUsers()
+    {
+        return (isset($this->filterModel) &&
+            $this->filterModel instanceof IdentityInterface &&
+            method_exists($this->filterModel, 'search')
         );
     }
 
