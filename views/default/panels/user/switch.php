@@ -8,10 +8,17 @@ use yii\grid\GridView;
 /* @var $panel yii\debug\panels\UserPanel */
 
 if ($panel->canSwitchUser()) {
+    echo '<h2>Switch user</h2>';
 ?>
 <div class="row">
     <div class="col-sm-7">
-        <?php $formSet = ActiveForm::begin(['action' => \yii\helpers\Url::to(['user/set-identity']), 'layout' => 'horizontal']);
+        <?php $formSet = ActiveForm::begin([
+            'action' => \yii\helpers\Url::to(['user/set-identity']),
+            'layout' => 'horizontal',
+            'options' => [
+                'style' => ($panel->canSearchUsers() ? 'display:none' : '')
+            ]
+        ]);
         echo $formSet->field(
             $panel->userSwitch->getUser()->identity,
             'id', ['options' => ['class' => '']])->textInput(['id' => 'user_id', 'name' => 'user_id'])
@@ -70,8 +77,6 @@ JS;
 
 <?php
     if ($panel->canSearchUsers()) {
-
-        echo '<h2>Find user</h2>';
         \yii\widgets\Pjax::begin();
         echo GridView::widget([
             'dataProvider' => $panel->getUserDataProvider(),
