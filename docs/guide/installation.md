@@ -228,11 +228,9 @@ IDE links for traces are created by default. You have to set the property `yii\d
 ...
 ```
 
-### Switch Users
+### Switching Users
 
-You can switch users and reset to main if set access rule. By default deny for everyone.
-Settable: _allow, roles, ips, matchCallback, denyCallback_.
-For detail see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html)
+You can use log in as any user and reset to back to your primary user. In order to enable the feature you need to configure access permissions in the `UserPanel` config. By default access is denied to everyone.
 
 ```php
 return [
@@ -255,3 +253,5 @@ return [
     ...
 ];
 ```
+
+For details see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html).
