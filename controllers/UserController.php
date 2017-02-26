@@ -8,17 +8,16 @@
 namespace yii\debug\controllers;
 
 use Yii;
-use yii\base\UserException;
 use yii\debug\models\UserSwitch;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
 
 /**
- * Debugger controller
+ * User controller
  *
  * @author Semen Dubina <yii2debug@sam002.net>
- * @since 2.0
+ * @since 2.0.10
  */
 class UserController extends Controller
 {

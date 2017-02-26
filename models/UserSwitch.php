@@ -23,12 +23,12 @@ use yii\web\User;
 class UserSwitch extends Model
 {
     /**
-     * @var User
+     * @var User the current user who now that viewed.
      */
     private $user;
 
     /**
-     * @var User
+     * @var User the main user who switching users.
      */
     private $mainUser;
 

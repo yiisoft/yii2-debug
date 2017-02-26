@@ -234,8 +234,6 @@ You can switch users and reset to main if set access rule. By default deny for e
 Settable: _allow, roles, ips, matchCallback, denyCallback_.
 For detail see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html)
 
-Checks a main user access, not current! 
-
 ```php
 return [
     'bootstrap' => ['debug'],
@@ -245,9 +243,9 @@ return [
             'panels' => [
                 'user' => [
                     'class'=>'yii\debug\panels\UserPanel',
-                    'ruleSwitch' => [
+                    'ruleUserSwitch' => [
                         'allow' => true,
-                        'roles' => ['managern'],
+                        'roles' => ['manager'],
                     ]
                 ]
             ]

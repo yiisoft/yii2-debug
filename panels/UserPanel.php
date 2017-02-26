@@ -11,15 +11,16 @@ use Yii;
 use yii\base\Controller;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
+use yii\data\DataProviderInterface;
+use yii\db\ActiveRecord;
 use yii\debug\controllers\UserController;
+use yii\debug\models\search\UserSearchInterface;
 use yii\debug\models\UserSwitch;
 use yii\debug\Panel;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
-use yii\web\IdentityInterface;
-use yii\web\User;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -45,18 +46,22 @@ class UserPanel extends Panel
 
     /**
      * @var UserSwitch object of switching users
+     * @since 2.0.10
      */
     public $userSwitch;
 
     /**
-     * @var string|\yii\web\User Implements of User model with _search()_ method.
+     * @var Model|UserSearchInterface Implements of User model with search method.
+     * @since 2.0.10
      */
     public $filterModel;
 
     /**
      * @var array allowed columns for GridView.
+     * @see http://www.yiiframework.com/doc-2.0/yii-grid-gridview.html#$columns-detail
+     * @since 2.0.10
      */
-    public $filterColumns = ['id'];
+    public $filterColumns = [];
 
     /**
      * @inheritdoc
@@ -67,8 +72,16 @@ class UserPanel extends Panel
             $this->userSwitch = new UserSwitch();
             $this->addAccesRules();
 
-            if (!is_object($this->filterModel) && class_exists($this->filterModel)) {
+            if (!is_object($this->filterModel)
+                && class_exists($this->filterModel)
+                && in_array(UserSearchInterface::class, class_implements($this->filterModel))
+            ) {
                 $this->filterModel = new $this->filterModel;
+            } elseif (\Yii::$app->user && \Yii::$app->user->identityClass) {
+                $identityImplement = new \Yii::$app->user->identityClass();
+                if ($identityImplement instanceof ActiveRecord) {
+                    $this->filterModel = new \yii\debug\models\search\User();
+                }
             }
         }
     }
@@ -96,7 +109,7 @@ class UserPanel extends Panel
 
     /**
      * Get model for GridView -> FilterModel
-     * @return string|User
+     * @return Model|UserSearchInterface
      */
     public function getUsersFilterModel()
     {
@@ -105,7 +118,7 @@ class UserPanel extends Panel
 
     /**
      * Get model for GridView -> DataProvider
-     * @return string|User
+     * @return DataProviderInterface
      */
     public function getUserDataProvider()
     {
@@ -119,8 +132,8 @@ class UserPanel extends Panel
     public function canSearchUsers()
     {
         return (isset($this->filterModel) &&
-            $this->filterModel instanceof IdentityInterface &&
-            method_exists($this->filterModel, 'search')
+            $this->filterModel instanceof Model &&
+            $this->filterModel->hasMethod('search')
         );
     }
 
