@@ -23,12 +23,12 @@ use yii\web\User;
 class UserSwitch extends Model
 {
     /**
-     * @var User the current user who now that viewed.
+     * @var User user which we are currently switched to
      */
     private $user;
 
     /**
-     * @var User the main user who switching users.
+     * @var User the main user who was originally logged in before switching.
      */
     private $mainUser;
 
@@ -108,7 +108,7 @@ class UserSwitch extends Model
     }
 
     /**
-     * Switch user by identity
+     * Switch to user by identity
      * @param IdentityInterface $identity
      */
     public function setUserByIdentity(IdentityInterface $identity)
@@ -127,7 +127,7 @@ class UserSwitch extends Model
     }
 
     /**
-     * Check current user is main or not.
+     * Checks if current user is main or not.
      * @return bool
      */
     public function isMainUser()
