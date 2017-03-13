@@ -6,7 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Enh #208: All identity models get converted to arrays when saving User panel data now, not just ActiveRecord models (brandonkelly)
 - Enh #208: Identity model packaging for User panels is now done in an `identityData()` method, making it easier for subclasses to customize (brandonkelly) 
-- Enh #218: Hide the debug toolbar when a html-page printed (githubjeka) 
+- Enh #218: Hide the debug toolbar when an HTML page is printed (githubjeka) 
 
 
 2.0.9 February 21, 2017
