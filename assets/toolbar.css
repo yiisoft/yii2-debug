@@ -5,6 +5,12 @@
     bottom: 4px;
 }
 
+@media print {
+  .yii-debug-toolbar {
+    display: none !important;
+  }
+}
+
 .yii-debug-toolbar {
     font: 11px Verdana, Arial, sans-serif;
     text-align: left;

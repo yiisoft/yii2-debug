@@ -8,9 +8,11 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\base\Model;
 use yii\data\ArrayDataProvider;
 use yii\debug\Panel;
-use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -49,9 +51,9 @@ class UserPanel extends Panel
      */
     public function save()
     {
-        $data = Yii::$app->user->identity;
+        $identity = Yii::$app->user->identity;
 
-        if (!isset($data)) {
+        if (!isset($identity)) {
             return ;
         }
 
@@ -61,26 +63,78 @@ class UserPanel extends Panel
         $permissionsProvider = null;
 
         if ($authManager) {
+            $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
+            foreach ($roles as &$role) {
+                $role['data'] = $this->dataToString($role['data']);
+            }
+            unset($role);
             $rolesProvider = new ArrayDataProvider([
-                'allModels' => $authManager->getRolesByUser(Yii::$app->getUser()->id),
+                'allModels' => $roles,
             ]);
+
+            $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
+            foreach ($permissions as &$permission) {
+                $permission['data'] = $this->dataToString($permission['data']);
+            }
+            unset($permission);
 
             $permissionsProvider = new ArrayDataProvider([
-                'allModels' => $authManager->getPermissionsByUser(Yii::$app->getUser()->id),
-
+                'allModels' => $permissions,
             ]);
         }
 
-        $attributes = array_keys(get_object_vars($data));
-        if ($data instanceof ActiveRecord) {
-            $attributes = array_keys($data->getAttributes());
+        $identityData = $this->identityData($identity);
+
+        // If the identity is a model, let it specify the attribute labels
+        if ($identity instanceof Model) {
+            $attributes = [];
+
+            foreach (array_keys($identityData) as $attribute) {
+                $attributes[] = [
+                    'attribute' => $attribute,
+                    'label' => $identity->getAttributeLabel($attribute)
+                ];
+            }
+        } else {
+            // Let the DetailView widget figure the labels out
+            $attributes = null;
         }
-        
+
         return [
-            'identity' => $data,
+            'identity' => $identityData,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
+    }
+
+    /**
+     * Converts mixed data to string
+     *
+     * @param mixed $data
+     * @return string
+     */
+    protected function dataToString($data)
+    {
+        if (is_string($data)) {
+            return $data;
+        }
+
+        return VarDumper::export($data);
+    }
+
+    /**
+     * Returns the array that should be set on [[\yii\widgets\DetailView::model]]
+     *
+     * @param mixed $identity
+     * @return array
+     */
+    protected function identityData($identity)
+    {
+        if ($identity instanceof Model) {
+            return $identity->getAttributes();
+        }
+
+        return get_object_vars($identity);
     }
 }
