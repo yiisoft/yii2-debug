@@ -58,7 +58,8 @@
 .yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar {
     overflow: visible;
 }
-.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar {
+.yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,
+.yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar {
     height:40px;
 }
 

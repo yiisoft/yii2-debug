@@ -8,6 +8,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #208: Identity model packaging for User panels is now done in an `identityData()` method, making it easier for subclasses to customize (brandonkelly) 
 - Enh #218: Hide the debug toolbar when an HTML page is printed (githubjeka) 
 - Bug #221: Fixed the decimal point issue in Timeline when using various locales (bashkarev)
+- Bug #223: Limit the height during the opening animation (nkovacs)
 - Enh #225: Added classes to use bootstrap styles for filter inputs in Timeline panel (johonunu)
 
 
