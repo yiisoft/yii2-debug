@@ -180,7 +180,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        $this->logTarget = Yii::$app->getLog()->targets['debug'] = new LogTarget($this);
+        $this->logTarget = $app->getLog()->targets['debug'] = new LogTarget($this);
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
