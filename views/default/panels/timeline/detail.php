@@ -14,15 +14,15 @@ TimelineAsset::register($this);
 ?>
 <h1 class="debug-timeline-panel__title">Timeline - <?= number_format($panel->getDuration()); ?> ms</h1>
 
-<?php $form = ActiveForm::begin(['method' => 'get', 'action' => $panel->getUrl(), 'id' => 'debug-timeline-search', 'enableClientScript' => false, 'options' => ['class' => 'debug-timeline-panel__search']]); ?>
+<?php $form = ActiveForm::begin(['method' => 'get', 'action' => $panel->getUrl(), 'id' => 'debug-timeline-search form-inline', 'enableClientScript' => false, 'options' => ['class' => 'debug-timeline-panel__search']]); ?>
 <div class="duration">
     <?= Html::activeLabel($searchModel, 'duration') ?>
-    <?= Html::activeInput('number', $searchModel, 'duration', ['min' => 0, 'size' => '3']); ?>
+    <?= Html::activeInput('number', $searchModel, 'duration', ['min' => 0, 'size' => '3','class'=>'form-control']); ?>
     <span>ms</span>
 </div>
 <div class="category">
     <?= Html::activeLabel($searchModel, 'category') ?>
-    <?= Html::activeTextInput($searchModel, 'category'); ?>
+    <?= Html::activeTextInput($searchModel, 'category',['class'=>'form-control']); ?>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="debug-timeline-panel">
