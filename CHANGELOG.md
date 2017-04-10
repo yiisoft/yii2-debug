@@ -10,6 +10,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #221: Fixed the decimal point issue in Timeline when using various locales (bashkarev)
 - Bug #223: Limit the height during the opening animation (nkovacs)
 - Enh #225: Added classes to use bootstrap styles for filter inputs in Timeline panel (johonunu)
+- Bug #226: Fixed issue in user panel when you use custom custom RBAC module that does not implements ManagerInterface (pana1990)
 
 
 2.0.9 February 21, 2017

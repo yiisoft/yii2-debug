@@ -62,7 +62,7 @@ class UserPanel extends Panel
         $rolesProvider = null;
         $permissionsProvider = null;
 
-        if ($authManager) {
+        if ($authManager && $authManager instanceof yii\rbac\ManagerInterface) {
             $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
             foreach ($roles as &$role) {
                 $role['data'] = $this->dataToString($role['data']);
