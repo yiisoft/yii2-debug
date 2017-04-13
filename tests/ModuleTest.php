@@ -74,7 +74,9 @@ class ModuleTest extends TestCase
     {
         $module = new Module('debug');
         $module->bootstrap(Yii::$app);
-        Yii::getLogger()->dispatcher = $this->getMock('yii\\log\\Dispatcher', ['dispatch']);
+        Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
+            ->setMethods(['dispatch'])
+            ->getMock();
 
         $this->assertEquals(<<<HTML
 <div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
@@ -91,7 +93,9 @@ HTML
         $module->allowedIPs = ['*'];
         Yii::$app->setModule('debug',$module);
         $module->bootstrap(Yii::$app);
-        Yii::getLogger()->dispatcher = $this->getMock('yii\\log\\Dispatcher', ['dispatch']);
+        Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
+            ->setMethods(['dispatch'])
+            ->getMock();
         Yii::$app->set('cache', new FileCache(['cachePath' => '@yiiunit/runtime/cache']));
 
         $view = Yii::$app->view;
@@ -121,7 +125,9 @@ HTML
         $module->allowedIPs = ['*'];
         Yii::$app->setModule($moduleID, $module);
         $module->bootstrap(Yii::$app);
-        Yii::getLogger()->dispatcher = $this->getMock('yii\\log\\Dispatcher', ['dispatch']);
+        Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
+            ->setMethods(['dispatch'])
+            ->getMock();
 
         $view = Yii::$app->view;
 
