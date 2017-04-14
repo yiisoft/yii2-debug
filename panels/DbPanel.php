@@ -50,6 +50,20 @@ class DbPanel extends Panel
     public $defaultFilter = [];
 
     /**
+     * @var array the default ordering of the database queries. In the format of
+     * [ property => sort direction ], for example: [ 'duration' => SORT_DESC ]
+     */
+    public $defaultOrder = [
+        'duration' => SORT_DESC
+    ];
+
+    /**
+     * @var array the default filter to apply to the database queries. In the format
+     * of [ property => value ], for example: [ 'type' => 'SELECT' ]
+     */
+    public $defaultFilter = [];
+
+    /**
      * @var array db queries info extracted to array as models, to use with data provider.
      */
     private $_models;
