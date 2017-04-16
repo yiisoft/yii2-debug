@@ -79,6 +79,7 @@ $this->title = 'Yii Debugger';
                             'buttons' => [
                                 Html::a('All', ['index'], ['class' => 'btn btn-default']),
                                 Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-default']),
+								Html::a('Re-Run', ['re-run', 'tag' => $summary['tag']], ['class' => 'btn btn-default']),
                                 ButtonDropdown::widget([
                                     'label' => 'Last 10',
                                     'options' => ['class' => 'btn-default btn-sm'],
