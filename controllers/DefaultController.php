@@ -108,7 +108,7 @@ class DefaultController extends Controller
 		$response = $client->createRequest();
 		$response->setMethod($this->summary['method']);
 		$response->setUrl($this->summary['url']);
-		$response->setData($this->summary['POST']);
+		$response->setData($requstPanel->data['POST']);
 		$response->addHeaders($headers);
 		$response->send();
 
