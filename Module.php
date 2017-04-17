@@ -43,6 +43,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $allowedHosts = [];
     /**
+     * @var array list of roles that this rule applies to. Two special roles are recognized, and
+     * they are checked via [[User::isGuest]]:
+     *
+     * - `?`: matches a guest user (not authenticated yet)
+     * - `@`: matches an authenticated user
+     *
+     * If you are using RBAC (Role-Based Access Control), you may also specify role or permission names.
+     * In this case, [[User::can()]] will be called to check access.
+     *
+     * If this property is not set or empty, it means this rule applies to all roles.
+     */
+    public $allowedRoles;
+    /**
      * @inheritdoc
      */
     public $controllerNamespace = 'yii\debug\controllers';
@@ -294,24 +307,51 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
+     * @return boolean whether the rule applies to the role
+     */
+    protected function matchRole()
+    {
+        if (empty($this->allowedRoles)) {
+            return true;
+        }
+        $user = Yii::$app->user;
+        foreach ($this->allowedRoles as $role) {
+            if ($role === '?') {
+                if ($user->getIsGuest()) {
+                    return true;
+                }
+            } elseif ($role === '@') {
+                if (!$user->getIsGuest()) {
+                    return true;
+                }
+            } elseif ($user->can($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if current user is allowed to access the module
      * @return bool if access is granted
      */
     protected function checkAccess()
     {
         $ip = Yii::$app->getRequest()->getUserIP();
-        foreach ($this->allowedIPs as $filter) {
-            if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
-                return true;
+        if ($this->matchRole()) {
+            foreach ($this->allowedIPs as $filter) {
+                if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
+                    return true;
+                }
             }
-        }
-        foreach ($this->allowedHosts as $hostname) {
-            $filter = gethostbyname($hostname);
-            if ($filter === $ip) {
-                return true;
+            foreach ($this->allowedHosts as $hostname) {
+                $filter = gethostbyname($hostname);
+                if ($filter === $ip) {
+                    return true;
+                }
             }
+            Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
         }
-        Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
         return false;
     }
 
