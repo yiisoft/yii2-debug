@@ -12,7 +12,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\debug\models\search\Debug;
 use yii\web\Response;
-use yii\httpclient\Client;
 
 /**
  * Debugger controller
@@ -104,13 +103,14 @@ class DefaultController extends Controller
 		$headers = $requstPanel->data['requestHeaders'];
 		unset($headers['content-length']);
 
-		$client = new Client();
-		$response = $client->createRequest();
-		$response->setMethod($this->summary['method']);
-		$response->setUrl($this->summary['url']);
-		$response->setData($requstPanel->data['POST']);
-		$response->addHeaders($headers);
-		$response->send();
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $this->summary['url']);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->summary['method']);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requstPanel->data['POST']));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_exec($ch);
+		curl_close($ch);
 
 		return $this->redirect(['index']);
 	}
