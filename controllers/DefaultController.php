@@ -101,11 +101,11 @@ class DefaultController extends Controller
 		$requestPanel = $this->module->panels['request'];
 
 		$headers = [];
-		foreach ($requestPanel->data['requestHeaders'] as $name => $value) :
-			if ($name != "content-length") {
+		foreach ($requestPanel->data['requestHeaders'] as $name => $value) {
+			if ($name !== 'content-length') {
 				$headers[] = "{$name}: {$value}";
 			}
-		endforeach;
+        }
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->summary['url']);
