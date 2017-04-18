@@ -98,19 +98,19 @@ class DefaultController extends Controller
 	{
 		$this->loadData($tag);
 
-		$requstPanel = $this->module->panels['request'];
+		$requestPanel = $this->module->panels['request'];
 
 		$headers = [];
-		foreach ($requstPanel->data['requestHeaders'] as $name => $value) {
-			if ($name !== "content-length") {
+		foreach ($requestPanel->data['requestHeaders'] as $name => $value) :
+			if ($name != "content-length") {
 				$headers[] = "{$name}: {$value}";
 			}
-        }
+		endforeach;
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->summary['url']);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->summary['method']);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requstPanel->data['POST']));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestPanel->data['POST']));
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_exec($ch);
