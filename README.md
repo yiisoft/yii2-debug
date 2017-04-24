@@ -11,6 +11,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-debug/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-debug)
 [![Total Downloads](https://poser.pugx.org/yiisoft/yii2-debug/downloads.png)](https://packagist.org/packages/yiisoft/yii2-debug)
+[![Build Status](https://travis-ci.org/yiisoft/yii2-debug.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-debug)
 
 
 Installation
@@ -44,6 +45,8 @@ return [
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
+            // uncomment and adjust the following to add your IP if you are not connecting from localhost.
+            //'allowedIPs' => ['127.0.0.1', '::1'],
         ],
         // ...
     ],
@@ -67,6 +70,8 @@ return [
         'debug' => [
             'class' => 'yii\debug\Module',
             'traceLine' => '<a href="phpstorm://open?url={file}&line={line}">{file}:{line}</a>',
+            // uncomment and adjust the following to add your IP if you are not connecting from localhost.
+            //'allowedIPs' => ['127.0.0.1', '::1'],
         ],
         // ...
     ],

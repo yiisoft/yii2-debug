@@ -6,6 +6,11 @@ Yii Framework 2 debug extension Change Log
 
 - Enh #208: All identity models get converted to arrays when saving User panel data now, not just ActiveRecord models (brandonkelly)
 - Enh #208: Identity model packaging for User panels is now done in an `identityData()` method, making it easier for subclasses to customize (brandonkelly) 
+- Enh #218: Hide the debug toolbar when an HTML page is printed (githubjeka) 
+- Bug #221: Fixed the decimal point issue in Timeline when using various locales (bashkarev)
+- Bug #223: Limit the height during the opening animation (nkovacs)
+- Enh #225: Added classes to use bootstrap styles for filter inputs in Timeline panel (johonunu)
+- Bug #226: Fixed issue in user panel when you use custom RBAC module that does not implement `\yii\rbac\ManagerInterface` (pana1990)
 
 
 2.0.9 February 21, 2017
