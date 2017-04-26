@@ -227,3 +227,31 @@ IDE links for traces are created by default. You have to set the property `yii\d
 
 ...
 ```
+
+### Switching Users
+
+You can use log in as any user and reset to back to your primary user. In order to enable the feature you need to configure access permissions in the `UserPanel` config. By default access is denied to everyone.
+
+```php
+return [
+    'bootstrap' => ['debug'],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'panels' => [
+                'user' => [
+                    'class'=>'yii\debug\panels\UserPanel',
+                    'ruleUserSwitch' => [
+                        'allow' => true,
+                        'roles' => ['manager'],
+                    ]
+                ]
+            ]
+        ],
+        // ...
+    ],
+    ...
+];
+```
+
+For details see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html).
