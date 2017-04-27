@@ -62,6 +62,19 @@ If you are using `enableStrictParsing` URL manager option, add the following to 
 > the debugger, such as weird error messages when using it, or the toolbar not showing up or not showing any requests, check
 > whether the web server has enough permissions to access this directory and the files located inside.
 
+If you used composer for creating basic Yii2 application, use the flowing in config/web.php file:
+
+```php
+if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class'=>'yii\debug\Module',
+        'allowedIPs' => ['127.0.0.1', '::1', 'your_ip_here'],
+    ];
+    //[...]
+}
+```
 
 ### Extra configuration for logging and profiling
 
