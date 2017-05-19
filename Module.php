@@ -14,6 +14,7 @@ use yii\helpers\Json;
 use yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\Response;
 use yii\web\View;
 use yii\web\ForbiddenHttpException;
 
@@ -200,6 +201,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'pattern' => $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>',
             ]
         ], false);
+        
+        $app->getResponse()->format = Response::FORMAT_HTML;
     }
 
     /**
