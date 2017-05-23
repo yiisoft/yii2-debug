@@ -68,7 +68,7 @@ class UserPanel extends Panel
      */
     public function init()
     {
-        if (!\Yii::$app->getUser()->isGuest) {
+        if (!\Yii::$app->user->isGuest) {
             $this->userSwitch = new UserSwitch();
             $this->addAccesRules();
 
@@ -207,7 +207,7 @@ class UserPanel extends Panel
         $permissionsProvider = null;
 
         if ($authManager instanceof yii\rbac\ManagerInterface) {
-            $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
+            $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->user->id));
             foreach ($roles as &$role) {
                 $role['data'] = $this->dataToString($role['data']);
             }
@@ -216,7 +216,7 @@ class UserPanel extends Panel
                 'allModels' => $roles,
             ]);
 
-            $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
+            $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->user->id));
             foreach ($permissions as &$permission) {
                 $permission['data'] = $this->dataToString($permission['data']);
             }
