@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\debug\models\search\Debug;
 use yii\web\Response;
+use yii\httpclient\Client;
 
 /**
  * Debugger controller
@@ -93,6 +94,26 @@ class DefaultController extends Controller
             'activePanel' => $activePanel,
         ]);
     }
+
+	public function actionReRun($tag)
+	{
+		$this->loadData($tag);
+
+		$requstPanel = $this->module->panels['request'];
+
+		$headers = $requstPanel->data['requestHeaders'];
+		unset($headers['content-length']);
+
+		$client = new Client();
+		$response = $client->createRequest();
+		$response->setMethod($this->summary['method']);
+		$response->setUrl($this->summary['url']);
+		$response->setData($this->summary['POST']);
+		$response->addHeaders($headers);
+		$response->send();
+
+		return $this->redirect(['index']);
+	}
 
     public function actionToolbar($tag)
     {
