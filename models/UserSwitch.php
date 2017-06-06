@@ -61,7 +61,7 @@ class UserSwitch extends Model
     public function getUser()
     {
         if (empty($this->user)) {
-            $this->user = Yii::$app->getUser();
+            $this->user = Yii::$app->get('user');
         }
         return $this->user;
     }
