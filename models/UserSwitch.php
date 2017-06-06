@@ -7,7 +7,7 @@
 
 namespace yii\debug\models;
 
-
+use Yii;
 use yii\base\Model;
 use yii\web\IdentityInterface;
 use yii\web\User;
@@ -61,7 +61,7 @@ class UserSwitch extends Model
     public function getUser()
     {
         if (empty($this->user)) {
-            $this->user = \Yii::$app->user;
+            $this->user = Yii::$app->getUser();
         }
         return $this->user;
     }
@@ -72,17 +72,17 @@ class UserSwitch extends Model
      */
     public function getMainUser()
     {
-        $session = \Yii::$app->getSession();
+        $session = Yii::$app->getSession();
 
-        if (empty($this->mainUser) && !\Yii::$app->getUser()->isGuest) {
+        if (empty($this->mainUser) && $this->getUser()->getIsGuest() === false) {
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
+                $mainIdentity = call_user_func([$this->getUser()->identityClass, 'findIdentity'], $mainUserId);
             } else {
-                $mainUserId = \Yii::$app->user->getId();
+                $mainIdentity = $this->getUser()->identity;
             }
-            $mainIdentity = \Yii::$app->user->identity->findIdentity($mainUserId);
 
-            $mainUser = clone \Yii::$app->user;
+            $mainUser = clone $this->getUser();
             $mainUser->setIdentity($mainIdentity);
             $this->mainUser = $mainUser;
         }
@@ -99,11 +99,11 @@ class UserSwitch extends Model
         // Check if user is currently active one
         $isCurrent = ($user->getId() === $this->getMainUser()->getId());
         // Switch identity
-        \Yii::$app->getUser()->switchIdentity($user->identity);
+        Yii::$app->getUser()->switchIdentity($user->identity);
         if (!$isCurrent) {
-            \Yii::$app->getSession()->set('main_user', $this->getMainUser()->getId());
+            Yii::$app->getSession()->set('main_user', $this->getMainUser()->getId());
         } else {
-            \Yii::$app->getSession()->remove('main_user');
+            Yii::$app->getSession()->remove('main_user');
         }
     }
 
@@ -113,7 +113,7 @@ class UserSwitch extends Model
      */
     public function setUserByIdentity(IdentityInterface $identity)
     {
-        $user = clone \Yii::$app->user;
+        $user = clone $this->getUser();
         $user->setIdentity($identity);
         $this->setUser($user);
     }
@@ -132,9 +132,9 @@ class UserSwitch extends Model
      */
     public function isMainUser()
     {
-        if (\Yii::$app->user->isGuest) {
+        if ($this->getUser()->getIsGuest()) {
             return true;
         }
-        return (\Yii::$app->user->getId() === $this->getMainUser()->getId());
+        return ($this->getUser()->getId() === $this->getMainUser()->getId());
     }
 }
