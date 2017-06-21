@@ -51,7 +51,7 @@ echo GridView::widget([
         [
             'attribute' => 'query',
             'value' => function ($data) use ($hasExplain, $panel) {
-                $query = Html::encode($data['query']);
+                $query = Html::tag('div', Html::encode($data['query']));
 
                 if (!empty($data['trace'])) {
                     $query .= Html::ul($data['trace'], [
