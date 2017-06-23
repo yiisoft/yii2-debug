@@ -50,7 +50,11 @@ class AssetPanel extends Panel
      */
     public function save()
     {
-        $bundles = Yii::$app->view->assetManager->bundles;
+        try {
+            $bundles = Yii::$app->view->assetManager->bundles;
+        } catch (\Exception $e) {
+            $bundles = null;
+        }
         if (empty($bundles)) { // bundles can be false
             return [];
         }
