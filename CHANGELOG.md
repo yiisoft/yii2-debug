@@ -11,7 +11,8 @@ Yii Framework 2 debug extension Change Log
 - Bug #223: Limit the height during the opening animation (nkovacs)
 - Enh #225: Added classes to use bootstrap styles for filter inputs in Timeline panel (johonunu)
 - Bug #226: Fixed issue in user panel when you use custom RBAC module that does not implement `\yii\rbac\ManagerInterface` (pana1990)
-- Enh #204: Switch users from the panel (sam002) 
+- Enh #204: Switch users from the panel (sam002)
+- Bug #234: Fixed User panel check if user component definition is a closure (cebe, samdark)
 
 
 2.0.9 February 21, 2017

@@ -10,6 +10,7 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\base\InvalidConfigException;
 use yii\helpers\Json;
 use yii\web\Response;
 use yii\helpers\Html;
@@ -331,11 +332,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
         ];
 
-        $components = Yii::$app->getComponents();
-        // is_array() check is needed because $components['user'] could be a Closure
-        if (isset($components['user']) && is_array($components['user']) && isset($components['user']['identityClass'])) {
+        try {
+            Yii::$app->get('user');
             $panels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
+        } catch (InvalidConfigException $e) {
+            // do nothing
         }
+
         $panels['router'] = ['class' => 'yii\debug\panels\RouterPanel'];
 
         return $panels;
