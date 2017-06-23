@@ -332,7 +332,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
         ];
 
         $components = Yii::$app->getComponents();
-        if (isset($components['user']['identityClass'])) {
+        // is_array() check is needed because $components['user'] could be a Closure
+        if (isset($components['user']) && is_array($components['user']) && isset($components['user']['identityClass'])) {
             $panels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
         }
         $panels['router'] = ['class' => 'yii\debug\panels\RouterPanel'];
