@@ -14,6 +14,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #226: Fixed issue in user panel when you use custom RBAC module that does not implement `\yii\rbac\ManagerInterface` (pana1990)
 - Enh #204: Switch users from the panel (sam002)
 - Bug #236: Fixed rendering AJAX errors to use `innerText` instead of `innerHTML` (samdark)
+- Bug #241: Fixed double query to the user table (LAV45)
 - Bug #244: Fixed copying SQL via triple-click in Firefox (arzzen)
 
 
