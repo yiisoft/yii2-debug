@@ -73,16 +73,17 @@ class UserSwitch extends Model
     public function getMainUser()
     {
         $session = Yii::$app->getSession();
+        $user = $this->getUser();
 
-        if (empty($this->mainUser) && $this->getUser()->getIsGuest() === false) {
+        if (empty($this->mainUser) && $user->getIsGuest() === false) {
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
-                $mainIdentity = call_user_func([$this->getUser()->identityClass, 'findIdentity'], $mainUserId);
+                $mainIdentity = call_user_func([$user->identityClass, 'findIdentity'], $mainUserId);
             } else {
-                $mainIdentity = $this->getUser()->identity;
+                $mainIdentity = $user->identity;
             }
 
-            $mainUser = clone $this->getUser();
+            $mainUser = clone $user;
             $mainUser->setIdentity($mainIdentity);
             $this->mainUser = $mainUser;
         }
@@ -132,9 +133,10 @@ class UserSwitch extends Model
      */
     public function isMainUser()
     {
-        if ($this->getUser()->getIsGuest()) {
+        $user = $this->getUser();
+        if ($user->getIsGuest()) {
             return true;
         }
-        return ($this->getUser()->getId() === $this->getMainUser()->getId());
+        return ($user->getId() === $this->getMainUser()->getId());
     }
 }
