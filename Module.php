@@ -142,6 +142,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function init()
     {
+        if (!Yii::$app instanceof \yii\web\Application) {
+            return;
+        }
+
         parent::init();
         $this->dataPath = Yii::getAlias($this->dataPath);
         $this->initPanels();
