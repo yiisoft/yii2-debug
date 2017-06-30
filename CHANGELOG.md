@@ -16,6 +16,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #236: Fixed rendering AJAX errors to use `innerText` instead of `innerHTML` (samdark)
 - Bug #241: Fixed double query to the user table (LAV45)
 - Bug #244: Fixed copying SQL via triple-click in Firefox (arzzen)
+- Bug #239: Fixed an issue in the user panel when using console application with debug module enabled (pana1990)
 
 
 2.0.9 February 21, 2017
