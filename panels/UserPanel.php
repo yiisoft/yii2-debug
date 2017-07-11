@@ -41,7 +41,7 @@ class UserPanel extends Panel
      * @since 2.0.10
      */
     public $ruleUserSwitch = [
-        'allow' => false
+        'allow' => false,
     ];
 
     /**
@@ -98,11 +98,11 @@ class UserPanel extends Panel
             'access_debug',
             [
                 'class' => AccessControl::className(),
-                'only' => [$this->module->id.'/user', $this->module->id.'/default'],
+                'only' => [$this->module->id . '/user', $this->module->id . '/default'],
                 'user' => $this->userSwitch->getMainUser(),
                 'rules' => [
-                    $this->ruleUserSwitch
-                ]
+                    $this->ruleUserSwitch,
+                ],
             ]
         );
     }
@@ -160,7 +160,7 @@ class UserPanel extends Panel
             $user = $this->userSwitch->getMainUser();
             $request = Yii::$app->request;
 
-            $allowSwitchUser = $rule->allows($action, $user, $request) ? : false;
+            $allowSwitchUser = $rule->allows($action, $user, $request) ?: false;
         }
 
         return $allowSwitchUser;
@@ -198,33 +198,37 @@ class UserPanel extends Panel
         $identity = Yii::$app->user->identity;
 
         if (!isset($identity)) {
-            return ;
+            return;
         }
-
-        $authManager = Yii::$app->getAuthManager();
 
         $rolesProvider = null;
         $permissionsProvider = null;
 
-        if ($authManager instanceof yii\rbac\ManagerInterface) {
-            $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
-            foreach ($roles as &$role) {
-                $role['data'] = $this->dataToString($role['data']);
-            }
-            unset($role);
-            $rolesProvider = new ArrayDataProvider([
-                'allModels' => $roles,
-            ]);
+        try {
+            $authManager = Yii::$app->getAuthManager();
 
-            $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
-            foreach ($permissions as &$permission) {
-                $permission['data'] = $this->dataToString($permission['data']);
-            }
-            unset($permission);
+            if ($authManager instanceof yii\rbac\ManagerInterface) {
+                $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
+                foreach ($roles as &$role) {
+                    $role['data'] = $this->dataToString($role['data']);
+                }
+                unset($role);
+                $rolesProvider = new ArrayDataProvider([
+                    'allModels' => $roles,
+                ]);
 
-            $permissionsProvider = new ArrayDataProvider([
-                'allModels' => $permissions,
-            ]);
+                $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
+                foreach ($permissions as &$permission) {
+                    $permission['data'] = $this->dataToString($permission['data']);
+                }
+                unset($permission);
+
+                $permissionsProvider = new ArrayDataProvider([
+                    'allModels' => $permissions,
+                ]);
+            }
+        } catch (\Exception $e) {
+            // ignore auth manager misconfiguration
         }
 
         $identityData = $this->identityData($identity);
@@ -236,7 +240,7 @@ class UserPanel extends Panel
             foreach (array_keys($identityData) as $attribute) {
                 $attributes[] = [
                     'attribute' => $attribute,
-                    'label' => $identity->getAttributeLabel($attribute)
+                    'label' => $identity->getAttributeLabel($attribute),
                 ];
             }
         } else {
