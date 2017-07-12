@@ -207,7 +207,7 @@ class UserPanel extends Panel
         try {
             $authManager = Yii::$app->getAuthManager();
 
-            if ($authManager instanceof yii\rbac\ManagerInterface) {
+            if ($authManager instanceof \yii\rbac\ManagerInterface) {
                 $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
                 foreach ($roles as &$role) {
                     $role['data'] = $this->dataToString($role['data']);
