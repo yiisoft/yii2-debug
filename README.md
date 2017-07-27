@@ -1,5 +1,10 @@
-Debug Extension for Yii 2
-=========================
+<p align="center">
+    <a href="https://github.com/yiisoft" target="_blank">
+        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
+    </a>
+    <h1 align="center">Debug Extension for Yii 2</h1>
+    <br>
+</p>
 
 This extension provides a debugger for [Yii framework 2.0](http://www.yiiframework.com) applications. When this extension is used,
 a debugger toolbar will appear at the bottom of every page. The extension also provides
