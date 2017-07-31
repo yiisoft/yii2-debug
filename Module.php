@@ -193,7 +193,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
         });
 
         $app->on(Application::EVENT_AFTER_REQUEST, function() use ($app) {
-            $this->logTarget->export();
+            if ($this->logTarget->enabled) {
+                $this->logTarget->export();
+            }
         });
 
         $app->getUrlManager()->addRules([
