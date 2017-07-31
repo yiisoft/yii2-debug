@@ -192,6 +192,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
             $app->getResponse()->on(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
         });
 
+        $app->on(Application::EVENT_AFTER_REQUEST, function() use ($app) {
+            $this->logTarget->export();
+        });
+
         $app->getUrlManager()->addRules([
             [
                 'class' => 'yii\web\UrlRule',
