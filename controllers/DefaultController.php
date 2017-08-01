@@ -85,6 +85,10 @@ class DefaultController extends Controller
             $activePanel = $this->module->panels[$this->module->defaultPanel];
         }
 
+        if ($activePanel->hasError()) {
+            \Yii::$app->errorHandler->handleException($activePanel->getError());
+        }
+
         return $this->render('view', [
             'tag' => $tag,
             'summary' => $this->summary,
@@ -154,14 +158,18 @@ class DefaultController extends Controller
             $manifest = $this->getManifest($retry > 0);
             if (isset($manifest[$tag])) {
                 $dataFile = $this->module->dataPath . "/$tag.data";
-                $data = unserialize(file_get_contents($dataFile));
+                $data = require_once($dataFile);
+                $exceptions = unserialize($data['exceptions']);
                 foreach ($this->module->panels as $id => $panel) {
                     if (isset($data[$id])) {
                         $panel->tag = $tag;
-                        $panel->load($data[$id]);
+                        $panel->load(unserialize($data[$id]));
+                    }
+                    if (isset($exceptions[$id])) {
+                        $panel->setError($exceptions[$id]);
                     }
                 }
-                $this->summary = $data['summary'];
+                $this->summary = unserialize($data['summary']);
 
                 return;
             }
