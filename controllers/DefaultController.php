@@ -163,13 +163,13 @@ class DefaultController extends Controller
                 foreach ($this->module->panels as $id => $panel) {
                     if (isset($data[$id])) {
                         $panel->tag = $tag;
-                        $panel->load(unserialize($data[$id]));
+                        $panel->load($data[$id]);
                     }
                     if (isset($exceptions[$id])) {
                         $panel->setError($exceptions[$id]);
                     }
                 }
-                $this->summary = unserialize($data['summary']);
+                $this->summary = $data['summary'];
 
                 return;
             }

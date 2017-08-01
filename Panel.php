@@ -50,7 +50,8 @@ class Panel extends Component
      */
     public $actions = [];
     /**
-     * @var \Exception|null Errors while saving the panel
+     * @var \Exception|null Error while saving the panel
+     * @since 2.0.10
      */
     protected $error;
 

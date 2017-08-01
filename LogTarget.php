@@ -53,12 +53,12 @@ class LogTarget extends Target
         $exceptions = [];
         foreach ($this->module->panels as $id => $panel) {
             try {
-                $data[$id] = serialize($panel->save());
+                $data[$id] = $panel->save();
             } catch (\Exception $e) {
                 $exceptions[$id] = $e;
             }
         }
-        $data['summary'] = serialize($summary);
+        $data['summary'] = $summary;
         $data['exceptions'] = serialize($exceptions);
 
         file_put_contents($dataFile, '<?php return ' . var_export($data, true).';');
