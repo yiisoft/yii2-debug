@@ -50,7 +50,7 @@ class Panel extends Component
      */
     public $actions = [];
     /**
-     * @var \Exception|null Error while saving the panel
+     * @var FlattenException|null Error while saving the panel
      * @since 2.0.10
      */
     protected $error;
@@ -141,16 +141,16 @@ class Panel extends Component
     }
 
     /**
-     * @param \Exception $error
+     * @param FlattenException $error
      * @since 2.0.10
      */
-    public function setError(\Exception $error)
+    public function setError(FlattenException $error)
     {
         $this->error = $error;
     }
 
     /**
-     * @return \Exception|null
+     * @return FlattenException|null
      * @since 2.0.10
      */
     public function getError()
@@ -165,5 +165,15 @@ class Panel extends Component
     public function hasError()
     {
         return $this->error !== null;
+    }
+
+    /**
+     * Is the panel enabled?
+     * @return bool
+     * @since 2.0.10
+     */
+    public function isEnabled()
+    {
+        return true;
     }
 }

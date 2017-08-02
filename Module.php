@@ -176,6 +176,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
             $config['module'] = $this;
             $config['id'] = $id;
             $this->panels[$id] = Yii::createObject($config);
+            if (!$this->panels[$id]->isEnabled()) {
+                unset($this->panels[$id]);
+            }
         }
     }
 

@@ -10,6 +10,7 @@ namespace yii\debug\panels;
 use Yii;
 use yii\base\Controller;
 use yii\base\Model;
+use yii\base\InvalidConfigException;
 use yii\data\ArrayDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveRecord;
@@ -68,22 +69,28 @@ class UserPanel extends Panel
      */
     public function init()
     {
-        if (!\Yii::$app->getUser()->isGuest) {
-            $this->userSwitch = new UserSwitch();
-            $this->addAccesRules();
+        if (
+            !$this->isEnabled()
+            || Yii::$app->getUser()->isGuest
+        ) {
+            return;
+        }
 
-            if (!is_object($this->filterModel)
-                && class_exists($this->filterModel)
-                && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
-            ) {
-                $this->filterModel = new $this->filterModel;
-            } elseif (\Yii::$app->user && \Yii::$app->user->identityClass) {
-                $identityImplement = new \Yii::$app->user->identityClass();
-                if ($identityImplement instanceof ActiveRecord) {
-                    $this->filterModel = new \yii\debug\models\search\User();
-                }
+        $this->userSwitch = new UserSwitch();
+        $this->addAccesRules();
+
+        if (!is_object($this->filterModel)
+            && class_exists($this->filterModel)
+            && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
+        ) {
+            $this->filterModel = new $this->filterModel;
+        } elseif (Yii::$app->user && Yii::$app->user->identityClass) {
+            $identityImplement = new Yii::$app->user->identityClass();
+            if ($identityImplement instanceof ActiveRecord) {
+                $this->filterModel = new \yii\debug\models\search\User();
             }
         }
+
     }
 
     /**
@@ -254,6 +261,19 @@ class UserPanel extends Panel
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isEnabled()
+    {
+        try {
+            Yii::$app->getUser();
+        } catch (InvalidConfigException $exception) {
+            return false;
+        }
+        return true;
     }
 
     /**
