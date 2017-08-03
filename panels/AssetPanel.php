@@ -8,6 +8,7 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\debug\Panel;
 use yii\web\AssetBundle;
@@ -68,6 +69,19 @@ class AssetPanel extends Panel
             }
         }
         return $data;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isEnabled()
+    {
+        try {
+            Yii::$app->view->assetManager;
+        } catch (InvalidConfigException $exception) {
+            return false;
+        }
+        return true;
     }
 
     /**

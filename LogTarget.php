@@ -54,13 +54,12 @@ class LogTarget extends Target
         foreach ($this->module->panels as $id => $panel) {
             try {
                 $data[$id] = serialize($panel->save());
-            } catch (\Exception $e) {
-                $exceptions[$id] = FlattenException::create($e);
+            } catch (\Exception $exception) {
+                $exceptions[$id] = new FlattenException($exception);
             }
         }
         $data['summary'] = $summary;
-
-        $data['exceptions'] = serialize($exceptions);
+        $data['exceptions'] = $exceptions;
 
         file_put_contents($dataFile, serialize($data));
         if ($this->module->fileMode !== null) {

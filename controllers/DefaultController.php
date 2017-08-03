@@ -159,7 +159,7 @@ class DefaultController extends Controller
             if (isset($manifest[$tag])) {
                 $dataFile = $this->module->dataPath . "/$tag.data";
                 $data = unserialize(file_get_contents($dataFile));
-                $exceptions = unserialize($data['exceptions']);
+                $exceptions = $data['exceptions'];
                 foreach ($this->module->panels as $id => $panel) {
                     if (isset($data[$id])) {
                         $panel->tag = $tag;

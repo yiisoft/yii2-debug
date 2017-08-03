@@ -7,9 +7,6 @@
 
 namespace yii\debug;
 
-use yii\base\Object;
-use yii\web\HttpException;
-
 /**
  * FlattenException wraps a PHP Exception to be able to serialize it.
  * Basically, this class removes all objects from the trace.
@@ -18,151 +15,176 @@ use yii\web\HttpException;
  * @author Dmitry Bashkarev <dmitry@bashkarev.com>
  * @since 2.0.10
  */
-class FlattenException extends Object
+class FlattenException
 {
-    private $_message;
-    private $_code;
+
+    /**
+     * @var string
+     */
+    protected $message;
+    /**
+     * @var mixed|int
+     */
+    protected $code;
+    /**
+     * @var string
+     */
+    protected $file;
+    /**
+     * @var int
+     */
+    protected $line;
+    /**
+     * @var FlattenException|null
+     */
     private $_previous;
+    /**
+     * @var array
+     */
     private $_trace;
+    /**
+     * @var string
+     */
     private $_class;
-    private $_statusCode;
-    private $_file;
-    private $_line;
 
-    public static function create(\Exception $exception, $statusCode = null)
+    /**
+     * FlattenException constructor.
+     * @param \Exception $exception
+     */
+    public function __construct(\Exception $exception)
     {
-        $e = new static();
-        $e->setMessage($exception->getMessage());
-        $e->setCode($exception->getCode());
-
-        if ($exception instanceof HttpException) {
-            $statusCode = $exception->statusCode;
-        }
-
-        if (null === $statusCode) {
-            $statusCode = 500;
-        }
-
-        $e->setStatusCode($statusCode);
-        $e->setTraceFromException($exception);
-        $e->setClass(get_class($exception));
-        $e->setFile($exception->getFile());
-        $e->setLine($exception->getLine());
+        $this->setMessage($exception->getMessage());
+        $this->setCode($exception->getCode());
+        $this->setFile($exception->getFile());
+        $this->setLine($exception->getLine());
+        $this->setTraceFromException($exception);
+        $this->setClass(get_class($exception));
 
         $previous = $exception->getPrevious();
-
         if ($previous instanceof \Exception) {
-            $e->setPrevious(static::create($previous));
+            $this->setPrevious(new self($previous));
         }
-        return $e;
     }
 
-    public function toArray()
-    {
-        $exceptions = [];
-        foreach (array_merge([$this], $this->getAllPrevious()) as $exception) {
-            $exceptions[] = [
-                'message' => $exception->getMessage(),
-                'class' => $exception->getClass(),
-                'trace' => $exception->getTrace(),
-            ];
-        }
-
-        return $exceptions;
-    }
-
-    public function getStatusCode()
-    {
-        return $this->_statusCode;
-    }
-
-    public function setStatusCode($code)
-    {
-        $this->_statusCode = $code;
-    }
-
-    public function getClass()
-    {
-        return $this->_class;
-    }
-
-    public function setClass($class)
-    {
-        $this->_class = $class;
-    }
-
-    public function getFile()
-    {
-        return $this->_file;
-    }
-
-    public function setFile($file)
-    {
-        $this->_file = $file;
-    }
-
-    public function getLine()
-    {
-        return $this->_line;
-    }
-
-    public function setLine($line)
-    {
-        $this->_line = $line;
-    }
-
+    /**
+     * Gets the Exception message
+     * @return string the Exception message as a string.
+     */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
-    public function setMessage($message)
-    {
-        $this->_message = $message;
-    }
-
+    /**
+     * Gets the Exception code
+     * @return mixed|int the exception code as integer
+     */
     public function getCode()
     {
-        return $this->_code;
+        return $this->code;
     }
 
-    public function setCode($code)
+    /**
+     * Gets the file in which the exception occurred
+     * @return string the filename in which the exception was created.
+     */
+    public function getFile()
     {
-        $this->_code = $code;
+        return $this->file;
     }
 
-    public function getPrevious()
+    /**
+     * Gets the line in which the exception occurred
+     * @return int the line number where the exception was created.
+     */
+    public function getLine()
     {
-        return $this->_previous;
+        return $this->line;
     }
 
-    public function setPrevious(FlattenException $previous)
-    {
-        $this->_previous = $previous;
-    }
-
-    public function getAllPrevious()
-    {
-        $exceptions = [];
-        $e = $this;
-        while ($e = $e->getPrevious()) {
-            $exceptions[] = $e;
-        }
-
-        return $exceptions;
-    }
-
+    /**
+     * Gets the stack trace
+     * @return array the Exception stack trace as an array.
+     */
     public function getTrace()
     {
         return $this->_trace;
     }
 
-    public function setTraceFromException(\Exception $exception)
+    /**
+     * Returns previous Exception
+     * @return FlattenException the previous `FlattenException` if available or null otherwise.
+     */
+    public function getPrevious()
     {
-        $this->setTrace($exception->getTrace(), $exception->getFile(), $exception->getLine());
+        return $this->_previous;
     }
 
-    public function setTrace($trace, $file, $line)
+    /**
+     * toDo
+     * Gets the stack trace as a string
+     * @return string the Exception stack trace as a string.
+     */
+    public function getTraceAsString()
+    {
+        return '';
+    }
+
+    /**
+     * String representation of the exception
+     * @return string the string representation of the exception.
+     */
+    public function __toString()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->_class;
+    }
+
+    /**
+     * @param string $message
+     */
+    protected function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * @param mixed|int $code
+     */
+    protected function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @param string $file
+     */
+    protected function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @param int $line
+     */
+    protected function setLine($line)
+    {
+        $this->line = $line;
+    }
+
+    /**
+     * @param array $trace
+     * @param string $file
+     * @param int $line
+     */
+    protected function setTrace($trace, $file, $line)
     {
         $this->_trace = [];
         $this->_trace[] = [
@@ -197,6 +219,36 @@ class FlattenException extends Object
         }
     }
 
+    /**
+     * @param FlattenException $previous
+     */
+    protected function setPrevious(FlattenException $previous)
+    {
+        $this->_previous = $previous;
+    }
+
+    /**
+     * @param string $class
+     */
+    protected function setClass($class)
+    {
+        $this->_class = $class;
+    }
+
+    /**
+     * @param \Exception $exception
+     */
+    protected function setTraceFromException(\Exception $exception)
+    {
+        $this->setTrace($exception->getTrace(), $exception->getFile(), $exception->getLine());
+    }
+
+    /**
+     * @param array $args
+     * @param int $level
+     * @param int $count
+     * @return array
+     */
     private function flattenArgs($args, $level = 0, &$count = 0)
     {
         $result = [];
@@ -233,6 +285,10 @@ class FlattenException extends Object
         return $result;
     }
 
+    /**
+     * @param \__PHP_Incomplete_Class $value
+     * @return mixed
+     */
     private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value)
     {
         $array = new \ArrayObject($value);
