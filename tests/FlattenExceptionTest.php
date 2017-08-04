@@ -6,7 +6,6 @@ use yii\web\NotFoundHttpException;
 use yii\debug\FlattenException;
 
 /**
- * @group exception
  * @author Dmitry Bashkarev <dmitry@bashkarev.com>
  */
 class FlattenExceptionTest extends TestCase
@@ -80,6 +79,9 @@ class FlattenExceptionTest extends TestCase
 
     public function testArguments()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('HHVM skip');
+        }
         $dh = opendir(__DIR__);
         $fh = tmpfile();
 
