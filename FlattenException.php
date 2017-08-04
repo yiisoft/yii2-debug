@@ -46,7 +46,7 @@ class FlattenException
     /**
      * @var string
      */
-    private $_traceString;
+    private $_toString;
     /**
      * @var string
      */
@@ -63,7 +63,7 @@ class FlattenException
         $this->setFile($exception->getFile());
         $this->setLine($exception->getLine());
         $this->setTrace($exception->getTrace());
-        $this->setTraceString($exception->getTraceAsString());
+        $this->setToString($exception->__toString());
         $this->setClass(get_class($exception));
 
         $previous = $exception->getPrevious();
@@ -132,7 +132,12 @@ class FlattenException
      */
     public function getTraceAsString()
     {
-        return $this->_traceString;
+        $remove = 'Stack trace:' . PHP_EOL;
+        $len = strpos($this->_toString, $remove);
+        if ($len === false) {
+            return '';
+        }
+        return substr($this->_toString, $len + strlen($remove));
     }
 
     /**
@@ -141,15 +146,7 @@ class FlattenException
      */
     public function __toString()
     {
-        $message = trim($this->message);
-        $str = $this->_class;
-        if (!empty($this->message)) {
-            $str .= ': ' . $message;
-        }
-        $str .= " in $this->file:$this->line" . PHP_EOL;
-        $str .= 'Stack trace:' . PHP_EOL;
-        $str .= $this->_traceString;
-        return $str;
+        return $this->_toString;
     }
 
     /**
@@ -221,11 +218,11 @@ class FlattenException
     }
 
     /**
-     * @param string $traceString
+     * @param string $string
      */
-    protected function setTraceString($traceString)
+    protected function setToString($string)
     {
-        $this->_traceString = $traceString;
+        $this->_toString = $string;
     }
 
     /**

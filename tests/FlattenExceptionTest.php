@@ -75,7 +75,7 @@ class FlattenExceptionTest extends TestCase
 
     public function testClass()
     {
-        $this->assertEquals((new FlattenException(new \Exception()))->getClass(), \Exception::class);
+        $this->assertEquals((new FlattenException(new \Exception()))->getClass(), 'Exception');
     }
 
     public function testArguments()
