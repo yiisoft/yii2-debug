@@ -9,6 +9,7 @@ namespace yii\debug;
 
 /**
  * FlattenException wraps a PHP Exception to be able to serialize it.
+ * Implements the Throwable interface
  * Basically, this class removes all objects from the trace.
  * Ported from Symfony components
  *
@@ -45,6 +46,10 @@ class FlattenException
     /**
      * @var string
      */
+    private $_traceString;
+    /**
+     * @var string
+     */
     private $_class;
 
     /**
@@ -57,7 +62,8 @@ class FlattenException
         $this->setCode($exception->getCode());
         $this->setFile($exception->getFile());
         $this->setLine($exception->getLine());
-        $this->setTraceFromException($exception);
+        $this->setTrace($exception->getTrace());
+        $this->setTraceString($exception->getTraceAsString());
         $this->setClass(get_class($exception));
 
         $previous = $exception->getPrevious();
@@ -121,13 +127,12 @@ class FlattenException
     }
 
     /**
-     * toDo
      * Gets the stack trace as a string
      * @return string the Exception stack trace as a string.
      */
     public function getTraceAsString()
     {
-        return '';
+        return $this->_traceString;
     }
 
     /**
@@ -136,11 +141,19 @@ class FlattenException
      */
     public function __toString()
     {
-        return $this->message;
+        $message = trim($this->message);
+        $str = $this->_class;
+        if (!empty($this->message)) {
+            $str .= ': ' . $message;
+        }
+        $str .= " in $this->file:$this->line" . PHP_EOL;
+        $str .= 'Stack trace:' . PHP_EOL;
+        $str .= $this->_traceString;
+        return $str;
     }
 
     /**
-     * @return string
+     * @return string Name of the class exception
      */
     public function getClass()
     {
@@ -181,22 +194,10 @@ class FlattenException
 
     /**
      * @param array $trace
-     * @param string $file
-     * @param int $line
      */
-    protected function setTrace($trace, $file, $line)
+    protected function setTrace($trace)
     {
         $this->_trace = [];
-        $this->_trace[] = [
-            'namespace' => '',
-            'short_class' => '',
-            'class' => '',
-            'type' => '',
-            'function' => '',
-            'file' => $file,
-            'line' => $line,
-            'args' => [],
-        ];
         foreach ($trace as $entry) {
             $class = '';
             $namespace = '';
@@ -220,6 +221,14 @@ class FlattenException
     }
 
     /**
+     * @param string $traceString
+     */
+    protected function setTraceString($traceString)
+    {
+        $this->_traceString = $traceString;
+    }
+
+    /**
      * @param FlattenException $previous
      */
     protected function setPrevious(FlattenException $previous)
@@ -233,14 +242,6 @@ class FlattenException
     protected function setClass($class)
     {
         $this->_class = $class;
-    }
-
-    /**
-     * @param \Exception $exception
-     */
-    protected function setTraceFromException(\Exception $exception)
-    {
-        $this->setTrace($exception->getTrace(), $exception->getFile(), $exception->getLine());
     }
 
     /**
