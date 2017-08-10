@@ -11,7 +11,7 @@ namespace yii\debug;
  * FlattenException wraps a PHP Exception to be able to serialize it.
  * Implements the Throwable interface
  * Basically, this class removes all objects from the trace.
- * Ported from Symfony components
+ * Ported from Symfony components @link https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Debug/Exception/FlattenException.php
  *
  * @author Dmitry Bashkarev <dmitry@bashkarev.com>
  * @since 2.0.10
@@ -83,7 +83,7 @@ class FlattenException
 
     /**
      * Gets the Exception code
-     * @return mixed|int the exception code as integer
+     * @return mixed|int the exception code as integer.
      */
     public function getCode()
     {
@@ -150,7 +150,7 @@ class FlattenException
     }
 
     /**
-     * @return string Name of the class exception
+     * @return string the name of the class in which the exception was created.
      */
     public function getClass()
     {
@@ -158,7 +158,7 @@ class FlattenException
     }
 
     /**
-     * @param string $message
+     * @param string $message the Exception message as a string.
      */
     protected function setMessage($message)
     {
@@ -166,7 +166,7 @@ class FlattenException
     }
 
     /**
-     * @param mixed|int $code
+     * @param mixed|int $code the exception code as integer.
      */
     protected function setCode($code)
     {
@@ -174,7 +174,7 @@ class FlattenException
     }
 
     /**
-     * @param string $file
+     * @param string $file the filename in which the exception was created.
      */
     protected function setFile($file)
     {
@@ -182,7 +182,7 @@ class FlattenException
     }
 
     /**
-     * @param int $line
+     * @param int $line the line number where the exception was created.
      */
     protected function setLine($line)
     {
@@ -190,7 +190,7 @@ class FlattenException
     }
 
     /**
-     * @param array $trace
+     * @param array $trace the Exception stack trace as an array.
      */
     protected function setTrace($trace)
     {
@@ -218,7 +218,7 @@ class FlattenException
     }
 
     /**
-     * @param string $string
+     * @param string $string the string representation of the thrown object.
      */
     protected function setToString($string)
     {
@@ -226,7 +226,7 @@ class FlattenException
     }
 
     /**
-     * @param FlattenException $previous
+     * @param FlattenException $previous previous Exception.
      */
     protected function setPrevious(FlattenException $previous)
     {
@@ -234,7 +234,7 @@ class FlattenException
     }
 
     /**
-     * @param string $class
+     * @param string $class the name of the class in which the exception was created.
      */
     protected function setClass($class)
     {
@@ -242,16 +242,17 @@ class FlattenException
     }
 
     /**
+     * Allows you to sterilize the Exception trace arguments
      * @param array $args
-     * @param int $level
-     * @param int $count
-     * @return array
+     * @param int $level recursion level
+     * @param int $count number of records counter
+     * @return array arguments tracing.
      */
     private function flattenArgs($args, $level = 0, &$count = 0)
     {
         $result = [];
         foreach ($args as $key => $value) {
-            if (++$count > 1e4) {
+            if (++$count > 10000) {
                 return ['array', '*SKIPPED over 10000 entries*'];
             }
             if ($value instanceof \__PHP_Incomplete_Class) {
@@ -285,7 +286,7 @@ class FlattenException
 
     /**
      * @param \__PHP_Incomplete_Class $value
-     * @return mixed
+     * @return string the real class name of an incomplete class
      */
     private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value)
     {
