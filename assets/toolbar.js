@@ -295,4 +295,39 @@
         proxied.apply(this, Array.prototype.slice.call(arguments));
     };
 
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function(input, init) {
+            var method = (init && init.method) || 'GET';
+            var promise = originalFetch(input, init);
+            /* prevent logging AJAX calls to static and inline files, like templates */
+            if (input.substr(0, 1) === '/' && !input.match(new RegExp("{{ excluded_ajax_paths }}"))) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: input,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function(response) {
+                    stackElement.duration = response.headers.get("X-Debug-Duration") || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = response.status;
+                    stackElement.error = response.status < 200 || response.status >= 400;
+                    stackElement.profile = response.headers.get("X-Debug-Tag");
+                    stackElement.profilerinput = response.headers.get("X-Debug-Link");
+                    renderAjaxRequests();
+
+                    return response;
+                });
+                renderAjaxRequests();
+            }
+
+            return promise;
+        };
+    }
+
 })();
