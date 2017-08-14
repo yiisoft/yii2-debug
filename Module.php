@@ -176,6 +176,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
             $config['module'] = $this;
             $config['id'] = $id;
             $this->panels[$id] = Yii::createObject($config);
+            if ($this->panels[$id] instanceof Panel && !$this->panels[$id]->isEnabled()) {
+                unset($this->panels[$id]);
+            }
         }
     }
 
@@ -324,7 +327,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function corePanels()
     {
-        $panels = [
+        return [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
             'request' => ['class' => 'yii\debug\panels\RequestPanel'],
             'log' => ['class' => 'yii\debug\panels\LogPanel'],
@@ -333,15 +336,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
+            'user' => ['class' => 'yii\debug\panels\UserPanel'],
+            'router' => ['class' => 'yii\debug\panels\RouterPanel']
         ];
-
-        $components = Yii::$app->getComponents();
-        if (isset($components['user']['identityClass'])) {
-            $panels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
-        }
-        $panels['router'] = ['class' => 'yii\debug\panels\RouterPanel'];
-
-        return $panels;
     }
 
     /**

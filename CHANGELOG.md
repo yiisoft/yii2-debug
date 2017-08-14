@@ -19,6 +19,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #239: Fixed an issue in the user panel when using console application with debug module enabled (pana1990)
 - Bug #249: Fixed toolbar not displayed because of misconfigured authManager (samdark)
 - Enh #256: Catch fetch AJAX requests (leopold537)
+- Bug #252, #234, #220, #242: Reworked error handling to be error-resistent and display errors in the panel itself (bashkarev)
 
 2.0.9 February 21, 2017
 -----------------------
