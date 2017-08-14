@@ -89,7 +89,7 @@ class AssetPanel extends Panel
      *
      * @param AssetBundle[] $bundles Array of bundles to formatting.
      *
-     * @return AssetManager
+     * @return AssetBundle[]
      */
     protected function format(array $bundles)
     {

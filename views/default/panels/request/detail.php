@@ -3,7 +3,7 @@
 
 use yii\bootstrap\Tabs;
 
-echo "<h1>Request</h1>";
+echo '<h1>Request</h1>';
 
 echo Tabs::widget([
     'items' => [

@@ -19,7 +19,7 @@ echo '<h2>Switch user</h2>';
                 'layout'  => 'horizontal',
                 'options' => [
                     'id'    => 'debug-userswitch__set-identity',
-                    'style' => ($panel->canSearchUsers() ? 'display:none' : '')
+                    'style' => $panel->canSearchUsers() ? 'display:none' : ''
                 ]
             ]);
             echo $formSet->field(

@@ -133,11 +133,11 @@ class Panel extends Component
         $traceLine = $this->module->traceLine;
         if ($traceLine === false) {
             return $options['text'];
-        } else {
-            $options['file'] = str_replace('\\', '/', $options['file']);
-            $rawLink = $traceLine instanceof \Closure ? call_user_func($traceLine, $options, $this) : $traceLine;
-            return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
         }
+
+        $options['file'] = str_replace('\\', '/', $options['file']);
+        $rawLink = $traceLine instanceof \Closure ? $traceLine($options, $this) : $traceLine;
+        return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
     }
 
     /**

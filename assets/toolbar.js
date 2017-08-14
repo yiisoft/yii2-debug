@@ -139,7 +139,7 @@
 
         toolbarEl.style.display = 'block';
 
-        if (restoreStorageState(CACHE_KEY) == ACTIVE_STATE) {
+        if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
             toolbarEl.classList.add(activeClass);
         }
 
@@ -257,9 +257,9 @@
         }
         requestCounter[0].innerText = requestStack.length;
         var className = 'yii-debug-toolbar__label yii-debug-toolbar__ajax_counter';
-        if (state == 'ok') {
+        if (state === 'ok') {
             className += ' yii-debug-toolbar__label_success';
-        } else if (state == 'error') {
+        } else if (state === 'error') {
             className += ' yii-debug-toolbar__label_error';
         }
         requestCounter[0].className = className;

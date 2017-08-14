@@ -126,6 +126,10 @@ class LogTarget extends Target
         }
     }
 
+    /**
+     * Removes obsolete data files
+     * @param array $manifest
+     */
     protected function gc(&$manifest)
     {
         if (count($manifest) > $this->module->historySize + 10) {

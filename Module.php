@@ -231,12 +231,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
         if ($this->checkAccess()) {
             $this->resetGlobalSettings();
             return true;
-        } elseif ($action->id === 'toolbar') {
+        }
+
+        if ($action->id === 'toolbar') {
             // Accessing toolbar remotely is normal. Do not throw exception.
             return false;
-        } else {
-            throw new ForbiddenHttpException('You are not allowed to access this page.');
         }
+
+        throw new ForbiddenHttpException('You are not allowed to access this page.');
     }
 
     /**
