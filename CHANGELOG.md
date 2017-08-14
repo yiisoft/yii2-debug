@@ -18,6 +18,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #244: Fixed copying SQL via triple-click in Firefox (arzzen)
 - Bug #239: Fixed an issue in the user panel when using console application with debug module enabled (pana1990)
 - Bug #249: Fixed toolbar not displayed because of misconfigured authManager (samdark)
+- Bug #252: Fixed crashes (bashkarev)
 
 
 2.0.9 February 21, 2017
