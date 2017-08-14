@@ -106,6 +106,16 @@ class DbPanel extends Panel
     /**
      * @inheritdoc
      */
+    public function hasSummary()
+    {
+        $timings = $this->calculateTimings();
+        $queryCount = count($timings);
+        return $queryCount > 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getDetail()
     {
         $searchModel = new Db();

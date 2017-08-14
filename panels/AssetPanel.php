@@ -40,6 +40,14 @@ class AssetPanel extends Panel
     /**
      * @inheritdoc
      */
+    public function hasSummary()
+    {
+        return !empty($this->data);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getDetail()
     {
         return Yii::$app->view->render('panels/assets/detail', ['panel' => $this]);

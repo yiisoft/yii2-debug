@@ -7,6 +7,24 @@ use yii\debug\Panel;
 
 class PanelTest extends TestCase
 {
+    public function testGetName()
+    {
+        $panel = $this->getPanel();
+        $this->assertEquals('', $panel->getName());
+    }
+
+    public function testGetSummary()
+    {
+        $panel = $this->getPanel();
+        $this->assertEquals('', $panel->getSummary());
+    }
+
+    public function testHasSummary()
+    {
+        $panel = $this->getPanel();
+        $this->assertTrue($panel->hasSummary());
+    }
+
     public function testGetTraceLine_DefaultLink()
     {
         $traceConfig = [

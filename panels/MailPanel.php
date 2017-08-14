@@ -112,6 +112,14 @@ class MailPanel extends Panel
     /**
      * @inheritdoc
      */
+    public function hasSummary()
+    {
+        return count($this->data) > 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getDetail()
     {
         $searchModel = new Mail();

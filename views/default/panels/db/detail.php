@@ -3,8 +3,8 @@
 /* @var $searchModel yii\debug\models\search\Db */
 /* @var $dataProvider yii\data\ArrayDataProvider */
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\web\View;
 
 echo Html::tag('h1', $panel->getName() . ' Queries');
@@ -21,7 +21,7 @@ echo GridView::widget([
             'label' => 'Time',
             'value' => function ($data) {
                 $timeInSeconds = $data['timestamp'] / 1000;
-                $millisecondsDiff = (int) (($timeInSeconds - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
@@ -94,25 +94,25 @@ $this->registerJs('debug_db_detail();', View::POS_READY);
 ?>
 
 <script>
-function debug_db_detail() {
-    $('.db-explain a').on('click', function(e) {
-        e.preventDefault();
-        
-        var $explain = $('.db-explain-text', $(this).parent().parent());
+    function debug_db_detail() {
+        $('.db-explain a').on('click', function (e) {
+            e.preventDefault();
 
-        if ($explain.is(':visible')) {
-            $explain.hide();
-            $(this).text('[+] Explain');
-        } else {
-            $explain.load($(this).attr('href')).show();
-            $(this).text('[-] Explain');
-        }
-    });
+            var $explain = $('.db-explain-text', $(this).parent().parent());
 
-    $('#db-explain-all a').on('click', function(e) {
-        e.preventDefault();
-        
-        $('.db-explain a').click();
-    });
-}
+            if ($explain.is(':visible')) {
+                $explain.hide();
+                $(this).text('[+] Explain');
+            } else {
+                $explain.load($(this).attr('href')).show();
+                $(this).text('[-] Explain');
+            }
+        });
+
+        $('#db-explain-all a').on('click', function (e) {
+            e.preventDefault();
+
+            $('.db-explain a').click();
+        });
+    }
 </script>

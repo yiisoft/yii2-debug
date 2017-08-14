@@ -36,9 +36,19 @@ $url = $firstPanel->getUrl();
             </div>
         </div>
 
-        <?php foreach ($panels as $panel): ?>
-            <?= $panel->getSummary() ?>
-        <?php endforeach; ?>
+        <?php foreach ($panels as $panel){
+            if (!$panel->hasSummary()) {
+                continue;
+            }
+            $summary = $panel->getSummary();
+            if ($summary === '') {
+                continue;
+            }
+        ?>
+        <div class="yii-debug-toolbar__block" id="<?= $panel->getName() ?>">
+            <?= $summary; ?>
+        </div>
+        <?php }?>
 
         <div class="yii-debug-toolbar__block_last">
 
