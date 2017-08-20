@@ -58,7 +58,7 @@ class ViewsPanel extends Panel
      */
     public function getDetail()
     {
-        return '<ol><li>' . implode('<li>', $this->data) . '</ol>';
+        return '<ol><li>' . implode('</li><li>', $this->data) . '</li></ol>';
     }
 
     /**
