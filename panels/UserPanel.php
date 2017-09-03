@@ -239,6 +239,9 @@ class UserPanel extends Panel
         }
 
         $identityData = $this->identityData($identity);
+        foreach ($identityData as $key => $value) {
+            $identityData[$key] = VarDumper::dumpAsString($value);
+        }
 
         // If the identity is a model, let it specify the attribute labels
         if ($identity instanceof Model) {
