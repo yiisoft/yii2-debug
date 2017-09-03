@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.10 under development
 ------------------------
 
+- Bug #251: User panel was displaying current user info instead of user info at the moment of request (samdark) 
 - Enh #188: Added `RequestPanel::$displayVars` that lists allowed variables in request panel (samdark) 
 - Bug #257: Fixed user panel to properly display object attributes (samdark)
 - Bug #242: Fixed silent crash by omitting AssetsPanel creation when yii/web/AssetManager not being used like in REST apps (tunecino)

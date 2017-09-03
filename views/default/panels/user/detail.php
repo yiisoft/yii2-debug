@@ -11,9 +11,7 @@ use yii\widgets\DetailView;
 <h1>User</h1>
 
 <?php
-
-if (!Yii::$app->user->isGuest) {
-
+if (isset($panel->data['identity'], $panel->data['attributes'])) {
     $items = [
         [
             'label'   => 'User',
@@ -47,4 +45,6 @@ if (!Yii::$app->user->isGuest) {
         'items' => $items,
     ]);
 
+} else {
+    echo 'Is guest.';
 } ?>

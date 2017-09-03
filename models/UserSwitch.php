@@ -25,12 +25,12 @@ class UserSwitch extends Model
     /**
      * @var User user which we are currently switched to
      */
-    private $user;
+    private $_user;
 
     /**
      * @var User the main user who was originally logged in before switching.
      */
-    private $mainUser;
+    private $_mainUser;
 
 
     /**
@@ -60,10 +60,10 @@ class UserSwitch extends Model
      */
     public function getUser()
     {
-        if (empty($this->user)) {
-            $this->user = Yii::$app->get('user');
+        if ($this->_user === null) {
+            $this->_user = Yii::$app->get('user');
         }
-        return $this->user;
+        return $this->_user;
     }
 
     /**
@@ -72,23 +72,23 @@ class UserSwitch extends Model
      */
     public function getMainUser()
     {
-        $session = Yii::$app->getSession();
-        $user = $this->getUser();
+        $currentUser = $this->getUser();
 
-        if (empty($this->mainUser) && $user->getIsGuest() === false) {
+        if ($this->_mainUser === null && $currentUser->getIsGuest() === false) {
+            $session = Yii::$app->getSession();
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
-                $mainIdentity = call_user_func([$user->identityClass, 'findIdentity'], $mainUserId);
+                $mainIdentity = call_user_func([$currentUser->identityClass, 'findIdentity'], $mainUserId);
             } else {
-                $mainIdentity = $user->identity;
+                $mainIdentity = $currentUser->identity;
             }
 
-            $mainUser = clone $user;
+            $mainUser = clone $currentUser;
             $mainUser->setIdentity($mainIdentity);
-            $this->mainUser = $mainUser;
+            $this->_mainUser = $mainUser;
         }
 
-        return $this->mainUser;
+        return $this->_mainUser;
     }
 
     /**
