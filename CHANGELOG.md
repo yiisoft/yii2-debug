@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.10 under development
 ------------------------
 
+- Enh #188: Added `RequestPanel::$displayVars` that lists allowed variables in request panel (samdark) 
 - Bug #242: Fixed silent crash by omitting AssetsPanel creation when yii/web/AssetManager not being used like in REST apps (tunecino)
 - Enh #208: All identity models get converted to arrays when saving User panel data now, not just ActiveRecord models (brandonkelly)
 - Enh #208: Identity model packaging for User panels is now done in an `identityData()` method, making it easier for subclasses to customize (brandonkelly) 
