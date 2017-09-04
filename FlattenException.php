@@ -18,7 +18,6 @@ namespace yii\debug;
  */
 class FlattenException
 {
-
     /**
      * @var string
      */
@@ -35,6 +34,7 @@ class FlattenException
      * @var int
      */
     protected $line;
+
     /**
      * @var FlattenException|null
      */
@@ -51,6 +51,7 @@ class FlattenException
      * @var string
      */
     private $_class;
+
 
     /**
      * FlattenException constructor.

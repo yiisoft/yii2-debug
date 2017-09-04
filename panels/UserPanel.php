@@ -26,12 +26,14 @@ use yii\helpers\VarDumper;
 /**
  * Debugger panel that collects and displays user data.
  *
+ * @property DataProviderInterface $userDataProvider This property is read-only.
+ * @property Model|UserSearchInterface $usersFilterModel This property is read-only.
+ *
  * @author Daniel Gomez Pan <pana_1990@hotmail.com>
  * @since 2.0.8
  */
 class UserPanel extends Panel
 {
-
     /**
      * @var array the rule which defines who allowed to switch user identity.
      * Access Control Filter single rule. Ignore: actions, controllers, verbs.
@@ -44,25 +46,23 @@ class UserPanel extends Panel
     public $ruleUserSwitch = [
         'allow' => false,
     ];
-
     /**
      * @var UserSwitch object of switching users
      * @since 2.0.10
      */
     public $userSwitch;
-
     /**
      * @var Model|UserSearchInterface Implements of User model with search method.
      * @since 2.0.10
      */
     public $filterModel;
-
     /**
      * @var array allowed columns for GridView.
      * @see http://www.yiiframework.com/doc-2.0/yii-grid-gridview.html#$columns-detail
      * @since 2.0.10
      */
     public $filterColumns = [];
+
 
     /**
      * @inheritdoc

@@ -24,6 +24,7 @@ class User extends Model
      */
     public $identityImplement = null;
 
+
     /**
      * @inheritdoc
      */

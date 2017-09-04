@@ -49,11 +49,13 @@ class Panel extends Component
      * See [[\yii\base\Controller::actions()]] for the format.
      */
     public $actions = [];
+
     /**
      * @var FlattenException|null Error while saving the panel
      * @since 2.0.10
      */
     protected $error;
+
 
     /**
      * @return string name of the panel

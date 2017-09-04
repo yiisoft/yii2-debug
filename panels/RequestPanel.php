@@ -26,6 +26,7 @@ class RequestPanel extends Panel
      */
     public $displayVars = ['_SERVER', '_GET', '_POST', '_COOKIE', '_FILES', '_SESSION'];
 
+
     /**
      * @inheritdoc
      */
