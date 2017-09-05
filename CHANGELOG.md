@@ -4,8 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.11 under development
 ------------------------
 
-- no changes in this release.
-
+- Bug: Fixed calling `isMainUser()` on null regression in 2.0.10 (samdark)
 
 2.0.10 September 04, 2017
 -------------------------

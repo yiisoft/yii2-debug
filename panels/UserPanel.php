@@ -22,6 +22,7 @@ use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+use yii\web\IdentityInterface;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -150,6 +151,10 @@ class UserPanel extends Panel
      */
     public function canSwitchUser()
     {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
         $allowSwitchUser = false;
 
         $rule = new AccessRule($this->ruleUserSwitch);
