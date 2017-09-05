@@ -4,8 +4,8 @@ Yii Framework 2 debug extension Change Log
 2.0.11 under development
 ------------------------
 
+- Bug #262: Fixed issue when identity ID is stored in a field different from `id` (samdark)
 - Bug #265: Fixed calling `isMainUser()` on null regression in 2.0.10 (samdark)
-- Bug #262: Fixed issue when identity ID is stored in a field different from `id` (samdark) 
 
 
 2.0.10 September 04, 2017
