@@ -151,6 +151,10 @@ class UserPanel extends Panel
      */
     public function canSwitchUser()
     {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
         $allowSwitchUser = false;
 
         $rule = new AccessRule($this->ruleUserSwitch);
