@@ -137,7 +137,7 @@ class Panel extends Component
             return $options['text'];
         }
 
-        if ($this->module->traceBasePath && is_string($this->module->traceBasePath)) { 
+        if ($this->module->traceBasePath) { 
             $options['file'] = str_replace(Yii::$app->basePath, $this->module->traceBasePath, $options['file']); 
         } 
         $options['file'] = str_replace('\\', '/', $options['file']);
