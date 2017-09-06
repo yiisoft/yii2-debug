@@ -137,6 +137,9 @@ class Panel extends Component
             return $options['text'];
         }
 
+        if ($this->module->traceBasePath) { 
+            $options['file'] = str_replace(Yii::$app->basePath, $this->module->traceBasePath, $options['file']); 
+        } 
         $options['file'] = str_replace('\\', '/', $options['file']);
         $rawLink = $traceLine instanceof \Closure ? $traceLine($options, $this) : $traceLine;
         return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
