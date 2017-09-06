@@ -20,6 +20,8 @@ use yii\web\ForbiddenHttpException;
 /**
  * The Yii Debug Module provides the debug toolbar and debugger
  *
+ * @property string $traceBasePath if set, replaces the base path on the value of the {file} placeholder with this value.
+ *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
@@ -117,7 +119,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * for example in a virtualized or dockerized environment.
      * @since 2.0.12
      */
-    public $traceBasePath;
+    private $_traceBasePath;
     
     /**
      * @var string Yii logo URL
@@ -145,6 +147,26 @@ class Module extends \yii\base\Module implements BootstrapInterface
         self::$_yiiLogo = $logo;
     }
 
+    /**
+     * Sets the base path for trace lines to replace the application's base path
+     * 
+     * @param string $basePath the base path
+     */
+    public function setTraceBasePath($basePath)
+    {
+        $this->_traceBasePath = (string) $basePath;
+    }
+
+    /**
+     * Returns the base path for trace lines
+     * 
+     * @return string the trace base path
+     */
+    public function getTraceBasePath()
+    {
+        return $this->_traceBasePath;
+    }
+    
     /**
      * @inheritdoc
      */
