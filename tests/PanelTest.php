@@ -80,7 +80,7 @@ class PanelTest extends TestCase
     
     public function testGetTraceLine_traceBasePath()
     {
-        $filePath = \Yii::$app->basePath . '/file.php'
+        $filePath = \Yii::$app->basePath . '/file.php';
         $traceConfig = [
             'file' => $filePath,
             'line' => 10,
