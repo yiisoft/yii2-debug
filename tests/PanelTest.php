@@ -77,6 +77,18 @@ class PanelTest extends TestCase
         };
         $this->assertEquals('<a href="ide://open?url=file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
     }
+    
+    public function testGetTraceLine_traceBasePath()
+    {
+        $filePath = \Yii::$app->basePath . '/file.php'
+        $traceConfig = [
+            'file' => $filePath,
+            'line' => 10,
+        ];
+        $panel = $this->getPanel();
+        $panel->module->traceBasePath = '/custom/path';
+        $this->assertEquals('<a href="ide://open?url=file:///custom/path/file.php&line=10">' . $filePath . ':10</a>', $panel->getTraceLine($traceConfig));
+    }
 
     protected function setUp()
     {
