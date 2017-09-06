@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.12 under development
 ------------------------
 
-- no changes in this release.
+- Enh #175: Added `Module::$traceBasePath` option to allow configuring a different base path for trace lines than is detected by the framework (francislavoie)
 
 
 2.0.11 under development
