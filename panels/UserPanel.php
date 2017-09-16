@@ -86,7 +86,7 @@ class UserPanel extends Panel
         ) {
             $this->filterModel = new $this->filterModel;
         } elseif (Yii::$app->user && Yii::$app->user->identityClass) {
-            $identityImplement = new Yii::$app->user->identityClass();
+            $identityImplement = Yii::createObject(Yii::$app->user->identityClass);
             if ($identityImplement instanceof ActiveRecord) {
                 $this->filterModel = new \yii\debug\models\search\User();
             }
