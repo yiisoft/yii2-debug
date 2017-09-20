@@ -6,6 +6,7 @@ use yii\base\Event;
 use yii\caching\FileCache;
 use yii\debug\Module;
 use Yii;
+use yii\web\View;
 
 class ModuleTest extends TestCase
 {
@@ -81,7 +82,7 @@ class ModuleTest extends TestCase
         $this->assertEquals(<<<HTML
 <div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
 HTML
-        ,$module->getToolbarHtml());
+            , $module->getToolbarHtml());
     }
 
     /**
@@ -91,7 +92,7 @@ HTML
     {
         $module = new Module('debug');
         $module->allowedIPs = ['*'];
-        Yii::$app->setModule('debug',$module);
+        Yii::$app->setModule('debug', $module);
         $module->bootstrap(Yii::$app);
         Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
             ->setMethods(['dispatch'])
@@ -146,5 +147,53 @@ HTML
         $module = new Module('debug');
 
         $this->assertEquals('2.0.7', $module->getVersion());
+    }
+
+    /**
+     * @see https://github.com/yiisoft/yii2-debug/issues/275
+     */
+    public function testReinitialization()
+    {
+        $this->destroyApplication();
+
+        $this->expectException('yii\web\NotFoundHttpException');
+        $app = $this->mockWebApplication([
+            'bootstrap' => ['debug'],
+            'name' => 'test',
+            'modules' => [
+                'debug' => [
+                    'class' => Module::className(),
+                    'panels' => [
+                        'config' => null,
+                        'request' => null,
+                    ]
+                ],
+            ],
+            'components' => [
+                'view' => function () {
+                    foreach (Yii::$app->getModules() as $module) {
+                        if (!is_array($module)) {
+                            throw new \LogicException('The application was already running');
+                        }
+                        (new \ReflectionClass($module['class']))->newInstanceWithoutConstructor()->init();
+                    }
+                    return Yii::createObject(['class' => View::className()]);
+                }
+            ]
+        ]);
+        $app->run();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function destroyApplication()
+    {
+        parent::destroyApplication();
+
+        $property = (new \ReflectionObject(new Module('clear')))->getProperty('_isInit');
+        $property->setAccessible(true);
+        $property->setValue(null, false);
+        $property->setAccessible(false);
     }
 } 
