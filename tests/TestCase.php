@@ -36,9 +36,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         ], $config));
     }
 
+    /**
+     * @param array $config
+     * @param string $appClass
+     * @return \yii\web\Application
+     */
     protected function mockWebApplication($config = [], $appClass = '\yii\web\Application')
     {
-        new $appClass(ArrayHelper::merge([
+        return new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => dirname(__DIR__) . '/vendor',
