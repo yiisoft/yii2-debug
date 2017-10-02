@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.12 under development
 ------------------------
 
-- no changes in this release.
+- Bug #271: Fixed regression in 2.0.11 causing debug fail with some custom classes implementing IdentityInterface (zertex)
 
 
 2.0.11 September 06, 2017
