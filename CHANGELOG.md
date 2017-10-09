@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #271: Fixed regression in 2.0.11 causing debug fail with some custom classes implementing IdentityInterface (zertex)
+- Bug #279: Fixed incomplete initialization of path aliases while using non-web application (samdark)
 
 
 2.0.11 September 06, 2017
