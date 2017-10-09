@@ -228,6 +228,17 @@ IDE links for traces are created by default. You have to set the property `yii\d
 ...
 ```
 
+### Virtualized or dockerized
+
+If your application is run under a virtualized or dockerized environment, it is often the case that the application's base path is different inside of the virtual machine or container than on your host machine. For the links work in those situations, you can configure `traceLine` like this (change the path to your app):
+
+```php
+'traceLine' => function($options, $panel) {
+    $filePath = str_replace(Yii::$app->basePath, '~/path/to/your/app', $options['file']);
+    return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
+},
+```
+
 ### Switching Users
 
 You can use log in as any user and reset to back to your primary user. In order to enable the feature you need to configure access permissions in the `UserPanel` config. By default access is denied to everyone.
