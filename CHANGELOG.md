@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.13 under development
 ------------------------
 
-- no changes in this release.
+- Bug #282: Fixed issue where session regeneration of user panel destroys session data from other user components.
 
 
 2.0.12 October 09, 2017
