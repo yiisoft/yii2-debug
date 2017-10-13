@@ -72,7 +72,7 @@ class UserPanel extends Panel
     {
         if (
             !$this->isEnabled()
-            || Yii::$app->getUser()->getIdentity(false) === null
+            || Yii::$app->getUser()->isGuest
         ) {
             return;
         }
