@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.13 under development
 ------------------------
 
-- no changes in this release.
+- Enh #283: Send debug headers in AJAX requests in order to be able to link to debug panel from single page apps (glendemon)
 
 
 2.0.12 October 09, 2017
