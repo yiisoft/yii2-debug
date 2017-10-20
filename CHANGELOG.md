@@ -10,6 +10,7 @@ Yii Framework 2 debug extension Change Log
 - Chg #292: Added PHP 7.2 compatibility (brandonkelly) 
 - Chg: Changed `default/view` not to depend on `db` panel (silverfire)
 - Enh #294: Added a "General Info" table to the Request panel (brandonkelly)
+- Enh #274: Made user component configurable for `UserSwitch` and `UserPanel` (samdark)
 
 
 2.0.12 October 09, 2017
