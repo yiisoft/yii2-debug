@@ -318,7 +318,7 @@
                     stackElement.statusCode = response.status;
                     stackElement.error = response.status < 200 || response.status >= 400;
                     stackElement.profile = response.headers.get("X-Debug-Tag");
-                    stackElement.profilerinput = response.headers.get("X-Debug-Link");
+                    stackElement.profilerUrl = response.headers.get("X-Debug-Link");
                     renderAjaxRequests();
 
                     return response;
