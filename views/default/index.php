@@ -50,7 +50,7 @@ $this->title = 'Yii Debugger';
                 return ['class'=>'danger'];
             }
 
-            if ($hasDbPane && $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])) {
+            if ($hasDbPanel && $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])) {
                 return ['class'=>'danger'];
             }
 
