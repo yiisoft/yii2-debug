@@ -9,6 +9,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #283: Send debug headers in AJAX requests in order to be able to link to debug panel from single page apps (glendemon)
 - Chg #292: Added PHP 7.2 compatibility (brandonkelly) 
 - Chg: Changed `default/view` not to depend on `db` panel (silverfire)
+- Enh #283: Duplicated queries count on DB panel (pistej)
 
 
 2.0.12 October 09, 2017

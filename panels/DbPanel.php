@@ -224,6 +224,8 @@ class DbPanel extends Panel
     }
 
     /**
+     * Returns sum of all duplicated queries
+     *
      * @param $modelData
      * @return int
      */
