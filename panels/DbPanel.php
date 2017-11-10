@@ -210,7 +210,8 @@ class DbPanel extends Panel
     }
 
     /**
-     * Count all the queries
+     * Return associative array, where key is query string
+     * and value is number of occurrences the same query in array.
      *
      * @param $timings
      * @return array
