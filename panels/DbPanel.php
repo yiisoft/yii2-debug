@@ -229,6 +229,7 @@ class DbPanel extends Panel
      *
      * @param $modelData
      * @return int
+     * @since 2.0.13
      */
     public function sumDuplicateQueries($modelData)
     {
