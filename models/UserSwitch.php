@@ -32,12 +32,12 @@ class UserSwitch extends Model
      */
     private $_mainUser;
 
+
     /**
      * @var string|User ID of the user component or a user object
      * @since 2.0.13
      */
     public $userComponent = 'user';
-
 
     /**
      * @inheritdoc

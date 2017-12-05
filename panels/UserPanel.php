@@ -64,12 +64,12 @@ class UserPanel extends Panel
      * @since 2.0.10
      */
     public $filterColumns = [];
-
     /**
      * @var string|User ID of the user component or a user object
      * @since 2.0.13
      */
     public $userComponent = 'user';
+
 
     /**
      * @inheritdoc
