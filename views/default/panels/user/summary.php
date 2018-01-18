@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $panel yii\debug\panels\UserPanel */
 ?>

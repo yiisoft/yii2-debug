@@ -1,12 +1,8 @@
 <?php
 
-/* @var $panel yii\debug\panels\UserPanel */
-
 use yii\grid\GridView;
 
-?>
-
-<?php
+/* @var $panel yii\debug\panels\UserPanel */
 
 if ($panel->data['rolesProvider']) {
     echo '<h2>Roles</h2>';

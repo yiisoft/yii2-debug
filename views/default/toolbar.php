@@ -1,15 +1,15 @@
 <?php
+
+use yii\helpers\Url;
+use yii\helpers\Html;
+
 /* @var $this \yii\web\View */
 /* @var $panels \yii\debug\Panel[] */
 /* @var $tag string */
 /* @var $position string */
 
-use yii\helpers\Url;
-use yii\helpers\Html;
-
 $firstPanel = reset($panels);
 $url = $firstPanel->getUrl();
-
 ?>
 <div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_<?= $position ?>">
     <div class="yii-debug-toolbar__bar">

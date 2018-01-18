@@ -42,8 +42,8 @@ class MailPanel extends Panel
     public function init()
     {
         parent::init();
-        Event::on(BaseMailer::className(), BaseMailer::EVENT_AFTER_SEND, function ($event) {
 
+        Event::on(BaseMailer::className(), BaseMailer::EVENT_AFTER_SEND, function ($event) {
             /* @var $message MessageInterface */
             $message = $event->message;
             $messageData = [

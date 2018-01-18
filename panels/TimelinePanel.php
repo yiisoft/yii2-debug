@@ -243,5 +243,4 @@ class TimelinePanel extends Panel
         }
         return $this->_models;
     }
-
 }

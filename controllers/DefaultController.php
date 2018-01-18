@@ -14,7 +14,9 @@ use yii\debug\models\search\Debug;
 use yii\web\Response;
 
 /**
- * Debugger controller
+ * Debugger controller provides browsing over available debug logs.
+ *
+ * @see \yii\debug\Panel
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -26,13 +28,18 @@ class DefaultController extends Controller
      */
     public $layout = 'main';
     /**
-     * @var \yii\debug\Module
+     * @var \yii\debug\Module owner module.
      */
     public $module;
     /**
      * @var array the summary data (e.g. URL, time)
      */
     public $summary;
+
+    /**
+     * @var array
+     */
+    private $_manifest;
 
 
     /**
@@ -48,6 +55,9 @@ class DefaultController extends Controller
         return $actions;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function beforeAction($action)
     {
         Yii::$app->response->format = Response::FORMAT_HTML;
@@ -72,6 +82,13 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @see \yii\debug\Panel
+     * @param string|null $tag debug data tag.
+     * @param string|null $panel debug panel ID.
+     * @return mixed response.
+     * @throws NotFoundHttpException if debug data not found.
+     */
     public function actionView($tag = null, $panel = null)
     {
         if ($tag === null) {
@@ -86,7 +103,7 @@ class DefaultController extends Controller
         }
 
         if ($activePanel->hasError()) {
-            \Yii::$app->errorHandler->handleException($activePanel->getError());
+            Yii::$app->errorHandler->handleException($activePanel->getError());
         }
 
         return $this->render('view', [
@@ -120,8 +137,10 @@ class DefaultController extends Controller
         return Yii::$app->response->sendFile($filePath);
     }
 
-    private $_manifest;
-
+    /**
+     * @param bool $forceReload
+     * @return array
+     */
     protected function getManifest($forceReload = false)
     {
         if ($this->_manifest === null || $forceReload) {
@@ -149,6 +168,11 @@ class DefaultController extends Controller
         return $this->_manifest;
     }
 
+    /**
+     * @param string $tag debug data tag.
+     * @param int $maxRetry maximum numbers of tag retrieval attempts.
+     * @throws NotFoundHttpException if specified tag not found.
+     */
     public function loadData($tag, $maxRetry = 0)
     {
         // retry loading debug data because the debug data is logged in shutdown function

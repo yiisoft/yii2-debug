@@ -1,8 +1,9 @@
 <?php
-/* @var $panel yii\debug\panels\AssetPanel */
 
 use yii\helpers\Html;
 use yii\helpers\Inflector;
+
+/* @var $panel yii\debug\panels\AssetPanel */
 ?>
 <h1>Asset Bundles</h1>
 

@@ -1,13 +1,14 @@
 <?php
+
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
+use yii\helpers\Html;
+
 /* @var $this \yii\web\View */
 /* @var $manifest array */
 /* @var $searchModel \yii\debug\models\search\Debug */
 /* @var $dataProvider ArrayDataProvider */
 /* @var $panels \yii\debug\Panel[] */
-
-use yii\data\ArrayDataProvider;
-use yii\grid\GridView;
-use yii\helpers\Html;
 
 $this->title = 'Yii Debugger';
 ?>

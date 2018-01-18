@@ -158,10 +158,10 @@ class DataProvider extends ArrayDataProvider
         if (empty($model['memory'])) {
             return null;
         }
+
         return [
             sprintf('%.2f MB', $model['memory'] / 1048576),
             $model['memory'] / ($this->panel->memory / 100)
         ];
     }
-
 }

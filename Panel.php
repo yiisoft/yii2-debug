@@ -170,8 +170,8 @@ class Panel extends Component
     }
 
     /**
-     * Is the panel enabled?
-     * @return bool
+     * Checks whether this panel is enabled.
+     * @return bool whether this panel is enabled.
      * @since 2.0.10
      */
     public function isEnabled()

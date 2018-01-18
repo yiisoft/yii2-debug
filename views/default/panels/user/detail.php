@@ -1,11 +1,10 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $panel yii\debug\panels\UserPanel */
-
 use yii\bootstrap\Tabs;
 use yii\widgets\DetailView;
 
+/* @var $this \yii\web\View */
+/* @var $panel yii\debug\panels\UserPanel */
 ?>
 
 <h1>User</h1>

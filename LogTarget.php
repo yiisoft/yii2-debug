@@ -24,6 +24,9 @@ class LogTarget extends Target
      * @var Module
      */
     public $module;
+    /**
+     * @var string
+     */
     public $tag;
 
 

@@ -1,7 +1,8 @@
 <?php
-/* @var $model  yii\debug\models\Router */
 
 use \yii\helpers\Html;
+
+/* @var $model  yii\debug\models\Router */
 ?>
 
 <h1>

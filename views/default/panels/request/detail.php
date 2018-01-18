@@ -1,7 +1,8 @@
 <?php
-/* @var $panel yii\debug\panels\RequestPanel */
 
 use yii\bootstrap\Tabs;
+
+/* @var $panel yii\debug\panels\RequestPanel */
 
 echo '<h1>Request</h1>';
 

@@ -50,7 +50,7 @@ class UserSwitch extends Model
     }
 
     /**
-     * @return array customized attribute labels
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

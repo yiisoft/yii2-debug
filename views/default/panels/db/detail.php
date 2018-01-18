@@ -1,13 +1,14 @@
 <?php
+
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\web\View;
+
 /* @var $panel yii\debug\panels\DbPanel */
 /* @var $searchModel yii\debug\models\search\Db */
 /* @var $dataProvider yii\data\ArrayDataProvider */
 /* @var $hasExplain bool */
 /* @var $sumDuplicates int */
-
-use yii\grid\GridView;
-use yii\helpers\Html;
-use yii\web\View;
 
 echo Html::tag('h1', $panel->getName() . ' Queries');
 

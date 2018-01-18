@@ -1,15 +1,16 @@
 <?php
+
+use yii\bootstrap\ButtonDropdown;
+use yii\bootstrap\ButtonGroup;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 /* @var $this \yii\web\View */
 /* @var $summary array */
 /* @var $tag string */
 /* @var $manifest array */
 /* @var $panels \yii\debug\Panel[] */
 /* @var $activePanel \yii\debug\Panel */
-
-use yii\bootstrap\ButtonDropdown;
-use yii\bootstrap\ButtonGroup;
-use yii\helpers\Html;
-use yii\helpers\Url;
 
 $this->title = 'Yii Debugger';
 ?>

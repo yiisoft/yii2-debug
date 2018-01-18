@@ -68,6 +68,7 @@ class LogPanel extends Panel
         if (isset($this->module->panels['router'])) {
             $except = $this->module->panels['router']->getCategories();
         }
+        
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
         foreach ($messages as &$message) {
             if (!is_string($message[0])) {
@@ -79,6 +80,7 @@ class LogPanel extends Panel
                 }
             }
         }
+
         return ['messages' => $messages];
     }
 

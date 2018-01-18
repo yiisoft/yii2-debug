@@ -76,15 +76,12 @@ class UserPanel extends Panel
      */
     public function init()
     {
-        if (
-            !$this->isEnabled()
-            || $this->getUser()->isGuest
-        ) {
+        if (!$this->isEnabled() || $this->getUser()->isGuest) {
             return;
         }
 
         $this->userSwitch = new UserSwitch(['userComponent' => $this->userComponent]);
-        $this->addAccesRules();
+        $this->addAccessRules();
 
         if (!is_object($this->filterModel)
             && class_exists($this->filterModel)
@@ -96,7 +93,6 @@ class UserPanel extends Panel
                 $this->filterModel = new \yii\debug\models\search\User();
             }
         }
-
     }
 
     /**
@@ -113,7 +109,7 @@ class UserPanel extends Panel
      * Add ACF rule. AccessControl attach to debug module.
      * Access rule for main user.
      */
-    private function addAccesRules()
+    private function addAccessRules()
     {
         $this->ruleUserSwitch['controllers'] = [$this->module->id . '/user'];
 
@@ -225,7 +221,7 @@ class UserPanel extends Panel
         $identity = Yii::$app->user->identity;
 
         if (!isset($identity)) {
-            return;
+            return null;
         }
 
         $rolesProvider = null;

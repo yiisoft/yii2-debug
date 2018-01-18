@@ -1,13 +1,11 @@
 <?php
-/* @var $panel yii\debug\panels\LogPanel */
-/* @var $data array */
 
 use yii\log\Target;
 use yii\log\Logger;
 
-?>
+/* @var $panel yii\debug\panels\LogPanel */
+/* @var $data array */
 
-<?php
 $titles = ['all' => Yii::$app->i18n->format('Logged {n,plural,=1{1 message} other{# messages}}', ['n' => count($data['messages'])], 'en-US')];
 $errorCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_ERROR));
 $warningCount = count(Target::filterMessages($data['messages'], Logger::LEVEL_WARNING));

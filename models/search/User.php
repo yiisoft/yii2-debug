@@ -77,7 +77,7 @@ class User extends Model
     public function search($params)
     {
         if ($this->identityImplement instanceof ActiveRecord) {
-            return $this->serachActiveDataProvider($params);
+            return $this->searchActiveDataProvider($params);
         }
 
         return null;
@@ -88,7 +88,7 @@ class User extends Model
      * @param array $params the data array to load model.
      * @return ActiveDataProvider
      */
-    private function serachActiveDataProvider($params)
+    private function searchActiveDataProvider($params)
     {
         /** @var ActiveRecord $model */
         $model = $this->identityImplement;
@@ -112,5 +112,4 @@ class User extends Model
 
         return $dataProvider;
     }
-
 }

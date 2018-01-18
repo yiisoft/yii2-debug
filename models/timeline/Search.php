@@ -80,5 +80,4 @@ class Search extends Base
 
         return $dataProvider;
     }
-
 }

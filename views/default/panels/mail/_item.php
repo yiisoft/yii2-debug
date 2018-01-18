@@ -1,8 +1,9 @@
 <?php
-/* @var $model array */
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+
+/* @var $model array */
 
 echo DetailView::widget([
     'model' => $model,

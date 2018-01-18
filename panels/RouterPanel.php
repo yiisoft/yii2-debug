@@ -80,5 +80,4 @@ class RouterPanel extends Panel
             'messages' => $target::filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories)
         ];
     }
-
 }

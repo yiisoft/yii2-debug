@@ -176,5 +176,4 @@ class Svg extends BaseObject
         }
         return $gradient . '</linearGradient>';
     }
-
 }

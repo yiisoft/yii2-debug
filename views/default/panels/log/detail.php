@@ -1,13 +1,13 @@
 <?php
-/* @var $panel yii\debug\panels\LogPanel */
-/* @var $searchModel yii\debug\models\search\Log */
-/* @var $dataProvider yii\data\ArrayDataProvider */
 
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\VarDumper;
 use yii\log\Logger;
 
+/* @var $panel yii\debug\panels\LogPanel */
+/* @var $searchModel yii\debug\models\search\Log */
+/* @var $dataProvider yii\data\ArrayDataProvider */
 ?>
 <h1>Log Messages</h1>
 <?php

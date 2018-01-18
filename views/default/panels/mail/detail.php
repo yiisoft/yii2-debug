@@ -1,11 +1,12 @@
 <?php
-/* @var $panel yii\debug\panels\MailPanel */
-/* @var $searchModel yii\debug\models\search\Mail */
-/* @var $dataProvider yii\data\ArrayDataProvider */
 
 use \yii\widgets\ListView;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+
+/* @var $panel yii\debug\panels\MailPanel */
+/* @var $searchModel yii\debug\models\search\Mail */
+/* @var $dataProvider yii\data\ArrayDataProvider */
 
 $listView = new ListView([
     'dataProvider' => $dataProvider,

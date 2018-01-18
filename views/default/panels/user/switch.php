@@ -9,9 +9,8 @@ use yii\grid\GridView;
 /* @var $panel yii\debug\panels\UserPanel */
 
 UserswitchAsset::register($this);
-
-echo '<h2>Switch user</h2>';
 ?>
+    <h2>Switch user</h2>
     <div class="row">
         <div class="col-sm-7">
             <?php $formSet = ActiveForm::begin([
@@ -52,7 +51,7 @@ echo '<h2>Switch user</h2>';
 
 <?php
 if ($panel->canSearchUsers()) {
-    \yii\widgets\Pjax::begin(['id' => 'debug-userswitch__filter', 'timeout' => false]);
+    yii\widgets\Pjax::begin(['id' => 'debug-userswitch__filter', 'timeout' => false]);
     echo GridView::widget([
         'dataProvider' => $panel->getUserDataProvider(),
         'filterModel'  => $panel->getUsersFilterModel(),
@@ -61,5 +60,6 @@ if ($panel->canSearchUsers()) {
         ],
         'columns'      => $panel->filterColumns
     ]);
-    \yii\widgets\Pjax::end();
+    yii\widgets\Pjax::end();
 }
+?>
