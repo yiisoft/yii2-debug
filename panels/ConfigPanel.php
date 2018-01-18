@@ -22,7 +22,7 @@ use yii\debug\Panel;
 class ConfigPanel extends Panel
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -30,7 +30,7 @@ class ConfigPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSummary()
     {
@@ -38,7 +38,7 @@ class ConfigPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDetail()
     {
@@ -79,7 +79,7 @@ class ConfigPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save()
     {

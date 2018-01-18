@@ -24,13 +24,13 @@ class Db extends Base
      */
     public $type;
     /**
-     * @var integer query attribute input search value
+     * @var int query attribute input search value
      */
     public $query;
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -40,7 +40,7 @@ class Db extends Base
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

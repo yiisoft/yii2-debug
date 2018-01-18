@@ -32,7 +32,7 @@ class Debug extends Base
      */
     public $method;
     /**
-     * @var integer ajax attribute input search value
+     * @var int ajax attribute input search value
      */
     public $ajax;
     /**
@@ -44,11 +44,11 @@ class Debug extends Base
      */
     public $statusCode;
     /**
-     * @var integer sql count attribute input search value
+     * @var int sql count attribute input search value
      */
     public $sqlCount;
     /**
-     * @var integer total mail count attribute input search value
+     * @var int total mail count attribute input search value
      */
     public $mailCount;
     /**
@@ -58,7 +58,7 @@ class Debug extends Base
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -68,7 +68,7 @@ class Debug extends Base
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

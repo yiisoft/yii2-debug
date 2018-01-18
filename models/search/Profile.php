@@ -24,13 +24,13 @@ class Profile extends Base
      */
     public $category;
     /**
-     * @var integer info attribute input search value
+     * @var int info attribute input search value
      */
     public $info;
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -40,7 +40,7 @@ class Profile extends Base
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

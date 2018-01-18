@@ -18,13 +18,13 @@ use yii\helpers\VarDumper;
 class SameAs extends Base
 {
     /**
-     * @var boolean if partial match should be used.
+     * @var bool if partial match should be used.
      */
     public $partial = false;
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function match($value)
     {

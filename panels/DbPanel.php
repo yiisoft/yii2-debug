@@ -27,7 +27,7 @@ use yii\debug\models\search\Db;
 class DbPanel extends Panel
 {
     /**
-     * @var integer the threshold for determining whether the request has involved
+     * @var int the threshold for determining whether the request has involved
      * critical number of DB queries. If the number of queries exceeds this number,
      * the execution is considered taking critical number of DB queries.
      */
@@ -62,7 +62,7 @@ class DbPanel extends Panel
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -73,7 +73,7 @@ class DbPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -89,7 +89,7 @@ class DbPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSummary()
     {
@@ -106,7 +106,7 @@ class DbPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDetail()
     {
@@ -145,7 +145,7 @@ class DbPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save()
     {
@@ -288,7 +288,7 @@ class DbPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isEnabled()
     {

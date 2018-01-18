@@ -25,13 +25,13 @@ class Search extends Base
      */
     public $category;
     /**
-     * @var integer attribute search
+     * @var int attribute search
      */
     public $duration = 0;
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -41,7 +41,7 @@ class Search extends Base
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

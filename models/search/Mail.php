@@ -61,7 +61,7 @@ class Mail extends Base
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -71,7 +71,7 @@ class Mail extends Base
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

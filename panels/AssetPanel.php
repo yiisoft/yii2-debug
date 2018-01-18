@@ -23,7 +23,7 @@ use yii\web\AssetManager;
 class AssetPanel extends Panel
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -31,7 +31,7 @@ class AssetPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSummary()
     {
@@ -39,7 +39,7 @@ class AssetPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDetail()
     {
@@ -47,7 +47,7 @@ class AssetPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save()
     {
@@ -72,7 +72,7 @@ class AssetPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isEnabled()
     {

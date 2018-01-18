@@ -65,7 +65,7 @@ class Svg extends BaseObject
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct(TimelinePanel $panel, $config = [])
     {

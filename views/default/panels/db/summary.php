@@ -1,7 +1,7 @@
 <?php
 /* @var $panel yii\debug\panels\DbPanel */
-/* @var $queryCount integer */
-/* @var $queryTime integer */
+/* @var $queryCount int */
+/* @var $queryTime int */
 ?>
 <?php if ($queryCount): ?>
 <div class="yii-debug-toolbar__block">

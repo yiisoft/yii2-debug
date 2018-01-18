@@ -38,7 +38,7 @@ class DataProvider extends ArrayDataProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function prepareModels()
     {

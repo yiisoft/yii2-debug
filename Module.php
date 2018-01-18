@@ -43,7 +43,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $allowedHosts = [];
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $controllerNamespace = 'yii\debug\controllers';
     /**
@@ -68,14 +68,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $dataPath = '@runtime/debug';
     /**
-     * @var integer the permission to be set for newly created debugger data files.
+     * @var int the permission to be set for newly created debugger data files.
      * This value will be used by PHP [[chmod()]] function. No umask will be applied.
      * If not set, the permission will be determined by the current environment.
      * @since 2.0.6
      */
     public $fileMode;
     /**
-     * @var integer the permission to be set for newly created directories.
+     * @var int the permission to be set for newly created directories.
      * This value will be used by PHP [[chmod()]] function. No umask will be applied.
      * Defaults to 0775, meaning the directory is read-writable by owner and group,
      * but read-only for other users.
@@ -83,12 +83,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $dirMode = 0775;
     /**
-     * @var integer the maximum number of debug data files to keep. If there are more files generated,
+     * @var int the maximum number of debug data files to keep. If there are more files generated,
      * the oldest ones will be removed.
      */
     public $historySize = 50;
     /**
-     * @var boolean whether to enable message logging for the requests about debug module actions.
+     * @var bool whether to enable message logging for the requests about debug module actions.
      * You normally do not want to keep these logs because they may distract you from the logs about your applications.
      * You may want to enable the debug logs if you want to investigate how the debug module itself works.
      */
@@ -138,7 +138,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -182,7 +182,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function bootstrap($app)
     {
@@ -209,7 +209,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeAction($action)
     {
@@ -343,7 +343,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @since 2.0.7
      */
     protected function defaultVersion()

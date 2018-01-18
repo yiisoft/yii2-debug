@@ -24,7 +24,7 @@ abstract class Base extends Component implements MatcherInterface
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setValue($value)
     {
@@ -32,7 +32,7 @@ abstract class Base extends Component implements MatcherInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasValue()
     {

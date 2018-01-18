@@ -28,13 +28,13 @@ class Log extends Base
      */
     public $category;
     /**
-     * @var integer message attribute input search value
+     * @var int message attribute input search value
      */
     public $message;
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -44,7 +44,7 @@ class Log extends Base
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

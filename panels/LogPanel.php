@@ -28,7 +28,7 @@ class LogPanel extends Panel
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -36,7 +36,7 @@ class LogPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSummary()
     {
@@ -44,7 +44,7 @@ class LogPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDetail()
     {
@@ -59,7 +59,7 @@ class LogPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save()
     {

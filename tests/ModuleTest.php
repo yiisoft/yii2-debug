@@ -57,7 +57,7 @@ class ModuleTest extends TestCase
      *
      * @param array $allowedIPs
      * @param string $userIp
-     * @param boolean $expectedResult
+     * @param bool $expectedResult
      */
     public function testCheckAccess(array $allowedIPs, $userIp, $expectedResult)
     {

@@ -16,7 +16,7 @@ namespace yii\debug\components\search\matchers;
 class GreaterThanOrEqual extends Base
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function match($value)
     {

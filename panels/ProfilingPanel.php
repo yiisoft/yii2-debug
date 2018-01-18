@@ -27,7 +27,7 @@ class ProfilingPanel extends Panel
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -35,7 +35,7 @@ class ProfilingPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSummary()
     {
@@ -47,7 +47,7 @@ class ProfilingPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDetail()
     {
@@ -64,7 +64,7 @@ class ProfilingPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save()
     {

@@ -26,7 +26,7 @@ class User extends Model
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -40,7 +40,7 @@ class User extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __get($name)
     {
@@ -48,7 +48,7 @@ class User extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __set($name, $value)
     {
@@ -56,7 +56,7 @@ class User extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -64,7 +64,7 @@ class User extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributes()
     {
@@ -72,7 +72,7 @@ class User extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function search($params)
     {

@@ -22,7 +22,7 @@ use yii\web\Response;
 class UserController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function beforeAction($action)
     {

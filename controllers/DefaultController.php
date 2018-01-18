@@ -22,7 +22,7 @@ use yii\web\Response;
 class DefaultController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $layout = 'main';
     /**
@@ -36,7 +36,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function actions()
     {

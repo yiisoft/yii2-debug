@@ -50,7 +50,7 @@ class Router extends Model
 
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
