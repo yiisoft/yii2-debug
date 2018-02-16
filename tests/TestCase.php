@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\extensions\debug;
+namespace yiiunit\debug;
 
 use yii\di\Container;
 use yii\helpers\ArrayHelper;

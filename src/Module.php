@@ -350,7 +350,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function defaultVersion()
     {
-        $packageInfo = Json::decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'composer.json'));
+        $packageInfo = Json::decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'composer.json'));
         $extensionName = $packageInfo['name'];
         if (isset(Yii::$app->extensions[$extensionName])) {
             return Yii::$app->extensions[$extensionName]['version'];

@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\extensions\debug;
+namespace yiiunit\debug;
 
 use yii\debug\Module;
 use yii\debug\Panel;

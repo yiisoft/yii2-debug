@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\extensions\debug;
+namespace yiiunit\debug;
 
 use yii\base\Event;
 use yii\caching\FileCache;
@@ -96,7 +96,7 @@ HTML
         Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
             ->setMethods(['dispatch'])
             ->getMock();
-        Yii::$app->set('cache', new FileCache(['cachePath' => '@yiiunit/runtime/cache']));
+        Yii::$app->set('cache', new FileCache(['cachePath' => '@yiiunit/debug/runtime/cache']));
 
         $view = Yii::$app->view;
         for ($i = 0; $i <= 1; $i++) {
