@@ -97,7 +97,7 @@ class LogPanel extends Panel
             $this->_models = [];
 
             foreach ($this->data['messages'] as $message) {
-                $this->_models[] = 	[
+                $this->_models[] = [
                     'message' => $message[0],
                     'level' => $message[1],
                     'category' => $message[2],
