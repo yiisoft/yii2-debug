@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
+- Enh #77: Added "Events" panel (klimov-paul)
 
 
 2.0.13 December 5, 2017
