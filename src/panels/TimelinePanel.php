@@ -221,7 +221,7 @@ class TimelinePanel extends Panel
     public function getSvg()
     {
         if ($this->_svg === null) {
-            $this->_svg = Yii::createObject($this->_svgOptions,[$this]);
+            $this->_svg = Yii::createObject($this->_svgOptions, [$this]);
         }
         return $this->_svg;
     }
@@ -238,7 +238,18 @@ class TimelinePanel extends Panel
         if ($this->_models === null || $refresh) {
             $this->_models = [];
             if (isset($this->module->panels['profiling']->data['messages'])) {
-                $this->_models = Yii::getLogger()->calculateTimings($this->module->panels['profiling']->data['messages']);
+                foreach ($this->module->panels['profiling']->data['messages'] as $seq => $message) {
+                    $this->_models[$seq] = [
+                        'info' => $message['token'],
+                        'category' => $message['category'],
+                        'timestamp' => $message['beginTime'],
+                        'trace' => [], // @todo collect trace
+                        'level' => 1, // @todo fix profile nested level
+                        'duration' => $message['endTime'] - $message['beginTime'],
+                        'memory' => $message['endMemory'],
+                        'memoryDiff' => $message['endMemory'] - $message['beginMemory'],
+                    ];
+                }
             }
         }
         return $this->_models;

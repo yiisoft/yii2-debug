@@ -18,7 +18,6 @@ TimelineAsset::register($this);
     'method' => 'get',
     'action' => $panel->getUrl(),
     'id' => 'debug-timeline-search',
-    'enableClientScript' => false,
     'options' => [
         'class' => 'debug-timeline-panel__search form-inline',
     ],
@@ -58,7 +57,7 @@ TimelineAsset::register($this);
     </div>
     <?php endif;?>
     <div class="debug-timeline-panel__items">
-        <?php Pjax::begin(['formSelector' => '#debug-timeline-search', 'linkSelector' => false, 'options' => ['id' => 'debug-timeline-panel__pjax']]); ?>
+        <?php /*Pjax::begin(['formSelector' => '#debug-timeline-search', 'linkSelector' => false, 'options' => ['id' => 'debug-timeline-panel__pjax']]);*/ ?>
         <?php if (($models = $dataProvider->models) === []): ?>
             <div class="debug-timeline-panel__item empty">
                 <span>No results found.</span>
@@ -87,6 +86,6 @@ TimelineAsset::register($this);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <?php Pjax::end(); ?>
+        <?php /*Pjax::end();*/ ?>
     </div>
 </div>

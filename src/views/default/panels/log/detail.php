@@ -1,5 +1,6 @@
 <?php
 
+use Psr\Log\LogLevel;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\VarDumper;
@@ -20,9 +21,9 @@ echo GridView::widget([
     'filterUrl' => $panel->getUrl(),
     'rowOptions' => function ($model) {
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR : return ['class' => 'danger'];
-            case Logger::LEVEL_WARNING : return ['class' => 'warning'];
-            case Logger::LEVEL_INFO : return ['class' => 'success'];
+            case LogLevel::ERROR : return ['class' => 'danger'];
+            case LogLevel::WARNING : return ['class' => 'warning'];
+            case LogLevel::INFO : return ['class' => 'success'];
             default: return [];
         }
     },
@@ -45,10 +46,10 @@ echo GridView::widget([
                 return Logger::getLevelName($data['level']);
             },
             'filter' => [
-                Logger::LEVEL_TRACE => ' Trace ',
-                Logger::LEVEL_INFO => ' Info ',
-                Logger::LEVEL_WARNING => ' Warning ',
-                Logger::LEVEL_ERROR => ' Error ',
+                LogLevel::DEBUG => ' Debug ',
+                LogLevel::INFO => ' Info ',
+                LogLevel::WARNING => ' Warning ',
+                LogLevel::ERROR => ' Error ',
             ],
         ],
         'category',

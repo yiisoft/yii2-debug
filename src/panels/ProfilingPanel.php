@@ -68,8 +68,8 @@ class ProfilingPanel extends Panel
      */
     public function save()
     {
-        $target = $this->module->logTarget;
-        $messages = $target->filterMessages($target->messages, Logger::LEVEL_PROFILE);
+        $target = $this->module->profileTarget;
+        $messages = $target->messages;
         return [
             'memory' => memory_get_peak_usage(),
             'time' => microtime(true) - YII_BEGIN_TIME,
@@ -85,17 +85,18 @@ class ProfilingPanel extends Panel
     {
         if ($this->_models === null) {
             $this->_models = [];
-            $timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
 
-            foreach ($timings as $seq => $profileTiming) {
-                $this->_models[] = 	[
-                    'duration' => $profileTiming['duration'] * 1000, // in milliseconds
-                    'category' => $profileTiming['category'],
-                    'info' => $profileTiming['info'],
-                    'level' => $profileTiming['level'],
-                    'timestamp' => $profileTiming['timestamp'] * 1000, //in milliseconds
-                    'seq' => $seq,
-                ];
+            if (isset($this->data['messages'])) {
+                foreach ($this->data['messages'] as $seq => $message) {
+                    $this->_models[] = [
+                        'duration' => $message['endTime'] * 1000 - $message['beginTime'] * 1000, // in milliseconds
+                        'category' => $message['category'],
+                        'info' => $message['token'],
+                        'level' => 1, // @todo fix profile nested level
+                        'timestamp' => $message['beginTime'] * 1000, //in milliseconds
+                        'seq' => $seq,
+                    ];
+                }
             }
         }
 

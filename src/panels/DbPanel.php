@@ -138,7 +138,21 @@ class DbPanel extends Panel
     public function calculateTimings()
     {
         if ($this->_timings === null) {
-            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
+            $this->_timings = [];
+            if (isset($this->data['messages'])) {
+                foreach ($this->data['messages'] as $seq => $message) {
+                    $this->_timings[$seq] = [
+                        'info' => $message['token'],
+                        'category' => $message['category'],
+                        'timestamp' => $message['beginTime'],
+                        'trace' => [], // @todo collect trace
+                        'level' => 1, // @todo fix profile nested level
+                        'duration' => $message['endTime'] - $message['beginTime'],
+                        'memory' => $message['endMemory'],
+                        'memoryDiff' => $message['endMemory'] - $message['beginMemory'],
+                    ];
+                }
+            }
         }
 
         return $this->_timings;
@@ -155,13 +169,21 @@ class DbPanel extends Panel
     /**
      * Returns all profile logs of the current request for this panel. It includes categories such as:
      * 'yii\db\Command::query', 'yii\db\Command::execute'.
-     * @return array
+     * @return array[]
      */
     public function getProfileLogs()
     {
-        $target = $this->module->logTarget;
+        $target = $this->module->profileTarget;
+        $categories = ['yii\db\Command::query', 'yii\db\Command::execute'];
+        
+        $messages = [];
+        foreach ($target->messages as $message) {
+            if (in_array($message['category'], $categories, true)) {
+                $messages[] = $message;
+            }
+        }
 
-        return $target->filterMessages($target->messages, Logger::LEVEL_PROFILE, ['yii\db\Command::query', 'yii\db\Command::execute']);
+        return $messages;
     }
 
     /**

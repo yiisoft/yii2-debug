@@ -52,6 +52,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $logTarget;
     /**
+     * @var ProfileTarget
+     * @since 2.1.0
+     */
+    public $profileTarget;
+    /**
      * @var array|Panel[] list of debug panels. The array keys are the panel IDs, and values are the corresponding
      * panel class names or configuration arrays. This will be merged with [[corePanels()]].
      * You may reconfigure a core panel via this property by using the same panel ID.
@@ -192,7 +197,15 @@ class Module extends \yii\base\Module implements BootstrapInterface
             $this->logTarget = new LogTarget($this);
             $logger->addTarget($this->logTarget, 'debug');
         }
-        // @todo handler Monolog and not supported loggers
+        // @todo handle Monolog
+        // @todo handle not supported logger
+
+        $profiler = $app->getProfiler();
+        if ($profiler instanceof \yii\profile\Profiler) {
+            $this->profileTarget = new ProfileTarget();
+            $profiler->addTarget($this->profileTarget, 'debug');
+        }
+        // @todo handle not supported profiler
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
@@ -266,10 +279,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $url = Url::toRoute(['/' . $this->id . '/default/view',
             'tag' => $this->logTarget->tag,
         ]);
-        $event->sender->getHeaders()
-            ->set('X-Debug-Tag', $this->logTarget->tag)
-            ->set('X-Debug-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1))
-            ->set('X-Debug-Link', $url);
+
+        /* @var $response \yii\web\Response */
+        $response = $event->sender;
+        $response->setHeader('X-Debug-Tag', $this->logTarget->tag);
+        $response->setHeader('X-Debug-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1));
+        $response->setHeader('X-Debug-Link', $url);
     }
 
     /**

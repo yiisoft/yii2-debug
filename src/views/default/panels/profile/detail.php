@@ -56,7 +56,7 @@ echo GridView::widget([
             'value' => function ($data) {
                 return str_repeat('<span class="indent">→</span>', $data['level']) . Html::encode($data['info']);
             },
-            'format' => 'html',
+            'format' => 'raw',
             'options' => [
                 'width' => '60%',
             ],
