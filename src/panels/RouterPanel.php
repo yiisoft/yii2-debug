@@ -7,10 +7,10 @@
 
 namespace yii\debug\panels;
 
+use Psr\Log\LogLevel;
 use Yii;
 use yii\debug\models\Router;
 use yii\debug\Panel;
-use yii\log\Logger;
 
 /**
  * RouterPanel provides a panel which displays information about routing process.
@@ -77,7 +77,7 @@ class RouterPanel extends Panel
     {
         $target = $this->module->logTarget;
         return [
-            'messages' => $target::filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories)
+            'messages' => $target::filterMessages($target->messages, [LogLevel::DEBUG], $this->_categories)
         ];
     }
 }

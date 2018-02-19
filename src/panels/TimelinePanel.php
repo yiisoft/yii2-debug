@@ -61,7 +61,7 @@ class TimelinePanel extends Panel
      * @var array
      */
     private $_svgOptions = [
-        'class' => 'yii\debug\models\timeline\Svg'
+        'class' => \yii\debug\models\timeline\Svg::class
     ];
     /**
      * @var int Used memory in request

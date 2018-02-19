@@ -85,7 +85,7 @@ class UserPanel extends Panel
 
         if (!is_object($this->filterModel)
             && class_exists($this->filterModel)
-            && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
+            && in_array(\yii\debug\models\search\UserSearchInterface::class, class_implements($this->filterModel), true)
         ) {
             $this->filterModel = new $this->filterModel;
         } elseif ($this->getUser() && $this->getUser()->identityClass) {
