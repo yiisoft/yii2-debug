@@ -7,8 +7,8 @@
 
 namespace yii\debug\models;
 
+use Psr\Log\LogLevel;
 use yii\base\Model;
-use yii\log\Logger;
 
 /**
  * Router model
@@ -57,7 +57,7 @@ class Router extends Model
         parent::init();
         $last = null;
         foreach ($this->messages as $message) {
-            if ($message[1] === Logger::LEVEL_TRACE && is_string($message[0])) {
+            if ($message[1] === LogLevel::DEBUG && is_string($message[0])) {
                 $this->message = $message[0];
             } elseif (isset($message[0]['rule'], $message[0]['match'])) {
                 if (!empty($last['parent']) && $last['parent'] === $message[0]['rule']) {

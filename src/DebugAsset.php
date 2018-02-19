@@ -17,13 +17,22 @@ use yii\web\AssetBundle;
  */
 class DebugAsset extends AssetBundle
 {
+    /**
+     * {@inheritdoc}
+     */
     public $sourcePath = '@yii/debug/assets';
+    /**
+     * {@inheritdoc}
+     */
     public $css = [
         'main.css',
         'toolbar.css',
     ];
+    /**
+     * {@inheritdoc}
+     */
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        \yii\jquery\YiiAsset::class,
+        \yii\bootstrap\BootstrapAsset::class,
     ];
 }

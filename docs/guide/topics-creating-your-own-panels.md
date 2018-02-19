@@ -21,7 +21,6 @@ use yii\base\View;
 use yii\base\ViewEvent;
 use yii\debug\Panel;
 
-
 class ViewsPanel extends Panel
 {
     private $_viewFiles = [];
@@ -29,7 +28,7 @@ class ViewsPanel extends Panel
     public function init()
     {
         parent::init();
-        Event::on(View::className(), View::EVENT_BEFORE_RENDER, function (ViewEvent $event) {
+        Event::on(View::class, View::EVENT_BEFORE_RENDER, function (ViewEvent $event) {
             $this->_viewFiles[] = $event->sender->getViewFile();
         });
     }
@@ -87,9 +86,9 @@ if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
+        'class' => yii\debug\Module::class,
         'panels' => [
-            'views' => ['class' => 'app\panels\ViewsPanel'],
+            'views' => ['class' => app\panels\ViewsPanel::class],
         ],
     ];
 

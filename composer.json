@@ -19,13 +19,16 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "yiisoft/yii2": "~2.0.13",
-        "yiisoft/yii2-bootstrap": "~2.0.0"
+        "yiisoft/yii2": "2.1.x-dev",
+        "yiisoft/yii2-bootstrap": "2.2.x-dev"
     },
     "autoload": {
         "psr-4": {
             "yii\\debug\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {"yiiunit\\debug\\": "tests/"}
     },
     "extra": {
         "branch-alias": {

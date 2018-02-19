@@ -14,7 +14,7 @@ php composer.phar require --prefer-dist yiisoft/yii2-debug
 or add
 
 ```
-"yiisoft/yii2-debug": "~2.0.0"
+"yiisoft/yii2-debug": "~2.1.0"
 ```
 
 to the require section of your `composer.json` file.
@@ -28,7 +28,7 @@ To enable extension, add these lines to your configuration file to enable the de
 'bootstrap' => ['debug'],
 'modules' => [
     'debug' => [
-        'class' => 'yii\debug\Module',
+        'class' => yii\debug\Module::class,
     ],
 ]
 ```
@@ -40,7 +40,7 @@ server, add the parameter `allowedIPs` to the configuration to whitelist your IP
 'bootstrap' => ['debug'],
 'modules' => [
     'debug' => [
-        'class' => 'yii\debug\Module',
+        'class' => yii\debug\Module::class,
         'allowedIPs' => ['1.2.3.4', '127.0.0.1', '::1']
     ]
 ]
@@ -100,10 +100,10 @@ Database panel default sorting and filtering can be configured like the followin
 
 ```php
 $config['modules']['debug'] = [
-    'class' => 'yii\debug\Module',
+    'class' => yii\debug\Module::class,
     'panels' => [
         'db' => [
-            'class' => 'yii\debug\panels\DbPanel',
+            'class' => yii\debug\panels\DbPanel::class,
             'defaultOrder' => [
                 'seq' => SORT_ASC
             ],
@@ -220,7 +220,7 @@ IDE links for traces are created by default. You have to set the property `yii\d
 ...
 'modules' => [
     'debug' => [
-        'class' => 'yii\debug\Module',
+        'class' => yii\debug\Module::class,
         'traceLink' => false
     ]
 ]
@@ -248,10 +248,10 @@ return [
     'bootstrap' => ['debug'],
     'modules' => [
         'debug' => [
-            'class' => 'yii\debug\Module',
+            'class' => yii\debug\Module::class,
             'panels' => [
                 'user' => [
-                    'class'=>'yii\debug\panels\UserPanel',
+                    'class' => yii\debug\panels\UserPanel::class,
                     'ruleUserSwitch' => [
                         'allow' => true,
                         'roles' => ['manager'],

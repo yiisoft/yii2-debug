@@ -14,6 +14,7 @@ use yii\helpers\Json;
 use yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\UrlRule;
 use yii\web\View;
 use yii\web\ForbiddenHttpException;
 
@@ -196,13 +197,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         $app->getUrlManager()->addRules([
             [
-                'class' => 'yii\web\UrlRule',
+                'class' => UrlRule::class,
                 'route' => $this->id,
                 'pattern' => $this->id,
                 'suffix' => false
             ],
             [
-                'class' => 'yii\web\UrlRule',
+                'class' => UrlRule::class,
                 'route' => $this->id . '/<controller>/<action>',
                 'pattern' => $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>',
                 'suffix' => false
@@ -331,17 +332,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
     protected function corePanels()
     {
         return [
-            'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
-            'request' => ['class' => 'yii\debug\panels\RequestPanel'],
-            'log' => ['class' => 'yii\debug\panels\LogPanel'],
-            'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
-            'db' => ['class' => 'yii\debug\panels\DbPanel'],
-            'event' => ['class' => 'yii\debug\panels\EventPanel'],
-            'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
-            'mail' => ['class' => 'yii\debug\panels\MailPanel'],
-            'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
-            'user' => ['class' => 'yii\debug\panels\UserPanel'],
-            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
+            'config' => ['class' => panels\ConfigPanel::class],
+            'request' => ['class' => panels\RequestPanel::class],
+            'log' => ['class' => panels\LogPanel::class],
+            'profiling' => ['class' => panels\ProfilingPanel::class],
+            'db' => ['class' => panels\DbPanel::class],
+            'event' => ['class' => panels\EventPanel::class],
+            'assets' => ['class' => panels\AssetPanel::class],
+            'mail' => ['class' => panels\MailPanel::class],
+            'timeline' => ['class' => panels\TimelinePanel::class],
+            'user' => ['class' => panels\UserPanel::class],
+            'router' => ['class' => panels\RouterPanel::class],
         ];
     }
 

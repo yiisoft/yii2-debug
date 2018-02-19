@@ -144,7 +144,7 @@ class Svg extends BaseObject
     {
         $str = "0 $this->y ";
         foreach ($this->points as $point) {
-            list($x, $y) = $point;
+            [$x, $y] = $point;
             $str .= "{$x} {$y} ";
         }
         $str .= $this->x - 0.001 . " {$y} {$this->x} {$this->y}";
@@ -158,7 +158,7 @@ class Svg extends BaseObject
     {
         $str = "0 $this->y ";
         foreach ($this->points as $point) {
-            list($x, $y) = $point;
+            [$x, $y] = $point;
             $str .= "{$x} {$y} ";
         }
         $str .= "$this->x {$y}";

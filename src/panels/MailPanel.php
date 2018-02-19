@@ -43,7 +43,7 @@ class MailPanel extends Panel
     {
         parent::init();
 
-        Event::on(BaseMailer::className(), BaseMailer::EVENT_AFTER_SEND, function ($event) {
+        Event::on(BaseMailer::class, BaseMailer::EVENT_AFTER_SEND, function ($event) {
             /* @var $message MessageInterface */
             $message = $event->message;
             $messageData = [

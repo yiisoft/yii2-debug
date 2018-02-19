@@ -33,7 +33,7 @@ php composer.phar require --prefer-dist yiisoft/yii2-debug
 or add
 
 ```
-"yiisoft/yii2-debug": "~2.0.0"
+"yiisoft/yii2-debug": "~2.1.0"
 ```
 
 to the require section of your `composer.json` file.
@@ -49,7 +49,7 @@ return [
     'bootstrap' => ['debug'],
     'modules' => [
         'debug' => [
-            'class' => 'yii\debug\Module',
+            'class' => yii\debug\Module::class,
             // uncomment and adjust the following to add your IP if you are not connecting from localhost.
             //'allowedIPs' => ['127.0.0.1', '::1'],
         ],
@@ -73,7 +73,7 @@ return [
     'bootstrap' => ['debug'],
     'modules' => [
         'debug' => [
-            'class' => 'yii\debug\Module',
+            'class' => yii\debug\Module::class,
             'traceLine' => '<a href="phpstorm://open?url={file}&line={line}">{file}:{line}</a>',
             // uncomment and adjust the following to add your IP if you are not connecting from localhost.
             //'allowedIPs' => ['127.0.0.1', '::1'],

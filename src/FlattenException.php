@@ -55,9 +55,9 @@ class FlattenException
 
     /**
      * FlattenException constructor.
-     * @param \Exception $exception
+     * @param \Throwable $exception
      */
-    public function __construct(\Exception $exception)
+    public function __construct(\Throwable $exception)
     {
         $this->setMessage($exception->getMessage());
         $this->setCode($exception->getCode());
