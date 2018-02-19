@@ -3,12 +3,16 @@
 namespace yiiunit\debug;
 
 use yii\base\Event;
+use yii\caching\Cache;
 use yii\caching\FileCache;
 use yii\debug\Module;
 use Yii;
 
 class ModuleTest extends TestCase
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         parent::setUp();
@@ -72,11 +76,13 @@ class ModuleTest extends TestCase
      */
     public function testGetToolbarHtml()
     {
-        $module = new Module('debug');
-        $module->bootstrap(Yii::$app);
-        Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
+        $logger = $this->getMockBuilder(\yii\log\Logger::class)
             ->setMethods(['dispatch'])
             ->getMock();
+        Yii::setLogger($logger);
+
+        $module = new Module('debug');
+        $module->bootstrap(Yii::$app);
 
         $this->assertEquals(<<<HTML
 <div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
@@ -89,14 +95,19 @@ HTML
      */
     public function testNonCachedToolbarHtml()
     {
+        $logger = $this->getMockBuilder(\yii\log\Logger::class)
+            ->setMethods(['dispatch'])
+            ->getMock();
+        Yii::setLogger($logger);
+
         $module = new Module('debug');
         $module->allowedIPs = ['*'];
         Yii::$app->setModule('debug',$module);
         $module->bootstrap(Yii::$app);
-        Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
-            ->setMethods(['dispatch'])
-            ->getMock();
-        Yii::$app->set('cache', new FileCache(['cachePath' => '@yiiunit/debug/runtime/cache']));
+
+        Yii::$app->set('cache', new Cache([
+            'handler' => new FileCache(['cachePath' => '@yiiunit/debug/runtime/cache'])
+        ]));
 
         $view = Yii::$app->view;
         for ($i = 0; $i <= 1; $i++) {
@@ -119,21 +130,25 @@ HTML
      */
     public function testToolbarWithCustomModuleID()
     {
+        $logger = $this->getMockBuilder(\yii\log\Logger::class)
+            ->setMethods(['dispatch'])
+            ->getMock();
+        Yii::setLogger($logger);
+
         $moduleID = 'my_debug';
 
         $module = new Module($moduleID);
         $module->allowedIPs = ['*'];
         Yii::$app->setModule($moduleID, $module);
         $module->bootstrap(Yii::$app);
-        Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
-            ->setMethods(['dispatch'])
-            ->getMock();
 
         $view = Yii::$app->view;
 
         ob_start();
         $module->renderToolbar(new Event(['sender' => $view]));
         ob_end_clean();
+
+        $this->assertTrue(true, 'should be no error');
     }
 
     public function testDefaultVersion()

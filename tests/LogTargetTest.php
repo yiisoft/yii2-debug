@@ -10,6 +10,11 @@ class LogTargetTest extends TestCase
 {
     public function testGetRequestTime()
     {
+        $logger = $this->getMockBuilder(\yii\log\Logger::class)
+            ->setMethods(['dispatch'])
+            ->getMock();
+        Yii::setLogger($logger);
+
         Yii::$app->getRequest()->setUrl('dummy');
 
         $module = new Module('debug');

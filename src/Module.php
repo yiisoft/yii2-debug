@@ -187,7 +187,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        $this->logTarget = $app->getLog()->targets['debug'] = new LogTarget($this);
+        $logger = $app->getLogger();
+        if ($logger instanceof \yii\log\Logger) {
+            $this->logTarget = new LogTarget($this);
+            $logger->addTarget($this->logTarget, 'debug');
+        }
+        // @todo handler Monolog and not supported loggers
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
@@ -217,8 +222,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function beforeAction($action)
     {
         if (!$this->enableDebugLogs) {
-            foreach (Yii::$app->getLog()->targets as $target) {
-                $target->enabled = false;
+            $logger = Yii::$app->getLogger();
+            if ($logger instanceof \yii\log\Logger) {
+                foreach ($logger->getTargets() as $target) {
+                    $target->enabled = false;
+                }
             }
         }
 

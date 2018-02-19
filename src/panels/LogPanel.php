@@ -69,14 +69,14 @@ class LogPanel extends Panel
             $except = $this->module->panels['router']->getCategories();
         }
         
-        $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
+        $messages = $target->filterMessages($target->messages, [], [], $except);
         foreach ($messages as &$message) {
-            if (!is_string($message[0])) {
+            if (!is_string($message[1])) {
                 // exceptions may not be serializable if in the call stack somewhere is a Closure
-                if ($message[0] instanceof \Throwable || $message[0] instanceof \Exception) {
-                    $message[0] = (string) $message[0];
+                if ($message[1] instanceof \Throwable || $message[1] instanceof \Exception) {
+                    $message[1] = (string) $message[1];
                 } else {
-                    $message[0] = VarDumper::export($message[0]);
+                    $message[1] = VarDumper::export($message[1]);
                 }
             }
         }
@@ -89,7 +89,7 @@ class LogPanel extends Panel
      * Can be used with data providers, such as \yii\data\ArrayDataProvider.
      *
      * @param bool $refresh if need to build models from log messages and refresh them.
-     * @return array models
+     * @return array[] models
      */
     protected function getModels($refresh = false)
     {
@@ -98,11 +98,11 @@ class LogPanel extends Panel
 
             foreach ($this->data['messages'] as $message) {
                 $this->_models[] = [
-                    'message' => $message[0],
-                    'level' => $message[1],
-                    'category' => $message[2],
-                    'time' => $message[3] * 1000, // time in milliseconds
-                    'trace' => $message[4]
+                    'level' => $message[0],
+                    'message' => $message[1],
+                    'category' => $message[2]['category'],
+                    'time' => $message[2]['time'] * 1000, // time in milliseconds
+                    'trace' => $message[2]['trace']
                 ];
             }
         }

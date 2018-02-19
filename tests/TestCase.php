@@ -5,6 +5,7 @@ namespace yiiunit\debug;
 use yii\di\Container;
 use yii\helpers\ArrayHelper;
 use Yii;
+use yii\log\Logger;
 
 /**
  * This is the base class for all yii framework unit tests.
@@ -57,6 +58,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function destroyApplication()
     {
+        Yii::setLogger(new Logger());
         Yii::$app = null;
         Yii::$container = new Container();
     }
