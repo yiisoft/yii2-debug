@@ -7,11 +7,11 @@
 
 namespace yii\debug\panels;
 
+use Psr\Log\LogLevel;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
-use yii\log\Logger;
 use yii\debug\models\search\Db;
 
 /**
@@ -145,8 +145,8 @@ class DbPanel extends Panel
                         'info' => $message['token'],
                         'category' => $message['category'],
                         'timestamp' => $message['beginTime'],
-                        'trace' => [], // @todo collect trace
-                        'level' => 1, // @todo fix profile nested level
+                        'trace' => $message['trace'],
+                        'level' => $message['nestedLevel'],
                         'duration' => $message['endTime'] - $message['beginTime'],
                         'memory' => $message['endMemory'],
                         'memoryDiff' => $message['endMemory'] - $message['beginMemory'],
@@ -173,12 +173,28 @@ class DbPanel extends Panel
      */
     public function getProfileLogs()
     {
-        $target = $this->module->profileTarget;
         $categories = ['yii\db\Command::query', 'yii\db\Command::execute'];
-        
+        $profileTarget = $this->module->profileTarget;
+
+        $logTarget = $this->module->logTarget;
+        if ($logTarget === null) {
+            $logMessages = [];
+        } else {
+            $logMessages = $logTarget->filterMessages($logTarget->messages, [LogLevel::INFO, LogLevel::DEBUG], $categories);
+        }
+
         $messages = [];
-        foreach ($target->messages as $message) {
+        foreach ($profileTarget->messages as $message) {
             if (in_array($message['category'], $categories, true)) {
+                $message['trace'] = [];
+                foreach ($logMessages as $key => $logMessage) {
+                    if ($logMessage[2]['category'] === $message['category'] && $logMessage[1] === $message['token']) {
+                        $message['trace'] = $logMessage[2]['trace'];
+                        unset($logMessages[$key]);
+                        break;
+                    }
+                }
+
                 $messages[] = $message;
             }
         }

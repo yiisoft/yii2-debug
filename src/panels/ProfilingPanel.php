@@ -92,7 +92,7 @@ class ProfilingPanel extends Panel
                         'duration' => $message['endTime'] * 1000 - $message['beginTime'] * 1000, // in milliseconds
                         'category' => $message['category'],
                         'info' => $message['token'],
-                        'level' => 1, // @todo fix profile nested level
+                        'level' => $message['nestedLevel'],
                         'timestamp' => $message['beginTime'] * 1000, //in milliseconds
                         'seq' => $seq,
                     ];

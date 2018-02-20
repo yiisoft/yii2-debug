@@ -243,8 +243,7 @@ class TimelinePanel extends Panel
                         'info' => $message['token'],
                         'category' => $message['category'],
                         'timestamp' => $message['beginTime'],
-                        'trace' => [], // @todo collect trace
-                        'level' => 1, // @todo fix profile nested level
+                        'level' => $message['nestedLevel'],
                         'duration' => $message['endTime'] - $message['beginTime'],
                         'memory' => $message['endMemory'],
                         'memoryDiff' => $message['endMemory'] - $message['beginMemory'],
