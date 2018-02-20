@@ -119,13 +119,13 @@ class Svg extends BaseObject
 
         $i = 0;
         foreach ($messages as $message) {
-            if (empty($message[5])) {
+            if (empty($message[2]['memory'])) {
                 break;
             }
             ++$i;
             $this->points[] = [
-                ($message[3] * 1000 - $this->panel->start) / $xOne,
-                $this->y - ($message[5] / $memory * $yOne),
+                ($message[2]['time'] * 1000 - $this->panel->start) / $xOne,
+                $this->y - ($message[2]['memory'] / $memory * $yOne),
             ];
         }
 
