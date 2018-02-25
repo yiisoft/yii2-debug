@@ -5,15 +5,8 @@ use yii\grid\GridView;
 /* @var $panel yii\debug\panels\EventPanel */
 /* @var $searchModel yii\debug\models\search\Event */
 /* @var $dataProvider yii\data\ArrayDataProvider */
-
-$yiiVersion = Yii::getVersion();
 ?>
 <h1>Events</h1>
-
-<?php if (!version_compare(Yii::getVersion(), '2.0.14', '>=') && strpos($yiiVersion, '-dev') === false) : ?>
-    <div class="alert alert-danger">Yii Framework version >= 2.0.14 required for event panel to function</div>
-<?php endif ?>
-
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'log-panel-detailed-event',
