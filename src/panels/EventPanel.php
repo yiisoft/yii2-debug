@@ -12,7 +12,10 @@ use yii\base\Event;
 use yii\debug\Panel;
 
 /**
- * EventPanel
+ * Debugger panel that collects and displays information about triggered events.
+ *
+ * > Note: this panel requires Yii framework version >= 2.0.14 to function and will not
+ *   appear at lower version.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0.14
@@ -86,5 +89,18 @@ class EventPanel extends Panel
     public function save()
     {
         return $this->_events;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEnabled()
+    {
+        $yiiVersion = Yii::getVersion();
+        if (!version_compare($yiiVersion, '2.0.14', '>=') && strpos($yiiVersion, '-dev') === false) {
+            return false;
+        }
+
+        return parent::isEnabled();
     }
 }

@@ -297,7 +297,8 @@ class DbPanel extends Panel
         } catch (InvalidConfigException $exception) {
             return false;
         }
-        return true;
+
+        return parent::isEnabled();
     }
 
     /**
