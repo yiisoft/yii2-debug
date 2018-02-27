@@ -28,7 +28,9 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {"yiiunit\\debug\\": "tests/"}
+        "psr-4": {
+            "yiiunit\\debug\\": "tests"
+        }
     },
     "extra": {
         "branch-alias": {
