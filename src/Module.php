@@ -95,6 +95,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $enableDebugLogs = false;
     /**
      * @var bool whether to disable IP address restriction warning triggered by checkAccess function
+     * @since 2.0.14
      */
     public $disableIpRestrictionWarning = false;
     /**
