@@ -176,7 +176,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         foreach ($this->panels as $id => $config) {
             if (is_string($config)) {
-                $config = ['class' => $config];
+                $config = ['__class' => $config];
             }
             $config['module'] = $this;
             $config['id'] = $id;
@@ -215,13 +215,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         $app->getUrlManager()->addRules([
             [
-                'class' => UrlRule::class,
+                '__class' => UrlRule::class,
                 'route' => $this->id,
                 'pattern' => $this->id,
                 'suffix' => false
             ],
             [
-                'class' => UrlRule::class,
+                '__class' => UrlRule::class,
                 'route' => $this->id . '/<controller>/<action>',
                 'pattern' => $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>',
                 'suffix' => false
@@ -355,17 +355,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
     protected function corePanels()
     {
         return [
-            'config' => ['class' => panels\ConfigPanel::class],
-            'request' => ['class' => panels\RequestPanel::class],
-            'log' => ['class' => panels\LogPanel::class],
-            'profiling' => ['class' => panels\ProfilingPanel::class],
-            'db' => ['class' => panels\DbPanel::class],
-            'event' => ['class' => panels\EventPanel::class],
-            'assets' => ['class' => panels\AssetPanel::class],
-            'mail' => ['class' => panels\MailPanel::class],
-            'timeline' => ['class' => panels\TimelinePanel::class],
-            'user' => ['class' => panels\UserPanel::class],
-            'router' => ['class' => panels\RouterPanel::class],
+            'config' => ['__class' => panels\ConfigPanel::class],
+            'request' => ['__class' => panels\RequestPanel::class],
+            'log' => ['__class' => panels\LogPanel::class],
+            'profiling' => ['__class' => panels\ProfilingPanel::class],
+            'db' => ['__class' => panels\DbPanel::class],
+            'event' => ['__class' => panels\EventPanel::class],
+            'assets' => ['__class' => panels\AssetPanel::class],
+            'mail' => ['__class' => panels\MailPanel::class],
+            'timeline' => ['__class' => panels\TimelinePanel::class],
+            'user' => ['__class' => panels\UserPanel::class],
+            'router' => ['__class' => panels\RouterPanel::class],
         ];
     }
 

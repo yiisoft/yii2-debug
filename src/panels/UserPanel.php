@@ -116,7 +116,7 @@ class UserPanel extends Panel
         $this->module->attachBehavior(
             'access_debug',
             [
-                'class' => AccessControl::class,
+                '__class' => AccessControl::class,
                 'only' => [$this->module->id . '/user', $this->module->id . '/default'],
                 'user' => $this->userSwitch->getMainUser(),
                 'rules' => [

@@ -86,9 +86,9 @@ if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => yii\debug\Module::class,
+        '__class' => yii\debug\Module::class,
         'panels' => [
-            'views' => ['class' => app\panels\ViewsPanel::class],
+            'views' => ['__class' => app\panels\ViewsPanel::class],
         ],
     ];
 

@@ -40,7 +40,7 @@ class EventPanel extends Panel
             $eventData = [
                 'time' => microtime(true),
                 'name' => $event->name,
-                'class' => get_class($event),
+                '__class' => get_class($event),
                 'isStatic' => is_object($event->sender) ? '0' : '1',
                 'senderClass' => is_object($event->sender) ? get_class($event->sender): $event->sender,
             ];
