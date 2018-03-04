@@ -7,6 +7,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
 - Enh #77: Added "Events" panel (klimov-paul)
 - Enh #301: Added configuration option to toggle IP address restriction warning on / off (jkrasniewski)
+- ENH #247: Added dump panel that collects and displays debug messages (Logger::LEVEL_TRACE) (pistej)
 
 
 2.0.13 December 5, 2017

@@ -115,6 +115,21 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.0.7
      */
     public $traceLine = self::DEFAULT_IDE_TRACELINE;
+    /**
+     * @var array the list of setting used in filtering logs and highlighting dumped variables
+     * Default values are:
+     *
+     * ```php
+     * [
+     *      'categories' => ['application'], //array - the message categories to filter by. If empty array, it means
+     * all categories are allowed.
+     *      'highlight' => false, //bool - whether the result should be syntax-highlighted
+     *      'depth' => 10, //int - maximum depth that the dumper should go into the variable.
+     * ]
+     * ```
+     * @since 2.0.14
+     */
+    public $dumpModule = [];
 
     /**
      * @var string Yii logo URL
@@ -349,6 +364,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
             'user' => ['class' => 'yii\debug\panels\UserPanel'],
             'router' => ['class' => 'yii\debug\panels\RouterPanel'],
+            'dump' => ['class' => 'yii\debug\panels\DumpPanel'],
         ];
     }
 
