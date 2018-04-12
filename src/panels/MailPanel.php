@@ -43,18 +43,18 @@ class MailPanel extends Panel
     {
         parent::init();
 
-        Event::on(BaseMailer::className(), BaseMailer::EVENT_AFTER_SEND, function ($event) {
+        Event::on('yii\mail\BaseMailer', BaseMailer::EVENT_AFTER_SEND, function ($event) {
             /* @var $message MessageInterface */
             $message = $event->message;
             $messageData = [
-                    'isSuccessful' => $event->isSuccessful,
-                    'from' => $this->convertParams($message->getFrom()),
-                    'to' => $this->convertParams($message->getTo()),
-                    'reply' => $this->convertParams($message->getReplyTo()),
-                    'cc' => $this->convertParams($message->getCc()),
-                    'bcc' => $this->convertParams($message->getBcc()),
-                    'subject' => $message->getSubject(),
-                    'charset' => $message->getCharset(),
+                'isSuccessful' => $event->isSuccessful,
+                'from' => $this->convertParams($message->getFrom()),
+                'to' => $this->convertParams($message->getTo()),
+                'reply' => $this->convertParams($message->getReplyTo()),
+                'cc' => $this->convertParams($message->getCc()),
+                'bcc' => $this->convertParams($message->getBcc()),
+                'subject' => $message->getSubject(),
+                'charset' => $message->getCharset(),
             ];
 
             // add more information when message is a SwiftMailer message
@@ -106,7 +106,10 @@ class MailPanel extends Panel
      */
     public function getSummary()
     {
-        return Yii::$app->view->render('panels/mail/summary', ['panel' => $this, 'mailCount' => count($this->data)]);
+        return Yii::$app->view->render('panels/mail/summary', [
+            'panel' => $this,
+            'mailCount' => count($this->data),
+        ]);
     }
 
     /**
@@ -118,9 +121,9 @@ class MailPanel extends Panel
         $dataProvider = $searchModel->search(Yii::$app->request->get(), $this->data);
 
         return Yii::$app->view->render('panels/mail/detail', [
-                'panel' => $this,
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel
+            'panel' => $this,
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
         ]);
     }
 

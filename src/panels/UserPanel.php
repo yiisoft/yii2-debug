@@ -89,7 +89,7 @@ class UserPanel extends Panel
         ) {
             $this->filterModel = new $this->filterModel;
         } elseif ($this->getUser() && $this->getUser()->identityClass) {
-            if (is_subclass_of($this->getUser()->identityClass, ActiveRecord::className())) {
+            if (is_subclass_of($this->getUser()->identityClass, 'yii\db\ActiveRecord')) {
                 $this->filterModel = new \yii\debug\models\search\User();
             }
         }
@@ -116,7 +116,7 @@ class UserPanel extends Panel
         $this->module->attachBehavior(
             'access_debug',
             [
-                'class' => AccessControl::className(),
+                'class' => 'yii\filters\AccessControl',
                 'only' => [$this->module->id . '/user', $this->module->id . '/default'],
                 'user' => $this->userSwitch->getMainUser(),
                 'rules' => [

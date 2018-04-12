@@ -93,11 +93,8 @@ class AssetPanel extends Panel
      */
     protected function format(array $bundles)
     {
+        // @todo remove
         foreach ($bundles as $bundle) {
-
-            $this->cssCount += count($bundle->css);
-            $this->jsCount += count($bundle->js);
-
             array_walk($bundle->css, function(&$file, $key, $userdata) {
                 $file = Html::a($file, $userdata->baseUrl . '/' . $file, ['target' => '_blank']);
             }, $bundle);

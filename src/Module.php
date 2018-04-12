@@ -94,6 +94,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $enableDebugLogs = false;
     /**
+     * @var bool whether to disable IP address restriction warning triggered by checkAccess function
+     * @since 2.0.14
+     */
+    public $disableIpRestrictionWarning = false;
+    /**
      * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace line string.
      * The placeholders are {file}, {line} and {text} and the string should be as follows:
      *
@@ -321,7 +326,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 return true;
             }
         }
-        Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
+		if (!$this->disableIpRestrictionWarning) {
+			Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
+		}
         return false;
     }
 
@@ -336,11 +343,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'log' => ['class' => 'yii\debug\panels\LogPanel'],
             'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
             'db' => ['class' => 'yii\debug\panels\DbPanel'],
+            'event' => ['class' => 'yii\debug\panels\EventPanel'],
             'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
             'user' => ['class' => 'yii\debug\panels\UserPanel'],
-            'router' => ['class' => 'yii\debug\panels\RouterPanel']
+            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
         ];
     }
 
