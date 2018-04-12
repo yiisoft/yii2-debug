@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
+- Enh #311: Adjusted module's code to use `->get()` for dependencies (samdark)
 
 
 2.0.13 December 5, 2017
