@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
+- Enh #311: Adjusted module's code to use `->get()` for dependencies (samdark)
 - Enh #77: Added "Events" panel (klimov-paul)
 - Enh #301: Added configuration option to toggle IP address restriction warning on / off (jkrasniewski)
 
