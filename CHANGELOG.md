@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.0.14 under development
 ------------------------
 
+- Enh #316: Prevent multiple lines in toolbar (ZAYEC77)
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
 - Enh #311: Adjusted module's code to use `->get()` for dependencies (samdark)
 - Enh #77: Added "Events" panel (klimov-paul)
