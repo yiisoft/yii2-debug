@@ -93,31 +93,42 @@ class DefaultController extends Controller
             'activePanel' => $activePanel,
         ]);
     }
-
-	public function actionReRun($tag)
-	{
-		$this->loadData($tag);
-
-		$requestPanel = $this->module->panels['request'];
-
-		$headers = [];
-		foreach ($requestPanel->data['requestHeaders'] as $name => $value) {
-			if ($name !== 'content-length') {
-				$headers[] = "{$name}: {$value}";
-			}
+    
+    public function actionReRun($tag)
+    {
+        $this->loadData($tag);
+        
+        $requestPanel = $this->module->panels['request'];
+        
+        $headers = [];
+        foreach ($requestPanel->data['requestHeaders'] as $name => $value) {
+            if ($name !== 'content-length') {
+                $headers[] = "{$name}: {$value}";
+            }
         }
-
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $this->summary['url']);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->summary['method']);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($requestPanel->data['POST']));
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_exec($ch);
-		curl_close($ch);
-
-		return $this->redirect(['index']);
-	}
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->summary['url']);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->summary['method']);
+        
+        if ($requestPanel->data['requestBody']['Raw']) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $requestPanel->data['requestBody']['Raw']);
+        }
+        
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        $response = curl_exec($ch);
+        
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $header = substr($response, 0, $header_size);
+        preg_match('/X-Debug-Tag: ([A-Za-z0-9]+)\b/si', $header, $debugTag);
+        
+        curl_close($ch);
+        
+        return $this->redirect(['view', 'tag' => $debugTag[1]]);
+    }
 
     public function actionToolbar($tag)
     {
