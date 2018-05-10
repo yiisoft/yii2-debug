@@ -50,7 +50,7 @@ TimelineAsset::register($this);
             </button>
         </div>
     </div>
-    <?php if(!Yii::$app->request->isPjax && $panel->svg->hasPoints()):?>
+    <?php if($panel->svg->hasPoints()):?>
     <div class="debug-timeline-panel__memory" style="height: <?= StringHelper::normalizeNumber($panel->svg->y) ?>px;">
         <div class="scale" style="bottom: 100%;"><?= sprintf('%.2f MB', $panel->memory / 1048576) ?></div>
         <?=$panel->svg;?>

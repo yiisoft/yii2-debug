@@ -105,7 +105,6 @@ class RequestPanel extends Panel
             'general' => [
                 'method' => Yii::$app->getRequest()->getMethod(),
                 'isAjax' => Yii::$app->getRequest()->getIsAjax(),
-                'isPjax' => Yii::$app->getRequest()->getIsPjax(),
                 'isFlash' => Yii::$app->getRequest()->getIsFlash(),
                 'isSecureConnection' => Yii::$app->getRequest()->getIsSecureConnection(),
             ],
