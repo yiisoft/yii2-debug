@@ -140,8 +140,10 @@ class LogTarget extends Target
             foreach (array_keys($manifest) as $tag) {
                 $file = $this->module->dataPath . "/$tag.data";
                 @unlink($file);
-                foreach ($manifest[$tag]['mailFiles'] as $mailFile) {
-                    @unlink(Yii::getAlias($this->module->panels['mail']->mailPath) . "/$mailFile");
+                if (isset($manifest[$tag]['mailFiles'])) {
+                    foreach ($manifest[$tag]['mailFiles'] as $mailFile) {
+                        @unlink(Yii::getAlias($this->module->panels['mail']->mailPath) . "/$mailFile");
+                    }
                 }
                 unset($manifest[$tag]);
                 if (--$n <= 0) {
