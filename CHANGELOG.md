@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.0 under development
 -----------------------
 
-- Bug #313: Fixed "getRequest()->getIsPjax() is not found" (exileed)
+- Bug #313: Removed PJAX usage (exileed)
 - Chg: Required Yii framework version has been raised to '2.1.0' (klimov-paul)
 
 
