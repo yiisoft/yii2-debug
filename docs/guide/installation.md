@@ -93,3 +93,176 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 > Note: Make sure to disable debug mode in production environments since it may have a significant and adverse performance
 effect. Further, the debug mode may expose sensitive information to end users.
+
+### Configuring Database panel
+
+Database panel default sorting and filtering can be configured like the following:
+
+```php
+$config['modules']['debug'] = [
+    'class' => 'yii\debug\Module',
+    'panels' => [
+        'db' => [
+            'class' => 'yii\debug\panels\DbPanel',
+            'defaultOrder' => [
+                'seq' => SORT_ASC
+            ],
+            'defaultFilter' => [
+                'type' => 'SELECT'
+            ]
+        ],
+    ],
+];
+```
+
+### Extra configuration for opening in IDE's
+
+Wouldn't it be nice to be able to open files directly from the debug trace? 
+
+Well, you can!
+With a few settings you're ready to go!
+
+
+#### Windows
+
+##### 1) Create a WScript file open_phpstorm.js:
+Create a file `C:\Program Files (x86)\JetBrains\open_phpstorm.js` (example for PhpStorm)
+with the following content:
+
+```js
+
+var settings = {
+	// Set to 'true' (without quotes) if run on Windows 64bit. Set to 'false' (without quotes) otherwise.
+	x64: true,
+
+	// Set to folder name, where PhpStorm was installed to (e.g. 'PhpStorm')
+	folder_name: 'PhpStorm 2016.2.1',
+
+	// Set to window title (only text after dash sign), that you see, when switching to running PhpStorm instance
+	window_title: 'PhpStorm 2016.2.1',
+
+	// In case your file is mapped via a network share and paths do not match.
+	// eg. /var/www will can replaced with Y:/
+	projects_basepath: '',
+	projects_path_alias: ''
+};
+
+
+// don't change anything below this line, unless you know what you're doing
+var	url = WScript.Arguments(0),
+	match = /^ide:\/\/(?:.+)file:\/\/(.+)&line=(\d+)$/.exec(url),
+	project = '',
+	editor = '"C:\\' + (settings.x64 ? 'Program Files' : 'Program Files (x86)') + '\\JetBrains\\' + settings.folder_name + '\\bin\\PhpStorm.exe"';
+
+if (match) {
+
+	var	shell = new ActiveXObject('WScript.Shell'),
+		file_system = new ActiveXObject('Scripting.FileSystemObject'),
+		file = decodeURIComponent(match[1]).replace(/\+/g, ' '),
+		search_path = file.replace(/\//g, '\\');
+
+	if (settings.projects_basepath != '' && settings.projects_path_alias != '') {
+		file = file.replace(new RegExp('^' + settings.projects_basepath), settings.projects_path_alias);
+	}
+
+	while (search_path.lastIndexOf('\\') != -1) {
+		search_path = search_path.substring(0, search_path.lastIndexOf('\\'));
+
+		if(file_system.FileExists(search_path+'\\.idea\\.name')) {
+			project = search_path;
+			break;
+		}
+	}
+
+	if (project != '') {
+		editor += ' "%project%"';
+	}
+
+	editor += ' --line %line% "%file%"';
+
+	var command = editor.replace(/%line%/g, match[2])
+						.replace(/%file%/g, file)
+						.replace(/%project%/g, project)
+						.replace(/\//g, '\\');
+
+	shell.Exec(command);
+	shell.AppActivate(settings.window_title);
+}
+```
+
+##### 2) Create a registry file and execute this file 
+
+Create a registry file `C:\Program Files (x86)\JetBrains\open_phpstorm.reg` (example for PhpStorm)
+with the following content and make sure the paths are correct:
+
+```windows.reg
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\ide]
+@="\"URL:ide Protocol\""
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\ide\shell\open\command]
+@="wscript \"C:\\Program Files (x86)\\JetBrains\\open_phpstorm.js\" %1"
+```
+
+Now you are able to use the ide:// protocol in your browser. 
+
+When you click such a link, the IDE will automatically open the file and move the cursor to the corresponding line.
+
+##### Disable links
+IDE links for traces are created by default. You have to set the property `yii\debug\Module::traceLink` to
+ false to render a textual line only.
+
+```php
+<?php
+
+...
+'modules' => [
+    'debug' => [
+        'class' => 'yii\debug\Module',
+        'traceLink' => false
+    ]
+]
+
+...
+```
+
+### Virtualized or dockerized
+
+If your application is run under a virtualized or dockerized environment, it is often the case that the application's base path is different inside of the virtual machine or container than on your host machine. For the links work in those situations, you can configure `traceLine` like this (change the path to your app):
+
+```php
+'traceLine' => function($options, $panel) {
+    $filePath = str_replace(Yii::$app->basePath, '~/path/to/your/app', $options['file']);
+    return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
+},
+```
+
+### Switching Users
+
+You can use log in as any user and reset to back to your primary user. In order to enable the feature you need to configure access permissions in the `UserPanel` config. By default access is denied to everyone.
+
+```php
+return [
+    'bootstrap' => ['debug'],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'panels' => [
+                'user' => [
+                    'class'=>'yii\debug\panels\UserPanel',
+                    'ruleUserSwitch' => [
+                        'allow' => true,
+                        'roles' => ['manager'],
+                    ]
+                ]
+            ]
+        ],
+        // ...
+    ],
+    ...
+];
+```
+
+For details see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html).
