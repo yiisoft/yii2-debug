@@ -1,17 +1,16 @@
 <?php
+/* @var $panel yii\debug\panels\LogPanel */
+/* @var $searchModel yii\debug\models\search\Log */
+/* @var $dataProvider yii\data\ArrayDataProvider */
 
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\VarDumper;
 use yii\log\Logger;
 
-/* @var $panel yii\debug\panels\LogPanel */
-/* @var $searchModel yii\debug\models\search\Log */
-/* @var $dataProvider yii\data\ArrayDataProvider */
 ?>
 <h1>Log Messages</h1>
 <?php
-
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'log-panel-detailed-grid',
@@ -19,14 +18,21 @@ echo GridView::widget([
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
     'rowOptions' => function ($model) {
+        $options = [
+            'id' => 'log-' . $model['id']
+        ];
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR : return ['class' => 'danger'];
-            case Logger::LEVEL_WARNING : return ['class' => 'warning'];
-            case Logger::LEVEL_INFO : return ['class' => 'success'];
-            default: return [];
+            case Logger::LEVEL_ERROR : Html::addCssClass($options, 'danger'); break;
+            case Logger::LEVEL_WARNING : Html::addCssClass($options, 'warning'); break;
+            case Logger::LEVEL_INFO : Html::addCssClass($options, 'success'); break;
         }
+        return $options;
     },
     'columns' => [
+        [
+            'attribute' => 'id',
+            'label' => '#',
+        ],
         [
             'attribute' => 'time',
             'value' => function ($data) {
@@ -66,7 +72,39 @@ echo GridView::widget([
                 $formattedDiff[] = $diffInMs . 'ms';
                 $formattedDiff = implode('&nbsp;', $formattedDiff);
 
-                return $formattedDiff;
+                $previousBtnOptions = [
+                    'class' => 'btn btn-default',
+                ];
+                $nextBtnOptions = [
+                    'class' => 'btn btn-default',
+                ];
+                if (is_null($data['id_of_previous'])) {
+                    Html::addCssClass($previousBtnOptions, 'disabled');
+                }
+                if (is_null($data['id_of_next'])) {
+                    Html::addCssClass($nextBtnOptions, 'disabled');
+                }
+
+                return
+                    '<div class="btn-group btn-group-xs" role="group">' .
+                    Html::a(
+                        '<i class="glyphicon glyphicon-step-backward"></i>',
+                        '#log-' . $data['id_of_previous'],
+                        $previousBtnOptions
+                    ) .
+                    Html::a(
+                        $formattedDiff,
+                        '#log-' . $data['id'],
+                        [
+                            'class' => 'btn btn-default',
+                        ]
+                    ) .
+                    Html::a(
+                        '<i class="glyphicon glyphicon-step-forward"></i>',
+                        '#log-' . $data['id_of_next'],
+                        $nextBtnOptions
+                    ) .
+                    '</div>';
             },
             'format' => 'raw',
             'headerOptions' => [

@@ -96,21 +96,30 @@ class LogPanel extends Panel
         if ($this->_models === null || $refresh) {
             $this->_models = [];
 
+            $previousId = null;
             $previousTime = null;
+            $id = 1;
             foreach ($this->data['messages'] as $message) {
                 if (is_null($previousTime)) {
                     $previousTime = $message[3];
+                } else {
+                    $this->_models[$previousId]['id_of_next'] = $id;
                 }
-                $this->_models[] = [
+                $this->_models[$id] = [
+                    'id' => $id,
                     'message' => $message[0],
                     'level' => $message[1],
                     'category' => $message[2],
                     'time' => $message[3] * 1000, // time in milliseconds
                     'time_of_previous' => $previousTime * 1000, // time in milliseconds
                     'time_since_previous' => $message[3] - $previousTime,
+                    'id_of_previous' => $previousId,
+                    'id_of_next' => null,
                     'trace' => $message[4]
                 ];
+                $previousId = $id;
                 $previousTime = $message[3];
+                $id++;
             }
         }
 
