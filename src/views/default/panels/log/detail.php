@@ -40,6 +40,40 @@ echo GridView::widget([
             ]
         ],
         [
+            'attribute' => 'time_since_previous',
+            'value' => function ($data) {
+                $previousDateTime = \DateTime::createFromFormat('U.u', $data['time_of_previous'] / 1000);
+                $thisDateTime = \DateTime::createFromFormat('U.u', $data['time'] / 1000);
+
+                $diffInSeconds = ($data['time'] - $data['time_of_previous']) / 1000;
+                $diffInMs = (int) (($diffInSeconds - (int) $diffInSeconds) * 1000);
+
+                $diff = $thisDateTime->diff($previousDateTime);
+                $diffHours = (int) $diff->format('%h');
+                $diffMinutes = (int) $diff->format('%i');
+                $diffSeconds = (int) $diff->format('%s');
+
+                $formattedDiff = [];
+                if ($diffHours > 0) {
+                    $formattedDiff[] = $diffHours . 'h';
+                }
+                if ($diffMinutes > 0) {
+                    $formattedDiff[] = $diffMinutes . 'm';
+                }
+                if ($diffSeconds > 0) {
+                    $formattedDiff[] = $diffSeconds . 's';
+                }
+                $formattedDiff[] = $diffInMs . 'ms';
+                $formattedDiff = implode('&nbsp;', $formattedDiff);
+
+                return $formattedDiff;
+            },
+            'format' => 'raw',
+            'headerOptions' => [
+                'class' => 'sort-numerical'
+            ]
+        ],
+        [
             'attribute' => 'level',
             'value' => function ($data) {
                 return Logger::getLevelName($data['level']);
