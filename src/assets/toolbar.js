@@ -137,11 +137,11 @@
                 }
             };
 
-        toolbarEl.style.display = 'block';
-
         if (restoreStorageState(CACHE_KEY) === ACTIVE_STATE) {
             toolbarEl.classList.add(activeClass);
         }
+
+        toolbarEl.style.display = 'block';
 
         window.onresize = function () {
             if (toolbarEl.classList.contains(iframeActiveClass)) {
