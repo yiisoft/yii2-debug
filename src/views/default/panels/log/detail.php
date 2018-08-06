@@ -48,8 +48,16 @@ echo GridView::widget([
         [
             'attribute' => 'time_since_previous',
             'value' => function ($data) {
-                $previousDateTime = \DateTime::createFromFormat('U.u', $data['time_of_previous'] / 1000);
-                $thisDateTime = \DateTime::createFromFormat('U.u', $data['time'] / 1000);
+                $timeOfPrevious = $data['time_of_previous'] / 1000;
+                if (strpos($timeOfPrevious, '.') === false) {
+                    $timeOfPrevious = $timeOfPrevious . '.0';
+                }
+                $time = $data['time'] / 1000;
+                if (strpos($time, '.') === false) {
+                    $time = $time . '.0';
+                }
+                $previousDateTime = \DateTime::createFromFormat('U.u', $timeOfPrevious);
+                $thisDateTime = \DateTime::createFromFormat('U.u', $time);
 
                 $diffInSeconds = ($data['time'] - $data['time_of_previous']) / 1000;
                 $diffInMs = (int) (($diffInSeconds - (int) $diffInSeconds) * 1000);
