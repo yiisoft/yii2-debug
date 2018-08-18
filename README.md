@@ -99,7 +99,8 @@ If your application is run under a virtualized or dockerized environment, it is 
     return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
 },
 ```
-of course you can add all posible path like this (for backend main-local config)
+You can add all posible path like this (valid for advanced template backend main-local.php config):
+
 ```php
 'traceLine' => function($options, $panel) {
     $filePath = $options['file'];
