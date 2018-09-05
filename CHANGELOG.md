@@ -11,6 +11,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #301: Added configuration option to toggle IP address restriction warning on / off (jkrasniewski)
 - Bug #300: Fixed email files are not deleted by GC (pistej)
 - Bug #327: Fix animation on page load when the toolbar is expanded (brandonkelly)
+- Bug #332: Fix error when trace is missing from message (cornernote)
 
 
 2.0.13 December 5, 2017
