@@ -2,33 +2,40 @@
     'use strict';
 
     var sendSetIdentity = function(e) {
-        var form = $(this);
-        var formData = form.serialize();
-        $.ajax({
-            url: form.attr("action"),
-            type: form.attr("method"),
-            data: formData,
-            success: function (data) {
-                window.top.location.reload();
-            },
-            error: function (data) {
-                form.yiiActiveForm('updateMessages', data.responseJSON, true);
-            }
+        var form = e.target;
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+
+        xhr.addEventListener('load', function (e) {
+            window.top.location.reload();
         });
+
+        xhr.addEventListener('error', function (e) {
+            form.yiiActiveForm('updateMessages', data.responseJSON, true);
+        });
+
+        xhr.open(form.method, form.action);
+        xhr.send(formData);
     };
 
+    var form = document.getElementById('debug-userswitch__set-identity');
 
-    $('#debug-userswitch__set-identity').on('beforeSubmit', sendSetIdentity)
-        .on('submit', function(e){
-            e.preventDefault();
-        });
-    $('#debug-userswitch__reset-identity').on('beforeSubmit', sendSetIdentity)
-        .on('submit', function(e){
-            e.preventDefault();
-        });
-    $('#debug-userswitch__filter').on("click", "tbody tr", function(event) {
-        $('#debug-userswitch__set-identity #user_id').val($(this).data('key'));
-        $('#debug-userswitch__set-identity').submit();
-        event.stopPropagation();
+    form.addEventListener('submit', function (e) {
+        sendSetIdentity(e);
+        e.preventDefault();
+    });
+
+    document.getElementById('debug-userswitch__reset-identity').addEventListener('submit', function (e) {
+        sendSetIdentity(e);
+        e.preventDefault();
+    });
+
+    var filter = document.getElementById('debug-userswitch__filter');
+
+    filter.addEventListener('click', function (e) {
+        if (e.target.nodeName === 'TD' && e.target.parentElement.parentElement.nodeName === 'TBODY') {
+            document.querySelector('#debug-userswitch__set-identity #user_id').value = filter.dataset.key;
+            form.submit();
+        }
     });
 })();
