@@ -18,7 +18,7 @@ use yii\mail\MessageInterface;
 /**
  * Debugger panel that collects and displays the generated emails.
  *
- * @property array $messages Messages. This property is read-only.
+ * @property array $messagesFileName This property is read-only.
  *
  * @author Mark Jebri <mark.github@yandex.ru>
  * @since 2.0
