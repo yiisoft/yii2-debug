@@ -102,7 +102,7 @@ class LogPanel extends Panel
                     'level' => $message[1],
                     'category' => $message[2],
                     'time' => $message[3] * 1000, // time in milliseconds
-                    'trace' => $message[4]
+                    'trace' => isset($message[4]) ? $message[4] : [],
                 ];
             }
         }

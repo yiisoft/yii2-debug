@@ -140,6 +140,11 @@ class LogTarget extends Target
             foreach (array_keys($manifest) as $tag) {
                 $file = $this->module->dataPath . "/$tag.data";
                 @unlink($file);
+                if (isset($manifest[$tag]['mailFiles'])) {
+                    foreach ($manifest[$tag]['mailFiles'] as $mailFile) {
+                        @unlink(Yii::getAlias($this->module->panels['mail']->mailPath) . "/$mailFile");
+                    }
+                }
                 unset($manifest[$tag]);
                 if (--$n <= 0) {
                     break;
@@ -172,7 +177,9 @@ class LogTarget extends Target
         ];
 
         if (isset($this->module->panels['mail'])) {
-            $summary['mailCount'] = count($this->module->panels['mail']->getMessages());
+            $mailFiles = $this->module->panels['mail']->getMessagesFileName();
+            $summary['mailCount'] = count($mailFiles);
+            $summary['mailFiles'] = $mailFiles;
         }
 
         return $summary;

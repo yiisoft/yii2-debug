@@ -236,7 +236,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function beforeAction($action)
     {
         if (!$this->enableDebugLogs) {
-            foreach (Yii::$app->getLog()->targets as $target) {
+            foreach ($this->get('log')->targets as $target) {
                 $target->enabled = false;
             }
         }
