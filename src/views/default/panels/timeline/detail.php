@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
-use yii\debug\TimelineAsset;
+use yii\debug\assets\TimelineAsset;
 use yii\helpers\StringHelper;
 
 /* @var $panel yii\debug\panels\TimelinePanel */

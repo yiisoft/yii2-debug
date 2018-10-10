@@ -28,10 +28,8 @@ $this->title = 'Yii Debugger';
 
     <div class="container">
         <div class="row">
+            <h1>Available Debug Data</h1>
 <?php
-
-    echo '			<h1>Available Debug Data</h1>';
-
     $codes = [];
     foreach ($manifest as $tag => $vals) {
         if (!empty($vals['statusCode'])) {
@@ -48,11 +46,11 @@ $this->title = 'Yii Debugger';
         'filterModel' => $searchModel,
         'rowOptions' => function ($model) use ($searchModel, $hasDbPanel) {
             if ($searchModel->isCodeCritical($model['statusCode'])) {
-                return ['class'=>'danger'];
+                return ['class'=>'table-danger'];
             }
 
             if ($hasDbPanel && $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])) {
-                return ['class'=>'danger'];
+                return ['class'=>'table-danger'];
             }
 
             return [];

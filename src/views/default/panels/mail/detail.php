@@ -20,7 +20,7 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
 
 <div class="row">
     <div class="col-lg-2">
-        <?= Html::button('Form filtering', ['class' => 'btn btn-default', 'onclick' => 'jQuery("#email-form").toggle();']) ?>
+        <?= Html::button('Form filtering', ['class' => 'btn btn-outline-secondary', 'onclick' => 'jQuery("#email-form").toggle();']) ?>
     </div>
     <div class="row col-lg-10">
         <?= $listView->renderSorter() ?>

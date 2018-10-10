@@ -20,9 +20,9 @@ echo GridView::widget([
     'filterUrl' => $panel->getUrl(),
     'rowOptions' => function ($model) {
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR : return ['class' => 'danger'];
-            case Logger::LEVEL_WARNING : return ['class' => 'warning'];
-            case Logger::LEVEL_INFO : return ['class' => 'success'];
+            case Logger::LEVEL_ERROR : return ['class' => 'table-danger'];
+            case Logger::LEVEL_WARNING : return ['class' => 'table-warning'];
+            case Logger::LEVEL_INFO : return ['class' => 'table-success'];
             default: return [];
         }
     },

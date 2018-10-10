@@ -27,9 +27,6 @@ use yii\grid\GridView;
         ],
         [
             'attribute' => 'name',
-            /*'headerOptions' => [
-                'class' => 'sort-numerical'
-            ],*/
         ],
         [
             'attribute' => 'class',

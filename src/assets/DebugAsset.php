@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\debug;
+namespace yii\debug\assets;
 
 use yii\web\AssetBundle;
 
@@ -17,13 +17,14 @@ use yii\web\AssetBundle;
  */
 class DebugAsset extends AssetBundle
 {
-    public $sourcePath = '@yii/debug/assets';
+    public $sourcePath = '@yii/debug/resource';
     public $css = [
         'main.css',
         'toolbar.css',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap4\BootstrapAsset',
+        'yii\debug\assets\GlyphIconsAsset',
     ];
 }

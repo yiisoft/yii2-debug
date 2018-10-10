@@ -1,9 +1,11 @@
 <?php
 
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
-use yii\debug\UserswitchAsset;
+use yii\helpers\Url;
+use yii\bootstrap4\Html;
+use yii\bootstrap4\ActiveForm;
+use yii\debug\assets\UserswitchAsset;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this \yii\web\View */
 /* @var $panel yii\debug\panels\UserPanel */
@@ -14,10 +16,10 @@ UserswitchAsset::register($this);
     <div class="row">
         <div class="col-sm-7">
             <?php $formSet = ActiveForm::begin([
-                'action'  => \yii\helpers\Url::to(['user/set-identity']),
-                'layout'  => 'horizontal',
+                'action' => Url::toRoute(['user/set-identity']),
+                'layout' => 'horizontal',
                 'options' => [
-                    'id'    => 'debug-userswitch__set-identity',
+                    'id' => 'debug-userswitch__set-identity',
                     'style' => $panel->canSearchUsers() ? 'display:none' : ''
                 ]
             ]);
@@ -35,14 +37,14 @@ UserswitchAsset::register($this);
             <?php
             if (!$panel->userSwitch->isMainUser()) {
                 $formReset = ActiveForm::begin([
-                    'action'  => \yii\helpers\Url::to(['user/reset-identity']),
+                    'action' => Url::toRoute(['user/reset-identity']),
                     'options' => [
                         'id' => 'debug-userswitch__reset-identity',
                     ]
                 ]);
                 echo Html::submitButton('Reset to <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">' .
                     $panel->userSwitch->getMainUser()->getId() .
-                    '</span>', ['class' => 'btn btn-default']);
+                    '</span>', ['class' => 'btn btn-outline-secondary']);
                 ActiveForm::end();
             }
             ?>
@@ -51,15 +53,15 @@ UserswitchAsset::register($this);
 
 <?php
 if ($panel->canSearchUsers()) {
-    yii\widgets\Pjax::begin(['id' => 'debug-userswitch__filter', 'timeout' => false]);
+    Pjax::begin(['id' => 'debug-userswitch__filter', 'timeout' => false]);
     echo GridView::widget([
         'dataProvider' => $panel->getUserDataProvider(),
-        'filterModel'  => $panel->getUsersFilterModel(),
+        'filterModel' => $panel->getUsersFilterModel(),
         'tableOptions' => [
             'class' => 'table table-bordered table-responsive table-hover table-pointer'
         ],
-        'columns'      => $panel->filterColumns
+        'columns' => $panel->filterColumns
     ]);
-    yii\widgets\Pjax::end();
+    Pjax::end();
 }
 ?>

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\debug;
+namespace yii\debug\assets;
 
 use yii\web\AssetBundle;
 
@@ -17,7 +17,7 @@ use yii\web\AssetBundle;
  */
 class UserswitchAsset extends AssetBundle
 {
-    public $sourcePath = '@yii/debug/assets';
+    public $sourcePath = '@yii/debug/resource';
     public $js = [
         'userswitch.js',
     ];

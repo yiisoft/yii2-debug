@@ -1,6 +1,6 @@
 <?php
 
-use yii\bootstrap\Tabs;
+use yii\bootstrap4\Tabs;
 use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */

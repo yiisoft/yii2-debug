@@ -1,6 +1,6 @@
 <?php
 
-use yii\bootstrap\Tabs;
+use yii\bootstrap4\Tabs;
 
 /* @var $panel yii\debug\panels\RequestPanel */
 

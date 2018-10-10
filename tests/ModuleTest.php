@@ -15,8 +15,6 @@ class ModuleTest extends TestCase
         $this->mockWebApplication();
     }
 
-    // Tests :
-
     /**
      * Data provider for [[testCheckAccess()]]
      * @return array test data
@@ -96,7 +94,8 @@ HTML
         Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
             ->setMethods(['dispatch'])
             ->getMock();
-        Yii::$app->set('cache', new FileCache(['cachePath' => '@yiiunit/debug/runtime/cache']));
+
+        Yii::$app->set('cache', new FileCache(['cachePath' => '@runtime/cache']));
 
         $view = Yii::$app->view;
         for ($i = 0; $i <= 1; $i++) {
@@ -133,7 +132,9 @@ HTML
 
         ob_start();
         $module->renderToolbar(new Event(['sender' => $view]));
-        ob_end_clean();
+        $content = ob_get_clean();
+        $str = '<div id="yii-debug-toolbar"';
+        $this->assertEquals($str, substr($content, 0, strlen($str)));
     }
 
     public function testDefaultVersion()

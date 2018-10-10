@@ -15,21 +15,34 @@
         {
             "name": "Qiang Xue",
             "email": "qiang.xue@gmail.com"
+        },
+        {
+            "name": "Alex Loban",
+            "email": "lav451@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "~2.0.13",
-        "yiisoft/yii2-bootstrap": "~2.0.0"
+        "yiisoft/yii2-bootstrap4": "1.0.x-dev",
+        "bower-asset/glyphicons-only-bootstrap": "~0.0.1"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "*"
     },
     "autoload": {
         "psr-4": {
             "yii\\debug\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "yiiunit\\debug\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "2.1.x-dev"
         }
     },
     "repositories": [

@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap\ButtonDropdown;
-use yii\bootstrap\ButtonGroup;
+use yii\bootstrap4\ButtonDropdown;
+use yii\bootstrap4\ButtonGroup;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -29,7 +29,7 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container main-container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2 col-md-2">
                 <div class="list-group">
@@ -45,24 +45,21 @@ $this->title = 'Yii Debugger';
             </div>
             <div class="col-lg-10 col-md-10">
                 <?php
-                $statusCode = $summary['statusCode'];
-                if ($statusCode === null) {
-                    $statusCode = 200;
-                }
+                $statusCode = $summary['statusCode'] ?: 200;
                 if ($statusCode >= 200 && $statusCode < 300) {
-                    $calloutClass = 'callout-success';
+                    $collarClass = 'success';
                 } elseif ($statusCode >= 300 && $statusCode < 400) {
-                    $calloutClass = 'callout-info';
+                    $collarClass = 'info';
                 } else {
-                    $calloutClass = 'callout-important';
+                    $collarClass = 'danger';
                 }
                 ?>
-                <div class="callout <?= $calloutClass ?>">
+                <div class="alert alert-<?= $collarClass ?> p-1">
                     <?php
                         $count = 0;
                         $items = [];
                         foreach ($manifest as $meta) {
-                            $label = ($meta['tag'] == $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
+                            $label = ($meta['tag'] === $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
                                 . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
                                 . ', ' . date('Y-m-d h:i:s a', $meta['time'])
                                 . ', ' . $meta['ip'];
@@ -78,11 +75,12 @@ $this->title = 'Yii Debugger';
                         echo ButtonGroup::widget([
                             'options'=>['class'=>'btn-group-sm'],
                             'buttons' => [
-                                Html::a('All', ['index'], ['class' => 'btn btn-default']),
-                                Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-default']),
+                                Html::a('All', ['index'], ['class' => 'btn btn-light']),
+                                Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-light']),
                                 ButtonDropdown::widget([
                                     'label' => 'Last 10',
-                                    'options' => ['class' => 'btn-default btn-sm'],
+                                    'options' => ['class' => 'btn-group'],
+                                    'buttonOptions' => ['class' => 'btn-light btn-sm'],
                                     'dropdown' => ['items' => $items, 'encodeLabels' => false],
                                 ]),
                             ],
