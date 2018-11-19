@@ -53,7 +53,7 @@ $this->title = 'Yii Debugger';
                 } elseif ($statusCode >= 300 && $statusCode < 400) {
                     $calloutClass = 'callout-info';
                 } else {
-                    $calloutClass = 'callout-important';
+                    $calloutClass = 'callout-danger';
                 }
                 ?>
                 <div class="callout <?= $calloutClass ?>">

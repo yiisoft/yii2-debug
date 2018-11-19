@@ -1,3 +1,7 @@
+@import "bs4/functions";
+@import "bs4/variables";
+@import "bs4/mixins";
+
 .main-container {
     width: auto;
 }
@@ -56,19 +60,11 @@ ul.assets {
     border-radius: 3px;
 }
 
-.callout-important {
-    background-color: rgba(185, 74, 72, 0.2);
-    border-color: rgba(185, 74, 72, 0.4);
-}
-
-.callout-success {
-    background-color: rgba(70, 136, 71, 0.2);
-    border-color: rgba(70, 136, 71, 0.4);
-}
-
-.callout-info {
-    background-color: rgba(58, 135, 173, 0.2);
-    border-color: rgba(58, 135, 173, 0.4);
+@each $color, $value in $theme-colors {
+    .callout-#{$color} {
+        background-color: rgba(theme-color-level($color, -10), .2);
+        border-color: rgba(theme-color-level($color, -9), .4);
+    }
 }
 
 .list-group .icon {
@@ -160,10 +156,6 @@ a.desc:after {
 }
 
 .yii-debug-main-container {
-    @import "bs4/functions";
-    @import "bs4/variables";
-    @import "bs4/mixins";
-
     @import "bs4/reboot";
     @import "bs4/grid";
     @import "bs4/tables";
