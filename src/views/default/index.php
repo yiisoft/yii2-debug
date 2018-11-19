@@ -26,7 +26,7 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container">
+    <div class="container yii-debug-main-container">
         <div class="row">
             <?php
 
@@ -82,8 +82,7 @@ $this->title = 'Yii Debugger';
                             $dbPanel = $this->context->module->panels['db'];
 
                             if ($dbPanel->isQueryCountCritical($data['sqlCount'])) {
-                                $content = Html::tag('b', $data['sqlCount']) . ' ' . Html::tag('span', '',
-                                        ['class' => 'glyphicon glyphicon-exclamation-sign']);
+                                $content = Html::tag('b', $data['sqlCount']) . ' ' . Html::tag('span', '&#x26a0;');
 
                                 return Html::a($content, ['view', 'panel' => 'db', 'tag' => $data['tag']], [
                                     'title' => 'Too many queries. Allowed count is ' . $dbPanel->criticalQueryThreshold,

@@ -71,7 +71,7 @@ ul.assets {
     border-color: rgba(58, 135, 173, 0.4);
 }
 
-.list-group .glyphicon {
+.list-group .icon {
     float: right;
 }
 
@@ -159,7 +159,7 @@ a.desc:after {
     cursor: pointer;
 }
 
-.yii-debug-toolbar {
+.yii-debug-main-container {
     @import "bs4/functions";
     @import "bs4/variables";
     @import "bs4/mixins";

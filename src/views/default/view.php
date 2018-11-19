@@ -29,21 +29,24 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container main-container">
+    <div class="container main-container yii-debug-main-container">
         <div class="row">
-            <div class="col-lg-2 col-md-2">
+            <div class="col-md-2">
                 <div class="list-group">
                     <?php
+                    $options = [
+                        'class' => ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-center']
+                    ];
                     foreach ($panels as $id => $panel) {
-                        $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($panel->getName());
+                        $label = Html::tag('span', Html::encode($panel->getName())) . '<span class="icon">&rang;</span>';
                         echo Html::a($label, ['view', 'tag' => $tag, 'panel' => $id], [
-                            'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
+                            'class' => $panel === $activePanel ? array_merge($options, ['active']) : $options,
                         ]);
                     }
                     ?>
                 </div>
             </div>
-            <div class="col-lg-10 col-md-10">
+            <div class="col-md-10">
                 <?php
                 $statusCode = $summary['statusCode'];
                 if ($statusCode === null) {
@@ -76,24 +79,36 @@ $this->title = 'Yii Debugger';
                             break;
                         }
                     }
-                    echo ButtonGroup::widget([
-                        'options' => ['class' => 'btn-group-sm'],
-                        'buttons' => [
-                            Html::a('All', ['index'], ['class' => 'btn btn-default']),
-                            Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-default']),
-                            ButtonDropdown::widget([
-                                'label' => 'Last 10',
-                                'options' => ['class' => 'btn-default btn-sm'],
-                                'dropdown' => ['items' => $items, 'encodeLabels' => false],
-                            ]),
-                        ],
-                    ]);
+
+                    ?>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <?=Html::a('All', ['index'], ['class' => ['btn', 'btn-outline-secondary']]);?>
+                        <?=Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => ['btn', 'btn-outline-secondary']]);?>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <?=Html::button('Last 10', [
+                                'type' => 'button',
+                                'class' => ['btn', 'btn-outline-secondary', 'dropdown-toggle'],
+                                'data' => [
+                                    'toggle' => 'dropdown'
+                                ],
+                                'aria-haspopup' => 'true',
+                                'aria-expanded' => 'false'
+                            ]);?>
+                            <?=\yii\widgets\Menu::widget([
+                                'encodeLabels' => false,
+                                'items' => $items,
+                                'options' => ['class' => 'dropdown-menu'],
+                                'itemOptions' => ['class' => 'dropdown-item']
+                            ]);?>
+                        </div>
+                    </div>
+                    <?php
                     echo "\n" . $summary['tag'] . ': ' . $summary['method'] . ' ' . Html::a(Html::encode($summary['url']),
                             $summary['url']);
                     echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
                     ?>
                 </div>
-                <?= $activePanel->getDetail() ?>
+                <?= $activePanel->getDetail(); ?>
             </div>
         </div>
     </div>
