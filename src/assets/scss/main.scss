@@ -62,8 +62,9 @@ ul.assets {
 
 @each $color, $value in $theme-colors {
     .callout-#{$color} {
-        background-color: rgba(theme-color-level($color, -10), .2);
-        border-color: rgba(theme-color-level($color, -9), .4);
+        background-color: theme-color-level($color, -10);
+        border-color: theme-color-level($color, -9);
+        color: theme-color-level($color, 6);
     }
 }
 
