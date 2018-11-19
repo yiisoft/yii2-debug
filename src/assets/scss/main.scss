@@ -158,3 +158,12 @@ a.desc:after {
 .table-pointer tbody tr {
     cursor: pointer;
 }
+
+.yii-debug-toolbar {
+    @import "bs4/functions";
+    @import "bs4/variables";
+    @import "bs4/mixins";
+
+    @import "bs4/grid";
+    @import "bs4/card";
+}

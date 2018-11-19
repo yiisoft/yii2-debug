@@ -356,7 +356,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         // echo is used in order to support cases where asset manager is not available
         echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css') . '</style>';
-        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.js') . '</script>';
+        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/js/toolbar.js') . '</script>';
     }
 
     /**
