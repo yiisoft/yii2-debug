@@ -165,5 +165,10 @@ a.desc:after {
     @import "bs4/mixins";
 
     @import "bs4/grid";
+    @import "bs4/tables";
+    @import "bs4/buttons";
+    @import "bs4/dropdown";
+    @import "bs4/button-group";
     @import "bs4/card";
+    @import "bs4/list-group";
 }
