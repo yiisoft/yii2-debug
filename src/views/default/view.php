@@ -34,13 +34,11 @@ $this->title = 'Yii Debugger';
             <div class="col-md-2">
                 <div class="list-group">
                     <?php
-                    $options = [
-                        'class' => ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-center']
-                    ];
+                    $classes = ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'];
                     foreach ($panels as $id => $panel) {
                         $label = Html::tag('span', Html::encode($panel->getName())) . '<span class="icon">&rang;</span>';
                         echo Html::a($label, ['view', 'tag' => $tag, 'panel' => $id], [
-                            'class' => $panel === $activePanel ? array_merge($options, ['active']) : $options,
+                            'class' => $panel === $activePanel ? array_merge($classes, ['active']) : $classes,
                         ]);
                     }
                     ?>
