@@ -19,6 +19,10 @@
         {
             "name": "Qiang Xue",
             "email": "qiang.xue@gmail.com"
+        },
+        {
+            "name": "Simon Karlen",
+            "email": "simi.albi@outlook.com"
         }
     ],
     "minimum-stability": "dev",
