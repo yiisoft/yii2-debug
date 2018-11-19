@@ -28,6 +28,14 @@ class DebugAsset extends AssetBundle
         'css/main.css',
         'css/toolbar.css',
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public $js = [
+        'js/bs4-native.min.js'
+    ];
+
     /**
      * {@inheritdoc}
      */
