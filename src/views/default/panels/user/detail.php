@@ -34,7 +34,7 @@ if (isset($panel->data['identity'])) {
     <ul class="nav nav-tabs">
         <?php
         foreach ($items['nav'] as $k => $item) {
-            Html::tag(
+            echo Html::tag(
                 'li',
                 Html::a($item, '#u-tab-' . $k, [
                     'class' => $k === 0 ? 'nav-link active' : 'nav-link',
@@ -53,7 +53,7 @@ if (isset($panel->data['identity'])) {
     <div class="tab-content">
         <?php
         foreach ($items['content'] as $k => $item) {
-            Html::tag('div', $item, [
+            echo Html::tag('div', $item, [
                 'class' => $k === 0 ? 'tab-pane active' : 'tab-pane',
                 'id' => 'u-tab-' . $k
             ]);
