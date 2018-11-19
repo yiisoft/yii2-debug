@@ -1,8 +1,8 @@
 <?php
 
-use \yii\widgets\ListView;
-use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\widgets\ListView;
 
 /* @var $panel yii\debug\panels\MailPanel */
 /* @var $searchModel yii\debug\models\search\Mail */
@@ -20,7 +20,8 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
 
 <div class="row">
     <div class="col-lg-2">
-        <?= Html::button('Form filtering', ['class' => 'btn btn-default', 'onclick' => 'jQuery("#email-form").toggle();']) ?>
+        <?= Html::button('Form filtering',
+            ['class' => 'btn btn-default', 'onclick' => 'jQuery("#email-form").toggle();']) ?>
     </div>
     <div class="row col-lg-10">
         <?= $listView->renderSorter() ?>
@@ -29,8 +30,8 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
 
 <div id="email-form" style="display: none;">
     <?php $form = ActiveForm::begin([
-            'method' => 'get',
-            'action' => ['default/view', 'tag' => Yii::$app->request->get('tag'), 'panel' => 'mail'],
+        'method' => 'get',
+        'action' => ['default/view', 'tag' => Yii::$app->request->get('tag'), 'panel' => 'mail'],
     ]); ?>
     <div class="row">
         <?= $form->field($searchModel, 'from', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
@@ -45,9 +46,9 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
 
         <?= $form->field($searchModel, 'charset', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
 
-        <?= $form->field($searchModel, 'subject', ['options' => ['class' => 'col-lg-6']])->textInput()	?>
+        <?= $form->field($searchModel, 'subject', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
 
-        <?= $form->field($searchModel, 'body', ['options' => ['class' => 'col-lg-6']])->textInput()	?>
+        <?= $form->field($searchModel, 'body', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
 
         <div class="form-group col-lg-12">
             <?= Html::submitButton('Filter', ['class' => 'btn btn-success']) ?>

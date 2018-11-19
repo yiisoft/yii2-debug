@@ -11,8 +11,8 @@ use Yii;
 use yii\base\Event;
 use yii\debug\models\search\Mail;
 use yii\debug\Panel;
-use yii\mail\BaseMailer;
 use yii\helpers\FileHelper;
+use yii\mail\BaseMailer;
 use yii\mail\MessageInterface;
 
 /**
@@ -95,6 +95,19 @@ class MailPanel extends Panel
     }
 
     /**
+     * @param mixed $attr
+     * @return string
+     */
+    private function convertParams($attr)
+    {
+        if (is_array($attr)) {
+            $attr = implode(', ', array_keys($attr));
+        }
+
+        return $attr;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getName()
@@ -150,18 +163,5 @@ class MailPanel extends Panel
         }
 
         return $names;
-    }
-
-    /**
-     * @param mixed $attr
-     * @return string
-     */
-    private function convertParams($attr)
-    {
-        if (is_array($attr)) {
-            $attr = implode(', ', array_keys($attr));
-        }
-
-        return $attr;
     }
 }

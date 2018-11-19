@@ -38,80 +38,6 @@ class DataProvider extends ArrayDataProvider
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function prepareModels()
-    {
-        if (($models = $this->allModels) === null) {
-            return [];
-        }
-        $child = [];
-        foreach ($models as $key => &$model) {
-            $model['timestamp'] *= 1000;
-            $model['duration'] *= 1000;
-            $model['child'] = 0;
-            $model['css']['width'] = $this->getWidth($model);
-            $model['css']['left'] = $this->getLeft($model);
-            $model['css']['color'] = $this->getColor($model);
-            foreach ($child as $id => $timestamp) {
-                if ($timestamp > $model['timestamp']) {
-                    ++$models[$id]['child'];
-                } else {
-                    unset($child[$id]);
-                }
-            }
-            $child[$key] = $model['timestamp'] + $model['duration'];
-        }
-        return $models;
-    }
-
-    /**
-     * Getting HEX color based on model duration
-     * @param array $model
-     * @return string
-     */
-    public function getColor($model)
-    {
-        $width = isset($model['css']['width']) ? $model['css']['width'] : $this->getWidth($model);
-        foreach ($this->panel->colors as $percent => $color) {
-            if ($width >= $percent) {
-                return $color;
-            }
-        }
-        return '#d6e685';
-    }
-
-    /**
-     * Returns the offset left item, percentage of the total width
-     * @param array $model
-     * @return float
-     */
-    public function getLeft($model)
-    {
-        return $this->getTime($model) / ($this->panel->duration / 100);
-    }
-
-    /**
-     * Returns item duration, milliseconds
-     * @param array $model
-     * @return float
-     */
-    public function getTime($model)
-    {
-        return $model['timestamp'] - $this->panel->start;
-    }
-
-    /**
-     * Returns item width percent of the total width
-     * @param array $model
-     * @return float
-     */
-    public function getWidth($model)
-    {
-        return $model['duration'] / ($this->panel->duration / 100);
-    }
-
-    /**
      * Returns item, css class
      * @param array $model
      * @return string
@@ -163,5 +89,79 @@ class DataProvider extends ArrayDataProvider
             sprintf('%.2f MB', $model['memory'] / 1048576),
             $model['memory'] / ($this->panel->memory / 100)
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function prepareModels()
+    {
+        if (($models = $this->allModels) === null) {
+            return [];
+        }
+        $child = [];
+        foreach ($models as $key => &$model) {
+            $model['timestamp'] *= 1000;
+            $model['duration'] *= 1000;
+            $model['child'] = 0;
+            $model['css']['width'] = $this->getWidth($model);
+            $model['css']['left'] = $this->getLeft($model);
+            $model['css']['color'] = $this->getColor($model);
+            foreach ($child as $id => $timestamp) {
+                if ($timestamp > $model['timestamp']) {
+                    ++$models[$id]['child'];
+                } else {
+                    unset($child[$id]);
+                }
+            }
+            $child[$key] = $model['timestamp'] + $model['duration'];
+        }
+        return $models;
+    }
+
+    /**
+     * Returns item width percent of the total width
+     * @param array $model
+     * @return float
+     */
+    public function getWidth($model)
+    {
+        return $model['duration'] / ($this->panel->duration / 100);
+    }
+
+    /**
+     * Returns the offset left item, percentage of the total width
+     * @param array $model
+     * @return float
+     */
+    public function getLeft($model)
+    {
+        return $this->getTime($model) / ($this->panel->duration / 100);
+    }
+
+    /**
+     * Returns item duration, milliseconds
+     * @param array $model
+     * @return float
+     */
+    public function getTime($model)
+    {
+        return $model['timestamp'] - $this->panel->start;
+    }
+
+    /**
+     * Getting HEX color based on model duration
+     * @param array $model
+     * @return string
+     */
+    public function getColor($model)
+    {
+        $width = isset($model['css']['width']) ? $model['css']['width'] : $this->getWidth($model);
+        foreach ($this->panel->colors as $percent => $color) {
+            if ($width >= $percent) {
+                return $color;
+            }
+        }
+        return '#d6e685';
     }
 }

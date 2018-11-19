@@ -14,7 +14,7 @@
                 .on('show.bs.tooltip', function () {
                     var data = $(this).data('memory');
                     if (data) {
-                        self.options.$memory.text(data[0]).css({'bottom': data[1]+'%'});
+                        self.options.$memory.text(data[0]).css({'bottom': data[1] + '%'});
                     }
                 })
                 .tooltip();

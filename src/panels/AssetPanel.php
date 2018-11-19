@@ -9,10 +9,9 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\Html;
 use yii\debug\Panel;
+use yii\helpers\Html;
 use yii\web\AssetBundle;
-use yii\web\AssetManager;
 
 /**
  * Debugger panel that collects and displays asset bundles data.
@@ -58,7 +57,7 @@ class AssetPanel extends Panel
         $data = [];
         foreach ($bundles as $name => $bundle) {
             if ($bundle instanceof AssetBundle) {
-                $bundleData = (array) $bundle;
+                $bundleData = (array)$bundle;
                 if (isset($bundleData['publishOptions']['beforeCopy']) && $bundleData['publishOptions']['beforeCopy'] instanceof \Closure) {
                     $bundleData['publishOptions']['beforeCopy'] = '\Closure';
                 }
@@ -95,15 +94,15 @@ class AssetPanel extends Panel
     {
         // @todo remove
         foreach ($bundles as $bundle) {
-            array_walk($bundle->css, function(&$file, $key, $userdata) {
-                $file = Html::a($file, $userdata->baseUrl . '/' . $file, ['target' => '_blank']);
+            array_walk($bundle->css, function (&$file, $key, $userData) {
+                $file = Html::a($file, $userData->baseUrl . '/' . $file, ['target' => '_blank']);
             }, $bundle);
 
-            array_walk($bundle->js, function(&$file, $key, $userdata) {
-                $file = Html::a($file, $userdata->baseUrl . '/' . $file, ['target' => '_blank']);
+            array_walk($bundle->js, function (&$file, $key, $userData) {
+                $file = Html::a($file, $userData->baseUrl . '/' . $file, ['target' => '_blank']);
             }, $bundle);
 
-            array_walk($bundle->depends, function(&$depend) {
+            array_walk($bundle->depends, function (&$depend) {
                 $depend = Html::a($depend, '#' . $depend);
             });
 
@@ -129,7 +128,7 @@ class AssetPanel extends Panel
         }
 
         foreach ($params as $param => $value) {
-            $params[$param] = Html::tag('strong', '\'' . $param . '\' => ') . (string) $value;
+            $params[$param] = Html::tag('strong', '\'' . $param . '\' => ') . (string)$value;
         }
 
         return $params;

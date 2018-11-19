@@ -9,7 +9,7 @@ if ($panel->data['rolesProvider']) {
 
     echo GridView::widget([
         'dataProvider' => $panel->data['rolesProvider'],
-        'columns'      => [
+        'columns' => [
             'name',
             'description',
             'ruleName',
@@ -25,7 +25,7 @@ if ($panel->data['permissionsProvider']) {
 
     echo GridView::widget([
         'dataProvider' => $panel->data['permissionsProvider'],
-        'columns'      => [
+        'columns' => [
             'name',
             'description',
             'ruleName',

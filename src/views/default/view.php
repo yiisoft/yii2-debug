@@ -59,36 +59,38 @@ $this->title = 'Yii Debugger';
                 ?>
                 <div class="callout <?= $calloutClass ?>">
                     <?php
-                        $count = 0;
-                        $items = [];
-                        foreach ($manifest as $meta) {
-                            $label = ($meta['tag'] == $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
-                                . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
-                                . ', ' . date('Y-m-d h:i:s a', $meta['time'])
-                                . ', ' . $meta['ip'];
-                            $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
-                            $items[] = [
-                                'label' => $label,
-                                'url' => $url,
-                            ];
-                            if (++$count >= 10) {
-                                break;
-                            }
+                    $count = 0;
+                    $items = [];
+                    foreach ($manifest as $meta) {
+                        $label = ($meta['tag'] == $tag ? Html::tag('strong',
+                                '&#9654;&nbsp;' . $meta['tag']) : $meta['tag'])
+                            . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
+                            . ', ' . date('Y-m-d h:i:s a', $meta['time'])
+                            . ', ' . $meta['ip'];
+                        $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
+                        $items[] = [
+                            'label' => $label,
+                            'url' => $url,
+                        ];
+                        if (++$count >= 10) {
+                            break;
                         }
-                        echo ButtonGroup::widget([
-                            'options'=>['class'=>'btn-group-sm'],
-                            'buttons' => [
-                                Html::a('All', ['index'], ['class' => 'btn btn-default']),
-                                Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-default']),
-                                ButtonDropdown::widget([
-                                    'label' => 'Last 10',
-                                    'options' => ['class' => 'btn-default btn-sm'],
-                                    'dropdown' => ['items' => $items, 'encodeLabels' => false],
-                                ]),
-                            ],
-                        ]);
-                        echo "\n" . $summary['tag'] . ': ' . $summary['method'] . ' ' . Html::a(Html::encode($summary['url']), $summary['url']);
-                        echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
+                    }
+                    echo ButtonGroup::widget([
+                        'options' => ['class' => 'btn-group-sm'],
+                        'buttons' => [
+                            Html::a('All', ['index'], ['class' => 'btn btn-default']),
+                            Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-default']),
+                            ButtonDropdown::widget([
+                                'label' => 'Last 10',
+                                'options' => ['class' => 'btn-default btn-sm'],
+                                'dropdown' => ['items' => $items, 'encodeLabels' => false],
+                            ]),
+                        ],
+                    ]);
+                    echo "\n" . $summary['tag'] . ': ' . $summary['method'] . ' ' . Html::a(Html::encode($summary['url']),
+                            $summary['url']);
+                    echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
                     ?>
                 </div>
                 <?= $activePanel->getDetail() ?>

@@ -9,16 +9,14 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\Controller;
-use yii\base\Model;
 use yii\base\InvalidConfigException;
+use yii\base\Model;
 use yii\data\ArrayDataProvider;
 use yii\data\DataProviderInterface;
-use yii\db\ActiveRecord;
 use yii\debug\controllers\UserController;
 use yii\debug\models\search\UserSearchInterface;
 use yii\debug\models\UserSwitch;
 use yii\debug\Panel;
-use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
@@ -73,6 +71,7 @@ class UserPanel extends Panel
 
     /**
      * {@inheritdoc}
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -96,8 +95,22 @@ class UserPanel extends Panel
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function isEnabled()
+    {
+        try {
+            $this->getUser();
+        } catch (InvalidConfigException $exception) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @return User|null
      * @since 2.0.13
+     * @throws InvalidConfigException
      */
     public function getUser()
     {
@@ -127,21 +140,21 @@ class UserPanel extends Panel
     }
 
     /**
-     * Get model for GridView -> FilterModel
-     * @return Model|UserSearchInterface
-     */
-    public function getUsersFilterModel()
-    {
-        return $this->filterModel;
-    }
-
-    /**
      * Get model for GridView -> DataProvider
      * @return DataProviderInterface
      */
     public function getUserDataProvider()
     {
         return $this->getUsersFilterModel()->search(Yii::$app->request->queryParams);
+    }
+
+    /**
+     * Get model for GridView -> FilterModel
+     * @return Model|UserSearchInterface
+     */
+    public function getUsersFilterModel()
+    {
+        return $this->filterModel;
     }
 
     /**
@@ -159,6 +172,7 @@ class UserPanel extends Panel
     /**
      * Check can main user switch identity.
      * @return bool
+     * @throws InvalidConfigException
      */
     public function canSwitchUser()
     {
@@ -281,19 +295,6 @@ class UserPanel extends Panel
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isEnabled()
-    {
-        try {
-            $this->getUser();
-        } catch (InvalidConfigException $exception) {
-            return false;
-        }
-        return true;
     }
 
     /**

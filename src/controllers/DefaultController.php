@@ -8,9 +8,9 @@
 namespace yii\debug\controllers;
 
 use Yii;
+use yii\debug\models\search\Debug;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\debug\models\search\Debug;
 use yii\web\Response;
 
 /**
@@ -57,6 +57,7 @@ class DefaultController extends Controller
 
     /**
      * {@inheritdoc}
+     * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
     {
@@ -64,6 +65,12 @@ class DefaultController extends Controller
         return parent::beforeAction($action);
     }
 
+    /**
+     * Index action
+     *
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionIndex()
     {
         $searchModel = new Debug();
@@ -80,61 +87,6 @@ class DefaultController extends Controller
             'searchModel' => $searchModel,
             'manifest' => $this->getManifest(),
         ]);
-    }
-
-    /**
-     * @see \yii\debug\Panel
-     * @param string|null $tag debug data tag.
-     * @param string|null $panel debug panel ID.
-     * @return mixed response.
-     * @throws NotFoundHttpException if debug data not found.
-     */
-    public function actionView($tag = null, $panel = null)
-    {
-        if ($tag === null) {
-            $tags = array_keys($this->getManifest());
-            $tag = reset($tags);
-        }
-        $this->loadData($tag);
-        if (isset($this->module->panels[$panel])) {
-            $activePanel = $this->module->panels[$panel];
-        } else {
-            $activePanel = $this->module->panels[$this->module->defaultPanel];
-        }
-
-        if ($activePanel->hasError()) {
-            Yii::$app->errorHandler->handleException($activePanel->getError());
-        }
-
-        return $this->render('view', [
-            'tag' => $tag,
-            'summary' => $this->summary,
-            'manifest' => $this->getManifest(),
-            'panels' => $this->module->panels,
-            'activePanel' => $activePanel,
-        ]);
-    }
-
-    public function actionToolbar($tag)
-    {
-        $this->loadData($tag, 5);
-
-        return $this->renderPartial('toolbar', [
-            'tag' => $tag,
-            'panels' => $this->module->panels,
-            'position' => 'bottom',
-        ]);
-    }
-
-    public function actionDownloadMail($file)
-    {
-        $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);
-
-        if ((mb_strpos($file, '\\') !== false || mb_strpos($file, '/') !== false) || !is_file($filePath)) {
-            throw new NotFoundHttpException('Mail file not found');
-        }
-
-        return Yii::$app->response->sendFile($filePath);
     }
 
     /**
@@ -201,5 +153,74 @@ class DefaultController extends Controller
         }
 
         throw new NotFoundHttpException("Unable to find debug data tagged with '$tag'.");
+    }
+
+    /**
+     * @see \yii\debug\Panel
+     * @param string|null $tag debug data tag.
+     * @param string|null $panel debug panel ID.
+     * @return mixed response.
+     * @throws NotFoundHttpException if debug data not found.
+     */
+    public function actionView($tag = null, $panel = null)
+    {
+        if ($tag === null) {
+            $tags = array_keys($this->getManifest());
+            $tag = reset($tags);
+        }
+        $this->loadData($tag);
+        if (isset($this->module->panels[$panel])) {
+            $activePanel = $this->module->panels[$panel];
+        } else {
+            $activePanel = $this->module->panels[$this->module->defaultPanel];
+        }
+
+        if ($activePanel->hasError()) {
+            Yii::$app->errorHandler->handleException($activePanel->getError());
+        }
+
+        return $this->render('view', [
+            'tag' => $tag,
+            'summary' => $this->summary,
+            'manifest' => $this->getManifest(),
+            'panels' => $this->module->panels,
+            'activePanel' => $activePanel,
+        ]);
+    }
+
+    /**
+     * Toolbar action
+     *
+     * @param string $tag
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionToolbar($tag)
+    {
+        $this->loadData($tag, 5);
+
+        return $this->renderPartial('toolbar', [
+            'tag' => $tag,
+            'panels' => $this->module->panels,
+            'position' => 'bottom',
+        ]);
+    }
+
+    /**
+     * Download mail action
+     *
+     * @param string $file
+     * @return \yii\console\Response|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionDownloadMail($file)
+    {
+        $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);
+
+        if ((mb_strpos($file, '\\') !== false || mb_strpos($file, '/') !== false) || !is_file($filePath)) {
+            throw new NotFoundHttpException('Mail file not found');
+        }
+
+        return Yii::$app->response->sendFile($filePath);
     }
 }

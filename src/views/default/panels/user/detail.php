@@ -13,24 +13,24 @@ use yii\widgets\DetailView;
 if (isset($panel->data['identity'])) {
     $items = [
         [
-            'label'   => 'User',
+            'label' => 'User',
             'content' => '<h2>User Info</h2>' . DetailView::widget([
-                'model'      => $panel->data['identity'],
-                'attributes' => $panel->data['attributes']
-            ]),
-            'active'  => true,
+                    'model' => $panel->data['identity'],
+                    'attributes' => $panel->data['attributes']
+                ]),
+            'active' => true,
         ],
     ];
     if ($panel->data['rolesProvider'] || $panel->data['permissionsProvider']) {
         $items[] = [
-                'label'   => 'Roles and Permissions',
-                'content' => $this->render('roles', ['panel' => $panel])
-            ];
+            'label' => 'Roles and Permissions',
+            'content' => $this->render('roles', ['panel' => $panel])
+        ];
     }
 
     if ($panel->canSwitchUser()) {
         $items[] = [
-            'label'   => 'Switch User',
+            'label' => 'Switch User',
             'content' => $this->render(
                 'switch',
                 [

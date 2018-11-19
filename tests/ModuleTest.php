@@ -2,21 +2,13 @@
 
 namespace yiiunit\debug;
 
+use Yii;
 use yii\base\Event;
 use yii\caching\FileCache;
 use yii\debug\Module;
-use Yii;
 
 class ModuleTest extends TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->mockWebApplication();
-    }
-
-    // Tests :
-
     /**
      * Data provider for [[testCheckAccess()]]
      * @return array test data
@@ -52,6 +44,8 @@ class ModuleTest extends TestCase
         ];
     }
 
+    // Tests :
+
     /**
      * @dataProvider dataProviderCheckAccess
      *
@@ -81,7 +75,7 @@ class ModuleTest extends TestCase
         $this->assertEquals(<<<HTML
 <div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
 HTML
-        ,$module->getToolbarHtml());
+            , $module->getToolbarHtml());
     }
 
     /**
@@ -91,7 +85,7 @@ HTML
     {
         $module = new Module('debug');
         $module->allowedIPs = ['*'];
-        Yii::$app->setModule('debug',$module);
+        Yii::$app->setModule('debug', $module);
         $module->bootstrap(Yii::$app);
         Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
             ->setMethods(['dispatch'])
@@ -146,5 +140,11 @@ HTML
         $module = new Module('debug');
 
         $this->assertEquals('2.0.7', $module->getVersion());
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->mockWebApplication();
     }
 } 

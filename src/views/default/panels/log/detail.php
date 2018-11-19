@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\log\Logger;
 
@@ -9,7 +9,7 @@ use yii\log\Logger;
 /* @var $searchModel yii\debug\models\search\Log */
 /* @var $dataProvider yii\data\ArrayDataProvider */
 ?>
-<h1>Log Messages</h1>
+    <h1>Log Messages</h1>
 <?php
 
 echo GridView::widget([
@@ -20,10 +20,14 @@ echo GridView::widget([
     'filterUrl' => $panel->getUrl(),
     'rowOptions' => function ($model) {
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR : return ['class' => 'danger'];
-            case Logger::LEVEL_WARNING : return ['class' => 'warning'];
-            case Logger::LEVEL_INFO : return ['class' => 'success'];
-            default: return [];
+            case Logger::LEVEL_ERROR :
+                return ['class' => 'danger'];
+            case Logger::LEVEL_WARNING :
+                return ['class' => 'warning'];
+            case Logger::LEVEL_INFO :
+                return ['class' => 'success'];
+            default:
+                return [];
         }
     },
     'columns' => [
@@ -31,7 +35,7 @@ echo GridView::widget([
             'attribute' => 'time',
             'value' => function ($data) {
                 $timeInSeconds = $data['time'] / 1000;
-                $millisecondsDiff = (int) (($timeInSeconds - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },

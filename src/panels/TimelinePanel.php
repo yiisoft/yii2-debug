@@ -8,10 +8,10 @@
 namespace yii\debug\panels;
 
 use Yii;
-use yii\debug\Panel;
+use yii\base\InvalidConfigException;
 use yii\debug\models\timeline\Search;
 use yii\debug\models\timeline\Svg;
-use yii\base\InvalidConfigException;
+use yii\debug\Panel;
 
 /**
  * Debugger panel that collects and displays timeline data.
@@ -71,6 +71,7 @@ class TimelinePanel extends Panel
 
     /**
      * {@inheritdoc}
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -147,6 +148,16 @@ class TimelinePanel extends Panel
     }
 
     /**
+     * Color indicators item profile,
+     * key: percentages of time request, value: hex color
+     * @return array
+     */
+    public function getColors()
+    {
+        return $this->_colors;
+    }
+
+    /**
      * Sets color indicators.
      * key: percentages of time request, value: hex color
      * @param array $colors
@@ -158,13 +169,11 @@ class TimelinePanel extends Panel
     }
 
     /**
-     * Color indicators item profile,
-     * key: percentages of time request, value: hex color
      * @return array
      */
-    public function getColors()
+    public function getSvgOptions()
     {
-        return $this->_colors;
+        return $this->_svgOptions;
     }
 
     /**
@@ -176,14 +185,6 @@ class TimelinePanel extends Panel
             $this->_svg = null;
         }
         $this->_svgOptions = array_merge($this->_svgOptions, $options);
-    }
-
-    /**
-     * @return array
-     */
-    public function getSvgOptions()
-    {
-        return $this->_svgOptions;
     }
 
     /**
@@ -217,11 +218,12 @@ class TimelinePanel extends Panel
     /**
      * @return Svg
      * @since 2.0.8
+     * @throws InvalidConfigException
      */
     public function getSvg()
     {
         if ($this->_svg === null) {
-            $this->_svg = Yii::createObject($this->_svgOptions,[$this]);
+            $this->_svg = Yii::createObject($this->_svgOptions, [$this]);
         }
         return $this->_svg;
     }

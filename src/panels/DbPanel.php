@@ -9,10 +9,10 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\debug\models\search\Db;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
 use yii\log\Logger;
-use yii\debug\models\search\Db;
 
 /**
  * Debugger panel that collects and displays database queries performed.
@@ -60,6 +60,18 @@ class DbPanel extends Panel
      */
     private $_timings;
 
+    /**
+     * Check if given query type can be explained.
+     *
+     * @param string $type query type
+     * @return bool
+     *
+     * @since 2.0.5
+     */
+    public static function canBeExplained($type)
+    {
+        return $type !== 'SHOW';
+    }
 
     /**
      * {@inheritdoc}
@@ -106,6 +118,37 @@ class DbPanel extends Panel
     }
 
     /**
+     * Calculates given request profile timings.
+     *
+     * @return array timings [token, category, timestamp, traces, nesting level, elapsed time]
+     */
+    public function calculateTimings()
+    {
+        if ($this->_timings === null) {
+            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
+        }
+
+        return $this->_timings;
+    }
+
+    /**
+     * Returns total query time.
+     *
+     * @param array $timings
+     * @return int total time
+     */
+    protected function getTotalQueryTime($timings)
+    {
+        $queryTime = 0;
+
+        foreach ($timings as $timing) {
+            $queryTime += $timing['duration'];
+        }
+
+        return $queryTime;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getDetail()
@@ -128,57 +171,6 @@ class DbPanel extends Panel
             'hasExplain' => $this->hasExplain(),
             'sumDuplicates' => $sumDuplicates,
         ]);
-    }
-
-    /**
-     * Calculates given request profile timings.
-     *
-     * @return array timings [token, category, timestamp, traces, nesting level, elapsed time]
-     */
-    public function calculateTimings()
-    {
-        if ($this->_timings === null) {
-            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
-        }
-
-        return $this->_timings;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function save()
-    {
-        return ['messages' => $this->getProfileLogs()];
-    }
-
-    /**
-     * Returns all profile logs of the current request for this panel. It includes categories such as:
-     * 'yii\db\Command::query', 'yii\db\Command::execute'.
-     * @return array
-     */
-    public function getProfileLogs()
-    {
-        $target = $this->module->logTarget;
-
-        return $target->filterMessages($target->messages, Logger::LEVEL_PROFILE, ['yii\db\Command::query', 'yii\db\Command::execute']);
-    }
-
-    /**
-     * Returns total query time.
-     *
-     * @param array $timings
-     * @return int total time
-     */
-    protected function getTotalQueryTime($timings)
-    {
-        $queryTime = 0;
-
-        foreach ($timings as $timing) {
-            $queryTime += $timing['duration'];
-        }
-
-        return $queryTime;
     }
 
     /**
@@ -225,6 +217,20 @@ class DbPanel extends Panel
     }
 
     /**
+     * Returns database query type.
+     *
+     * @param string $timing timing procedure string
+     * @return string query type such as select, insert, delete, etc.
+     */
+    protected function getQueryType($timing)
+    {
+        $timing = ltrim($timing);
+        preg_match('/^([a-zA-z]*)/', $timing, $matches);
+
+        return count($matches) ? mb_strtoupper($matches[0], 'utf8') : '';
+    }
+
+    /**
      * Returns sum of all duplicated queries
      *
      * @param $modelData
@@ -245,17 +251,58 @@ class DbPanel extends Panel
     }
 
     /**
-     * Returns database query type.
-     *
-     * @param string $timing timing procedure string
-     * @return string query type such as select, insert, delete, etc.
+     * @return bool Whether the DB component has support for EXPLAIN queries
+     * @since 2.0.5
+     * @throws InvalidConfigException
      */
-    protected function getQueryType($timing)
+    protected function hasExplain()
     {
-        $timing = ltrim($timing);
-        preg_match('/^([a-zA-z]*)/', $timing, $matches);
+        $db = $this->getDb();
+        if (!($db instanceof \yii\db\Connection)) {
+            return false;
+        }
+        switch ($db->getDriverName()) {
+            case 'mysql':
+            case 'sqlite':
+            case 'pgsql':
+            case 'cubrid':
+                return true;
+            default:
+                return false;
+        }
+    }
 
-        return count($matches) ? mb_strtoupper($matches[0], 'utf8') : '';
+    /**
+     * Returns a reference to the DB component associated with the panel
+     *
+     * @return \yii\db\Connection
+     * @since 2.0.5
+     * @throws InvalidConfigException
+     */
+    public function getDb()
+    {
+        return Yii::$app->get($this->db);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save()
+    {
+        return ['messages' => $this->getProfileLogs()];
+    }
+
+    /**
+     * Returns all profile logs of the current request for this panel. It includes categories such as:
+     * 'yii\db\Command::query', 'yii\db\Command::execute'.
+     * @return array
+     */
+    public function getProfileLogs()
+    {
+        $target = $this->module->logTarget;
+
+        return $target->filterMessages($target->messages, Logger::LEVEL_PROFILE,
+            ['yii\db\Command::query', 'yii\db\Command::execute']);
     }
 
     /**
@@ -299,50 +346,5 @@ class DbPanel extends Panel
         }
 
         return parent::isEnabled();
-    }
-
-    /**
-     * @return bool Whether the DB component has support for EXPLAIN queries
-     * @since 2.0.5
-     */
-    protected function hasExplain()
-    {
-        $db = $this->getDb();
-        if (!($db instanceof \yii\db\Connection)) {
-            return false;
-        }
-        switch ($db->getDriverName()) {
-            case 'mysql':
-            case 'sqlite':
-            case 'pgsql':
-            case 'cubrid':
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * Check if given query type can be explained.
-     *
-     * @param string $type query type
-     * @return bool
-     *
-     * @since 2.0.5
-     */
-    public static function canBeExplained($type)
-    {
-        return $type !== 'SHOW';
-    }
-
-    /**
-     * Returns a reference to the DB component associated with the panel
-     *
-     * @return \yii\db\Connection
-     * @since 2.0.5
-     */
-    public function getDb()
-    {
-        return Yii::$app->get($this->db);
     }
 }

@@ -10,12 +10,12 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
-use yii\helpers\Json;
-use yii\web\Response;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
-use yii\web\View;
 use yii\web\ForbiddenHttpException;
+use yii\web\Response;
+use yii\web\View;
 
 /**
  * The Yii Debug Module provides the debug toolbar and debugger
@@ -26,7 +26,10 @@ use yii\web\ForbiddenHttpException;
 class Module extends \yii\base\Module implements BootstrapInterface
 {
     const DEFAULT_IDE_TRACELINE = '<a href="ide://open?url=file://{file}&line={line}">{text}</a>';
-
+    /**
+     * @var string Yii logo URL
+     */
+    private static $_yiiLogo = 'data:image/png;base64,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';
     /**
      * @var array the list of IPs that are allowed to access this module.
      * Each array element represents a single IP filter which can be either an IP address
@@ -117,12 +120,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $traceLine = self::DEFAULT_IDE_TRACELINE;
 
     /**
-     * @var string Yii logo URL
-     */
-    private static $_yiiLogo = 'data:image/png;base64,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';
-
-
-    /**
      * Returns the logo URL to be used in `<img src="`
      *
      * @return string the logo URL
@@ -144,6 +141,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * {@inheritdoc}
+     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
@@ -157,6 +155,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * Initializes panels.
+     * @throws \yii\base\InvalidConfigException
      */
     protected function initPanels()
     {
@@ -184,6 +183,26 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 unset($this->panels[$id]);
             }
         }
+    }
+
+    /**
+     * @return array default set of panels
+     */
+    protected function corePanels()
+    {
+        return [
+            'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
+            'request' => ['class' => 'yii\debug\panels\RequestPanel'],
+            'log' => ['class' => 'yii\debug\panels\LogPanel'],
+            'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
+            'db' => ['class' => 'yii\debug\panels\DbPanel'],
+            'event' => ['class' => 'yii\debug\panels\EventPanel'],
+            'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
+            'mail' => ['class' => 'yii\debug\panels\MailPanel'],
+            'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
+            'user' => ['class' => 'yii\debug\panels\UserPanel'],
+            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
+        ];
     }
 
     /**
@@ -217,6 +236,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * {@inheritdoc}
+     * @throws \yii\base\InvalidConfigException
+     * @throws ForbiddenHttpException
      */
     public function beforeAction($action)
     {
@@ -248,24 +269,29 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * Setting headers to transfer debug data in AJAX requests
-     * without interfering with the request itself.
-     *
-     * @param \yii\base\Event $event
-     * @since 2.0.7
+     * Checks if current user is allowed to access the module
+     * @return bool if access is granted
      */
-    public function setDebugHeaders($event)
+    protected function checkAccess()
     {
-        if (!$this->checkAccess()) {
-            return;
+        $ip = Yii::$app->getRequest()->getUserIP();
+        foreach ($this->allowedIPs as $filter) {
+            if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter,
+                        $pos))) {
+                return true;
+            }
         }
-        $url = Url::toRoute(['/' . $this->id . '/default/view',
-            'tag' => $this->logTarget->tag,
-        ]);
-        $event->sender->getHeaders()
-            ->set('X-Debug-Tag', $this->logTarget->tag)
-            ->set('X-Debug-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1))
-            ->set('X-Debug-Link', $url);
+        foreach ($this->allowedHosts as $hostname) {
+            $filter = gethostbyname($hostname);
+            if ($filter === $ip) {
+                return true;
+            }
+        }
+        if (!$this->disableIpRestrictionWarning) {
+            Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip,
+                __METHOD__);
+        }
+        return false;
     }
 
     /**
@@ -277,12 +303,35 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
+     * Setting headers to transfer debug data in AJAX requests
+     * without interfering with the request itself.
+     *
+     * @param \yii\base\Event $event
+     * @since 2.0.7
+     */
+    public function setDebugHeaders($event)
+    {
+        if (!$this->checkAccess()) {
+            return;
+        }
+        $url = Url::toRoute([
+            '/' . $this->id . '/default/view',
+            'tag' => $this->logTarget->tag,
+        ]);
+        $event->sender->getHeaders()
+            ->set('X-Debug-Tag', $this->logTarget->tag)
+            ->set('X-Debug-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1))
+            ->set('X-Debug-Link', $url);
+    }
+
+    /**
      * Gets toolbar HTML
      * @since 2.0.7
      */
     public function getToolbarHtml()
     {
-        $url = Url::toRoute(['/' . $this->id . '/default/toolbar',
+        $url = Url::toRoute([
+            '/' . $this->id . '/default/toolbar',
             'tag' => $this->logTarget->tag,
         ]);
         return '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
@@ -292,6 +341,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * Renders mini-toolbar at the end of page body.
      *
      * @param \yii\base\Event $event
+     * @throws \Throwable
      */
     public function renderToolbar($event)
     {
@@ -306,50 +356,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
         // echo is used in order to support cases where asset manager is not available
         echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.css') . '</style>';
         echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.js') . '</script>';
-    }
-
-    /**
-     * Checks if current user is allowed to access the module
-     * @return bool if access is granted
-     */
-    protected function checkAccess()
-    {
-        $ip = Yii::$app->getRequest()->getUserIP();
-        foreach ($this->allowedIPs as $filter) {
-            if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
-                return true;
-            }
-        }
-        foreach ($this->allowedHosts as $hostname) {
-            $filter = gethostbyname($hostname);
-            if ($filter === $ip) {
-                return true;
-            }
-        }
-		if (!$this->disableIpRestrictionWarning) {
-			Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
-		}
-        return false;
-    }
-
-    /**
-     * @return array default set of panels
-     */
-    protected function corePanels()
-    {
-        return [
-            'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
-            'request' => ['class' => 'yii\debug\panels\RequestPanel'],
-            'log' => ['class' => 'yii\debug\panels\LogPanel'],
-            'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
-            'db' => ['class' => 'yii\debug\panels\DbPanel'],
-            'event' => ['class' => 'yii\debug\panels\EventPanel'],
-            'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
-            'mail' => ['class' => 'yii\debug\panels\MailPanel'],
-            'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
-            'user' => ['class' => 'yii\debug\panels\UserPanel'],
-            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
-        ];
     }
 
     /**

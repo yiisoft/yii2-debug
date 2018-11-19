@@ -10,11 +10,11 @@
             xhr.open(settings.method || 'GET', url, true);
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Accept', 'text/html');
-            xhr.onreadystatechange = function (state) {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200 && settings.success) {
                         settings.success(xhr);
-                    } else if (xhr.status != 200 && settings.error) {
+                    } else if (xhr.status !== 200 && settings.error) {
                         settings.error(xhr);
                     }
                 }
@@ -81,7 +81,7 @@
 
                 iframeEl.src = externalEl.href = href;
                 viewEl.style.height = iframeHeight();
-                setTimeout(function() {
+                setTimeout(function () {
                     toolbarEl.classList.remove(iframeAnimatingClass);
                 }, animationTime);
             },
@@ -92,7 +92,7 @@
 
                 externalEl.href = '#';
                 viewEl.style.height = '';
-                setTimeout(function() {
+                setTimeout(function () {
                     toolbarEl.classList.remove(iframeAnimatingClass);
                 }, animationTime);
             },
@@ -173,7 +173,7 @@
     }
 
     function findAncestor(el, cls) {
-        while ((el = el.parentElement) && !el.classList.contains(cls));
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
         return el;
     }
 
@@ -263,7 +263,7 @@
             className += ' yii-debug-toolbar__label_error';
         }
         requestCounter[0].className = className;
-    };
+    }
 
     var proxied = XMLHttpRequest.prototype.open;
 
@@ -280,7 +280,7 @@
             };
             requestStack.push(stackElement);
             this.addEventListener("readystatechange", function () {
-                if (self.readyState == 4) {
+                if (self.readyState === 4) {
                     stackElement.duration = self.getResponseHeader("X-Debug-Duration") || new Date() - stackElement.start;
                     stackElement.loading = false;
                     stackElement.statusCode = self.status;
@@ -299,7 +299,7 @@
     if (window.fetch) {
         var originalFetch = window.fetch;
 
-        window.fetch = function(input, init) {
+        window.fetch = function (input, init) {
             var method;
             var url;
             if (typeof input === "string") {
@@ -321,7 +321,7 @@
                     start: new Date()
                 };
                 requestStack.push(stackElement);
-                promise.then(function(response) {
+                promise.then(function (response) {
                     stackElement.duration = response.headers.get("X-Debug-Duration") || new Date() - stackElement.start;
                     stackElement.loading = false;
                     stackElement.statusCode = response.status;
@@ -331,7 +331,7 @@
                     renderAjaxRequests();
 
                     return response;
-                }).catch(function(error) {
+                }).catch(function (error) {
                     stackElement.loading = false;
                     stackElement.error = true;
                     renderAjaxRequests();

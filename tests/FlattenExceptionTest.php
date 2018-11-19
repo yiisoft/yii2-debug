@@ -2,8 +2,8 @@
 
 namespace yiiunit\debug;
 
-use yii\web\NotFoundHttpException;
 use yii\debug\FlattenException;
+use yii\web\NotFoundHttpException;
 
 /**
  * @author Dmitry Bashkarev <dmitry@bashkarev.com>
@@ -62,6 +62,11 @@ class FlattenExceptionTest extends TestCase
     {
         $exception = $this->createException('test');
         $this->assertEquals($exception->getTraceAsString(), (new FlattenException($exception))->getTraceAsString());
+    }
+
+    private function createException($foo)
+    {
+        return new \Exception();
     }
 
     public function testToString()
@@ -125,7 +130,8 @@ class FlattenExceptionTest extends TestCase
 
         $args = $array[$i++];
         $this->assertSame($args[0], 'object');
-        $this->assertTrue('Closure' === $args[1] || is_subclass_of($args[1], '\Closure'), 'Expect object class name to be Closure or a subclass of Closure.');
+        $this->assertTrue('Closure' === $args[1] || is_subclass_of($args[1], '\Closure'),
+            'Expect object class name to be Closure or a subclass of Closure.');
 
         $this->assertSame(['array', [['integer', 1], ['integer', 2]]], $array[$i++]);
         $this->assertSame(['array', ['foo' => ['integer', 123]]], $array[$i++]);
@@ -187,10 +193,5 @@ class FlattenExceptionTest extends TestCase
 
         $this->assertContains('*SKIPPED over 10000 entries*', $serializeTrace);
         $this->assertNotContains('*value1*', $serializeTrace);
-    }
-
-    private function createException($foo)
-    {
-        return new \Exception();
     }
 }

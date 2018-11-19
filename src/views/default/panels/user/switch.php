@@ -14,10 +14,10 @@ UserswitchAsset::register($this);
     <div class="row">
         <div class="col-sm-7">
             <?php $formSet = ActiveForm::begin([
-                'action'  => \yii\helpers\Url::to(['user/set-identity']),
-                'layout'  => 'horizontal',
+                'action' => \yii\helpers\Url::to(['user/set-identity']),
+                'layout' => 'horizontal',
                 'options' => [
-                    'id'    => 'debug-userswitch__set-identity',
+                    'id' => 'debug-userswitch__set-identity',
                     'style' => $panel->canSearchUsers() ? 'display:none' : ''
                 ]
             ]);
@@ -35,7 +35,7 @@ UserswitchAsset::register($this);
             <?php
             if (!$panel->userSwitch->isMainUser()) {
                 $formReset = ActiveForm::begin([
-                    'action'  => \yii\helpers\Url::to(['user/reset-identity']),
+                    'action' => \yii\helpers\Url::to(['user/reset-identity']),
                     'options' => [
                         'id' => 'debug-userswitch__reset-identity',
                     ]
@@ -54,11 +54,11 @@ if ($panel->canSearchUsers()) {
     yii\widgets\Pjax::begin(['id' => 'debug-userswitch__filter', 'timeout' => false]);
     echo GridView::widget([
         'dataProvider' => $panel->getUserDataProvider(),
-        'filterModel'  => $panel->getUsersFilterModel(),
+        'filterModel' => $panel->getUsersFilterModel(),
         'tableOptions' => [
             'class' => 'table table-bordered table-responsive table-hover table-pointer'
         ],
-        'columns'      => $panel->filterColumns
+        'columns' => $panel->filterColumns
     ]);
     yii\widgets\Pjax::end();
 }

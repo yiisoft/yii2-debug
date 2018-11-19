@@ -114,7 +114,7 @@ class Panel extends Component
             'tag' => $this->tag,
         ];
 
-        if (is_array($additionalParams)){
+        if (is_array($additionalParams)) {
             $route = ArrayHelper::merge($route, $additionalParams);
         }
 
@@ -139,16 +139,8 @@ class Panel extends Component
 
         $options['file'] = str_replace('\\', '/', $options['file']);
         $rawLink = $traceLine instanceof \Closure ? $traceLine($options, $this) : $traceLine;
-        return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
-    }
-
-    /**
-     * @param FlattenException $error
-     * @since 2.0.10
-     */
-    public function setError(FlattenException $error)
-    {
-        $this->error = $error;
+        return strtr($rawLink,
+            ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
     }
 
     /**
@@ -158,6 +150,15 @@ class Panel extends Component
     public function getError()
     {
         return $this->error;
+    }
+
+    /**
+     * @param FlattenException $error
+     * @since 2.0.10
+     */
+    public function setError(FlattenException $error)
+    {
+        $this->error = $error;
     }
 
     /**

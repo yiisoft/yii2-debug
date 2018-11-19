@@ -2,9 +2,9 @@
 
 namespace yiiunit\debug;
 
+use Yii;
 use yii\di\Container;
 use yii\helpers\ArrayHelper;
-use Yii;
 
 /**
  * This is the base class for all yii framework unit tests.
@@ -19,6 +19,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         parent::tearDown();
         $this->destroyApplication();
+    }
+
+    /**
+     * Destroys application in Yii::$app by setting it to null.
+     */
+    protected function destroyApplication()
+    {
+        Yii::$app = null;
+        Yii::$container = new Container();
     }
 
     /**
@@ -45,20 +54,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'components' => [
                 'request' => [
                     'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
-                    'scriptFile' => __DIR__ .'/index.php',
+                    'scriptFile' => __DIR__ . '/index.php',
                     'scriptUrl' => '/index.php',
                 ],
             ]
         ], $config));
-    }
-
-    /**
-     * Destroys application in Yii::$app by setting it to null.
-     */
-    protected function destroyApplication()
-    {
-        Yii::$app = null;
-        Yii::$container = new Container();
     }
 
     /**
@@ -67,6 +67,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param string $method method name.
      * @param array $args method arguments
      * @return mixed method result
+     * @throws \ReflectionException
      */
     protected function invoke($object, $method, array $args = [])
     {

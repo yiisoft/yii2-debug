@@ -79,33 +79,6 @@ class Svg extends BaseObject
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        if ($this->points === []) {
-            return '';
-        }
-
-        return strtr($this->template, [
-            '{x}' => StringHelper::normalizeNumber($this->x),
-            '{y}' =>  StringHelper::normalizeNumber($this->y),
-            '{stroke}' => $this->stroke,
-            '{polygon}' => $this->polygon(),
-            '{polyline}' => $this->polyline(),
-            '{linearGradient}' => $this->linearGradient()
-        ]);
-    }
-
-    /**
-     * @return bool Has points
-     */
-    public function hasPoints()
-    {
-        return ($this->points !== []);
-    }
-
-    /**
      * @param array $messages log messages. See [[Logger::messages]] for the structure
      * @return int added points
      */
@@ -135,6 +108,33 @@ class Svg extends BaseObject
             });
         }
         return $i;
+    }
+
+    /**
+     * @return bool Has points
+     */
+    public function hasPoints()
+    {
+        return ($this->points !== []);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if ($this->points === []) {
+            return '';
+        }
+
+        return strtr($this->template, [
+            '{x}' => StringHelper::normalizeNumber($this->x),
+            '{y}' => StringHelper::normalizeNumber($this->y),
+            '{stroke}' => $this->stroke,
+            '{polygon}' => $this->polygon(),
+            '{polyline}' => $this->polyline(),
+            '{linearGradient}' => $this->linearGradient()
+        ]);
     }
 
     /**

@@ -24,6 +24,11 @@ use yii\web\User;
 class UserSwitch extends Model
 {
     /**
+     * @var string|User ID of the user component or a user object
+     * @since 2.0.13
+     */
+    public $userComponent = 'user';
+    /**
      * @var User user which we are currently switched to
      */
     private $_user;
@@ -31,13 +36,6 @@ class UserSwitch extends Model
      * @var User the main user who was originally logged in before switching.
      */
     private $_mainUser;
-
-
-    /**
-     * @var string|User ID of the user component or a user object
-     * @since 2.0.13
-     */
-    public $userComponent = 'user';
 
     /**
      * {@inheritdoc}
@@ -56,26 +54,69 @@ class UserSwitch extends Model
     {
         return [
             'user' => 'Current User',
-            'mainUser' => 'frontend', 'Main User',
+            'mainUser' => 'frontend',
+            'Main User',
         ];
+    }
+
+    /**
+     * Switch to user by identity
+     * @param IdentityInterface $identity
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function setUserByIdentity(IdentityInterface $identity)
+    {
+        $user = clone $this->getUser();
+        $user->setIdentity($identity);
+        $this->setUser($user);
     }
 
     /**
      * Get current user
      * @return null|User
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUser()
     {
         if ($this->_user === null) {
             /* @var $user User */
-            $this->_user = is_string($this->userComponent) ? Yii::$app->get($this->userComponent, false) : $this->userComponent;
+            $this->_user = is_string($this->userComponent) ? Yii::$app->get($this->userComponent,
+                false) : $this->userComponent;
         }
         return $this->_user;
     }
 
     /**
+     * Switch user
+     * @param User $user
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function setUser(User $user)
+    {
+        // Check if user is currently active one
+        $isCurrent = ($user->getId() === $this->getMainUser()->getId());
+        // Switch identity
+        $this->getUser()->switchIdentity($user->identity);
+        if (!$isCurrent) {
+            Yii::$app->getSession()->set('main_user', $this->getMainUser()->getId());
+        } else {
+            Yii::$app->getSession()->remove('main_user');
+        }
+    }
+
+    /**
+     * Reset to main user
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function reset()
+    {
+        $this->setUser($this->getMainUser());
+    }
+
+    /**
      * Get main user
      * @return User
+     * @throws \yii\base\InvalidConfigException
      */
     public function getMainUser()
     {
@@ -99,44 +140,9 @@ class UserSwitch extends Model
     }
 
     /**
-     * Switch user
-     * @param User $user
-     */
-    public function setUser(User $user)
-    {
-        // Check if user is currently active one
-        $isCurrent = ($user->getId() === $this->getMainUser()->getId());
-        // Switch identity
-        $this->getUser()->switchIdentity($user->identity);
-        if (!$isCurrent) {
-            Yii::$app->getSession()->set('main_user', $this->getMainUser()->getId());
-        } else {
-            Yii::$app->getSession()->remove('main_user');
-        }
-    }
-
-    /**
-     * Switch to user by identity
-     * @param IdentityInterface $identity
-     */
-    public function setUserByIdentity(IdentityInterface $identity)
-    {
-        $user = clone $this->getUser();
-        $user->setIdentity($identity);
-        $this->setUser($user);
-    }
-
-    /**
-     * Reset to main user
-     */
-    public function reset()
-    {
-        $this->setUser($this->getMainUser());
-    }
-
-    /**
      * Checks if current user is main or not.
      * @return bool
+     * @throws \yii\base\InvalidConfigException
      */
     public function isMainUser()
     {

@@ -6,9 +6,9 @@
 }
 
 @media print {
-  .yii-debug-toolbar {
-    display: none !important;
-  }
+    .yii-debug-toolbar {
+        display: none !important;
+    }
 }
 
 .yii-debug-toolbar {
@@ -58,9 +58,10 @@
 .yii-debug-toolbar.yii-debug-toolbar_active:not(.yii-debug-toolbar_animating) .yii-debug-toolbar__bar {
     overflow: visible;
 }
+
 .yii-debug-toolbar:not(.yii-debug-toolbar_active) .yii-debug-toolbar__bar,
 .yii-debug-toolbar.yii-debug-toolbar_animating .yii-debug-toolbar__bar {
-    height:40px;
+    height: 40px;
 }
 
 .yii-debug-toolbar__bar:after {
@@ -135,8 +136,8 @@
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background-color: #999999;
     -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .yii-debug-toolbar__label:empty {
@@ -202,7 +203,7 @@ a.yii-debug-toolbar__label:focus {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0); /* IE6-9 */
 }
 
-.yii-debug-toolbar__block_last{ /* creates space for .yii-debug-toolbar__toggle, .yii-debug-toolbar__external */
+.yii-debug-toolbar__block_last { /* creates space for .yii-debug-toolbar__toggle, .yii-debug-toolbar__external */
     width: 80px;
     height: 40px;
     float: left;
@@ -304,6 +305,7 @@ a.yii-debug-toolbar__label:focus {
 .yii-debug-toolbar__ajax:focus .yii-debug-toolbar__ajax_info {
     visibility: visible;
 }
+
 .yii-debug-toolbar__ajax_info {
     visibility: hidden;
     transition: visibility .2s linear;
@@ -322,15 +324,18 @@ a.yii-debug-toolbar__label:focus {
     border: 1px solid rgba(0, 0, 0, 0.11);
     z-index: 1000001;
 }
+
 .yii-debug-toolbar__ajax a {
     color: #337ab7;
 }
+
 .yii-debug-toolbar__ajax table {
     width: 100%;
     table-layout: auto;
     border-spacing: 0;
     border-collapse: collapse;
 }
+
 .yii-debug-toolbar__ajax table td {
     padding: 4px;
     font-size: 12px;
@@ -338,6 +343,7 @@ a.yii-debug-toolbar__label:focus {
     vertical-align: top;
     border-top: 1px solid #ddd;
 }
+
 .yii-debug-toolbar__ajax table th {
     padding: 4px;
     font-size: 11px;
@@ -345,10 +351,12 @@ a.yii-debug-toolbar__label:focus {
     vertical-align: bottom;
     border-bottom: 2px solid #ddd;
 }
+
 .yii-debug-toolbar__ajax_request_status {
     color: white;
     padding: 2px 5px;
 }
+
 .yii-debug-toolbar__ajax_request_url {
     max-width: 170px;
     overflow: hidden;

@@ -33,6 +33,14 @@ class RouterPanel extends Panel
         'yii\rest\UrlRule::parseRequest'
     ];
 
+    /**
+     * Listens categories of the messages.
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->_categories;
+    }
 
     /**
      * @param string|array $values
@@ -43,15 +51,6 @@ class RouterPanel extends Panel
             $values = [$values];
         }
         $this->_categories = array_merge($this->_categories, $values);
-    }
-
-    /**
-     * Listens categories of the messages.
-     * @return array
-     */
-    public function getCategories()
-    {
-        return $this->_categories;
     }
 
     /**

@@ -18,7 +18,7 @@ use yii\grid\GridView;
             'attribute' => 'time',
             'value' => function ($data) {
                 $timeInSeconds = floor($data['time']);
-                $millisecondsDiff = (int) (($data['time'] - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($data['time'] - (int)$timeInSeconds) * 1000);
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
             'headerOptions' => [

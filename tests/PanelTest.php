@@ -14,7 +14,13 @@ class PanelTest extends TestCase
             'line' => 10
         ];
         $panel = $this->getPanel();
-        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">file.php:10</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">file.php:10</a>',
+            $panel->getTraceLine($traceConfig));
+    }
+
+    private function getPanel()
+    {
+        return new Panel(['module' => new Module('debug')]);
     }
 
     public function testGetTraceLine_DefaultLink_CustomText()
@@ -25,7 +31,8 @@ class PanelTest extends TestCase
             'text' => 'custom text'
         ];
         $panel = $this->getPanel();
-        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">custom text</a>',
+            $panel->getTraceLine($traceConfig));
     }
 
     public function testGetTraceLine_TextOnly()
@@ -47,7 +54,8 @@ class PanelTest extends TestCase
         ];
         $panel = $this->getPanel();
         $panel->module->traceLine = '<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>';
-        $this->assertEquals('<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>',
+            $panel->getTraceLine($traceConfig));
     }
 
     public function testGetTraceLine_CustomLinkByCallback()
@@ -75,17 +83,13 @@ class PanelTest extends TestCase
         $panel->module->traceLine = function () {
             return '<a href="ide://open?url={file}&line={line}">{text}</a>';
         };
-        $this->assertEquals('<a href="ide://open?url=file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="ide://open?url=file.php&line=10">custom text</a>',
+            $panel->getTraceLine($traceConfig));
     }
 
     protected function setUp()
     {
         parent::setUp();
         $this->mockWebApplication();
-    }
-
-    private function getPanel()
-    {
-        return new Panel(['module' => new Module('debug')]);
     }
 }

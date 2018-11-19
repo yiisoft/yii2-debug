@@ -74,12 +74,28 @@ class FlattenException
     }
 
     /**
+     * @param string $string the string representation of the thrown object.
+     */
+    protected function setToString($string)
+    {
+        $this->_toString = $string;
+    }
+
+    /**
      * Gets the Exception message
      * @return string the Exception message as a string.
      */
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * @param string $message the Exception message as a string.
+     */
+    protected function setMessage($message)
+    {
+        $this->message = $message;
     }
 
     /**
@@ -92,12 +108,28 @@ class FlattenException
     }
 
     /**
+     * @param mixed|int $code the exception code as integer.
+     */
+    protected function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
      * Gets the file in which the exception occurred
      * @return string the filename in which the exception was created.
      */
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * @param string $file the filename in which the exception was created.
+     */
+    protected function setFile($file)
+    {
+        $this->file = $file;
     }
 
     /**
@@ -110,84 +142,20 @@ class FlattenException
     }
 
     /**
+     * @param int $line the line number where the exception was created.
+     */
+    protected function setLine($line)
+    {
+        $this->line = $line;
+    }
+
+    /**
      * Gets the stack trace
      * @return array the Exception stack trace as an array.
      */
     public function getTrace()
     {
         return $this->_trace;
-    }
-
-    /**
-     * Returns previous Exception
-     * @return FlattenException the previous `FlattenException` if available or null otherwise.
-     */
-    public function getPrevious()
-    {
-        return $this->_previous;
-    }
-
-    /**
-     * Gets the stack trace as a string
-     * @return string the Exception stack trace as a string.
-     */
-    public function getTraceAsString()
-    {
-        $remove = "Stack trace:\n";
-        $len = strpos($this->_toString, $remove);
-        if ($len === false) {
-            return '';
-        }
-        return substr($this->_toString, $len + strlen($remove));
-    }
-
-    /**
-     * String representation of the exception
-     * @return string the string representation of the exception.
-     */
-    public function __toString()
-    {
-        return $this->_toString;
-    }
-
-    /**
-     * @return string the name of the class in which the exception was created.
-     */
-    public function getClass()
-    {
-        return $this->_class;
-    }
-
-    /**
-     * @param string $message the Exception message as a string.
-     */
-    protected function setMessage($message)
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * @param mixed|int $code the exception code as integer.
-     */
-    protected function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @param string $file the filename in which the exception was created.
-     */
-    protected function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * @param int $line the line number where the exception was created.
-     */
-    protected function setLine($line)
-    {
-        $this->line = $line;
     }
 
     /**
@@ -219,11 +187,12 @@ class FlattenException
     }
 
     /**
-     * @param string $string the string representation of the thrown object.
+     * Returns previous Exception
+     * @return FlattenException the previous `FlattenException` if available or null otherwise.
      */
-    protected function setToString($string)
+    public function getPrevious()
     {
-        $this->_toString = $string;
+        return $this->_previous;
     }
 
     /**
@@ -232,6 +201,37 @@ class FlattenException
     protected function setPrevious(FlattenException $previous)
     {
         $this->_previous = $previous;
+    }
+
+    /**
+     * Gets the stack trace as a string
+     * @return string the Exception stack trace as a string.
+     */
+    public function getTraceAsString()
+    {
+        $remove = "Stack trace:\n";
+        $len = strpos($this->_toString, $remove);
+        if ($len === false) {
+            return '';
+        }
+        return substr($this->_toString, $len + strlen($remove));
+    }
+
+    /**
+     * String representation of the exception
+     * @return string the string representation of the exception.
+     */
+    public function __toString()
+    {
+        return $this->_toString;
+    }
+
+    /**
+     * @return string the name of the class in which the exception was created.
+     */
+    public function getClass()
+    {
+        return $this->_class;
     }
 
     /**
