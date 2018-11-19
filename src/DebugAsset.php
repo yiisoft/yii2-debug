@@ -21,6 +21,7 @@ class DebugAsset extends AssetBundle
      * {@inheritdoc}
      */
     public $sourcePath = '@yii/debug/assets';
+
     /**
      * {@inheritdoc}
      */

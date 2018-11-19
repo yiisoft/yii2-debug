@@ -41,7 +41,7 @@ UserswitchAsset::register($this);
                 ]);
                 echo Html::submitButton('Reset to <span class="yii-debug-toolbar__label yii-debug-toolbar__label_info">' .
                     $panel->userSwitch->getMainUser()->getId() .
-                    '</span>', ['class' => 'btn btn-default']);
+                    '</span>', ['class' => 'btn btn-outline-secondary']);
                 ActiveForm::end();
             }
             ?>
