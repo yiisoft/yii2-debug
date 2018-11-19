@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
+use yii\widgets\ActiveForm;
+use yii\helpers\Html;
 use yii\debug\UserswitchAsset;
 use yii\grid\GridView;
 
@@ -15,7 +15,6 @@ UserswitchAsset::register($this);
         <div class="col-sm-7">
             <?php $formSet = ActiveForm::begin([
                 'action' => \yii\helpers\Url::to(['user/set-identity']),
-                'layout' => 'horizontal',
                 'options' => [
                     'id' => 'debug-userswitch__set-identity',
                     'style' => $panel->canSearchUsers() ? 'display:none' : ''
