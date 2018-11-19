@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 $this->title = 'Yii Debugger';
 ?>
-<div class="default-index">
+<div class="yii-debug-main-container default-index">
     <div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_top" style="display: none;">
         <div class="yii-debug-toolbar__bar">
             <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
@@ -26,7 +26,7 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container yii-debug-main-container">
+    <div class="container">
         <div class="row">
             <?php
 
