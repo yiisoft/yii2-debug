@@ -34,7 +34,7 @@ $this->title = 'Yii Debugger';
                     <?php
                     $classes = ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'];
                     foreach ($panels as $id => $panel) {
-                        $label = Html::tag('span', Html::encode($panel->getName())) . '<span class="icon">&rang;</span>';
+                        $label = Html::tag('span', Html::encode($panel->getName())) . '<span class="icon"></span>';
                         echo Html::a($label, ['view', 'tag' => $tag, 'panel' => $id], [
                             'class' => $panel === $activePanel ? array_merge($classes, ['active']) : $classes,
                         ]);
