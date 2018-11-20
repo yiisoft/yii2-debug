@@ -26,7 +26,7 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <?php
 
@@ -79,6 +79,7 @@ $this->title = 'Yii Debugger';
                         'attribute' => 'sqlCount',
                         'label' => 'Query Count',
                         'value' => function ($data) {
+                            /* @var $dbPanel \yii\debug\panels\DbPanel */
                             $dbPanel = $this->context->module->panels['db'];
 
                             if ($dbPanel->isQueryCountCritical($data['sqlCount'])) {

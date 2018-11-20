@@ -27,7 +27,7 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container main-container">
+    <div class="container-fluid main-container">
         <div class="row">
             <div class="col-md-2">
                 <div class="list-group">

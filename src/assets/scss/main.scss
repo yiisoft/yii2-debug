@@ -70,7 +70,7 @@ ul.assets {
 
 .list-group {
     .active {
-        .icon {
+        .icon::after {
             background-image: $icon-angle-right-active;
         }
     }
