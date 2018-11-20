@@ -15,7 +15,7 @@ use yii\log\Logger;
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'log-panel-detailed-grid',
-    'options' => ['class' => 'detail-grid-view table-responsive'],
+    'options' => ['class' => ['detail-grid-view', 'table-responsive', 'logs-messages-table']],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
     'rowOptions' => function ($model) {

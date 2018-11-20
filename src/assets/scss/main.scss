@@ -101,7 +101,8 @@ ul.assets {
     width: 25%;
 }
 
-.config-php-info-table td.v {
+.config-php-info-table td.v,
+.logs-messages-table td {
     white-space: pre-wrap;
     word-break: break-all;
 }
