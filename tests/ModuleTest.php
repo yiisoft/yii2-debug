@@ -52,6 +52,7 @@ class ModuleTest extends TestCase
      * @param array $allowedIPs
      * @param string $userIp
      * @param bool $expectedResult
+     * @throws \ReflectionException
      */
     public function testCheckAccess(array $allowedIPs, $userIp, $expectedResult)
     {
@@ -127,7 +128,12 @@ HTML
 
         ob_start();
         $module->renderToolbar(new Event(['sender' => $view]));
-        ob_end_clean();
+        $output = ob_get_clean();
+
+        $this->assertThat($output, $this->logicalOr(
+            $this->matches('%Adata-url="/my_debug%A'),
+            $this->matches('%Adata-url="/index.php?r=my_debug%A')
+        ));
     }
 
     public function testDefaultVersion()
