@@ -41,6 +41,7 @@ class DebugAsset extends AssetBundle
      * {@inheritdoc}
      */
     public $depends = [
-        'yii\web\YiiAsset'
+        'yii\web\YiiAsset',
+        'yii\web\jQueryAsset'
     ];
 }

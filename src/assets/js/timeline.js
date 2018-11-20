@@ -1,4 +1,5 @@
-(function () {
+/* globals jQuery,window:false */
+(function ($) {
     'use strict';
 
     var Timeline = function (options) {
@@ -63,4 +64,4 @@
         '$search': $('.debug-timeline-panel__search input'),
         '$memory': $('.debug-timeline-panel__memory .scale')
     }));
-})();
+})(jQuery);

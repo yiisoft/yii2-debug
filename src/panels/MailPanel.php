@@ -13,7 +13,6 @@ use yii\debug\models\search\Mail;
 use yii\debug\Panel;
 use yii\helpers\FileHelper;
 use yii\mail\BaseMailer;
-use yii\mail\MessageInterface;
 
 /**
  * Debugger panel that collects and displays the generated emails.
@@ -44,8 +43,9 @@ class MailPanel extends Panel
         parent::init();
 
         Event::on('yii\mail\BaseMailer', BaseMailer::EVENT_AFTER_SEND, function ($event) {
-            /* @var $message MessageInterface */
+            /* @var $event \yii\mail\MailEvent */
             $message = $event->message;
+            /* @var $message \yii\mail\MessageInterface */
             $messageData = [
                 'isSuccessful' => $event->isSuccessful,
                 'from' => $this->convertParams($message->getFrom()),
@@ -80,7 +80,6 @@ class MailPanel extends Panel
                 $messageData['body'] = $body;
                 $messageData['time'] = $swiftMessage->getDate();
                 $messageData['headers'] = $swiftMessage->getHeaders();
-
             }
 
             // store message as file

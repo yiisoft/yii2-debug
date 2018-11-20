@@ -20,37 +20,45 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
 
 <div class="row">
     <div class="col-lg-2">
-        <?= Html::button('Form filtering',
-            ['class' => 'btn btn-outline-secondary', 'onclick' => 'jQuery("#email-form").toggle();']) ?>
+        <?= Html::button('Form filtering', [
+            'class' => ['btn', 'btn-outline-secondary'],
+            'type' => 'button',
+            'data' => [
+                'toggle' => 'collapse',
+                'target' => '#email-form'
+            ],
+            'aria-expanded' => 'false',
+            'aria-controls' => 'email-form'
+        ]) ?>
     </div>
     <div class="row col-lg-10">
         <?= $listView->renderSorter() ?>
     </div>
 </div>
 
-<div id="email-form" style="display: none;">
+<div id="email-form" class="collapse">
     <?php $form = ActiveForm::begin([
         'method' => 'get',
         'action' => ['default/view', 'tag' => Yii::$app->request->get('tag'), 'panel' => 'mail'],
     ]); ?>
-    <div class="row">
-        <?= $form->field($searchModel, 'from', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+    <div class="form-row">
+        <?= $form->field($searchModel, 'from', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'to', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'to', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'reply', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'reply', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'cc', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'cc', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'bcc', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'bcc', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'charset', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'charset', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'subject', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'subject', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <?= $form->field($searchModel, 'body', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
+        <?= $form->field($searchModel, 'body', ['options' => ['class' => ['form-group', 'col-lg-6']]])->textInput() ?>
 
-        <div class="form-group col-lg-12">
+        <div class="form-group col-12">
             <?= Html::submitButton('Filter', ['class' => 'btn btn-success']) ?>
         </div>
     </div>

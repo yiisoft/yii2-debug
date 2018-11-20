@@ -19,6 +19,7 @@ use yii\debug\Panel;
  * @property array $colors Color indicators item profile
  * @property-read float $duration Request duration, milliseconds. This property is read-only.
  * @property-read int $memory Memory peak in request, bytes. (obtained by memory_get_peak_usage()). This property is read-only.
+ * @property-read \yii\base\Model[] $models Returns an array of models that represents logs of the current request. This property is read-only.
  * @property-read float $start Start request, timestamp (obtained by microtime(true)). This property is read-only.
  * @property array $svgOptions
  *

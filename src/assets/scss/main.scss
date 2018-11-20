@@ -68,25 +68,28 @@ ul.assets {
     }
 }
 
-.list-group .icon {
-    float: right;
-
-    &::after {
-        background: $icon-angle-right no-repeat;
-        background-size: contain;
-        content: "";
-        display: inline-block;
-        height: $font-size-base * $line-height-base;
-        line-height: 1;
-        position: relative;
-        top: 3px;
-        width: $font-size-base * $line-height-base;
+.list-group {
+    .active {
+        .icon {
+            background-image: $icon-angle-right-active;
+        }
     }
-}
 
-td, th {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    .icon {
+        float: right;
+
+        &::after {
+            background: $icon-angle-right no-repeat;
+            background-size: contain;
+            content: "";
+            display: inline-block;
+            height: 1em;
+            line-height: 1;
+            position: relative;
+            top: 2px;
+            width: 1em;
+        }
+    }
 }
 
 .request-table td {
@@ -99,6 +102,7 @@ td, th {
 }
 
 .config-php-info-table td.v {
+    white-space: pre-wrap;
     word-break: break-all;
 }
 
@@ -174,8 +178,18 @@ a.desc:after {
     @import "bs4/tables";
     @import "bs4/forms";
     @import "bs4/buttons";
+    @import "bs4/transitions";
     @import "bs4/dropdown";
     @import "bs4/button-group";
     @import "bs4/nav";
     @import "bs4/list-group";
+
+    .tab-pane {
+        border: {
+            bottom: $border-width solid $border-color;
+            left: $border-width solid $border-color;
+            right: $border-width solid $border-color;
+        }
+        padding: $list-group-item-padding-y $nav-link-padding-x;
+    }
 }
