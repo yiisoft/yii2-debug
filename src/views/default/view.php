@@ -78,12 +78,12 @@ $this->title = 'Yii Debugger';
 
                     ?>
                     <div class="btn-group btn-group-sm" role="group">
-                        <?=Html::a('All', ['index'], ['class' => ['btn', 'btn-outline-secondary']]);?>
-                        <?=Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => ['btn', 'btn-outline-secondary']]);?>
+                        <?=Html::a('All', ['index'], ['class' => ['btn', 'btn-light']]);?>
+                        <?=Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => ['btn', 'btn-light']]);?>
                         <div class="btn-group btn-group-sm" role="group">
                             <?=Html::button('Last 10', [
                                 'type' => 'button',
-                                'class' => ['btn', 'btn-outline-secondary', 'dropdown-toggle'],
+                                'class' => ['btn', 'btn-light', 'dropdown-toggle'],
                                 'data' => [
                                     'toggle' => 'dropdown'
                                 ],

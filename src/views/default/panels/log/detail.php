@@ -21,11 +21,11 @@ echo GridView::widget([
     'rowOptions' => function ($model) {
         switch ($model['level']) {
             case Logger::LEVEL_ERROR :
-                return ['class' => 'danger'];
+                return ['class' => 'table-danger'];
             case Logger::LEVEL_WARNING :
-                return ['class' => 'warning'];
+                return ['class' => 'table-warning'];
             case Logger::LEVEL_INFO :
-                return ['class' => 'success'];
+                return ['class' => 'table-success'];
             default:
                 return [];
         }

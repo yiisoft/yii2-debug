@@ -140,7 +140,7 @@
     on(document.getElementById('debug-userswitch__reset-identity'), 'beforeSubmit', sendSetIdentity);
     on(document.getElementById('debug-userswitch__reset-identity'), 'submit', function (e) { e.preventDefault(); });
 
-    on (document.getElementById('debug-userswitch__filter'), 'click', function (e) {
+    on(document.getElementById('debug-userswitch__filter'), 'click', function (e) {
        if (e.target.tagName.toLowerCase() === 'tr' && e.target.parentElement.tagName.toLowerCase() === 'tbody') {
            document.getElementById('user_id').value = this.dataset.getDataAttr('key');
            document.getElementById('debug-userswitch__set-identity').submit();
