@@ -36,12 +36,4 @@ class DebugAsset extends AssetBundle
     public $js = [
         'js/bs4-native.min.js'
     ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\web\jQueryAsset'
-    ];
 }

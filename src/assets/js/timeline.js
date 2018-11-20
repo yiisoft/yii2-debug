@@ -1,9 +1,43 @@
-/* globals jQuery,window:false */
-(function ($) {
+(function () {
     'use strict';
 
-    var Timeline = function (options) {
+    var on = function (element, event, handler) {
+        if (element instanceof NodeList) {
+            element.forEach(function (value) {
+                value.addEventListener(event, handler, false);
+            });
+            return;
+        }
+        if (!(element instanceof Array)) {
+            element = [element];
+        }
+        for (var i in element) {
+            if (typeof element[i].addEventListener !== 'function') {
+                console.log(element[i]);
+                continue;
+            }
+            element[i].addEventListener(event, handler, false);
+        }
+    }, off = function (element, event, handler) {
+        if (element instanceof NodeList) {
+            element.forEach(function (value) {
+                value.removeEventListener(event, handler, false);
+            });
+            return;
+        }
+        if (!(element instanceof Array)) {
+            element = [element];
+        }
+        for (var i in element) {
+            if (typeof element[i].removeEventListener !== 'function') {
+                console.log(element[i]);
+                continue;
+            }
+            element[i].removeEventListener(event, handler, false);
+        }
+    };
 
+    var Timeline = function (options) {
         this.options = options;
         var self = this;
         this.init = function () {
@@ -11,57 +45,50 @@
                 this.options.$focus.focus();
                 delete this.options.$focus;
             }
-            self.options.$timeline.find('.debug-timeline-panel__item a')
-                .on('show.bs.tooltip', function () {
-                    var data = $(this).data('memory');
-                    if (data) {
-                        self.options.$memory.text(data[0]).css({'bottom': data[1] + '%'});
+            var links = document.querySelectorAll('.debug-timeline-panel__item a');
+            links.forEach(function (link) {
+                new Tooltip(link);
+
+                on(link, 'show.bs.tooltip', function() {
+                    if (this.dataset.hasDataAttr('memory')) {
+                        var data = this.dataset.getDataAttr('memory');
+                        self.options.$memory.textContent = data[0];
+                        self.options.$memory.style.bottom = data[1] + '%';
                     }
-                })
-                .tooltip();
+                });
+            });
             return self;
         };
         this.setFocus = function ($elem) {
             this.options.$focus = $elem;
             return $elem;
         };
-        this.affixTop = function (refresh) {
-            if (!this.options.affixTop || refresh) {
-                this.options.affixTop = self.options.$header.offset().top;
-            }
-            return this.options.affixTop;
-        };
 
-        $(document).on('pjax:success', function () {
-            self.init()
+        on(document, 'pjax:success', function () {
+            self.init();
         });
-        $(window).on('resize', function () {
-            self.affixTop(true);
+
+        on(self.options.$header, 'dblclick', function () {
+            self.options.$timeline.classList.toggle('inline');
         });
-        self.options.$header
-            .on('dblclick', function () {
-                self.options.$timeline.toggleClass('inline');
-            })
-            .on('click', 'button', function () {
-                self.options.$timeline.toggleClass('inline');
-            });
-        self.options.$search.on('change', function () {
-            self.setFocus($(this)).submit();
-        });
-        self.options.$timeline.affix({
-            offset: {
-                top: function () {
-                    return self.affixTop()
-                }
+        on(self.options.$header, 'click', function (e) {
+            if (e.target.tagName.toLowerCase() === 'button') {
+                self.options.$timeline.classList.toggle('inline');
             }
         });
+
+        on(self.options.$search, 'change', function () {
+            self.setFocus(this);
+            this.form.submit();
+        });
+
         this.init();
     };
 
     (new Timeline({
-        '$timeline': $('.debug-timeline-panel'),
-        '$header': $('.debug-timeline-panel__header'),
-        '$search': $('.debug-timeline-panel__search input'),
-        '$memory': $('.debug-timeline-panel__memory .scale')
+        '$timeline': document.querySelector('.debug-timeline-panel'),
+        '$header': document.querySelector('.debug-timeline-panel__header'),
+        '$search': document.querySelectorAll('.debug-timeline-panel__search input'),
+        '$memory': document.querySelector('.debug-timeline-panel__memory .scale')
     }));
-})(jQuery);
+})();

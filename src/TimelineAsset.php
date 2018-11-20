@@ -33,4 +33,10 @@ class TimelineAsset extends AssetBundle
     public $js = [
         'js/timeline.js',
     ];
+    /**
+     * {@inheritdoc}
+     */
+    public $depends = [
+        'yii\debug\DebugAsset'
+    ];
 }
