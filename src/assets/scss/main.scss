@@ -101,40 +101,40 @@ td, th {
 
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
     display: inline-block;
-    font-family: 'Glyphicons Halflings', sans-serif;
-    font-style: normal;
-    font-weight: normal;
+    height: $font-size-base;
     line-height: 1;
     padding-left: 5px;
+    position: relative;
+    top: 1px;
+    width: $font-size-base * $line-height-base;
 }
 
 a.asc:after {
-    content: /*"\e113"*/
-        "\e151";
+    background-image: $icon-sort-asc;
 }
 
 a.desc:after {
-    content: /*"\e114"*/
-        "\e152";
+    background-image: $icon-sort-desc;
 }
 
 .sort-numerical a.asc:after {
-    content: "\e153";
+    background-image: $icon-sort-numeric-asc;
 }
 
 .sort-numerical a.desc:after {
-    content: "\e154";
+    background-image: $icon-sort-numeric-desc;
 }
 
 .sort-ordinal a.asc:after {
-    content: "\e155";
+    background-image: $icon-sort-alpha-asc;
 }
 
 .sort-ordinal a.desc:after {
-    content: "\e156";
+    background-image: $icon-sort-alpha-desc;
 }
 
 .mail-sorter {

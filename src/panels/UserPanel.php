@@ -26,8 +26,8 @@ use yii\web\User;
 /**
  * Debugger panel that collects and displays user data.
  *
- * @property DataProviderInterface $userDataProvider This property is read-only.
- * @property Model|UserSearchInterface $usersFilterModel This property is read-only.
+ * @property-read DataProviderInterface $userDataProvider Get model for GridView -> DataProvider. This property is read-only.
+ * @property-read Model|UserSearchInterface $usersFilterModel Get model for GridView -> FilterModel. This property is read-only.
  *
  * @author Daniel Gomez Pan <pana_1990@hotmail.com>
  * @since 2.0.8
@@ -121,6 +121,7 @@ class UserPanel extends Panel
     /**
      * Add ACF rule. AccessControl attach to debug module.
      * Access rule for main user.
+     * @throws InvalidConfigException
      */
     private function addAccessRules()
     {

@@ -16,9 +16,10 @@ use yii\debug\Panel;
 /**
  * Debugger panel that collects and displays timeline data.
  *
- * @property array $colors
- * @property float $duration This property is read-only.
- * @property float $start This property is read-only.
+ * @property array $colors Color indicators item profile
+ * @property-read float $duration Request duration, milliseconds. This property is read-only.
+ * @property-read int $memory Memory peak in request, bytes. (obtained by memory_get_peak_usage()). This property is read-only.
+ * @property-read float $start Start request, timestamp (obtained by microtime(true)). This property is read-only.
  * @property array $svgOptions
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>

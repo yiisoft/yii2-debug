@@ -31,7 +31,7 @@
         "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {
-        "yiisoft/yii2-swiftmailer": "~2.1.1",
+        "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-coding-standards": "~2.0",
         "phpunit/phpunit": "*"
     },
