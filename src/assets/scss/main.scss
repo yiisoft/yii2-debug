@@ -105,20 +105,20 @@ a.asc:after, a.desc:after {
     background-size: contain;
     content: "";
     display: inline-block;
-    height: $font-size-base;
+    height: $font-size-base * $line-height-base;
     line-height: 1;
-    padding-left: 5px;
+    margin-left: 5px;
     position: relative;
     top: 1px;
     width: $font-size-base * $line-height-base;
 }
 
 a.asc:after {
-    background-image: $icon-sort-asc;
+    background-image: $icon-sort-alpha-asc;
 }
 
 a.desc:after {
-    background-image: $icon-sort-desc;
+    background-image: $icon-sort-alpha-desc;
 }
 
 .sort-numerical a.asc:after {
@@ -130,11 +130,11 @@ a.desc:after {
 }
 
 .sort-ordinal a.asc:after {
-    background-image: $icon-sort-alpha-asc;
+    background-image: $icon-sort-asc;
 }
 
 .sort-ordinal a.desc:after {
-    background-image: $icon-sort-alpha-desc;
+    background-image: $icon-sort-desc;
 }
 
 .mail-sorter {
