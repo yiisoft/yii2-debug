@@ -18,8 +18,8 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
 
 <h1>Email messages</h1>
 
-<div class="row">
-    <div class="col-lg-2">
+<div class="row mb-2">
+    <div class="col-3 col-lg-2">
         <?= Html::button('Form filtering', [
             'class' => ['btn', 'btn-outline-secondary'],
             'type' => 'button',
@@ -31,7 +31,7 @@ $listView->sorter = ['options' => ['class' => 'mail-sorter']];
             'aria-controls' => 'email-form'
         ]) ?>
     </div>
-    <div class="row col-lg-10">
+    <div class="col-9 col-lg-10">
         <?= $listView->renderSorter() ?>
     </div>
 </div>

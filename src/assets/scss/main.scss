@@ -2,196 +2,195 @@
 @import "bs4/variables";
 @import "bs4/mixins";
 
-//.yii-debug-main-container {
-    @import "bs4/reboot";
-    @import "bs4/type";
-    @import "bs4/grid";
-    @import "bs4/tables";
-    @import "bs4/forms";
-    @import "bs4/buttons";
-    @import "bs4/transitions";
-    @import "bs4/dropdown";
-    @import "bs4/button-group";
-    @import "bs4/nav";
-    @import "bs4/pagination";
-    @import "bs4/list-group";
+@import "bs4/reboot";
+@import "bs4/type";
+@import "bs4/grid";
+@import "bs4/tables";
+@import "bs4/forms";
+@import "bs4/buttons";
+@import "bs4/transitions";
+@import "bs4/dropdown";
+@import "bs4/button-group";
+@import "bs4/nav";
+@import "bs4/pagination";
+@import "bs4/list-group";
+@import "bs4/utilities";
 
-    .tab-pane {
-        padding: $list-group-item-padding-y 0;
+.tab-pane {
+    padding: $list-group-item-padding-y 0;
+}
+
+.main-container {
+    width: auto;
+}
+
+span.indent {
+    color: gray("400");
+}
+
+ul.trace {
+    font-size: 12px;
+    color: gray("600");;
+    margin: 2px 0 0 0;
+    padding: 0;
+    list-style: none;
+    white-space: normal;
+}
+
+#db-panel-detailed-grid table tbody tr td {
+    position: relative;
+}
+
+.db-explain {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-size: 10px;
+}
+
+.db-explain-text {
+    display: none;
+    margin: 10px 0 0 0;
+    font-size: 13px;
+    width: 100%;
+    word-break: break-all;
+}
+
+#db-explain-all {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 12px;
+    margin-right: 15px;
+}
+
+ul.assets {
+    margin: 2px 0 0 0;
+    padding: 0;
+    list-style: none;
+    white-space: normal;
+}
+
+.callout {
+    margin: 0 0 10px 0;
+    padding: 5px;
+    border: $border-width solid;
+    border-radius: $border-radius;
+}
+
+@each $color, $value in $theme-colors {
+    .callout-#{$color} {
+        background-color: theme-color-level($color, -10);
+        border-color: theme-color-level($color, -9);
+        color: theme-color-level($color, 6);
     }
+}
 
-    .main-container {
-        width: auto;
-    }
-
-    span.indent {
-        color: gray("400");
-    }
-
-    ul.trace {
-        font-size: 12px;
-        color: gray("600");;
-        margin: 2px 0 0 0;
-        padding: 0;
-        list-style: none;
-        white-space: normal;
-    }
-
-    #db-panel-detailed-grid table tbody tr td {
-        position: relative;
-    }
-
-    .db-explain {
-        position: absolute;
-        bottom: 4px;
-        right: 4px;
-        font-size: 10px;
-    }
-
-    .db-explain-text {
-        display: none;
-        margin: 10px 0 0 0;
-        font-size: 13px;
-        width: 100%;
-        word-break: break-all;
-    }
-
-    #db-explain-all {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        font-size: 12px;
-        margin-right: 15px;
-    }
-
-    ul.assets {
-        margin: 2px 0 0 0;
-        padding: 0;
-        list-style: none;
-        white-space: normal;
-    }
-
-    .callout {
-        margin: 0 0 10px 0;
-        padding: 5px;
-        border: $border-width solid;
-        border-radius: $border-radius;
-    }
-
-    @each $color, $value in $theme-colors {
-        .callout-#{$color} {
-            background-color: theme-color-level($color, -10);
-            border-color: theme-color-level($color, -9);
-            color: theme-color-level($color, 6);
+.list-group {
+    .active {
+        .icon::after {
+            background-image: $icon-angle-right-active;
         }
     }
 
-    .list-group {
-        .active {
-            .icon::after {
-                background-image: $icon-angle-right-active;
-            }
-        }
+    .icon {
+        float: right;
 
-        .icon {
-            float: right;
-
-            &::after {
-                background: $icon-angle-right no-repeat;
-                background-size: contain;
-                content: "";
-                display: inline-block;
-                height: 1em;
-                line-height: 1;
-                position: relative;
-                top: 2px;
-                width: 1em;
-            }
+        &::after {
+            background: $icon-angle-right no-repeat;
+            background-size: contain;
+            content: "";
+            display: inline-block;
+            height: 1em;
+            line-height: 1;
+            position: relative;
+            top: 2px;
+            width: 1em;
         }
     }
+}
 
-    .request-table td {
-        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-        word-break: break-all;
-    }
+.request-table td {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    word-break: break-all;
+}
 
-    .request-table tr > th:first-child {
-        width: 25%;
-    }
+.request-table tr > th:first-child {
+    width: 25%;
+}
 
-    .config-php-info-table td.v,
-    .logs-messages-table td {
-        white-space: pre-wrap;
-        word-break: break-all;
-    }
+.config-php-info-table td.v,
+.logs-messages-table td {
+    white-space: pre-wrap;
+    word-break: break-all;
+}
 
-    .not-set {
-        color: color("red");
-        font-style: italic;
-    }
+.not-set {
+    color: color("red");
+    font-style: italic;
+}
 
-    .detail-grid-view th {
-        white-space: nowrap;
-    }
+.detail-grid-view th {
+    white-space: nowrap;
+}
 
-    /* add sorting icons to gridview sort links */
-    a.asc:after, a.desc:after {
-        background-repeat: no-repeat;
-        background-size: contain;
-        content: "";
-        display: inline-block;
-        height: $font-size-base * $line-height-base;
-        line-height: 1;
-        margin-left: 5px;
-        position: relative;
-        top: 3px;
-        width: $font-size-base * $line-height-base;
-    }
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: inline-block;
+    height: $font-size-base * $line-height-base;
+    line-height: 1;
+    margin-left: 5px;
+    position: relative;
+    top: 3px;
+    width: $font-size-base * $line-height-base;
+}
 
-    a.asc:after {
-        background-image: $icon-sort-alpha-asc;
-    }
+a.asc:after {
+    background-image: $icon-sort-alpha-asc;
+}
 
-    a.desc:after {
-        background-image: $icon-sort-alpha-desc;
-    }
+a.desc:after {
+    background-image: $icon-sort-alpha-desc;
+}
 
-    .sort-numerical a.asc:after {
-        background-image: $icon-sort-numeric-asc;
-    }
+.sort-numerical a.asc:after {
+    background-image: $icon-sort-numeric-asc;
+}
 
-    .sort-numerical a.desc:after {
-        background-image: $icon-sort-numeric-desc;
-    }
+.sort-numerical a.desc:after {
+    background-image: $icon-sort-numeric-desc;
+}
 
-    .sort-ordinal a.asc:after {
-        background-image: $icon-sort-asc;
-    }
+.sort-ordinal a.asc:after {
+    background-image: $icon-sort-asc;
+}
 
-    .sort-ordinal a.desc:after {
-        background-image: $icon-sort-desc;
-    }
+.sort-ordinal a.desc:after {
+    background-image: $icon-sort-desc;
+}
 
-    .mail-sorter {
-        margin-top: 7px;
-    }
+.mail-sorter {
+    margin-top: 7px;
+}
 
-    .mail-sorter li {
-        list-style: none;
-        float: left;
-        width: 12%;
-        font-weight: bold;
-    }
+.mail-sorter li {
+    list-style: none;
+    float: left;
+    width: 12%;
+    font-weight: bold;
+}
 
-    .nowrap {
-        white-space: nowrap;
-    }
+.nowrap {
+    white-space: nowrap;
+}
 
-    .table-pointer tbody tr {
-        cursor: pointer;
-    }
+.table-pointer tbody tr {
+    cursor: pointer;
+}
 
-    .summary {
-        margin-bottom: $paragraph-margin-bottom;
-    }
-//}
+.summary {
+    margin-bottom: $paragraph-margin-bottom;
+}
