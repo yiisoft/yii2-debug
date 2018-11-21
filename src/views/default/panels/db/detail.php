@@ -24,6 +24,14 @@ echo GridView::widget([
     'options' => ['class' => 'detail-grid-view table-responsive'],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
+    'pager' => [
+        'linkContainerOptions' => [
+            'class' => 'page-item'
+        ],
+        'linkOptions' => [
+            'class' => 'page-link'
+        ]
+    ],
     'columns' => [
         [
             'attribute' => 'seq',

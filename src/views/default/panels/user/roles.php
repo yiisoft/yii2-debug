@@ -9,6 +9,14 @@ if ($panel->data['rolesProvider']) {
 
     echo GridView::widget([
         'dataProvider' => $panel->data['rolesProvider'],
+        'pager' => [
+            'linkContainerOptions' => [
+                'class' => 'page-item'
+            ],
+            'linkOptions' => [
+                'class' => 'page-link'
+            ]
+        ],
         'columns' => [
             'name',
             'description',
@@ -25,6 +33,14 @@ if ($panel->data['permissionsProvider']) {
 
     echo GridView::widget([
         'dataProvider' => $panel->data['permissionsProvider'],
+        'pager' => [
+            'linkContainerOptions' => [
+                'class' => 'page-item'
+            ],
+            'linkOptions' => [
+                'class' => 'page-link'
+            ]
+        ],
         'columns' => [
             'name',
             'description',

@@ -33,20 +33,6 @@
             }
         }
     }
-    &.affix {
-        .ruler {
-            b {
-                z-index: 2;
-                position: fixed;
-                top: 0;
-            }
-        }
-        .debug-timeline-panel__header {
-            .control {
-                position: fixed;
-            }
-        }
-    }
     &:not(.inline) {
         .debug-timeline-panel__item {
             a:focus {
@@ -145,6 +131,13 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    user-select: none;
+
+    background: #ffffff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 
     .ruler:first-child {
         border-left: none;

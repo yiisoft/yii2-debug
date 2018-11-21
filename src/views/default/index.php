@@ -57,6 +57,14 @@ $this->title = 'Yii Debugger';
 
                         return [];
                     },
+                    'pager' => [
+                        'linkContainerOptions' => [
+                            'class' => 'page-item'
+                        ],
+                        'linkOptions' => [
+                            'class' => 'page-link'
+                        ]
+                    ],
                     'columns' => array_filter([
                         ['class' => 'yii\grid\SerialColumn'],
                         [

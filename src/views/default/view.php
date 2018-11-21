@@ -62,7 +62,7 @@ $this->title = 'Yii Debugger';
                     $items = [];
                     foreach ($manifest as $meta) {
                         $label = ($meta['tag'] == $tag ? Html::tag('strong',
-                                '&#9654;&nbsp;' . $meta['tag']) : $meta['tag'])
+                                '&#9658;&nbsp;' . $meta['tag']) : $meta['tag'])
                             . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
                             . ', ' . date('Y-m-d h:i:s a', $meta['time'])
                             . ', ' . $meta['ip'];

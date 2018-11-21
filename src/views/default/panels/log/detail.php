@@ -30,6 +30,14 @@ echo GridView::widget([
                 return [];
         }
     },
+    'pager' => [
+        'linkContainerOptions' => [
+            'class' => 'page-item'
+        ],
+        'linkOptions' => [
+            'class' => 'page-link'
+        ]
+    ],
     'columns' => [
         [
             'attribute' => 'time',

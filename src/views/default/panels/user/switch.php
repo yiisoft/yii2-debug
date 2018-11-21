@@ -57,6 +57,14 @@ if ($panel->canSearchUsers()) {
         'tableOptions' => [
             'class' => 'table table-bordered table-responsive table-hover table-pointer'
         ],
+        'pager' => [
+            'linkContainerOptions' => [
+                'class' => 'page-item'
+            ],
+            'linkOptions' => [
+                'class' => 'page-link'
+            ]
+        ],
         'columns' => $panel->filterColumns
     ]);
     yii\widgets\Pjax::end();

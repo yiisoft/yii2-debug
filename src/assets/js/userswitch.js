@@ -130,7 +130,9 @@
                 window.top.location.reload();
             },
             error: function (data) {
-                form.yiiActiveForm('updateMessages', data.responseJSON, true); // TODO: jquery-less yii or yii-less form
+                if (window.jQuery) {
+                    window.jQuery(form).yiiActiveForm('updateMessages', data.responseJSON, true);
+                }
             }
         });
     };
