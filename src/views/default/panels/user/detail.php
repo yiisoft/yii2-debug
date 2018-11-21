@@ -54,7 +54,7 @@ if (isset($panel->data['identity'])) {
         <?php
         foreach ($items['content'] as $k => $item) {
             echo Html::tag('div', $item, [
-                'class' => $k === 0 ? 'tab-pane active' : 'tab-pane',
+                'class' => $k === 0 ? 'tab-pane fade active show' : 'tab-pane fade',
                 'id' => 'u-tab-' . $k
             ]);
         }
