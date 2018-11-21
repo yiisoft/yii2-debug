@@ -19,6 +19,12 @@ use yii\grid\GridView;
         ],
         'linkOptions' => [
             'class' => 'page-link'
+        ],
+        'disabledListItemSubTagOptions' => [
+            'tag' => 'a',
+            'href' => 'javascript:;',
+            'tabindex' => '-1',
+            'class' => 'page-link'
         ]
     ],
     'columns' => [

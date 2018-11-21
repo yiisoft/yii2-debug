@@ -15,6 +15,12 @@ if ($panel->data['rolesProvider']) {
             ],
             'linkOptions' => [
                 'class' => 'page-link'
+            ],
+            'disabledListItemSubTagOptions' => [
+                'tag' => 'a',
+                'href' => 'javascript:;',
+                'tabindex' => '-1',
+                'class' => 'page-link'
             ]
         ],
         'columns' => [
@@ -38,6 +44,12 @@ if ($panel->data['permissionsProvider']) {
                 'class' => 'page-item'
             ],
             'linkOptions' => [
+                'class' => 'page-link'
+            ],
+            'disabledListItemSubTagOptions' => [
+                'tag' => 'a',
+                'href' => 'javascript:;',
+                'tabindex' => '-1',
                 'class' => 'page-link'
             ]
         ],
