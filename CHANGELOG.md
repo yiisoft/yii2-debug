@@ -4,7 +4,9 @@ Yii Framework 2 debug extension Change Log
 2.0.15 under development
 ------------------------
 
-- no changes in this release.
+- Bug #296: Create (bootstrap)-independent version (simialbi)
+- Bug #326: Create (bootstrap)-independent version (simialbi)
+- Enh #340: Create (bootstrap)-independent version (simialbi)
 
 
 2.0.14 September 24, 2018

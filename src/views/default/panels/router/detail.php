@@ -1,6 +1,6 @@
 <?php
 
-use \yii\helpers\Html;
+use yii\helpers\Html;
 
 /* @var $model  yii\debug\models\Router */
 ?>
@@ -8,10 +8,11 @@ use \yii\helpers\Html;
 <h1>
     Router
     <small>
-        <?= Yii::$app->i18n->format('{rulesTested, plural, =0{} =1{tested # rule} other{tested # rules}} {hasMatch, plural, =0{} other{before match}}', [
-            'rulesTested' => $model->count,
-            'hasMatch' => (int)$model->hasMatch,
-        ], 'en_US'); ?>
+        <?= Yii::$app->i18n->format('{rulesTested, plural, =0{} =1{tested # rule} other{tested # rules}} {hasMatch, plural, =0{} other{before match}}',
+            [
+                'rulesTested' => $model->count,
+                'hasMatch' => (int)$model->hasMatch,
+            ], 'en_US'); ?>
     </small>
 </h1>
 

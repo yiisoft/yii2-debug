@@ -10,11 +10,11 @@
             xhr.open(settings.method || 'GET', url, true);
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.setRequestHeader('Accept', 'text/html');
-            xhr.onreadystatechange = function (state) {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200 && settings.success) {
                         settings.success(xhr);
-                    } else if (xhr.status != 200 && settings.error) {
+                    } else if (xhr.status !== 200 && settings.error) {
                         settings.error(xhr);
                     }
                 }
@@ -81,7 +81,7 @@
 
                 iframeEl.src = externalEl.href = href;
                 viewEl.style.height = iframeHeight();
-                setTimeout(function() {
+                setTimeout(function () {
                     toolbarEl.classList.remove(iframeAnimatingClass);
                 }, animationTime);
             },
@@ -92,7 +92,7 @@
 
                 externalEl.href = '#';
                 viewEl.style.height = '';
-                setTimeout(function() {
+                setTimeout(function () {
                     toolbarEl.classList.remove(iframeAnimatingClass);
                 }, animationTime);
             },
@@ -173,7 +173,7 @@
     }
 
     function findAncestor(el, cls) {
-        while ((el = el.parentElement) && !el.classList.contains(cls));
+        while ((el = el.parentElement) && !el.classList.contains(cls)) ;
         return el;
     }
 
@@ -263,56 +263,17 @@
             className += ' yii-debug-toolbar__label_error';
         }
         requestCounter[0].className = className;
-    };
+    }
 
     var proxied = XMLHttpRequest.prototype.open;
 
     XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
         var self = this;
-        /* prevent logging AJAX calls to static and inline files, like templates */
-        if (url.substr(0, 1) === '/' && !url.match(new RegExp("{{ excluded_ajax_paths }}"))) {
-            var stackElement = {
-                loading: true,
-                error: false,
-                url: url,
-                method: method,
-                start: new Date()
-            };
-            requestStack.push(stackElement);
-            this.addEventListener("readystatechange", function () {
-                if (self.readyState == 4) {
-                    stackElement.duration = self.getResponseHeader("X-Debug-Duration") || new Date() - stackElement.start;
-                    stackElement.loading = false;
-                    stackElement.statusCode = self.status;
-                    stackElement.error = self.status < 200 || self.status >= 400;
-                    stackElement.profile = self.getResponseHeader("X-Debug-Tag");
-                    stackElement.profilerUrl = self.getResponseHeader("X-Debug-Link");
-                    renderAjaxRequests();
-                }
-            }, false);
-            renderAjaxRequests();
-        }
-        proxied.apply(this, Array.prototype.slice.call(arguments));
-    };
 
-    // catch fetch AJAX requests
-    if (window.fetch) {
-        var originalFetch = window.fetch;
-
-        window.fetch = function(input, init) {
-            var method;
-            var url;
-            if (typeof input === "string") {
-                method = (init && init.method) || 'GET';
-                url = input;
-            } else if (window.Request && input instanceof Request) {
-                method = input.method;
-                url = input.url;
-            }
-            var promise = originalFetch(input, init);
-
+        // fix https://github.com/yiisoft/yii2-debug/issues/326
+        if (url !== null) {
             /* prevent logging AJAX calls to static and inline files, like templates */
-            if (url.substr(0, 1) === '/' && !url.match(new RegExp("{{ excluded_ajax_paths }}"))) {
+            if (url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
                 var stackElement = {
                     loading: true,
                     error: false,
@@ -321,17 +282,63 @@
                     start: new Date()
                 };
                 requestStack.push(stackElement);
-                promise.then(function(response) {
-                    stackElement.duration = response.headers.get("X-Debug-Duration") || new Date() - stackElement.start;
+                this.addEventListener('readystatechange', function () {
+                    if (self.readyState === 4) {
+                        stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                        stackElement.loading = false;
+                        stackElement.statusCode = self.status;
+                        stackElement.error = self.status < 200 || self.status >= 400;
+                        stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                        stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                        renderAjaxRequests();
+                    }
+                }, false);
+                renderAjaxRequests();
+            }
+        }
+        proxied.apply(this, Array.prototype.slice.call(arguments));
+    };
+
+    // catch fetch AJAX requests
+    if (window.fetch) {
+        var originalFetch = window.fetch;
+
+        window.fetch = function (input, init) {
+            var method;
+            var url;
+            if (typeof input === 'string') {
+                method = (init && init.method) || 'GET';
+                url = input;
+            } else if (window.URL && input instanceof URL) { // fix https://github.com/yiisoft/yii2-debug/issues/296
+                method = (init && init.method) || 'GET';
+                url = input.href;
+            } else if (window.Request && input instanceof Request) {
+                method = input.method;
+                url = input.url;
+            }
+            var promise = originalFetch(input, init);
+
+            /* prevent logging AJAX calls to static and inline files, like templates */
+            if (url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
+                var stackElement = {
+                    loading: true,
+                    error: false,
+                    url: url,
+                    method: method,
+                    start: new Date()
+                };
+                requestStack.push(stackElement);
+                promise.then(function (response) {
+                    stackElement.duration = response.headers.get('X-Debug-Duration') || new Date() - stackElement.start;
                     stackElement.loading = false;
                     stackElement.statusCode = response.status;
                     stackElement.error = response.status < 200 || response.status >= 400;
-                    stackElement.profile = response.headers.get("X-Debug-Tag");
-                    stackElement.profilerUrl = response.headers.get("X-Debug-Link");
+                    stackElement.profile = response.headers.get('X-Debug-Tag');
+                    stackElement.profilerUrl = response.headers.get('X-Debug-Link');
                     renderAjaxRequests();
 
                     return response;
-                }).catch(function(error) {
+                }).catch(function (error) {
                     stackElement.loading = false;
                     stackElement.error = true;
                     renderAjaxRequests();

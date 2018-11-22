@@ -24,13 +24,27 @@ echo GridView::widget([
     'options' => ['class' => 'detail-grid-view table-responsive'],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
+    'pager' => [
+        'linkContainerOptions' => [
+            'class' => 'page-item'
+        ],
+        'linkOptions' => [
+            'class' => 'page-link'
+        ],
+        'disabledListItemSubTagOptions' => [
+            'tag' => 'a',
+            'href' => 'javascript:;',
+            'tabindex' => '-1',
+            'class' => 'page-link'
+        ]
+    ],
     'columns' => [
         [
             'attribute' => 'seq',
             'label' => 'Time',
             'value' => function ($data) {
                 $timeInSeconds = $data['timestamp'] / 1000;
-                $millisecondsDiff = (int) (($timeInSeconds - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
@@ -86,7 +100,8 @@ echo GridView::widget([
 
                     $query .= Html::tag(
                         'div',
-                        Html::a('[+] Explain', ['db-explain', 'seq' => $data['seq'], 'tag' => Yii::$app->controller->summary['tag']]),
+                        Html::a('[+] Explain',
+                            ['db-explain', 'seq' => $data['seq'], 'tag' => Yii::$app->controller->summary['tag']]),
                         ['class' => 'db-explain']
                     );
                 }
@@ -113,25 +128,25 @@ $this->registerJs('debug_db_detail();', View::POS_READY);
 ?>
 
 <script>
-function debug_db_detail() {
-    $('.db-explain a').on('click', function(e) {
-        e.preventDefault();
-        
-        var $explain = $('.db-explain-text', $(this).parent().parent());
+    function debug_db_detail() {
+        $('.db-explain a').on('click', function (e) {
+            e.preventDefault();
 
-        if ($explain.is(':visible')) {
-            $explain.hide();
-            $(this).text('[+] Explain');
-        } else {
-            $explain.load($(this).attr('href')).show();
-            $(this).text('[-] Explain');
-        }
-    });
+            var $explain = $('.db-explain-text', $(this).parent().parent());
 
-    $('#db-explain-all a').on('click', function(e) {
-        e.preventDefault();
-        
-        $('.db-explain a').click();
-    });
-}
+            if ($explain.is(':visible')) {
+                $explain.hide();
+                $(this).text('[+] Explain');
+            } else {
+                $explain.load($(this).attr('href')).show();
+                $(this).text('[-] Explain');
+            }
+        });
+
+        $('#db-explain-all a').on('click', function (e) {
+            e.preventDefault();
+
+            $('.db-explain a').click();
+        });
+    }
 </script>

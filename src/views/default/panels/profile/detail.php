@@ -9,14 +9,15 @@ use yii\helpers\Html;
 /* @var $time int */
 /* @var $memory int */
 ?>
-<h1>Performance Profiling</h1>
-<p>
-    Total processing time: <b><?= $time ?></b>; Peak memory: <b><?= $memory ?></b>.
-    <?= Html::a('Show Profiling Timeline', ['/' . $panel->module->id . '/default/view',
-        'panel' => 'timeline',
-        'tag' => $panel->tag,
-    ]) ?>
-</p>
+    <h1>Performance Profiling</h1>
+    <p>
+        Total processing time: <b><?= $time ?></b>; Peak memory: <b><?= $memory ?></b>.
+        <?= Html::a('Show Profiling Timeline', [
+            '/' . $panel->module->id . '/default/view',
+            'panel' => 'timeline',
+            'tag' => $panel->tag,
+        ]) ?>
+    </p>
 <?php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -24,13 +25,27 @@ echo GridView::widget([
     'options' => ['class' => 'detail-grid-view table-responsive'],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
+    'pager' => [
+        'linkContainerOptions' => [
+            'class' => 'page-item'
+        ],
+        'linkOptions' => [
+            'class' => 'page-link'
+        ],
+        'disabledListItemSubTagOptions' => [
+            'tag' => 'a',
+            'href' => 'javascript:;',
+            'tabindex' => '-1',
+            'class' => 'page-link'
+        ]
+    ],
     'columns' => [
         [
             'attribute' => 'seq',
             'label' => 'Time',
             'value' => function ($data) {
                 $timeInSeconds = $data['timestamp'] / 1000;
-                $millisecondsDiff = (int) (($timeInSeconds - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },

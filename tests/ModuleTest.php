@@ -2,10 +2,10 @@
 
 namespace yiiunit\debug;
 
+use Yii;
 use yii\base\Event;
 use yii\caching\FileCache;
 use yii\debug\Module;
-use Yii;
 
 class ModuleTest extends TestCase
 {
@@ -52,12 +52,15 @@ class ModuleTest extends TestCase
         ];
     }
 
+    // Tests :
+
     /**
      * @dataProvider dataProviderCheckAccess
      *
      * @param array $allowedIPs
      * @param string $userIp
      * @param bool $expectedResult
+     * @throws \ReflectionException
      */
     public function testCheckAccess(array $allowedIPs, $userIp, $expectedResult)
     {
@@ -81,7 +84,7 @@ class ModuleTest extends TestCase
         $this->assertEquals(<<<HTML
 <div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
 HTML
-        ,$module->getToolbarHtml());
+            , $module->getToolbarHtml());
     }
 
     /**
@@ -91,7 +94,7 @@ HTML
     {
         $module = new Module('debug');
         $module->allowedIPs = ['*'];
-        Yii::$app->setModule('debug',$module);
+        Yii::$app->setModule('debug', $module);
         $module->bootstrap(Yii::$app);
         Yii::getLogger()->dispatcher = $this->getMockBuilder('yii\\log\\Dispatcher')
             ->setMethods(['dispatch'])
@@ -133,7 +136,12 @@ HTML
 
         ob_start();
         $module->renderToolbar(new Event(['sender' => $view]));
-        ob_end_clean();
+        $output = ob_get_clean();
+
+        $this->assertThat($output, $this->logicalOr(
+            $this->matches('%Adata-url="/my_debug%A'),
+            $this->matches('%Adata-url="/index.php?r=my_debug%A')
+        ));
     }
 
     public function testDefaultVersion()

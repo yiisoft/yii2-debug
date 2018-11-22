@@ -9,17 +9,16 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\debug\models\search\Db;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
 use yii\log\Logger;
-use yii\debug\models\search\Db;
 
 /**
  * Debugger panel that collects and displays database queries performed.
  *
- * @property array $profileLogs This property is read-only.
- * @property string $summaryName Short name of the panel, which will be use in summary. This property is
- * read-only.
+ * @property-read array $profileLogs Returns all profile logs of the current request for this panel. This property is read-only.
+ * @property-read string $summaryName Short name of the panel, which will be use in summary. This property is read-only.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -107,6 +106,7 @@ class DbPanel extends Panel
 
     /**
      * {@inheritdoc}
+     * @throws InvalidConfigException
      */
     public function getDetail()
     {
@@ -304,6 +304,7 @@ class DbPanel extends Panel
     /**
      * @return bool Whether the DB component has support for EXPLAIN queries
      * @since 2.0.5
+     * @throws InvalidConfigException
      */
     protected function hasExplain()
     {
@@ -340,6 +341,7 @@ class DbPanel extends Panel
      *
      * @return \yii\db\Connection
      * @since 2.0.5
+     * @throws InvalidConfigException
      */
     public function getDb()
     {
