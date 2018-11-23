@@ -13,8 +13,8 @@ use yii\debug\Panel;
 /**
  * Debugger panel that collects and displays application configuration and environment.
  *
- * @property-read array $extensions Returns data about extensions. This property is read-only.
- * @property-read array $phpInfo Returns the BODY contents of the phpinfo() output. This property is read-only.
+ * @property array $extensions Returns data about extensions. This property is read-only.
+ * @property array $phpInfo Returns the BODY contents of the phpinfo() output. This property is read-only.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

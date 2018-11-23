@@ -26,8 +26,8 @@ use yii\web\User;
 /**
  * Debugger panel that collects and displays user data.
  *
- * @property-read DataProviderInterface $userDataProvider Get model for GridView -> DataProvider. This property is read-only.
- * @property-read Model|UserSearchInterface $usersFilterModel Get model for GridView -> FilterModel. This property is read-only.
+ * @property DataProviderInterface $userDataProvider Get model for GridView -> DataProvider. This property is read-only.
+ * @property Model|UserSearchInterface $usersFilterModel Get model for GridView -> FilterModel. This property is read-only.
  *
  * @author Daniel Gomez Pan <pana_1990@hotmail.com>
  * @since 2.0.8
