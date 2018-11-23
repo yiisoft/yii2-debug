@@ -13,7 +13,6 @@
         }
         for (var i in element) {
             if (typeof element[i].addEventListener !== 'function') {
-                console.log(element[i]);
                 continue;
             }
             element[i].addEventListener(event, handler, false);
@@ -30,7 +29,6 @@
         }
         for (var i in element) {
             if (typeof element[i].removeEventListener !== 'function') {
-                console.log(element[i]);
                 continue;
             }
             element[i].removeEventListener(event, handler, false);
