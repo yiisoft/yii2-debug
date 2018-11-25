@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.0 under development
 ------------------------
 
-- Enh #296, #326, #340: Create (bootstrap)-independent version (simialbi)
+- Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
 
 
 2.0.14 September 24, 2018
