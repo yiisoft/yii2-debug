@@ -319,7 +319,7 @@
             var promise = originalFetch(input, init);
 
             /* prevent logging AJAX calls to static and inline files, like templates */
-            if (url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
+            if (url && url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
                 var stackElement = {
                     loading: true,
                     error: false,
