@@ -62,7 +62,10 @@
     });
 
     on(document.getElementById('db-explain-all').querySelector('a'), 'click', function () {
-        var event = new MouseEvent('click');
+        var event = new MouseEvent('click', {
+            cancelable: true,
+            bubbles: true
+        });
 
         document.querySelectorAll('.db-explain a').forEach(function (item) {
             item.dispatchEvent(event);
