@@ -43,7 +43,8 @@
 
         e.preventDefault();
 
-        var $explain = e.target.parentElement.parentElement.querySelector('.db-explain-text');
+        var $explain = e.target.parentElement.parentElement.querySelector('.db-explain-text'),
+            self = this;
 
         // hidden (see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent)
         if ($explain.offsetParent === null) {
@@ -51,7 +52,7 @@
                 success: function (xhr) {
                     $explain.innerHTML = xhr.responseText;
                     $explain.style.display = 'block';
-                    this.textContent = '[-] Explain';
+                    self.textContent = '[-] Explain';
                 }
             })
         } else {
