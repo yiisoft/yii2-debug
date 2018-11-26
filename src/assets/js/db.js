@@ -64,8 +64,8 @@
     on(document.getElementById('db-explain-all').querySelector('a'), 'click', function () {
         var event = new MouseEvent('click');
 
-        document.querySelectorAll('.db-explain a').forEach(function () {
-            this.dispatchEvent(event);
+        document.querySelectorAll('.db-explain a').forEach(function (item) {
+            item.dispatchEvent(event);
         });
     });
 })();
