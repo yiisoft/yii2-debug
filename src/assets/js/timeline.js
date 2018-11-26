@@ -17,22 +17,6 @@
             }
             element[i].addEventListener(event, handler, false);
         }
-    }, off = function (element, event, handler) {
-        if (element instanceof NodeList) {
-            element.forEach(function (value) {
-                value.removeEventListener(event, handler, false);
-            });
-            return;
-        }
-        if (!(element instanceof Array)) {
-            element = [element];
-        }
-        for (var i in element) {
-            if (typeof element[i].removeEventListener !== 'function') {
-                continue;
-            }
-            element[i].removeEventListener(event, handler, false);
-        }
     };
 
     var Timeline = function (options) {

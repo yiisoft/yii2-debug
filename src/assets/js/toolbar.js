@@ -271,30 +271,28 @@
         var self = this;
 
         // fix https://github.com/yiisoft/yii2-debug/issues/326
-        if (url !== null) {
-            /* prevent logging AJAX calls to static and inline files, like templates */
-            if (url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
-                var stackElement = {
-                    loading: true,
-                    error: false,
-                    url: url,
-                    method: method,
-                    start: new Date()
-                };
-                requestStack.push(stackElement);
-                this.addEventListener('readystatechange', function () {
-                    if (self.readyState === 4) {
-                        stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
-                        stackElement.loading = false;
-                        stackElement.statusCode = self.status;
-                        stackElement.error = self.status < 200 || self.status >= 400;
-                        stackElement.profile = self.getResponseHeader('X-Debug-Tag');
-                        stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
-                        renderAjaxRequests();
-                    }
-                }, false);
-                renderAjaxRequests();
-            }
+        /* prevent logging AJAX calls to static and inline files, like templates */
+        if (url && url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
+            var stackElement = {
+                loading: true,
+                error: false,
+                url: url,
+                method: method,
+                start: new Date()
+            };
+            requestStack.push(stackElement);
+            this.addEventListener('readystatechange', function () {
+                if (self.readyState === 4) {
+                    stackElement.duration = self.getResponseHeader('X-Debug-Duration') || new Date() - stackElement.start;
+                    stackElement.loading = false;
+                    stackElement.statusCode = self.status;
+                    stackElement.error = self.status < 200 || self.status >= 400;
+                    stackElement.profile = self.getResponseHeader('X-Debug-Tag');
+                    stackElement.profilerUrl = self.getResponseHeader('X-Debug-Link');
+                    renderAjaxRequests();
+                }
+            }, false);
+            renderAjaxRequests();
         }
         proxied.apply(this, Array.prototype.slice.call(arguments));
     };
@@ -319,7 +317,7 @@
             var promise = originalFetch(input, init);
 
             /* prevent logging AJAX calls to static and inline files, like templates */
-            if (url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
+            if (url && url.substr(0, 1) === '/' && !url.match(new RegExp('{{ excluded_ajax_paths }}'))) {
                 var stackElement = {
                     loading: true,
                     error: false,

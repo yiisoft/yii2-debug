@@ -1,5 +1,6 @@
 <?php
 
+use yii\debug\DbAsset;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\web\View;
@@ -9,6 +10,7 @@ use yii\web\View;
 /* @var $dataProvider yii\data\ArrayDataProvider */
 /* @var $hasExplain bool */
 /* @var $sumDuplicates int */
+/* @var $this View */
 
 echo Html::tag('h1', $panel->getName() . ' Queries');
 
@@ -117,36 +119,11 @@ echo GridView::widget([
 ]);
 
 if ($hasExplain) {
+    DbAsset::register($this);
+
     echo Html::tag(
         'div',
-        Html::a('[+] Explain all', '#'),
+        Html::a('[+] Explain all', 'javascript:;'),
         ['id' => 'db-explain-all']
     );
 }
-
-$this->registerJs('debug_db_detail();', View::POS_READY);
-?>
-
-<script>
-    function debug_db_detail() {
-        $('.db-explain a').on('click', function (e) {
-            e.preventDefault();
-
-            var $explain = $('.db-explain-text', $(this).parent().parent());
-
-            if ($explain.is(':visible')) {
-                $explain.hide();
-                $(this).text('[+] Explain');
-            } else {
-                $explain.load($(this).attr('href')).show();
-                $(this).text('[-] Explain');
-            }
-        });
-
-        $('#db-explain-all a').on('click', function (e) {
-            e.preventDefault();
-
-            $('.db-explain a').click();
-        });
-    }
-</script>
