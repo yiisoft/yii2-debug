@@ -114,7 +114,7 @@ class Panel extends Component
             'tag' => $this->tag,
         ];
 
-        if (is_array($additionalParams)){
+        if (is_array($additionalParams)) {
             $route = ArrayHelper::merge($route, $additionalParams);
         }
 

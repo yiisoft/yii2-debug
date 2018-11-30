@@ -13,12 +13,26 @@ use yii\grid\GridView;
     'options' => ['class' => 'detail-grid-view table-responsive'],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
+    'pager' => [
+        'linkContainerOptions' => [
+            'class' => 'page-item'
+        ],
+        'linkOptions' => [
+            'class' => 'page-link'
+        ],
+        'disabledListItemSubTagOptions' => [
+            'tag' => 'a',
+            'href' => 'javascript:;',
+            'tabindex' => '-1',
+            'class' => 'page-link'
+        ]
+    ],
     'columns' => [
         [
             'attribute' => 'time',
             'value' => function ($data) {
                 $timeInSeconds = floor($data['time']);
-                $millisecondsDiff = (int) (($data['time'] - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($data['time'] - (int)$timeInSeconds) * 1000);
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
             'headerOptions' => [

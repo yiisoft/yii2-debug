@@ -8,10 +8,10 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\debug\models\search\Log;
 use yii\debug\Panel;
 use yii\helpers\VarDumper;
 use yii\log\Logger;
-use yii\debug\models\search\Log;
 
 /**
  * Debugger panel that collects and displays logs.

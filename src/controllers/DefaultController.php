@@ -8,9 +8,9 @@
 namespace yii\debug\controllers;
 
 use Yii;
+use yii\debug\models\search\Debug;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\debug\models\search\Debug;
 use yii\web\Response;
 
 /**
@@ -57,6 +57,7 @@ class DefaultController extends Controller
 
     /**
      * {@inheritdoc}
+     * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
     {
@@ -64,6 +65,12 @@ class DefaultController extends Controller
         return parent::beforeAction($action);
     }
 
+    /**
+     * Index action
+     *
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionIndex()
     {
         $searchModel = new Debug();
@@ -115,6 +122,13 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * Toolbar action
+     *
+     * @param string $tag
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionToolbar($tag)
     {
         $this->loadData($tag, 5);
@@ -126,6 +140,13 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * Download mail action
+     *
+     * @param string $file
+     * @return \yii\console\Response|Response
+     * @throws NotFoundHttpException
+     */
     public function actionDownloadMail($file)
     {
         $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);

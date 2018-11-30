@@ -1,7 +1,5 @@
 <?php
 
-use yii\bootstrap\ButtonDropdown;
-use yii\bootstrap\ButtonGroup;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -14,7 +12,7 @@ use yii\helpers\Url;
 
 $this->title = 'Yii Debugger';
 ?>
-<div class="default-view">
+<div class="yii-debug-main-container default-view">
     <div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_top" style="display: none;">
         <div class="yii-debug-toolbar__bar">
             <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
@@ -29,21 +27,22 @@ $this->title = 'Yii Debugger';
         </div>
     </div>
 
-    <div class="container main-container">
+    <div class="container-fluid main-container">
         <div class="row">
-            <div class="col-lg-2 col-md-2">
+            <div class="col-md-2">
                 <div class="list-group">
                     <?php
+                    $classes = ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-center'];
                     foreach ($panels as $id => $panel) {
-                        $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($panel->getName());
+                        $label = Html::tag('span', Html::encode($panel->getName())) . '<span class="icon"></span>';
                         echo Html::a($label, ['view', 'tag' => $tag, 'panel' => $id], [
-                            'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
+                            'class' => $panel === $activePanel ? array_merge($classes, ['active']) : $classes,
                         ]);
                     }
                     ?>
                 </div>
             </div>
-            <div class="col-lg-10 col-md-10">
+            <div class="col-md-10">
                 <?php
                 $statusCode = $summary['statusCode'];
                 if ($statusCode === null) {
@@ -54,44 +53,58 @@ $this->title = 'Yii Debugger';
                 } elseif ($statusCode >= 300 && $statusCode < 400) {
                     $calloutClass = 'callout-info';
                 } else {
-                    $calloutClass = 'callout-important';
+                    $calloutClass = 'callout-danger';
                 }
                 ?>
                 <div class="callout <?= $calloutClass ?>">
                     <?php
-                        $count = 0;
-                        $items = [];
-                        foreach ($manifest as $meta) {
-                            $label = ($meta['tag'] == $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
-                                . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
-                                . ', ' . date('Y-m-d h:i:s a', $meta['time'])
-                                . ', ' . $meta['ip'];
-                            $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
-                            $items[] = [
-                                'label' => $label,
-                                'url' => $url,
-                            ];
-                            if (++$count >= 10) {
-                                break;
-                            }
+                    $count = 0;
+                    $items = [];
+                    foreach ($manifest as $meta) {
+                        $label = ($meta['tag'] == $tag ? Html::tag('strong',
+                                '&#9658;&nbsp;' . $meta['tag']) : $meta['tag'])
+                            . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
+                            . ', ' . date('Y-m-d h:i:s a', $meta['time'])
+                            . ', ' . $meta['ip'];
+                        $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
+                        $items[] = [
+                            'label' => $label,
+                            'url' => $url,
+                        ];
+                        if (++$count >= 10) {
+                            break;
                         }
-                        echo ButtonGroup::widget([
-                            'options'=>['class'=>'btn-group-sm'],
-                            'buttons' => [
-                                Html::a('All', ['index'], ['class' => 'btn btn-default']),
-                                Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => 'btn btn-default']),
-                                ButtonDropdown::widget([
-                                    'label' => 'Last 10',
-                                    'options' => ['class' => 'btn-default btn-sm'],
-                                    'dropdown' => ['items' => $items, 'encodeLabels' => false],
-                                ]),
-                            ],
-                        ]);
-                        echo "\n" . $summary['tag'] . ': ' . $summary['method'] . ' ' . Html::a(Html::encode($summary['url']), $summary['url']);
-                        echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
+                    }
+
+                    ?>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <?=Html::a('All', ['index'], ['class' => ['btn', 'btn-light']]);?>
+                        <?=Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => ['btn', 'btn-light']]);?>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <?=Html::button('Last 10', [
+                                'type' => 'button',
+                                'class' => ['btn', 'btn-light', 'dropdown-toggle'],
+                                'data' => [
+                                    'toggle' => 'dropdown'
+                                ],
+                                'aria-haspopup' => 'true',
+                                'aria-expanded' => 'false'
+                            ]);?>
+                            <?=\yii\widgets\Menu::widget([
+                                'encodeLabels' => false,
+                                'items' => $items,
+                                'options' => ['class' => 'dropdown-menu'],
+                                'itemOptions' => ['class' => 'dropdown-item']
+                            ]);?>
+                        </div>
+                    </div>
+                    <?php
+                    echo "\n" . $summary['tag'] . ': ' . $summary['method'] . ' ' . Html::a(Html::encode($summary['url']),
+                            $summary['url']);
+                    echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
                     ?>
                 </div>
-                <?= $activePanel->getDetail() ?>
+                <?= $activePanel->getDetail(); ?>
             </div>
         </div>
     </div>
