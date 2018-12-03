@@ -22,12 +22,12 @@ if (isset($panel->data['identity'])) {
     ];
     if ($panel->data['rolesProvider'] || $panel->data['permissionsProvider']) {
         $items['nav'][] = 'Roles and Permissions';
-        $item['content'][] = $this->render('roles', ['panel' => $panel]);
+        $items['content'][] = $this->render('roles', ['panel' => $panel]);
     }
 
     if ($panel->canSwitchUser()) {
         $items['nav'][] = 'Switch User';
-        $item['content'][] = $this->render('switch', ['panel' => $panel]);
+        $items['content'][] = $this->render('switch', ['panel' => $panel]);
     }
 
     ?>

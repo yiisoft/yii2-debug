@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.0 under development
 ------------------------
 
+- Bug #343: Fixed errors on "Roles and permissions" tab.
 - Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
 
 
