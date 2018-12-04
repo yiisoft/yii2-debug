@@ -11,12 +11,12 @@ use Yii;
 use yii\log\Logger;
 use yii\debug\models\search\Log;
 use yii\debug\Panel;
-use yii\helpers\VarDumper;
 
 /**
  * Dump panel that collects and displays debug messages (Logger::LEVEL_TRACE).
  *
  * @author Pistej <pistej2@gmail.com>
+ * @author Simon Karlen <simi.albi@outlook.com>
  * @since 2.1.0
  */
 class DumpPanel extends Panel
@@ -85,9 +85,6 @@ class DumpPanel extends Panel
         }
 
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_TRACE, $this->categories, $except);
-        foreach ($messages as &$message) {
-            $message[0] = VarDumper::export($message[0]);
-        }
 
         return $messages;
     }

@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.0 under development
 ------------------------
 
+- Enh #247, #309: Added dump panel that collects and displays debug messages with `Logger::LEVEL_TRACE` (pistej, simialbi)
 - Bug #343: Fixed errors on "Roles and permissions" tab (simialbi)
 - Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
 

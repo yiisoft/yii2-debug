@@ -22,9 +22,7 @@ echo GridView::widget([
         [
             'attribute' => 'message',
             'value' => function ($data) use ($panel) {
-                $message = eval('return ' . $data['message'] . ';');
-
-                $message = VarDumper::dumpAsString($message, $panel->depth, $panel->highlight);
+                $message = VarDumper::dumpAsString($data['message'], $panel->depth, $panel->highlight);
                 //don't encode highlighted variables
                 if (!$panel->highlight) {
                     $message = Html::encode($message);
