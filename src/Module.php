@@ -47,7 +47,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *
      * The signature is the following:
      *
-     * function (Action $action)
+     * function (Action|null $action) The action can be null when called from a non action context (like set debug header)
      *
      * @since 2.1.0
      */
@@ -333,7 +333,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * Checks if current user is allowed to access the module
-     * @param \yii\base\Action|null $action
+     * @param \yii\base\Action|null $action the action to be executed. May be `null` when called from
+     * a non action context
      * @return bool if access is granted
      */
     protected function checkAccess($action = null)
@@ -364,7 +365,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             return false;
         }
 
-        if ($action instanceof \yii\base\Action && $this->checkAccessCallback !== null && call_user_func($this->checkAccessCallback, $action) !== true) {
+        if ($this->checkAccessCallback !== null && call_user_func($this->checkAccessCallback, $action) !== true) {
             if (!$this->disableCallbackRestrictionWarning) {
                 Yii::warning('Access to debugger is denied due to checkAccessCallback.', __METHOD__);
             }
