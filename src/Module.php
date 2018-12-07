@@ -43,6 +43,16 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $allowedHosts = [];
     /**
+     * @var callable A valid PHP callback that returns true if user is allowed to use web shell and false otherwise
+     *
+     * The signature is the following:
+     *
+     * function (Action|null $action) The action can be null when called from a non action context (like set debug header)
+     *
+     * @since 2.1.0
+     */
+    public $checkAccessCallback;
+    /**
      * {@inheritdoc}
      */
     public $controllerNamespace = 'yii\debug\controllers';
@@ -98,6 +108,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.0.14
      */
     public $disableIpRestrictionWarning = false;
+    /**
+     * @var bool whether to disable access callback restriction warning triggered by checkAccess function
+     * @since 2.1.0
+     */
+    public $disableCallbackRestrictionWarning = false;
     /**
      * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace line string.
      * The placeholders are {file}, {line} and {text} and the string should be as follows:
@@ -239,7 +254,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         Yii::$app->getView()->off(View::EVENT_END_BODY, [$this, 'renderToolbar']);
         Yii::$app->getResponse()->off(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
 
-        if ($this->checkAccess()) {
+        if ($this->checkAccess($action)) {
             $this->resetGlobalSettings();
             return true;
         }
@@ -318,26 +333,47 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * Checks if current user is allowed to access the module
+     * @param \yii\base\Action|null $action the action to be executed. May be `null` when called from
+     * a non action context
      * @return bool if access is granted
      */
-    protected function checkAccess()
+    protected function checkAccess($action = null)
     {
+        $allowed = false;
+
         $ip = Yii::$app->getRequest()->getUserIP();
         foreach ($this->allowedIPs as $filter) {
             if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
-                return true;
+                $allowed = true;
+                break;
             }
         }
-        foreach ($this->allowedHosts as $hostname) {
-            $filter = gethostbyname($hostname);
-            if ($filter === $ip) {
-                return true;
+        if ($allowed === false) {
+            foreach ($this->allowedHosts as $hostname) {
+                $filter = gethostbyname($hostname);
+                if ($filter === $ip) {
+                    $allowed = true;
+                    break;
+                }
             }
         }
-        if (!$this->disableIpRestrictionWarning) {
-            Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
+        if ($allowed === false) {
+            if (!$this->disableIpRestrictionWarning) {
+                Yii::warning('Access to debugger is denied due to IP address restriction. The requesting IP address is ' . $ip, __METHOD__);
+            }
+
+            return false;
         }
-        return false;
+
+        if ($this->checkAccessCallback !== null && call_user_func($this->checkAccessCallback, $action) !== true) {
+            if (!$this->disableCallbackRestrictionWarning) {
+                Yii::warning('Access to debugger is denied due to checkAccessCallback.', __METHOD__);
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
