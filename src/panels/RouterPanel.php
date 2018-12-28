@@ -65,6 +65,14 @@ class RouterPanel extends Panel
     /**
      * {@inheritdoc}
      */
+    public function getSummary()
+    {
+        return Yii::$app->view->render('panels/router/summary', ['panel' => $this]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getDetail()
     {
         return Yii::$app->view->render('panels/router/detail', ['model' => new Router($this->data)]);
