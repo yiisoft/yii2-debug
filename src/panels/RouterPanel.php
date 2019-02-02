@@ -8,6 +8,7 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\base\InlineAction;
 use yii\debug\models\Router;
 use yii\debug\Panel;
 use yii\log\Logger;
@@ -84,8 +85,19 @@ class RouterPanel extends Panel
     public function save()
     {
         $target = $this->module->logTarget;
+        if (Yii::$app->requestedAction) {
+            if (Yii::$app->requestedAction instanceof InlineAction) {
+                $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
+            } else {
+                $action = get_class(Yii::$app->requestedAction) . '::run()';
+            }
+        } else {
+            $action = null;
+        }
         return [
-            'messages' => $target::filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories)
+            'messages' => $target::filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories),
+            'route'    => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+            'action'   => $action,
         ];
     }
 }

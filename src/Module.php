@@ -384,6 +384,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         return [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
             'request' => ['class' => 'yii\debug\panels\RequestPanel'],
+            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
             'log' => ['class' => 'yii\debug\panels\LogPanel'],
             'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
             'db' => ['class' => 'yii\debug\panels\DbPanel'],
@@ -392,7 +393,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
             'user' => ['class' => 'yii\debug\panels\UserPanel'],
-            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
             'dump' => ['class' => 'yii\debug\panels\DumpPanel'],
         ];
     }
