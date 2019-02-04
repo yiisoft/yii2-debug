@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.0 under development
 ------------------------
 
+- Enh #349: Router link is now separated (rustamwin)
 - Enh #88: Allow custom module access check (simialbi) 
 - Enh #247: Added dump panel that collects and displays debug messages with `Logger::LEVEL_TRACE` (pistej, simialbi)
 - Bug #343: Fixed errors on "Roles and permissions" tab (simialbi)
