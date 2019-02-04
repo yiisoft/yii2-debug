@@ -21,6 +21,4 @@ $statusText = Html::encode(isset(Response::$httpStatuses[$statusCode]) ? Respons
 <div class="yii-debug-toolbar__block">
     <a href="<?= $panel->getUrl() ?>" title="Status code: <?= $statusCode ?> <?= $statusText ?>">Status <span
             class="yii-debug-toolbar__label <?= $class ?>"><?= $statusCode ?></span></a>
-    <a href="<?= $panel->getUrl() ?>" title="Action: <?= $panel->data['action'] ?>">Route <span
-            class="yii-debug-toolbar__label"><?= $panel->data['route'] ?></span></a>
 </div>
