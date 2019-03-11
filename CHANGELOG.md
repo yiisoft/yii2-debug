@@ -11,7 +11,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
 - Bug #342: Toolbar animates on every page load in Chrome 70 (ricpelo)
 - Enh #350: Use smaller padding for tables cells (machour)
-
+- Bug #352: Fixed failure to serialize emails causing summary and thus all panels not to render (sammousa)
 
 2.0.14 September 24, 2018
 -------------------------
