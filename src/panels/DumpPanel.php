@@ -26,12 +26,10 @@ class DumpPanel extends Panel
      * all categories are allowed
      */
     public $categories = ['application'];
-
     /**
      * @var bool whether the result should be syntax-highlighted
      */
     public $highlight = true;
-
     /**
      * @var int maximum depth that the dumper should go into the variable
      */
@@ -41,6 +39,7 @@ class DumpPanel extends Panel
      * @var array log messages extracted to array as models, to use with data provider.
      */
     private $_models;
+
 
     /**
      * {@inheritdoc}

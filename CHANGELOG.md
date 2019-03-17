@@ -1,17 +1,18 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.0 under development
-------------------------
+2.1.0 March 17, 2019
+--------------------
 
-- Enh #349: Router link is now separated (rustamwin)
-- Enh #88: Allow custom module access check (simialbi) 
-- Enh #247: Added dump panel that collects and displays debug messages with `Logger::LEVEL_TRACE` (pistej, simialbi)
-- Bug #343: Fixed errors on "Roles and permissions" tab (simialbi)
-- Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
 - Bug #342: Toolbar animates on every page load in Chrome 70 (ricpelo)
-- Enh #350: Use smaller padding for tables cells (machour)
+- Bug #343: Fixed errors on "Roles and permissions" tab (simialbi)
 - Bug #352: Fixed failure to serialize emails causing summary and thus all panels not to render (sammousa)
+- Enh #88: Allow custom module access check (simialbi)
+- Enh #247: Added dump panel that collects and displays debug messages with `Logger::LEVEL_TRACE` (pistej, simialbi)
+- Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
+- Enh #349: Router link is now separated (rustamwin)
+- Enh #350: Use smaller padding for tables cells (machour)
+
 
 2.0.14 September 24, 2018
 -------------------------
