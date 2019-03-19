@@ -48,11 +48,11 @@ $this->title = 'Yii Debugger';
                     'filterModel' => $searchModel,
                     'rowOptions' => function ($model) use ($searchModel, $hasDbPanel) {
                         if ($searchModel->isCodeCritical($model['statusCode'])) {
-                            return ['class' => 'danger'];
+                            return ['class' => 'table-danger'];
                         }
 
                         if ($hasDbPanel && $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])) {
-                            return ['class' => 'danger'];
+                            return ['class' => 'table-danger'];
                         }
 
                         return [];
@@ -141,13 +141,13 @@ $this->title = 'Yii Debugger';
                                     $statusCode = 200;
                                 }
                                 if ($statusCode >= 200 && $statusCode < 300) {
-                                    $class = 'label-success';
+                                    $class = 'badge-success';
                                 } elseif ($statusCode >= 300 && $statusCode < 400) {
-                                    $class = 'label-info';
+                                    $class = 'badge-info';
                                 } else {
-                                    $class = 'label-danger';
+                                    $class = 'badge-danger';
                                 }
-                                return "<span class=\"label {$class}\">$statusCode</span>";
+                                return "<span class=\"badge {$class}\">$statusCode</span>";
                             },
                             'format' => 'raw',
                             'filter' => $statusCodes,
