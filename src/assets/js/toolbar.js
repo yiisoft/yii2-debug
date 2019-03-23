@@ -75,6 +75,10 @@
             isIframeActive = function () {
                 return toolbarEl.classList.contains(iframeActiveClass);
             },
+            resizeIframe = function(mouse) {
+                var availableHeight = document.body.clientHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
+            },
             showIframe = function (href) {
                 toolbarEl.classList.add(iframeAnimatingClass);
                 toolbarEl.classList.add(iframeActiveClass);
@@ -153,6 +157,18 @@
                 viewEl.style.height = iframeHeight();
             }
         };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
 
         barEl.onclick = function (e) {
             var target = e.target,
