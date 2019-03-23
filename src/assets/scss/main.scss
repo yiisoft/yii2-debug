@@ -237,8 +237,8 @@ table {
 }
 .config-php-info-table {
     tr {
-        &.h {
-            background-color: #99c!important;;
+        &.h:nth-of-type(odd) {
+            background-color: #99c;
             font-weight: bold;
             td {
                 display: flex;
