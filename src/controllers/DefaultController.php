@@ -137,6 +137,7 @@ class DefaultController extends Controller
             'tag' => $tag,
             'panels' => $this->module->panels,
             'position' => 'bottom',
+            'defaultHeight' => $this->module->defaultHeight,
         ]);
     }
 
