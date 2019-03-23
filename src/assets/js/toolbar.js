@@ -70,7 +70,7 @@
             blockEls = barEl.querySelectorAll(blockSelector),
             iframeEl = viewEl.querySelector('iframe'),
             iframeHeight = function () {
-                return (window.innerHeight * 0.7) + 'px';
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
             },
             isIframeActive = function () {
                 return toolbarEl.classList.contains(iframeActiveClass);
