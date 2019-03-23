@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.1 under development
 -----------------------
 
-- no changes in this release.
+- Enh #213: Made the debug panel resizable, and allowed setting default height in configuration (machour)
 
 
 2.1.0 March 17, 2019
