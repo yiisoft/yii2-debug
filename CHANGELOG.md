@@ -4,7 +4,8 @@ Yii Framework 2 debug extension Change Log
 2.1.1 under development
 -----------------------
 
-- no changes in this release.
+- Bug #359: Fixed the console warning about sourcemaps (machour)
+- Bug #355: Fixed color highlighting on debug index (Sarke)
 
 
 2.1.0 March 17, 2019
