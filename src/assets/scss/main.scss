@@ -230,6 +230,9 @@ table {
     }
     td {
         white-space: pre;
+        &.ws-normal {
+            white-space: normal;
+        }
     }
 }
 
