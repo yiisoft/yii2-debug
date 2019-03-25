@@ -228,6 +228,12 @@ table {
     h3 {
         margin: 0.5em 0;
     }
+    td {
+        white-space: pre;
+        &.ws-normal {
+            white-space: normal;
+        }
+    }
 }
 
 .phpinfo {

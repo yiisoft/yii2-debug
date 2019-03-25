@@ -44,14 +44,14 @@ use yii\helpers\Inflector;
             <?php if (!empty($bundle['css'])): ?>
                 <tr>
                     <th>css</th>
-                    <td>
+                    <td class="ws-normal">
                         <?= Html::ul($bundle['css'], [
                             'class' => 'assets',
                             'item' => function ($item) {
                                 if (is_array($item)) {
                                     $item = reset($item);
                                 }
-                                return Html::encode($item);
+                                return Html::tag('li', Html::encode($item));
                             }
                         ]) ?>
                     </td>
@@ -60,14 +60,14 @@ use yii\helpers\Inflector;
             <?php if (!empty($bundle['js'])): ?>
                 <tr>
                     <th>js</th>
-                    <td>
+                    <td class="ws-normal">
                         <?= Html::ul($bundle['js'], [
                             'class' => 'assets',
                             'item' => function ($item) {
                                 if (is_array($item)) {
                                     $item = reset($item);
                                 }
-                                return Html::encode($item);
+                                return Html::tag('li', Html::encode($item));
                             }
                         ]) ?>
                     </td>
@@ -76,7 +76,7 @@ use yii\helpers\Inflector;
             <?php if (!empty($bundle['depends'])): ?>
                 <tr>
                     <th>depends</th>
-                    <td>
+                    <td class="ws-normal">
                         <ul class="assets">
                             <?php foreach ($bundle['depends'] as $depend): ?>
                                 <li><?= Html::a($depend, '#' . Inflector::camel2id($depend)) ?></li>
