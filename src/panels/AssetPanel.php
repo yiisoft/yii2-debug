@@ -8,7 +8,6 @@
 namespace yii\debug\panels;
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\debug\Panel;
 use yii\helpers\Html;
 use yii\web\AssetBundle;
@@ -77,7 +76,7 @@ class AssetPanel extends Panel
     {
         try {
             Yii::$app->view->assetManager;
-        } catch (InvalidConfigException $exception) {
+        } catch (\Exception $exception) {
             return false;
         }
         return true;
