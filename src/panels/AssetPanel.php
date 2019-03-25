@@ -76,7 +76,7 @@ class AssetPanel extends Panel
     public function isEnabled()
     {
         try {
-            Yii::$app->view->assetManager;
+            isset(Yii::$app->view->assetManager) && Yii::$app->view->assetManager;
         } catch (InvalidConfigException $exception) {
             return false;
         }
