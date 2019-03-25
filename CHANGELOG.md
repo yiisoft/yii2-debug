@@ -4,8 +4,10 @@ Yii Framework 2 debug extension Change Log
 2.1.1 under development
 -----------------------
 
-- Bug #359: Fixed the console warning about sourcemaps (machour)
+- Bug #354: Fixed the formatting of data in table cells (machour)
 - Bug #355: Fixed color highlighting on debug index (Sarke)
+- Bug #358: Enhance error message if index.data file is not accessible (machour)
+- Bug #359: Fixed the console warning about sourcemaps (machour)
 - Enh #213: Made the debug panel resizeable, and allowed setting default height in configuration (machour)
 
 

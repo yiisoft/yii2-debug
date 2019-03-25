@@ -83,8 +83,8 @@ class LogTarget extends Target
      */
     private function updateIndexFile($indexFile, $summary)
     {
-        touch($indexFile);
-        if (($fp = @fopen($indexFile, 'r+')) === false) {
+
+        if (!@touch($indexFile) || ($fp = @fopen($indexFile, 'r+')) === false) {
             throw new InvalidConfigException("Unable to open debug data index file: $indexFile");
         }
         @flock($fp, LOCK_EX);
