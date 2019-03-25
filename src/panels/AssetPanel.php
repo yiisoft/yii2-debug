@@ -49,7 +49,7 @@ class AssetPanel extends Panel
      */
     public function save()
     {
-        $bundles = Yii::$app->view->assetManager->bundles;
+        $bundles = Yii::$app->assetManager->bundles;
         if (empty($bundles)) { // bundles can be false
             return [];
         }
@@ -74,12 +74,7 @@ class AssetPanel extends Panel
      */
     public function isEnabled()
     {
-        try {
-            Yii::$app->view->assetManager;
-        } catch (\Exception $exception) {
-            return false;
-        }
-        return true;
+        return isset(Yii::$app->assetManager);
     }
 
     /**
