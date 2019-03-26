@@ -133,26 +133,25 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $traceLine = self::DEFAULT_IDE_TRACELINE;
 
-    /**
-     * @var string|array HTML title
+     /**
+     * @var string|array|callable Page title could be a string, array or a callable function
      * ```php
      *  ...
-     *  'html_title'=> 'Custom Debug Title',
+     *  'pageTitle'=> 'Custom Debug Title',
      *  ...
-     * ```
-     * ```php
-     * 'html_title'=> [
+     * // OR
+     * 'pageTitle'=> [
      *     'base-url'=> 'page title',
      *     'http://qa.example.test'=> 'qa debugger'
      * ]
+     * // OR
+     * 'pageTitle'=> function($url){
+     *     $domain = getDomain($url);
+     *     return $domain . ' debugger';
+     * }
      * ```
      */
-    public $html_title;
-
-    /**
-     * @var string
-     */
-    private $default_html_title = 'Yii Debugger';
+    public $pageTitle;
 
     /**
      * @var string Yii logo URL
