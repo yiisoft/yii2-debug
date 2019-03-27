@@ -134,16 +134,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $traceLine = self::DEFAULT_IDE_TRACELINE;
 
      /**
-     * @var string|array|callable Page title could be a string, array or a callable function
+     * @var string|callable Page title could be a string or a callable function
      * ```php
      *  ...
      *  'pageTitle'=> 'Custom Debug Title',
      *  ...
-     * // OR
-     * 'pageTitle'=> [
-     *     'base-url'=> 'page title',
-     *     'http://qa.example.test'=> 'qa debugger'
-     * ]
      * // OR
      * 'pageTitle'=> function($url){
      *     $domain = getDomain($url);
@@ -439,11 +434,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function htmlTitle(){
         if(is_string($this->pageTitle) && !empty($this->pageTitle))
             return $this->pageTitle;
-        $url = Url::base(true);
-        if(is_array($this->pageTitle) && array_key_exists($url, $this->pageTitle))
-            return $this->pageTitle[$url];
         elseif (is_callable($this->pageTitle))
-            return call_user_func($this->pageTitle, $url);
+            return call_user_func($this->pageTitle, Url::base(true));
         return 'Yii Debugger';
     }
 }
