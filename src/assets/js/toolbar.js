@@ -77,7 +77,7 @@
                 return toolbarEl.classList.contains(iframeActiveClass);
             },
             resizeIframe = function(mouse) {
-                var availableHeight = document.body.clientHeight - barEl.clientHeight;
+                var availableHeight = window.innerHeight - barEl.clientHeight;
                 viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
             },
             showIframe = function (href) {
