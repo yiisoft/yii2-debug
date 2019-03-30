@@ -63,6 +63,6 @@ $url = $firstPanel->getUrl();
     </div>
 
     <div class="yii-debug-toolbar__view">
-        <iframe src="about:blank" frameborder="0"></iframe>
+        <iframe src="about:blank" frameborder="0" title="Yii2 debug bar"></iframe>
     </div>
 </div>
