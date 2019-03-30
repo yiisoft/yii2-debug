@@ -432,14 +432,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * @return string
+     * @return string page title to be used in HTML
+     * @since 2.1.1
      */
     public function htmlTitle()
     {
-        if(is_string($this->pageTitle) && !empty($this->pageTitle)){
+        if (is_string($this->pageTitle) && !empty($this->pageTitle)) {
            return $this->pageTitle;
-        }
-        elseif (is_callable($this->pageTitle)){
+        } elseif (is_callable($this->pageTitle)) {
             return call_user_func($this->pageTitle, Url::base(true));
         }
         return 'Yii Debugger';
