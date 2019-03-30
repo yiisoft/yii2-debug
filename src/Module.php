@@ -140,23 +140,22 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.1.1
      */
     public $urlRuleClass = 'yii\web\UrlRule';
-
      /**
-     * @var string|callable Page title could be a string or a callable function
-     *
-     * ```php
-     * ...
-     * 'pageTitle' => 'Custom Debug Title',
-     * ...
-     * // OR
-     * 'pageTitle' => function($url) {
-     *     $domain = getDomain($url);
-     *     return $domain . ' debugger';
-     * }
-     * ```
-     *
-     * @since 2.1.1
-     */
+      * @var string|callable Page title could be a string or a callable function
+      *
+      * ```php
+      * ...
+      * 'pageTitle' => 'Custom Debug Title',
+      * ...
+      * // OR
+      * 'pageTitle' => function($url) {
+      *     $domain = getDomain($url);
+      *     return $domain . ' debugger';
+      * }
+      * ```
+      *
+      * @since 2.1.1
+      */
     public $pageTitle;
 
     /**

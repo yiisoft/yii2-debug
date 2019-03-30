@@ -1,10 +1,9 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.1 under development
------------------------
+2.1.1 March 30, 2019
+--------------------
 
-- Enh #103: Allow customizing the `UrlRule` class used to generate rules in bootstrap (machour)
 - Bug #237: Delay attaching to `View` events until action takes place (machour)
 - Bug #275: Avoid initialization errors in `AssetPanel` (machour)
 - Bug #298: Fix keyboard navigation when bar is collapsed/hidden (machour)
@@ -12,6 +11,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #355: Fixed color highlighting on debug index (Sarke)
 - Bug #358: Enhance error message if `index.data` file is not accessible (machour)
 - Bug #359: Fixed the console warning about sourcemaps (machour)
+- Enh #103: Allow customizing the `UrlRule` class used to generate rules in bootstrap (machour)
 - Enh #213: Made the debug panel resizeable, and allowed setting default height in configuration (machour)
 - Enh #353: Added module `pageTitle` property that allows setting page title to be used (m-wardany)
 - Enh #371: Improved toolbar accessibility (machour)
