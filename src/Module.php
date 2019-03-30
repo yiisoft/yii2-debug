@@ -135,6 +135,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
      /**
      * @var string|callable Page title could be a string or a callable function
+     *
      * ```php
      *  ...
      *  'pageTitle'=> 'Custom Debug Title',
@@ -145,6 +146,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *     return $domain . ' debugger';
      * }
      * ```
+     *
+     * @since 2.1.1
      */
     public $pageTitle;
 
