@@ -238,8 +238,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
-            $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
             $app->getResponse()->on(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
+        });
+        $app->on(Application::EVENT_BEFORE_ACTION, function () use ($app) {
+            $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
         });
 
         $app->getUrlManager()->addRules([

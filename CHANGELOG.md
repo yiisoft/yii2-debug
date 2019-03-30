@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Bug #103: Allow customizing the UrlRule class used to generate rules in bootstrap (machour)
+- Bug #237: Delay attaching to View events until action takes place (machour)
 - Bug #275: Avoid initialization errors in AssetPanel (machour)
 - Bug #298: Fix keyboard navigation when bar is collapsed/hidden (machour)
 - Bug #354: Fixed the formatting of data in table cells (machour)
