@@ -68,6 +68,7 @@
             toggleEl = toolbarEl.querySelector(toggleSelector),
             externalEl = toolbarEl.querySelector(externalSelector),
             blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
             iframeEl = viewEl.querySelector('iframe'),
             iframeHeight = function () {
                 return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
@@ -84,6 +85,8 @@
                 toolbarEl.classList.add(iframeActiveClass);
 
                 iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
                 viewEl.style.height = iframeHeight();
                 setTimeout(function () {
                     toolbarEl.classList.remove(iframeAnimatingClass);
@@ -92,6 +95,7 @@
             hideIframe = function () {
                 toolbarEl.classList.add(iframeAnimatingClass);
                 toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
                 removeActiveBlocksCls();
 
                 externalEl.href = '#';
@@ -109,7 +113,13 @@
                 toolbarEl.classList.add(toolbarAnimatingClass);
                 if (toolbarEl.classList.contains(className)) {
                     toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
                 } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
                     toolbarEl.classList.add(className);
                 }
                 setTimeout(function () {
@@ -148,6 +158,10 @@
             setTimeout(function () {
                 toolbarEl.style.transition = transition;
             }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
         }
 
         toolbarEl.style.display = 'block';

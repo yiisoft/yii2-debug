@@ -6,6 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #103: Allow customizing the UrlRule class used to generate rules in bootstrap (machour)
 - Bug #275: Avoid initialization errors in AssetPanel (machour)
+- Bug #298: Fix keyboard navigation when bar is collapsed/hidden (machour)
 - Bug #354: Fixed the formatting of data in table cells (machour)
 - Bug #355: Fixed color highlighting on debug index (Sarke)
 - Bug #358: Enhance error message if index.data file is not accessible (machour)
