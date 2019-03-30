@@ -97,7 +97,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * the oldest ones will be removed.
      */
     public $historySize = 50;
-    /** @var int the debug bar default height, as a percentage of the total screen height */
+    /**
+     * @var int the debug bar default height, as a percentage of the total screen height
+     * @since 2.1.1
+     */
     public $defaultHeight = 50;
     /**
      * @var bool whether to enable message logging for the requests about debug module actions.
