@@ -137,11 +137,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @var string|callable Page title could be a string or a callable function
      *
      * ```php
-     *  ...
-     *  'pageTitle'=> 'Custom Debug Title',
-     *  ...
+     * ...
+     * 'pageTitle' => 'Custom Debug Title',
+     * ...
      * // OR
-     * 'pageTitle'=> function($url){
+     * 'pageTitle' => function($url) {
      *     $domain = getDomain($url);
      *     return $domain . ' debugger';
      * }
