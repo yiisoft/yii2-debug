@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.1 under development
 -----------------------
 
+- Bug #237: Delay attaching to View events until action takes place (machour)
 - Bug #275: Avoid initialization errors in AssetPanel (machour)
 - Bug #354: Fixed the formatting of data in table cells (machour)
 - Bug #355: Fixed color highlighting on debug index (Sarke)
