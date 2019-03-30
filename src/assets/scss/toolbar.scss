@@ -179,7 +179,7 @@
     text-overflow: ellipsis;
     color: #ffffff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #999999;
+    background-color: #737373;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -215,7 +215,7 @@ a.yii-debug-toolbar__label:focus {
 }
 
 .yii-debug-toolbar__label_success {
-    background-color: #468847;
+    background-color: #217822;
 
     &[href] {
         background-color: #356635;
@@ -223,7 +223,7 @@ a.yii-debug-toolbar__label:focus {
 }
 
 .yii-debug-toolbar__label_info {
-    background-color: #3a87ad;
+    background-color: #0b72b8;
 
     &[href] {
         background-color: #2d6987;
