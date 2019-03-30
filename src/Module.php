@@ -444,9 +444,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         if (is_string($this->pageTitle) && !empty($this->pageTitle)) {
            return $this->pageTitle;
-        } elseif (is_callable($this->pageTitle)) {
+        }
+
+        if (is_callable($this->pageTitle)) {
             return call_user_func($this->pageTitle, Url::base(true));
         }
+
         return 'Yii Debugger';
     }
 }
