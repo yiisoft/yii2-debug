@@ -138,6 +138,24 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $urlRuleClass = 'yii\web\UrlRule';
 
+     /**
+     * @var string|callable Page title could be a string or a callable function
+     *
+     * ```php
+     * ...
+     * 'pageTitle' => 'Custom Debug Title',
+     * ...
+     * // OR
+     * 'pageTitle' => function($url) {
+     *     $domain = getDomain($url);
+     *     return $domain . ' debugger';
+     * }
+     * ```
+     *
+     * @since 2.1.1
+     */
+    public $pageTitle;
+
     /**
      * @var string Yii logo URL
      */
@@ -416,5 +434,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
             return Yii::$app->extensions[$extensionName]['version'];
         }
         return parent::defaultVersion();
+    }
+
+    /**
+     * @return string page title to be used in HTML
+     * @since 2.1.1
+     */
+    public function htmlTitle()
+    {
+        if (is_string($this->pageTitle) && !empty($this->pageTitle)) {
+           return $this->pageTitle;
+        } elseif (is_callable($this->pageTitle)) {
+            return call_user_func($this->pageTitle, Url::base(true));
+        }
+        return 'Yii Debugger';
     }
 }

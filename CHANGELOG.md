@@ -12,6 +12,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #358: Enhance error message if index.data file is not accessible (machour)
 - Bug #359: Fixed the console warning about sourcemaps (machour)
 - Enh #213: Made the debug panel resizeable, and allowed setting default height in configuration (machour)
+- Enh #353: Added module `pageTitle` property that allows setting page title to be used (m-wardany)
 
 
 2.1.0 March 17, 2019
