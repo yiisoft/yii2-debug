@@ -35,12 +35,11 @@
     }
     &.yii-debug-toolbar_iframe_active {
         &:not(.yii-debug-toolbar_animating) {
-            &:before {
-                content: "";
+            .yii-debug-toolbar__resize-handle {
                 display: block;
                 height: 4px;
                 cursor: ns-resize;
-                margin-bottom: 0px;
+                margin-bottom: 0;
                 z-index: 1000001;
                 position: absolute;
                 left: 0;
