@@ -108,7 +108,7 @@ class MailPanel extends Panel
     {
         return Yii::$app->view->render('panels/mail/summary', [
             'panel' => $this,
-            'mailCount' => is_array($this->data) ? count($this->data) : ⚠️,
+            'mailCount' => is_array($this->data) ? count($this->data) : '⚠️',
         ]);
     }
 
