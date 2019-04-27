@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\helpers\VarDumper;
 
 /* @var $panel yii\debug\panels\DumpPanel */
 /* @var $searchModel yii\debug\models\search\Log */
@@ -22,11 +21,7 @@ echo GridView::widget([
         [
             'attribute' => 'message',
             'value' => function ($data) use ($panel) {
-                $message = VarDumper::dumpAsString($data['message'], $panel->depth, $panel->highlight);
-                //don't encode highlighted variables
-                if (!$panel->highlight) {
-                    $message = Html::encode($message);
-                }
+                $message = $panel->varDumper($data['message']);
 
                 if (!empty($data['trace'])) {
                     $message .= Html::ul($data['trace'], [
