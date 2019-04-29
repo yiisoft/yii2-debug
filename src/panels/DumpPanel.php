@@ -36,9 +36,11 @@ class DumpPanel extends Panel
      */
     public $depth = 10;
     /**
-     * @var callable callback that replaces the built-in var dumper
+     * @var callable callback that replaces the built-in var dumper. The signature of 
+     * this function should be: `function (mixed $data, DumpPanel $panel)`
+     * @since 2.1.3
      */
-    public $varDumperCallback;
+    public $varDumpCallback;
 
     /**
      * @var array log messages extracted to array as models, to use with data provider.
@@ -93,10 +95,15 @@ class DumpPanel extends Panel
         return $messages;
     }
 
-    public function varDumper($var)
+    /**
+     * Called by view to format the dumped variable.
+     * 
+     * @since 2.1.3
+     */
+    public function varDump($var)
     {
-        if (is_callable($this->varDumperCallback)) {
-            return call_user_func($this->varDumperCallback, $var, $this);
+        if (is_callable($this->varDumpCallback)) {
+            return call_user_func($this->varDumpCallback, $var, $this);
         }
 
         $message = VarDumper::dumpAsString($var, $this->depth, $this->highlight);
