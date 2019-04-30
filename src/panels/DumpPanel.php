@@ -36,7 +36,7 @@ class DumpPanel extends Panel
      */
     public $depth = 10;
     /**
-     * @var callable callback that replaces the built-in var dumper. The signature of 
+     * @var callable callback that replaces the built-in var dumper. The signature of
      * this function should be: `function (mixed $data, DumpPanel $panel)`
      * @since 2.1.3
      */
@@ -97,7 +97,7 @@ class DumpPanel extends Panel
 
     /**
      * Called by view to format the dumped variable.
-     * 
+     *
      * @since 2.1.3
      */
     public function varDump($var)

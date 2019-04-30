@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.3 under development
------------------------
+2.1.3 April 30, 2019
+--------------------
 
 - Enh #375: Made var dumper in `DumpPanel` extensible with `varDumpCallback` (Sarke)
 
