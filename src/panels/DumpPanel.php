@@ -11,6 +11,7 @@ use Yii;
 use yii\log\Logger;
 use yii\debug\models\search\Log;
 use yii\debug\Panel;
+use yii\helpers\VarDumper;
 
 /**
  * Dump panel that collects and displays debug messages (Logger::LEVEL_TRACE).
@@ -34,6 +35,12 @@ class DumpPanel extends Panel
      * @var int maximum depth that the dumper should go into the variable
      */
     public $depth = 10;
+    /**
+     * @var callable callback that replaces the built-in var dumper. The signature of 
+     * this function should be: `function (mixed $data, DumpPanel $panel)`
+     * @since 2.1.3
+     */
+    public $varDumpCallback;
 
     /**
      * @var array log messages extracted to array as models, to use with data provider.
@@ -86,6 +93,27 @@ class DumpPanel extends Panel
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_TRACE, $this->categories, $except);
 
         return $messages;
+    }
+
+    /**
+     * Called by view to format the dumped variable.
+     * 
+     * @since 2.1.3
+     */
+    public function varDump($var)
+    {
+        if (is_callable($this->varDumpCallback)) {
+            return call_user_func($this->varDumpCallback, $var, $this);
+        }
+
+        $message = VarDumper::dumpAsString($var, $this->depth, $this->highlight);
+
+        //don't encode highlighted variables
+        if (!$this->highlight) {
+            $message = Html::encode($message);
+        }
+
+        return $message;
     }
 
     /**
