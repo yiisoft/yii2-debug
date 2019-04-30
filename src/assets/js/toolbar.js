@@ -68,18 +68,25 @@
             toggleEl = toolbarEl.querySelector(toggleSelector),
             externalEl = toolbarEl.querySelector(externalSelector),
             blockEls = barEl.querySelectorAll(blockSelector),
+            blockLinksEls = document.querySelectorAll(blockSelector + ':not(.' + titleClass + ') a'),
             iframeEl = viewEl.querySelector('iframe'),
             iframeHeight = function () {
-                return (window.innerHeight * 0.7) + 'px';
+                return (window.innerHeight * (toolbarEl.dataset.height / 100) - barEl.clientHeight) + 'px';
             },
             isIframeActive = function () {
                 return toolbarEl.classList.contains(iframeActiveClass);
+            },
+            resizeIframe = function(mouse) {
+                var availableHeight = window.innerHeight - barEl.clientHeight;
+                viewEl.style.height = Math.min(availableHeight, availableHeight - mouse.y) + "px";
             },
             showIframe = function (href) {
                 toolbarEl.classList.add(iframeAnimatingClass);
                 toolbarEl.classList.add(iframeActiveClass);
 
                 iframeEl.src = externalEl.href = href;
+                iframeEl.removeAttribute('tabindex');
+
                 viewEl.style.height = iframeHeight();
                 setTimeout(function () {
                     toolbarEl.classList.remove(iframeAnimatingClass);
@@ -88,6 +95,7 @@
             hideIframe = function () {
                 toolbarEl.classList.add(iframeAnimatingClass);
                 toolbarEl.classList.remove(iframeActiveClass);
+                iframeEl.setAttribute("tabindex", "-1");
                 removeActiveBlocksCls();
 
                 externalEl.href = '#';
@@ -105,7 +113,13 @@
                 toolbarEl.classList.add(toolbarAnimatingClass);
                 if (toolbarEl.classList.contains(className)) {
                     toolbarEl.classList.remove(className);
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.setAttribute('tabindex', "-1");
+                    });
                 } else {
+                    [].forEach.call(blockLinksEls, function (el) {
+                        el.removeAttribute('tabindex');
+                    });
                     toolbarEl.classList.add(className);
                 }
                 setTimeout(function () {
@@ -144,6 +158,10 @@
             setTimeout(function () {
                 toolbarEl.style.transition = transition;
             }, animationTime);
+        } else {
+            [].forEach.call(blockLinksEls, function (el) {
+                el.setAttribute('tabindex', "-1");
+            });
         }
 
         toolbarEl.style.display = 'block';
@@ -153,6 +171,18 @@
                 viewEl.style.height = iframeHeight();
             }
         };
+
+        toolbarEl.addEventListener("mousedown", function(e) {
+            if (isIframeActive() && (e.y - toolbarEl.offsetTop < 4 /* 4px click zone */)) {
+                document.addEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
+
+        document.addEventListener("mouseup", function(){
+            if (isIframeActive()) {
+                document.removeEventListener("mousemove", resizeIframe, false);
+            }
+        }, false);
 
         barEl.onclick = function (e) {
             var target = e.target,

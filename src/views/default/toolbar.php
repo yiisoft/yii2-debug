@@ -7,11 +7,13 @@ use yii\helpers\Url;
 /* @var $panels \yii\debug\Panel[] */
 /* @var $tag string */
 /* @var $position string */
+/* @var $defaultHeight int */
 
 $firstPanel = reset($panels);
 $url = $firstPanel->getUrl();
 ?>
-<div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_<?= $position ?>">
+<div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_<?= $position ?>" data-height="<?= $defaultHeight ?>">
+    <div class="yii-debug-toolbar__resize-handle"></div>
     <div class="yii-debug-toolbar__bar">
         <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
             <a href="<?= Url::to(['index']) ?>">
@@ -62,6 +64,6 @@ $url = $firstPanel->getUrl();
     </div>
 
     <div class="yii-debug-toolbar__view">
-        <iframe src="about:blank" frameborder="0"></iframe>
+        <iframe src="about:blank" frameborder="0" title="Yii2 debug bar"></iframe>
     </div>
 </div>

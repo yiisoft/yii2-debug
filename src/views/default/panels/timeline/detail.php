@@ -23,16 +23,20 @@ TimelineAsset::register($this);
         'class' => 'debug-timeline-panel__search form-inline',
     ],
 ]) ?>
+
 <?=$form->field($searchModel, 'duration', [
-    'options' => ['class' => ['form-group', 'duration']]
+    'options' => ['class' => ['form-group', 'duration']],
+    'template' => '{label}<div class="input-group">{input}<div class="input-group-append">
+    <span class="input-group-text">ms</span>
+  </div></div>'
 ])->input('number', [
     'min' => 0,
     'size' => '3',
-    'class' => 'form-control'
+    'class' => 'form-control form-control-sm'
 ])->hint('ms', ['tag' => 'span']);?>
 <?=$form->field($searchModel, 'category', [
     'options' => ['class' => ['form-group', 'duration']]
-])->textInput(['class' => 'form-control']);?>
+])->textInput(['class' => 'form-control form-control-sm']);?>
 
 <div class="form-group">
     <?=Html::submitButton('Filter', ['class' => ['btn', 'btn-success']])?>

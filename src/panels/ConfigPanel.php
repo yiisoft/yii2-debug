@@ -77,6 +77,7 @@ class ConfigPanel extends Panel
             '<div class="table-responsive"><table class="table table-condensed table-bordered table-striped table-hover config-php-info-table" ',
             $phpinfo);
         $phpinfo = str_replace('</table>', '</table></div>', $phpinfo);
+        $phpinfo = str_replace('<div class="center">', '<div class="phpinfo">', $phpinfo);
         return $phpinfo;
     }
 
