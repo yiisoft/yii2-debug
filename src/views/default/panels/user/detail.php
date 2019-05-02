@@ -7,14 +7,14 @@ use yii\widgets\DetailView;
 /* @var $panel yii\debug\panels\UserPanel */
 ?>
 
-<h1>User</h1>
+<h1><?=$panel->getName()?></h1>
 
 <?php
 if (isset($panel->data['identity'])) {
     $items = [
-        'nav' => ['User'],
+        'nav' => [$panel->getName()],
         'content' => [
-            '<h2>User Info</h2>' . DetailView::widget([
+            "<h2>{$panel->getName()} Info</h2>" . DetailView::widget([
                 'model' => $panel->data['identity'],
                 'attributes' => $panel->data['attributes']
             ])
@@ -26,7 +26,7 @@ if (isset($panel->data['identity'])) {
     }
 
     if ($panel->canSwitchUser()) {
-        $items['nav'][] = 'Switch User';
+        $items['nav'][] = "Switch {$panel->getName()}";
         $items['content'][] = $this->render('switch', ['panel' => $panel]);
     }
 
