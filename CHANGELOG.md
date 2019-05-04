@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.4 under development
 -----------------------
 
-- no changes in this release.
+- Bug #377: Fixed serialization of Closure error in `DumpPanel` (Sarke)
 
 
 2.1.3 April 30, 2019
