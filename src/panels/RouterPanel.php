@@ -84,7 +84,6 @@ class RouterPanel extends Panel
      */
     public function save()
     {
-        $target = $this->module->logTarget;
         if (Yii::$app->requestedAction) {
             if (Yii::$app->requestedAction instanceof InlineAction) {
                 $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
@@ -95,7 +94,7 @@ class RouterPanel extends Panel
             $action = null;
         }
         return [
-            'messages' => $target::filterMessages($target->messages, Logger::LEVEL_TRACE, $this->_categories),
+            'messages' => $this->getLogMessages(Logger::LEVEL_TRACE, $this->_categories),
             'route'    => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
             'action'   => $action,
         ];

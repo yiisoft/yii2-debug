@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 
 /**
  * Panel is a base class for debugger panel classes. It defines how data should be collected,
@@ -196,7 +197,7 @@ class Panel extends Component
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
 
         foreach ($messages as &$message) {
-            if (is_string($message[0])) {
+            if (!isset($message[0]) || is_string($message[0])) {
                 continue;
             }
 
