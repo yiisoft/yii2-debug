@@ -84,13 +84,12 @@ class DumpPanel extends Panel
      */
     public function save()
     {
-        $target = $this->module->logTarget;
         $except = [];
         if (isset($this->module->panels['router'])) {
             $except = $this->module->panels['router']->getCategories();
         }
 
-        $messages = $target->filterMessages($target->messages, Logger::LEVEL_TRACE, $this->categories, $except);
+        $messages = $this->getLogMessages(Logger::LEVEL_TRACE, $this->categories, $except);
 
         return $messages;
     }
