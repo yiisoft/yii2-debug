@@ -159,7 +159,7 @@ class DbPanel extends Panel
      */
     public function getProfileLogs()
     {
-        return $$this->getLogMessages(Logger::LEVEL_PROFILE, ['yii\db\Command::query', 'yii\db\Command::execute']);
+        return $this->getLogMessages(Logger::LEVEL_PROFILE, ['yii\db\Command::query', 'yii\db\Command::execute']);
     }
 
     /**
