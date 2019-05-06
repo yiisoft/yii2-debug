@@ -196,6 +196,10 @@ class Panel extends Component
         $target = $this->module->logTarget;
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
 
+        if (!$stringify) {
+            return $messages;
+        }
+
         foreach ($messages as &$message) {
             if (!isset($message[0]) || is_string($message[0])) {
                 continue;
