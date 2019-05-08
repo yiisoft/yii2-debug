@@ -188,10 +188,10 @@ class Panel extends Component
      * @param array $except the message categories to exclude. If empty, it means all categories are allowed.
      * @param bool $stringify Convert non-string (such as closures) to strings
      * @return array the filtered messages.
-     * @since 2.1.14
+     * @since 2.1.4
      * @see \yii\log\Target::filterMessages()
      */
-    public function getLogMessages($levels = 0, $categories = [], $except = [], $stringify = true)
+    protected function getLogMessages($levels = 0, $categories = [], $except = [], $stringify = true)
     {
         $target = $this->module->logTarget;
         $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
