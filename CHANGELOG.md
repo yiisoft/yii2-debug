@@ -4,8 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.4 under development
 -----------------------
 
-- no changes in this release.
-
+- Bug #381: Fixed text wrapping inside tables (machour)
 
 2.1.3 April 30, 2019
 --------------------

@@ -229,7 +229,7 @@ table {
         margin: 0.5em 0;
     }
     td {
-        white-space: pre;
+        white-space: pre-wrap;
         &.ws-normal {
             white-space: normal;
         }
