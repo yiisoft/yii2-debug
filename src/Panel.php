@@ -12,6 +12,7 @@ use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\VarDumper;
+use yii\log\Logger;
 
 /**
  * Panel is a base class for debugger panel classes. It defines how data should be collected,
