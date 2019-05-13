@@ -195,7 +195,7 @@ class Panel extends Component
     protected function getLogMessages($levels = 0, $categories = [], $except = [], $stringify = true)
     {
         $target = $this->module->logTarget;
-        $messages = $target->filterMessages($target->messages, Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
+        $messages = $target->filterMessages($target->messages, $levels, $categories, $except);
 
         if (!$stringify) {
             return $messages;
