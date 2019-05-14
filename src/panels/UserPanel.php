@@ -68,6 +68,11 @@ class UserPanel extends Panel
      */
     public $userComponent = 'user';
 
+    /**
+     * @var string Display Name of the debug panel.
+     * @since 2.1.14
+     */
+    public $displayName = 'User';
 
     /**
      * {@inheritdoc}
@@ -196,7 +201,7 @@ class UserPanel extends Panel
      */
     public function getName()
     {
-        return 'User';
+        return $this->displayName;
     }
 
     /**
@@ -220,7 +225,7 @@ class UserPanel extends Panel
      */
     public function save()
     {
-        $identity = Yii::$app->user->identity;
+        $identity = Yii::$app->{$this->userComponent}->identity;
 
         if (!isset($identity)) {
             return null;

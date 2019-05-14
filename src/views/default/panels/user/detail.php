@@ -5,16 +5,19 @@ use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */
 /* @var $panel yii\debug\panels\UserPanel */
+
+$encodedName = Html::encode($panel->getName());
 ?>
 
-<h1>User</h1>
+<h1><?= $encodedName ?></h1>
 
 <?php
 if (isset($panel->data['identity'])) {
+    $name = 
     $items = [
-        'nav' => ['User'],
+        'nav' => [$encodedName],
         'content' => [
-            '<h2>User Info</h2>' . DetailView::widget([
+            "<h2>{$encodedName} Info</h2>" . DetailView::widget([
                 'model' => $panel->data['identity'],
                 'attributes' => $panel->data['attributes']
             ])
@@ -26,7 +29,7 @@ if (isset($panel->data['identity'])) {
     }
 
     if ($panel->canSwitchUser()) {
-        $items['nav'][] = 'Switch User';
+        $items['nav'][] = "Switch {$encodedName}";
         $items['content'][] = $this->render('switch', ['panel' => $panel]);
     }
 

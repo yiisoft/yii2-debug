@@ -1,4 +1,6 @@
 <?php
+use yii\helpers\Html;
+
 /* @var $this \yii\web\View */
 /* @var $panel yii\debug\panels\UserPanel */
 ?>
@@ -8,10 +10,10 @@
             <span class="yii-debug-toolbar__label">Guest</span>
         <?php else: ?>
             <?php if ($panel->getUser()->isGuest || $panel->userSwitch->isMainUser()): ?>
-                User <span
+                <?= Html::encode($panel->getName()) ?> <span
                     class="yii-debug-toolbar__label yii-debug-toolbar__label_info"><?= $panel->data['id'] ?></span>
             <?php else: ?>
-                User switching <span
+                <?= Html::encode($panel->getName()) ?> switching <span
                     class="yii-debug-toolbar__label yii-debug-toolbar__label_warning"><?= $panel->data['id'] ?></span>
             <?php endif; ?>
             <?php if ($panel->canSwitchUser()): ?>
