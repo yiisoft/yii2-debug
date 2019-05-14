@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $panel yii\debug\panels\UserPanel */
 ?>
 
-<h1><?=$panel->getName()?></h1>
+<h1><?= Html::encode($panel->getName()) ?></h1>
 
 <?php
 if (isset($panel->data['identity'])) {
