@@ -67,12 +67,12 @@ class UserPanel extends Panel
      * @since 2.0.13
      */
     public $userComponent = 'user';
-
     /**
      * @var string Display Name of the debug panel.
-     * @since 2.1.14
+     * @since 2.1.4
      */
     public $displayName = 'User';
+
 
     /**
      * {@inheritdoc}
