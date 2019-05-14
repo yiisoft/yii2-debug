@@ -15,7 +15,7 @@ $encodedName = Html::encode($panel->getName());
 if (isset($panel->data['identity'])) {
     $name = 
     $items = [
-        'nav' => [$panel->getName()],
+        'nav' => [$encodedName],
         'content' => [
             "<h2>{$encodedName} Info</h2>" . DetailView::widget([
                 'model' => $panel->data['identity'],
@@ -39,7 +39,7 @@ if (isset($panel->data['identity'])) {
         foreach ($items['nav'] as $k => $item) {
             echo Html::tag(
                 'li',
-                Html::a(Html::encode($item), '#u-tab-' . $k, [
+                Html::a($item, '#u-tab-' . $k, [
                     'class' => $k === 0 ? 'nav-link active' : 'nav-link',
                     'data-toggle' => 'tab',
                     'role' => 'tab',
