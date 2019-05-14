@@ -67,7 +67,7 @@ class LogPanel extends Panel
             $except = $this->module->panels['router']->getCategories();
         }
 
-        $messages = $this->getLogMessages(Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except);
+        $messages = $this->getLogMessages(Logger::LEVEL_ERROR | Logger::LEVEL_INFO | Logger::LEVEL_WARNING | Logger::LEVEL_TRACE, [], $except, true);
 
         return ['messages' => $messages];
     }

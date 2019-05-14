@@ -73,9 +73,9 @@ class DumpPanel extends Panel
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
 
         return Yii::$app->view->render('panels/dump/detail', [
-            'dataProvider' => $dataProvider,
-            'panel' => $this,
-            'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'panel' => $this,
+                    'searchModel' => $searchModel,
         ]);
     }
 
@@ -89,7 +89,7 @@ class DumpPanel extends Panel
             $except = $this->module->panels['router']->getCategories();
         }
 
-        $messages = $this->getLogMessages(Logger::LEVEL_TRACE, $this->categories, $except);
+        $messages = $this->getLogMessages(Logger::LEVEL_TRACE, $this->categories, $except, true);
 
         return $messages;
     }
