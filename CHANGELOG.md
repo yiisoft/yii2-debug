@@ -6,7 +6,9 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #376: Fixed user panel when using custom user component (iridance)
 - Enh #376: Allow setting user panel title (iridance)
-
+- Bug #377: Fixed serialization of Closure error in `DumpPanel` (Sarke)
+- Bug #381: Fixed text wrapping inside tables (machour)
+- Bug #388: Fixed tooltip display in timeline (machour)
 
 2.1.3 April 30, 2019
 --------------------

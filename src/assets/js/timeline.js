@@ -32,8 +32,8 @@
                 new Tooltip(link);
 
                 on(link, 'show.bs.tooltip', function() {
-                    if (this.dataset.hasDataAttr('memory')) {
-                        var data = this.dataset.getDataAttr('memory');
+                    if (this.hasAttribute('data-memory')) {
+                        var data = this.dataset.memory;
                         self.options.$memory.textContent = data[0];
                         self.options.$memory.style.bottom = data[1] + '%';
                     }

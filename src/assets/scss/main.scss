@@ -28,6 +28,7 @@ $h3-font-size: 1.125rem;
 @import "bs-4.3.1/nav";
 @import "bs-4.3.1/badge";
 @import "bs-4.3.1/pagination";
+@import "bs-4.3.1/tooltip";
 @import "bs-4.3.1/list-group";
 @import "bs-4.3.1/utilities";
 
@@ -229,7 +230,7 @@ table {
         margin: 0.5em 0;
     }
     td {
-        white-space: pre;
+        white-space: pre-wrap;
         &.ws-normal {
             white-space: normal;
         }
