@@ -4,7 +4,8 @@ Yii Framework 2 debug extension Change Log
 2.1.4 under development
 -----------------------
 
-- no changes in this release.
+- Bug #376: Fixed user panel when using custom user component (iridance)
+- Enh #376: Allow setting user panel title (iridance)
 
 
 2.1.3 April 30, 2019
