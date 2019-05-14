@@ -26,7 +26,8 @@ if (isset($panel->data['identity'])) {
     }
 
     if ($panel->canSwitchUser()) {
-        $items['nav'][] = "Switch {$panel->getName()}";
+        $name = Html::encode($panel->getName());
+        $items['nav'][] = "Switch {$name}";
         $items['content'][] = $this->render('switch', ['panel' => $panel]);
     }
 
@@ -36,7 +37,7 @@ if (isset($panel->data['identity'])) {
         foreach ($items['nav'] as $k => $item) {
             echo Html::tag(
                 'li',
-                Html::a($item, '#u-tab-' . $k, [
+                Html::a(Html::encode($item), '#u-tab-' . $k, [
                     'class' => $k === 0 ? 'nav-link active' : 'nav-link',
                     'data-toggle' => 'tab',
                     'role' => 'tab',
