@@ -70,8 +70,7 @@ class UserPanel extends Panel
 
     /**
      * @var string Display Name of the debug panel.
-     *
-     * @var string
+     * @since 2.1.14
      */
     public $displayName = 'User';
 
