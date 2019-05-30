@@ -97,3 +97,16 @@ if (YII_ENV_DEV) {
 ```
 
 That's it. Now we have another useful panel without writing much code.
+
+Advanced options
+----------------
+### Allow 'click' events in your toolbar summary block
+By default an inline preview is shown when clicking on the summary on the toolbar. To override this behavior add the `'yii-debug-toolbar__block_ignore_click'` class to your root `<div>` in `getSummary()`
+
+### Events
+If you need client side programmatic access to the toolbar, for example to bind javascript events, you can listen to the `'yii.debug.toolbar_attached'` event on the document. For example:
+```js
+document.addEventListener('yii.debug.toolbar_attached', function(event) {
+    var toolbar = event.target;
+}
+```
