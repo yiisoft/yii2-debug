@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.5 under development
 -----------------------
 
-- no changes in this release.
+- Enh #391: Dispatching event when toolbar is added to dom, and added class that allows clicks in toolbar block. (rhertogh)
 
 
 2.1.4 May 14, 2019
