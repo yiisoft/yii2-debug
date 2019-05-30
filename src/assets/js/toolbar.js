@@ -41,6 +41,7 @@
         iframeAnimatingClass = 'yii-debug-toolbar_iframe_animating',
         titleClass = 'yii-debug-toolbar__title',
         blockClass = 'yii-debug-toolbar__block',
+        ignoreClickClass = 'yii-debug-toolbar__ignore_click',
         blockActiveClass = 'yii-debug-toolbar__block_active',
         requestStack = [];
 
@@ -55,6 +56,8 @@
                 toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
 
                 showToolbar(findToolbar());
+
+                div.dispatchEvent(new Event('yii.debug.toolbar_attached', {'bubbles': true}));
             },
             error: function (xhr) {
                 toolbarEl.innerText = xhr.responseText;
@@ -188,7 +191,9 @@
             var target = e.target,
                 block = findAncestor(target, blockClass);
 
-            if (block && !block.classList.contains(titleClass)
+            if (block
+                && !block.classList.contains(titleClass)
+                && !block.classList.contains(ignoreClickClass)
                 && e.which !== 2 && !e.ctrlKey // not mouse wheel and not ctrl+click
             ) {
                 while (target !== this) {
