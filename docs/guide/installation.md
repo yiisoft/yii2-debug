@@ -234,7 +234,10 @@ If your application is run under a virtualized or dockerized environment, it is 
 
 ```php
 'traceLine' => function($options, $panel) {
-    $filePath = str_replace(Yii::$app->basePath, '~/path/to/your/app', $options['file']);
+    $filePath = $options['file'];
+    if (StringHelper::startsWith($filePath, Yii::$app->basePath)) {
+        $filePath = '~/path/to/your/app' . substr($filePath, strlen(Yii::$app->basePath));
+    }
     return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
 },
 ```
