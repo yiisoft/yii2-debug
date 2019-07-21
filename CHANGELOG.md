@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.6 under development
 -----------------------
 
-- no changes in this release.
+- Enh #167: Add total request processing time and peak memory consumption on index page (pistej)
 
 
 2.1.5 June 04, 2019
