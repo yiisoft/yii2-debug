@@ -58,7 +58,12 @@ class LogTarget extends Target
         $exceptions = [];
         foreach ($this->module->panels as $id => $panel) {
             try {
-                $data[$id] = Closure\serialize($panel->save());
+                $panelData = $panel->save();
+                $data[$id] = Closure\serialize($panelData);
+                if ($id === 'profiling') {
+                    $summary['peakMemory'] = $panelData['memory'];
+                    $summary['processingTime'] = $panelData['time'];
+                }
             } catch (\Exception $exception) {
                 $exceptions[$id] = new FlattenException($exception);
             }
