@@ -12,6 +12,7 @@ use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\VarDumper;
+use yii\helpers\StringHelper;
 
 /**
  * Panel is a base class for debugger panel classes. It defines how data should be collected,
@@ -139,6 +140,15 @@ class Panel extends Component
         }
 
         $options['file'] = str_replace('\\', '/', $options['file']);
+
+        foreach ($this->module->tracePathMappings as $old => $new) {
+            $old = rtrim(str_replace('\\', '/', $old), '/') . '/';
+            if (StringHelper::startsWith($options['file'], $old)) {
+                $new = rtrim(str_replace('\\', '/', $new), '/') . '/';
+                $options['file'] = $new . substr($options['file'], strlen($old));
+            }
+        }
+
         $rawLink = $traceLine instanceof \Closure ? $traceLine($options, $this) : $traceLine;
         return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
     }
