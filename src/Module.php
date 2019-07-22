@@ -141,6 +141,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *
      * The array key is the environment's path, while the value is the local desired path.
      *
+     * It will only map the first matched matched key.
+     *
      * Example:
      *
      * ```php
@@ -148,6 +150,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *     '/app' => '/home/user/project/app',
      * ]
      * ```
+     *
+     * Note that this will not change the displayed text, only the link url.
+     *
      * @since 2.1.6
      */
     public $tracePathMappings = [];

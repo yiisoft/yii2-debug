@@ -146,6 +146,7 @@ class Panel extends Component
             if (StringHelper::startsWith($options['file'], $old)) {
                 $new = rtrim(str_replace('\\', '/', $new), '/') . '/';
                 $options['file'] = $new . substr($options['file'], strlen($old));
+                break;
             }
         }
 
