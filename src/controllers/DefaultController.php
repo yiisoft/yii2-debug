@@ -78,6 +78,11 @@ class DefaultController extends Controller
 
         // load latest request
         $tags = array_keys($this->getManifest());
+
+        if (empty($tags)) {
+            throw new \Exception("No debug data have been collected yet, try browsing the website first.");
+        }
+
         $tag = reset($tags);
         $this->loadData($tag);
 
