@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.6 under development
 -----------------------
 
+- Enh #390: Use opis/closure to serialize data (Sarke)
 - Enh #379: Better error message when no debug data is found (Sarke)
 
 

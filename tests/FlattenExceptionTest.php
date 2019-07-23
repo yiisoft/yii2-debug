@@ -4,6 +4,7 @@ namespace yiiunit\debug;
 
 use yii\debug\FlattenException;
 use yii\web\NotFoundHttpException;
+use Opis\Closure;
 
 /**
  * @author Dmitry Bashkarev <dmitry@bashkarev.com>
@@ -85,7 +86,7 @@ class FlattenExceptionTest extends TestCase
         $dh = opendir(__DIR__);
         $fh = tmpfile();
 
-        $incomplete = unserialize('O:14:"BogusTestClass":0:{}');
+        $incomplete = Closure\unserialize('O:14:"BogusTestClass":0:{}');
 
         $exception = $this->createException([
             (object)['foo' => 1],
@@ -151,7 +152,7 @@ class FlattenExceptionTest extends TestCase
         });
 
         $flattened = new FlattenException($exception);
-        $this->assertContains('Closure', serialize($flattened));
+        $this->assertContains('Closure', Closure\serialize($flattened));
     }
 
     public function testRecursionInArguments()
@@ -162,7 +163,7 @@ class FlattenExceptionTest extends TestCase
 
         $flattened = new FlattenException($exception);
         $trace = $flattened->getTrace();
-        $this->assertContains('*DEEP NESTED ARRAY*', serialize($trace));
+        $this->assertContains('*DEEP NESTED ARRAY*', Closure\serialize($trace));
     }
 
     public function testTooBigArray()
@@ -184,7 +185,7 @@ class FlattenExceptionTest extends TestCase
 
         $this->assertSame($trace[0]['args'][0], ['array', ['array', '*SKIPPED over 10000 entries*']]);
 
-        $serializeTrace = serialize($trace);
+        $serializeTrace = Closure\serialize($trace);
 
         $this->assertContains('*SKIPPED over 10000 entries*', $serializeTrace);
         $this->assertNotContains('*value1*', $serializeTrace);

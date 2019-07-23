@@ -29,7 +29,8 @@
     "require": {
         "php": ">=5.4",
         "ext-mbstring": "*",
-        "yiisoft/yii2": "~2.0.13"
+        "yiisoft/yii2": "~2.0.13",
+        "opis/closure": "^3.3"
     },
     "require-dev": {
         "yiisoft/yii2-swiftmailer": "*",
