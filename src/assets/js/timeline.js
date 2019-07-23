@@ -3,9 +3,10 @@
 
     var on = function (element, event, handler) {
         if (element instanceof NodeList) {
-            element.forEach(function (value) {
-                value.addEventListener(event, handler, false);
-            });
+            for (var i = 0, len = element.length; i < len; i++) {
+                element[i].addEventListener(event, handler, false);
+            }
+
             return;
         }
         if (!(element instanceof Array)) {
@@ -28,8 +29,9 @@
                 delete this.options.$focus;
             }
             var links = document.querySelectorAll('.debug-timeline-panel__item a');
-            links.forEach(function (link) {
-                new Tooltip(link);
+
+            for (var i = 0, len = links.length; i < len; i++) {
+                new Tooltip(links[i]);
 
                 on(link, 'show.bs.tooltip', function() {
                     if (this.hasAttribute('data-memory')) {
@@ -38,7 +40,8 @@
                         self.options.$memory.style.bottom = data[1] + '%';
                     }
                 });
-            });
+
+            }
             return self;
         };
         this.setFocus = function ($elem) {

@@ -8,6 +8,7 @@ Yii Framework 2 debug extension Change Log
 - Enh #392: Add `tracePathMappings` property to module (Sarke)
 - Enh #379: Better error message when no debug data is found (Sarke)
 - Enh #167: Add total request processing time and peak memory consumption on index page (pistej)
+- Enh #380: Enhanced browser compatibility (samdark)
 
 
 2.1.5 June 04, 2019
