@@ -12,6 +12,7 @@ use yii\debug\models\search\Debug;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use Opis\Closure;
 
 /**
  * Debugger controller provides browsing over available debug logs.
@@ -78,6 +79,11 @@ class DefaultController extends Controller
 
         // load latest request
         $tags = array_keys($this->getManifest());
+
+        if (empty($tags)) {
+            throw new \Exception("No debug data have been collected yet, try browsing the website first.");
+        }
+
         $tag = reset($tags);
         $this->loadData($tag);
 
@@ -181,7 +187,7 @@ class DefaultController extends Controller
             }
 
             if ($content !== '') {
-                $this->_manifest = array_reverse(unserialize($content), true);
+                $this->_manifest = array_reverse(Closure\unserialize($content), true);
             } else {
                 $this->_manifest = [];
             }
@@ -204,12 +210,12 @@ class DefaultController extends Controller
             $manifest = $this->getManifest($retry > 0);
             if (isset($manifest[$tag])) {
                 $dataFile = $this->module->dataPath . "/$tag.data";
-                $data = unserialize(file_get_contents($dataFile));
+                $data = Closure\unserialize(file_get_contents($dataFile));
                 $exceptions = $data['exceptions'];
                 foreach ($this->module->panels as $id => $panel) {
                     if (isset($data[$id])) {
                         $panel->tag = $tag;
-                        $panel->load(unserialize($data[$id]));
+                        $panel->load(Closure\unserialize($data[$id]));
                     }
                     if (isset($exceptions[$id])) {
                         $panel->setError($exceptions[$id]);

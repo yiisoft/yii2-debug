@@ -81,6 +81,35 @@ class PanelTest extends TestCase
             $panel->getTraceLine($traceConfig));
     }
 
+    public function testGetTraceLine_tracePathMappings()
+    {
+        $traceConfig = [
+            'file' => '/app/file.php',
+            'line' => 10,
+        ];
+        $panel = $this->getPanel();
+        $panel->module->tracePathMappings = [
+            '/app' => '/newpath/' // intentional mismatch of trailing slashes
+        ];
+        $this->assertEquals('<a href="ide://open?url=file:///newpath/file.php&line=10">/app/file.php:10</a>',
+            $panel->getTraceLine($traceConfig));
+    }
+
+    public function testGetTraceLine_tracePathMappings_Multiple()
+    {
+        $traceConfig = [
+            'file' => '/app/data/file.php',
+            'line' => 10,
+        ];
+        $panel = $this->getPanel();
+        $panel->module->tracePathMappings = [
+            '/app/data' => '/app/localdata',
+            '/app' => '/newpath'
+        ];
+        $this->assertEquals('<a href="ide://open?url=file:///app/localdata/file.php&line=10">/app/data/file.php:10</a>',
+            $panel->getTraceLine($traceConfig));
+    }
+
     protected function setUp()
     {
         parent::setUp();

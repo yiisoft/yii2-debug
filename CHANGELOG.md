@@ -5,6 +5,9 @@ Yii Framework 2 debug extension Change Log
 -----------------------
 
 - Enh #167: Add total request processing time and peak memory consumption on index page (pistej)
+- Enh #390: Use opis/closure to serialize data (Sarke)
+- Enh #392: Add `tracePathMappings` property to module (Sarke)
+- Enh #379: Better error message when no debug data is found (Sarke)
 
 
 2.1.5 June 04, 2019

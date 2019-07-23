@@ -91,13 +91,23 @@ You must make some changes to your OS. See these examples:
 
 #### Virtualized or dockerized
 
-If your application is run under a virtualized or dockerized environment, it is often the case that the application's base path is different inside of the virtual machine or container than on your host machine. For the links work in those situations, you can configure `traceLine` like this (change the path to your app):
+If your application is run under a virtualized or dockerized environment, it is often the case that the application's 
+base path is different inside of the virtual machine or container than on your host machine. For the links work in those
+ situations, you can configure `tracePathMappings` like this (change the path to your app):
+
+```php
+'tracePathMappings' => [
+    '/app' => '/path/to/your/app',
+],
+```
+
+Or you can create a callback for `traceLine` for even more control:
 
 ```php
 'traceLine' => function($options, $panel) {
     $filePath = $options['file'];
     if (StringHelper::startsWith($filePath, Yii::$app->basePath)) {
-        $filePath = '~/path/to/your/app' . substr($filePath, strlen(Yii::$app->basePath));
+        $filePath = '/path/to/your/app' . substr($filePath, strlen(Yii::$app->basePath));
     }
     return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
 },

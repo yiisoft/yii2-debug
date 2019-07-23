@@ -12,6 +12,7 @@ use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\VarDumper;
+use yii\helpers\StringHelper;
 
 /**
  * Panel is a base class for debugger panel classes. It defines how data should be collected,
@@ -139,6 +140,16 @@ class Panel extends Component
         }
 
         $options['file'] = str_replace('\\', '/', $options['file']);
+
+        foreach ($this->module->tracePathMappings as $old => $new) {
+            $old = rtrim(str_replace('\\', '/', $old), '/') . '/';
+            if (StringHelper::startsWith($options['file'], $old)) {
+                $new = rtrim(str_replace('\\', '/', $new), '/') . '/';
+                $options['file'] = $new . substr($options['file'], strlen($old));
+                break;
+            }
+        }
+
         $rawLink = $traceLine instanceof \Closure ? $traceLine($options, $this) : $traceLine;
         return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
     }
@@ -186,33 +197,13 @@ class Panel extends Component
      * level values. Value 0 means allowing all levels.
      * @param array $categories the message categories to filter by. If empty, it means all categories are allowed.
      * @param array $except the message categories to exclude. If empty, it means all categories are allowed.
-     * @param bool $stringify Convert non-string (such as closures) to strings
      * @return array the filtered messages.
      * @since 2.1.4
      * @see \yii\log\Target::filterMessages()
      */
-    protected function getLogMessages($levels = 0, $categories = [], $except = [], $stringify = false)
+    protected function getLogMessages($levels = 0, $categories = [], $except = [])
     {
         $target = $this->module->logTarget;
-        $messages = $target->filterMessages($target->messages, $levels, $categories, $except);
-
-        if (!$stringify) {
-            return $messages;
-        }
-
-        foreach ($messages as &$message) {
-            if (!isset($message[0]) || is_string($message[0])) {
-                continue;
-            }
-
-            // exceptions may not be serializable if in the call stack somewhere is a Closure
-            if ($message[0] instanceof \Throwable || $message[0] instanceof \Exception) {
-                $message[0] = (string) $message[0];
-            } else {
-                $message[0] = VarDumper::export($message[0]);
-            }
-        }
-
-        return $messages;
+        return $target->filterMessages($target->messages, $levels, $categories, $except);
     }
 }

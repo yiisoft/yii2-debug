@@ -11,6 +11,7 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 use yii\log\Target;
+use Opis\Closure;
 
 /**
  * The debug LogTarget is used to store logs for later use in the debugger tool
@@ -64,7 +65,7 @@ class LogTarget extends Target
                         'processingTime' => $panelData['time']
                     ]);
                 }
-                $data[$id] = serialize($panelData);
+                $data[$id] = Closure\serialize($panel->save());
             } catch (\Exception $exception) {
                 $exceptions[$id] = new FlattenException($exception);
             }
@@ -72,7 +73,7 @@ class LogTarget extends Target
         $data['summary'] = $summary;
         $data['exceptions'] = $exceptions;
 
-        file_put_contents($dataFile, serialize($data));
+        file_put_contents($dataFile, Closure\serialize($data));
         if ($this->module->fileMode !== null) {
             @chmod($dataFile, $this->module->fileMode);
         }
@@ -103,7 +104,7 @@ class LogTarget extends Target
             // error while reading index data, ignore and create new
             $manifest = [];
         } else {
-            $manifest = unserialize($manifest);
+            $manifest = Closure\unserialize($manifest);
         }
 
         $manifest[$this->tag] = $summary;
@@ -111,7 +112,7 @@ class LogTarget extends Target
 
         ftruncate($fp, 0);
         rewind($fp);
-        fwrite($fp, serialize($manifest));
+        fwrite($fp, Closure\serialize($manifest));
 
         @flock($fp, LOCK_UN);
         @fclose($fp);
