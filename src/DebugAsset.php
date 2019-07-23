@@ -32,6 +32,7 @@ class DebugAsset extends AssetBundle
      * {@inheritdoc}
      */
     public $js = [
+        'js/polyfill.min.js',
         'js/bs4-native.min.js'
     ];
 }

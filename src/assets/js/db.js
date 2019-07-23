@@ -3,9 +3,9 @@
 
     var on = function (element, event, handler) {
             if (element instanceof NodeList) {
-                element.forEach(function (value) {
-                    value.addEventListener(event, handler, false);
-                });
+                for (var i = 0, len = element.length; i < len; i++) {
+                    element[i].addEventListener(event, handler, false);
+                }
                 return;
             }
             if (!(element instanceof Array)) {
@@ -67,8 +67,9 @@
             bubbles: true
         });
 
-        document.querySelectorAll('.db-explain a').forEach(function (item) {
-            item.dispatchEvent(event);
-        });
+        var elements = document.querySelectorAll('.db-explain a');
+        for (var i = 0, len = elements.length; i < len; i++) {
+            item.dispatchEvent(elements[i]);
+        }
     });
 })();

@@ -57,7 +57,15 @@
 
                 showToolbar(findToolbar());
 
-                div.dispatchEvent(new Event('yii.debug.toolbar_attached', {'bubbles': true}));
+                var event;
+                if (typeof(Event) === 'function') {
+                    event = new Event('yii.debug.toolbar_attached', {'bubbles': true});
+                } else {
+                    event = document.createEvent('Event');
+                    event.initEvent('yii.debug.toolbar_attached', true, true);
+                }
+
+                div.dispatchEvent(event);
             },
             error: function (xhr) {
                 toolbarEl.innerText = xhr.responseText;
