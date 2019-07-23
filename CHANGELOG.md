@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.6 under development
 -----------------------
 
-- Bug #379: Better error message when no debug data is found (Sarke)
+- Enh #379: Better error message when no debug data is found (Sarke)
 
 
 2.1.5 June 04, 2019
