@@ -3,18 +3,18 @@
 /* @var $searchModel yii\debug\models\search\Log */
 /* @var $dataProvider yii\data\ArrayDataProvider */
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\log\Logger;
 
 ?>
-<h1>Log Messages</h1>
+    <h1>Log Messages</h1>
 <?php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'log-panel-detailed-grid',
-    'options' => ['class' => 'detail-grid-view table-responsive'],
+    'options' => ['class' => ['detail-grid-view', 'table-responsive', 'logs-messages-table']],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
     'rowOptions' => function ($model) {
@@ -22,12 +22,26 @@ echo GridView::widget([
             'id' => 'log-' . $model['id']
         ];
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR : Html::addCssClass($options, 'danger'); break;
-            case Logger::LEVEL_WARNING : Html::addCssClass($options, 'warning'); break;
-            case Logger::LEVEL_INFO : Html::addCssClass($options, 'success'); break;
+            case Logger::LEVEL_ERROR : Html::addCssClass($options, 'table-danger'); break;
+            case Logger::LEVEL_WARNING : Html::addCssClass($options, 'table-warning'); break;
+            case Logger::LEVEL_INFO : Html::addCssClass($options, 'table-success'); break;
         }
         return $options;
     },
+    'pager' => [
+        'linkContainerOptions' => [
+            'class' => 'page-item'
+        ],
+        'linkOptions' => [
+            'class' => 'page-link'
+        ],
+        'disabledListItemSubTagOptions' => [
+            'tag' => 'a',
+            'href' => 'javascript:;',
+            'tabindex' => '-1',
+            'class' => 'page-link'
+        ]
+    ],
     'columns' => [
         [
             'attribute' => 'id',
@@ -37,7 +51,7 @@ echo GridView::widget([
             'attribute' => 'time',
             'value' => function ($data) {
                 $timeInSeconds = $data['time'] / 1000;
-                $millisecondsDiff = (int) (($timeInSeconds - (int) $timeInSeconds) * 1000);
+                $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
                 return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },

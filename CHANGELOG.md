@@ -1,15 +1,90 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.0.14 under development
-------------------------
+2.1.7 under development
+-----------------------
 
-- Enh #316: Prevent multiple lines in toolbar (ZAYEC77)
+- no changes in this release.
+
+
+2.1.6 July 23, 2019
+-------------------
+
+- Enh #167: Add total request processing time and peak memory consumption on index page (pistej)
+- Enh #379: Better error message when no debug data is found (Sarke)
+- Enh #380: Enhanced browser compatibility (samdark)
+- Enh #390: Use opis/closure to serialize data (Sarke)
+- Enh #392: Add `tracePathMappings` property to module (Sarke)
+
+
+2.1.5 June 04, 2019
+-------------------
+
+- Enh #391: Dispatching event when toolbar is added to DOM, and added class that allows clicks in toolbar block (rhertogh)
+
+
+2.1.4 May 14, 2019
+------------------
+
+- Bug #376: Fixed user panel when using custom user component (iridance)
+- Bug #377: Fixed serialization of Closure error in `DumpPanel` (Sarke)
+- Bug #381: Fixed text wrapping inside tables (machour)
+- Bug #388: Fixed tooltip display in timeline (machour)
+- Enh #376: Allow setting user panel title (iridance)
+
+
+2.1.3 April 30, 2019
+--------------------
+
+- Enh #375: Made var dumper in `DumpPanel` extensible with `varDumpCallback` (Sarke)
+
+
+2.1.2 April 23, 2019
+--------------------
+
+- Bug: ⚠️ in MailPanel was not a string (samdark)
+
+
+2.1.1 March 30, 2019
+--------------------
+
+- Bug #237: Delay attaching to `View` events until action takes place (machour)
+- Bug #275: Avoid initialization errors in `AssetPanel` (machour)
+- Bug #298: Fix keyboard navigation when bar is collapsed/hidden (machour)
+- Bug #354: Fixed the formatting of data in table cells (machour)
+- Bug #355: Fixed color highlighting on debug index (Sarke)
+- Bug #358: Enhance error message if `index.data` file is not accessible (machour)
+- Bug #359: Fixed the console warning about sourcemaps (machour)
+- Enh #103: Allow customizing the `UrlRule` class used to generate rules in bootstrap (machour)
+- Enh #213: Made the debug panel resizeable, and allowed setting default height in configuration (machour)
+- Enh #353: Added module `pageTitle` property that allows setting page title to be used (m-wardany)
+- Enh #371: Improved toolbar accessibility (machour)
+
+
+2.1.0 March 17, 2019
+--------------------
+
+- Bug #342: Toolbar animates on every page load in Chrome 70 (ricpelo)
+- Bug #343: Fixed errors on "Roles and permissions" tab (simialbi)
+- Bug #352: Fixed failure to serialize emails causing summary and thus all panels not to render (sammousa)
+- Enh #88: Allow custom module access check (simialbi)
+- Enh #247: Added dump panel that collects and displays debug messages with `Logger::LEVEL_TRACE` (pistej, simialbi)
+- Enh #296, #326, #340: Removed bootstrap as dependency, bundled Bootstrap 4 (simialbi)
+- Enh #349: Router link is now separated (rustamwin)
+- Enh #350: Use smaller padding for tables cells (machour)
+
+
+2.0.14 September 24, 2018
+-------------------------
+
+- Bug #300: Fixed email files are not deleted by GC (pistej)
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
-- Enh #311: Adjusted module's code to use `->get()` for dependencies (samdark)
+- Bug #327: Fix animation on page load when the toolbar is expanded (brandonkelly)
+- Bug #332: Fix error when trace is missing from message (cornernote)
 - Enh #77: Added "Events" panel (klimov-paul)
 - Enh #301: Added configuration option to toggle IP address restriction warning on / off (jkrasniewski)
-- Bug #300: Fixed email files are not deleted by GC (pistej)
+- Enh #311: Adjusted module's code to use `->get()` for dependencies (samdark)
+- Enh #316: Prevent multiple lines in toolbar (ZAYEC77)
 
 
 2.0.13 December 5, 2017

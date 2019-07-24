@@ -1,7 +1,11 @@
 {
     "name": "yiisoft/yii2-debug",
     "description": "The debugger extension for the Yii framework",
-    "keywords": ["yii2", "debug", "debugger"],
+    "keywords": [
+        "yii2",
+        "debug",
+        "debugger"
+    ],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
@@ -15,16 +19,32 @@
         {
             "name": "Qiang Xue",
             "email": "qiang.xue@gmail.com"
+        },
+        {
+            "name": "Simon Karlen",
+            "email": "simi.albi@outlook.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=5.4",
+        "ext-mbstring": "*",
         "yiisoft/yii2": "~2.0.13",
-        "yiisoft/yii2-bootstrap": "~2.0.0"
+        "opis/closure": "^3.3"
+    },
+    "require-dev": {
+        "yiisoft/yii2-swiftmailer": "*",
+        "yiisoft/yii2-coding-standards": "~2.0",
+        "phpunit/phpunit": "<7"
     },
     "autoload": {
         "psr-4": {
             "yii\\debug\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "yiiunit\\debug\\": "tests"
         }
     },
     "extra": {

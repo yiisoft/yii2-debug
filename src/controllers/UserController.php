@@ -23,6 +23,7 @@ class UserController extends Controller
 {
     /**
      * {@inheritdoc}
+     * @throws BadRequestHttpException
      */
     public function beforeAction($action)
     {
@@ -36,6 +37,7 @@ class UserController extends Controller
     /**
      * Set new identity, switch user
      * @return \yii\web\User
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionSetIdentity()
     {
@@ -50,6 +52,7 @@ class UserController extends Controller
     /**
      * Reset identity, switch to main user
      * @return \yii\web\User
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionResetIdentity()
     {

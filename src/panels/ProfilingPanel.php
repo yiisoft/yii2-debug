@@ -8,9 +8,9 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\debug\models\search\Profile;
 use yii\debug\Panel;
 use yii\log\Logger;
-use yii\debug\models\search\Profile;
 
 /**
  * Debugger panel that collects and displays performance profiling info.
@@ -68,8 +68,7 @@ class ProfilingPanel extends Panel
      */
     public function save()
     {
-        $target = $this->module->logTarget;
-        $messages = $target->filterMessages($target->messages, Logger::LEVEL_PROFILE);
+        $messages = $this->getLogMessages(Logger::LEVEL_PROFILE);
         return [
             'memory' => memory_get_peak_usage(),
             'time' => microtime(true) - YII_BEGIN_TIME,
@@ -88,7 +87,7 @@ class ProfilingPanel extends Panel
             $timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
 
             foreach ($timings as $seq => $profileTiming) {
-                $this->_models[] = 	[
+                $this->_models[] = [
                     'duration' => $profileTiming['duration'] * 1000, // in milliseconds
                     'category' => $profileTiming['category'],
                     'info' => $profileTiming['info'],

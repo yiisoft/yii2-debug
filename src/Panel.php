@@ -11,6 +11,8 @@ use Yii;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
+use yii\helpers\StringHelper;
 
 /**
  * Panel is a base class for debugger panel classes. It defines how data should be collected,
@@ -114,7 +116,7 @@ class Panel extends Component
             'tag' => $this->tag,
         ];
 
-        if (is_array($additionalParams)){
+        if (is_array($additionalParams)) {
             $route = ArrayHelper::merge($route, $additionalParams);
         }
 
@@ -138,6 +140,16 @@ class Panel extends Component
         }
 
         $options['file'] = str_replace('\\', '/', $options['file']);
+
+        foreach ($this->module->tracePathMappings as $old => $new) {
+            $old = rtrim(str_replace('\\', '/', $old), '/') . '/';
+            if (StringHelper::startsWith($options['file'], $old)) {
+                $new = rtrim(str_replace('\\', '/', $new), '/') . '/';
+                $options['file'] = $new . substr($options['file'], strlen($old));
+                break;
+            }
+        }
+
         $rawLink = $traceLine instanceof \Closure ? $traceLine($options, $this) : $traceLine;
         return strtr($rawLink, ['{file}' => $options['file'], '{line}' => $options['line'], '{text}' => $options['text']]);
     }
@@ -177,5 +189,21 @@ class Panel extends Component
     public function isEnabled()
     {
         return true;
+    }
+
+    /**
+     * Gets messages from log target and filters according to their categories and levels.
+     * @param int $levels the message levels to filter by. This is a bitmap of
+     * level values. Value 0 means allowing all levels.
+     * @param array $categories the message categories to filter by. If empty, it means all categories are allowed.
+     * @param array $except the message categories to exclude. If empty, it means all categories are allowed.
+     * @return array the filtered messages.
+     * @since 2.1.4
+     * @see \yii\log\Target::filterMessages()
+     */
+    protected function getLogMessages($levels = 0, $categories = [], $except = [])
+    {
+        $target = $this->module->logTarget;
+        return $target->filterMessages($target->messages, $levels, $categories, $except);
     }
 }

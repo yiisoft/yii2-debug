@@ -74,6 +74,8 @@ class Debug extends Base
     {
         return [
             'tag' => 'Tag',
+            'processingTime' => 'Processing Time',
+            'peakMemory' => 'Peak Memory',
             'ip' => 'Ip',
             'method' => 'Method',
             'ajax' => 'Ajax',
@@ -95,7 +97,7 @@ class Debug extends Base
         $dataProvider = new ArrayDataProvider([
             'allModels' => $models,
             'sort' => [
-                'attributes' => ['method', 'ip', 'tag', 'time', 'statusCode', 'sqlCount', 'mailCount'],
+                'attributes' => ['method', 'ip', 'tag', 'time', 'statusCode', 'sqlCount', 'mailCount', 'processingTime', 'peakMemory'],
             ],
             'pagination' => [
                 'pageSize' => 50,

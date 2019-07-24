@@ -16,15 +16,15 @@ use yii\helpers\Inflector;
         <caption>
             <p>Total <b><?= count($panel->data) ?></b> asset bundles were loaded.</p>
         </caption>
-    <?php
-    foreach ($panel->data as $name => $bundle) {
-    ?>
-        <thead>
+        <?php
+        foreach ($panel->data as $name => $bundle) {
+            ?>
+            <thead>
             <tr>
                 <td colspan="2"><h3 id="<?= Inflector::camel2id($name) ?>"><?= $name ?></h3></td>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr>
                 <th>sourcePath</th>
                 <td><?= Html::encode($bundle['sourcePath'] !== null ? $bundle['sourcePath'] : $bundle['basePath']) ?></td>
@@ -44,14 +44,14 @@ use yii\helpers\Inflector;
             <?php if (!empty($bundle['css'])): ?>
                 <tr>
                     <th>css</th>
-                    <td>
+                    <td class="ws-normal">
                         <?= Html::ul($bundle['css'], [
                             'class' => 'assets',
                             'item' => function ($item) {
                                 if (is_array($item)) {
                                     $item = reset($item);
                                 }
-                                return Html::encode($item);
+                                return Html::tag('li', Html::encode($item));
                             }
                         ]) ?>
                     </td>
@@ -60,32 +60,34 @@ use yii\helpers\Inflector;
             <?php if (!empty($bundle['js'])): ?>
                 <tr>
                     <th>js</th>
-                    <td>
+                    <td class="ws-normal">
                         <?= Html::ul($bundle['js'], [
                             'class' => 'assets',
-                            'item'  => function ($item) {
+                            'item' => function ($item) {
                                 if (is_array($item)) {
                                     $item = reset($item);
                                 }
-                                return Html::encode($item);
+                                return Html::tag('li', Html::encode($item));
                             }
                         ]) ?>
                     </td>
                 </tr>
             <?php endif; ?>
             <?php if (!empty($bundle['depends'])): ?>
-            <tr>
-                <th>depends</th>
-                <td><ul class="assets">
-                    <?php foreach ($bundle['depends'] as $depend): ?>
-                        <li><?= Html::a($depend, '#' . Inflector::camel2id($depend)) ?></li>
-                    <?php endforeach; ?>
-                </ul></td>
-            </tr>
+                <tr>
+                    <th>depends</th>
+                    <td class="ws-normal">
+                        <ul class="assets">
+                            <?php foreach ($bundle['depends'] as $depend): ?>
+                                <li><?= Html::a($depend, '#' . Inflector::camel2id($depend)) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </td>
+                </tr>
             <?php endif; ?>
-        </tbody>
-    <?php
-    }
-    ?>
+            </tbody>
+            <?php
+        }
+        ?>
     </table>
 </div>

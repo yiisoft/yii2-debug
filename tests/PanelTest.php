@@ -25,7 +25,8 @@ class PanelTest extends TestCase
             'text' => 'custom text'
         ];
         $panel = $this->getPanel();
-        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="ide://open?url=file://file.php&line=10">custom text</a>',
+            $panel->getTraceLine($traceConfig));
     }
 
     public function testGetTraceLine_TextOnly()
@@ -47,7 +48,8 @@ class PanelTest extends TestCase
         ];
         $panel = $this->getPanel();
         $panel->module->traceLine = '<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>';
-        $this->assertEquals('<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="phpstorm://open?url=file://file.php&line=10">my custom phpstorm protocol</a>',
+            $panel->getTraceLine($traceConfig));
     }
 
     public function testGetTraceLine_CustomLinkByCallback()
@@ -75,7 +77,37 @@ class PanelTest extends TestCase
         $panel->module->traceLine = function () {
             return '<a href="ide://open?url={file}&line={line}">{text}</a>';
         };
-        $this->assertEquals('<a href="ide://open?url=file.php&line=10">custom text</a>', $panel->getTraceLine($traceConfig));
+        $this->assertEquals('<a href="ide://open?url=file.php&line=10">custom text</a>',
+            $panel->getTraceLine($traceConfig));
+    }
+
+    public function testGetTraceLine_tracePathMappings()
+    {
+        $traceConfig = [
+            'file' => '/app/file.php',
+            'line' => 10,
+        ];
+        $panel = $this->getPanel();
+        $panel->module->tracePathMappings = [
+            '/app' => '/newpath/' // intentional mismatch of trailing slashes
+        ];
+        $this->assertEquals('<a href="ide://open?url=file:///newpath/file.php&line=10">/app/file.php:10</a>',
+            $panel->getTraceLine($traceConfig));
+    }
+
+    public function testGetTraceLine_tracePathMappings_Multiple()
+    {
+        $traceConfig = [
+            'file' => '/app/data/file.php',
+            'line' => 10,
+        ];
+        $panel = $this->getPanel();
+        $panel->module->tracePathMappings = [
+            '/app/data' => '/app/localdata',
+            '/app' => '/newpath'
+        ];
+        $this->assertEquals('<a href="ide://open?url=file:///app/localdata/file.php&line=10">/app/data/file.php:10</a>',
+            $panel->getTraceLine($traceConfig));
     }
 
     protected function setUp()

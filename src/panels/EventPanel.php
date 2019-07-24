@@ -42,7 +42,7 @@ class EventPanel extends Panel
                 'name' => $event->name,
                 'class' => get_class($event),
                 'isStatic' => is_object($event->sender) ? '0' : '1',
-                'senderClass' => is_object($event->sender) ? get_class($event->sender): $event->sender,
+                'senderClass' => is_object($event->sender) ? get_class($event->sender) : $event->sender,
             ];
 
             $this->_events[] = $eventData;
