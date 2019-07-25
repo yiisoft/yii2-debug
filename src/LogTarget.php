@@ -59,11 +59,11 @@ class LogTarget extends Target
         foreach ($this->module->panels as $id => $panel) {
             try {
                 $panelData = $panel->save();
-                $data[$id] = Closure\serialize($panelData);
                 if ($id === 'profiling') {
                     $summary['peakMemory'] = $panelData['memory'];
                     $summary['processingTime'] = $panelData['time'];
                 }
+                $data[$id] = Closure\serialize($panelData);
             } catch (\Exception $exception) {
                 $exceptions[$id] = new FlattenException($exception);
             }

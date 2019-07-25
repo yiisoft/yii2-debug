@@ -197,13 +197,33 @@ class Panel extends Component
      * level values. Value 0 means allowing all levels.
      * @param array $categories the message categories to filter by. If empty, it means all categories are allowed.
      * @param array $except the message categories to exclude. If empty, it means all categories are allowed.
+     * @param bool $stringify Convert non-string (such as closures) to strings
      * @return array the filtered messages.
      * @since 2.1.4
      * @see \yii\log\Target::filterMessages()
      */
-    protected function getLogMessages($levels = 0, $categories = [], $except = [])
+    protected function getLogMessages($levels = 0, $categories = [], $except = [], $stringify = false)
     {
         $target = $this->module->logTarget;
-        return $target->filterMessages($target->messages, $levels, $categories, $except);
+        $messages = $target->filterMessages($target->messages, $levels, $categories, $except);
+
+        if (!$stringify) {
+            return $messages;
+        }
+
+        foreach ($messages as &$message) {
+            if (!isset($message[0]) || is_string($message[0])) {
+                continue;
+            }
+
+            // exceptions may not be serializable if in the call stack somewhere is a Closure
+            if ($message[0] instanceof \Throwable || $message[0] instanceof \Exception) {
+                $message[0] = (string) $message[0];
+            } else {
+                $message[0] = VarDumper::export($message[0]);
+            }
+        }
+
+        return $messages;
     }
 }
