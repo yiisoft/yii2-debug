@@ -21,7 +21,7 @@ echo GridView::widget([
         [
             'attribute' => 'message',
             'value' => function ($data) use ($panel) {
-                $message = $panel->varDump($data['message']);
+                $message = $data['message'];
 
                 if (!empty($data['trace'])) {
                     $message .= Html::ul($data['trace'], [
