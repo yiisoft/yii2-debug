@@ -91,11 +91,19 @@ class DumpPanel extends Panel
 
         $messages = $this->getLogMessages(Logger::LEVEL_TRACE, $this->categories, $except);
 
+        foreach ($messages as &$message) {
+            if (!isset($message[0])) {
+                continue;
+            }
+
+            $message[0] = $this->varDump($message[0]);
+        }
+
         return $messages;
     }
 
     /**
-     * Called by view to format the dumped variable.
+     * Called by `save()` to format the dumped variable.
      *
      * @since 2.1.3
      */
