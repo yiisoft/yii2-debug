@@ -63,7 +63,7 @@ $this->title = 'Yii Debugger';
                     foreach ($manifest as $meta) {
                         $label = ($meta['tag'] == $tag ? Html::tag('strong',
                                 '&#9658;&nbsp;' . $meta['tag']) : $meta['tag'])
-                            . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
+                            . ': ' . Html::encode($meta['method']) . ' ' . Html::encode($meta['url']) . ($meta['ajax'] ? ' (AJAX)' : '')
                             . ', ' . date('Y-m-d h:i:s a', $meta['time'])
                             . ', ' . $meta['ip'];
                         $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
@@ -99,7 +99,7 @@ $this->title = 'Yii Debugger';
                         </div>
                     </div>
                     <?php
-                    echo "\n" . $summary['tag'] . ': ' . $summary['method'] . ' ' . Html::a(Html::encode($summary['url']),
+                    echo "\n" . $summary['tag'] . ': ' . Html::encode($summary['method']) . ' ' . Html::a(Html::encode($summary['url']),
                             $summary['url']);
                     echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
                     ?>
