@@ -1,34 +1,32 @@
 <?php
+/* @var $panel yii\debug\panels\LogPanel */
+/* @var $searchModel yii\debug\models\search\Log */
+/* @var $dataProvider yii\data\ArrayDataProvider */
 
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\log\Logger;
 
-/* @var $panel yii\debug\panels\LogPanel */
-/* @var $searchModel yii\debug\models\search\Log */
-/* @var $dataProvider yii\data\ArrayDataProvider */
 ?>
     <h1>Log Messages</h1>
 <?php
-
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'log-panel-detailed-grid',
     'options' => ['class' => ['detail-grid-view', 'table-responsive', 'logs-messages-table']],
     'filterModel' => $searchModel,
     'filterUrl' => $panel->getUrl(),
-    'rowOptions' => function ($model) {
+    'rowOptions' => static function ($model) {
+        $options = [
+            'id' => 'log-' . $model['id']
+        ];
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR :
-                return ['class' => 'table-danger'];
-            case Logger::LEVEL_WARNING :
-                return ['class' => 'table-warning'];
-            case Logger::LEVEL_INFO :
-                return ['class' => 'table-success'];
-            default:
-                return [];
+            case Logger::LEVEL_ERROR : Html::addCssClass($options, 'table-danger'); break;
+            case Logger::LEVEL_WARNING : Html::addCssClass($options, 'table-warning'); break;
+            case Logger::LEVEL_INFO : Html::addCssClass($options, 'table-success'); break;
         }
+        return $options;
     },
     'pager' => [
         'linkContainerOptions' => [
@@ -46,8 +44,12 @@ echo GridView::widget([
     ],
     'columns' => [
         [
+            'attribute' => 'id',
+            'label' => '#',
+        ],
+        [
             'attribute' => 'time',
-            'value' => function ($data) {
+            'value' => static function ($data) {
                 $timeInSeconds = $data['time'] / 1000;
                 $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
@@ -58,8 +60,82 @@ echo GridView::widget([
             ]
         ],
         [
+            'attribute' => 'time_since_previous',
+            'value' => static function ($data) {
+                $timeOfPrevious = $data['time_of_previous'] / 1000;
+                if (strpos($timeOfPrevious, '.') === false) {
+                    $timeOfPrevious .= '.0';
+                }
+                $time = $data['time'] / 1000;
+                if (strpos($time, '.') === false) {
+                    $time .= '.0';
+                }
+                $previousDateTime = \DateTime::createFromFormat('U.u', $timeOfPrevious);
+                $thisDateTime = \DateTime::createFromFormat('U.u', $time);
+
+                $diffInSeconds = ($data['time'] - $data['time_of_previous']) / 1000;
+                $diffInMs = (int) (($diffInSeconds - (int) $diffInSeconds) * 1000);
+
+                $diff = $thisDateTime->diff($previousDateTime);
+                $diffHours = (int) $diff->format('%h');
+                $diffMinutes = (int) $diff->format('%i');
+                $diffSeconds = (int) $diff->format('%s');
+
+                $formattedDiff = [];
+                if ($diffHours > 0) {
+                    $formattedDiff[] = $diffHours . 'h';
+                }
+                if ($diffMinutes > 0) {
+                    $formattedDiff[] = $diffMinutes . 'm';
+                }
+                if ($diffSeconds > 0) {
+                    $formattedDiff[] = $diffSeconds . 's';
+                }
+                $formattedDiff[] = $diffInMs . 'ms';
+                $formattedDiff = implode('&nbsp;', $formattedDiff);
+
+                $previousBtnOptions = [
+                    'class' => 'btn btn-light',
+                ];
+                $nextBtnOptions = [
+                    'class' => 'btn btn-light',
+                ];
+                if ($data['id_of_previous'] === null) {
+                    Html::addCssClass($previousBtnOptions, 'disabled');
+                }
+                if ($data['id_of_next'] === null) {
+                    Html::addCssClass($nextBtnOptions, 'disabled');
+                }
+
+                return
+                    '<div class="btn-group" role="group">' .
+                    Html::a(
+                        '◀',
+                        '#log-' . $data['id_of_previous'],
+                        $previousBtnOptions
+                    ) .
+                    Html::a(
+                        $formattedDiff,
+                        '#log-' . $data['id'],
+                        [
+                            'class' => 'btn btn-light',
+                        ]
+                    ) .
+                    Html::a(
+                        '▶',
+                        '#log-' . $data['id_of_next'],
+                        $nextBtnOptions
+                    ) .
+                    '</div>';
+            },
+            'format' => 'raw',
+            'headerOptions' => [
+                'class' => 'sort-numerical'
+            ]
+        ],
+        [
             'attribute' => 'level',
-            'value' => function ($data) {
+            'value' => static function ($data) {
                 return Logger::getLevelName($data['level']);
             },
             'filter' => [
@@ -72,12 +148,12 @@ echo GridView::widget([
         'category',
         [
             'attribute' => 'message',
-            'value' => function ($data) use ($panel) {
+            'value' => static function ($data) use ($panel) {
                 $message = Html::encode(is_string($data['message']) ? $data['message'] : VarDumper::export($data['message']));
                 if (!empty($data['trace'])) {
                     $message .= Html::ul($data['trace'], [
                         'class' => 'trace',
-                        'item' => function ($trace) use ($panel) {
+                        'item' => static function ($trace) use ($panel) {
                             return '<li>' . $panel->getTraceLine($trace) . '</li>';
                         }
                     ]);
