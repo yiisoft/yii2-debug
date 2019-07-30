@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.7 under development
------------------------
+2.1.7 July 30, 2019
+-------------------
 
 - Bug #401: Partial revert of #390, use var dumper on dump panel as serializer to deal with closures in SPL Objects (Sarke)
 - Bug #404: Fix insufficient data escaping in debugger views (0xbug, Artem Myshenkov, samdark)
