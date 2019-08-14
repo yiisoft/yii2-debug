@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.8 under development
 -----------------------
 
-- no changes in this release.
+- Bug #347: Fixed "Cannot read property 'addEventListener' of null" bug of user switch (simialbi)
 
 
 2.1.7 July 30, 2019
