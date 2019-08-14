@@ -2,8 +2,12 @@
     'use strict';
 
     var on = function (element, event, handler) {
+        var i;
+        if (null === element) {
+            return;
+        }
         if (element instanceof NodeList) {
-            for (var i = 0, len = element.length; i < len; i++) {
+            for (i = 0; i <  element.length; i++) {
                 element[i].addEventListener(event, handler, false);
             }
 
@@ -12,7 +16,7 @@
         if (!(element instanceof Array)) {
             element = [element];
         }
-        for (var i in element) {
+        for (i in element) {
             if (typeof element[i].addEventListener !== 'function') {
                 continue;
             }
