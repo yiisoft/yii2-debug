@@ -124,7 +124,6 @@
 
     on(document.getElementById('debug-userswitch__filter'), 'click', function (e) {
         var el;
-        var form = document.getElementById('debug-userswitch__set-identity');
         if (e.target.tagName.toLowerCase() === 'td' && e.target.parentElement.parentElement.tagName.toLowerCase() === 'tbody') {
             el = e.target.parentElement;
         } else if (e.target.tagName.toLowerCase() === 'tr' && e.target.parentElement.tagName.toLowerCase() === 'tbody') {
@@ -133,6 +132,7 @@
             return;
         }
 
+        var form = document.getElementById('debug-userswitch__set-identity');
         document.getElementById('user_id').value = el.dataset.key;
         sendSetIdentity(form.action, serialize(form));
         e.stopPropagation();
