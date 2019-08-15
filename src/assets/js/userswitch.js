@@ -11,9 +11,13 @@
         }
 
         settings = settings || {};
-        xhr.open(settings.method || 'GET', url, true);
+        var method = settings.method || 'GET';
+        xhr.open(method, url, true);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhr.setRequestHeader('Accept', 'text/html');
+        if (method.toLowerCase() === 'post') {
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        }
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200 && settings.success) {
@@ -25,6 +29,9 @@
         };
         xhr.send(settings.data || '');
     }, on = function (element, event, handler) {
+        if (null === element) {
+            return;
+        }
         if (element instanceof NodeList) {
             element.forEach(function (value) {
                 value.addEventListener(event, handler, false);
@@ -99,15 +106,11 @@
             }
         }
         return q.join("&");
-    };
-
-    var sendSetIdentity = function () {
-        var form = this;
-        var formData = serialize(form);
+    }, sendSetIdentity = function (url, data) {
         ajax({
-            url: form.action,
-            type: form.method,
-            data: formData,
+            url: url,
+            method: 'post',
+            data: data,
             success: function () {
                 window.top.location.reload();
             },
@@ -119,16 +122,27 @@
         });
     };
 
-    on(document.getElementById('debug-userswitch__set-identity'), 'beforeSubmit', sendSetIdentity);
-    on(document.getElementById('debug-userswitch__set-identity'), 'submit', function (e) { e.preventDefault(); });
-    on(document.getElementById('debug-userswitch__reset-identity'), 'beforeSubmit', sendSetIdentity);
-    on(document.getElementById('debug-userswitch__reset-identity'), 'submit', function (e) { e.preventDefault(); });
-
     on(document.getElementById('debug-userswitch__filter'), 'click', function (e) {
-       if (e.target.tagName.toLowerCase() === 'tr' && e.target.parentElement.tagName.toLowerCase() === 'tbody') {
-           document.getElementById('user_id').value = this.dataset.getDataAttr('key');
-           document.getElementById('debug-userswitch__set-identity').submit();
-           e.stopPropagation();
-       }
+        var el;
+        if (e.target.tagName.toLowerCase() === 'td' && e.target.parentElement.parentElement.tagName.toLowerCase() === 'tbody') {
+            el = e.target.parentElement;
+        } else if (e.target.tagName.toLowerCase() === 'tr' && e.target.parentElement.tagName.toLowerCase() === 'tbody') {
+            el = e.target;
+        } else {
+            return;
+        }
+
+        var form = document.getElementById('debug-userswitch__set-identity');
+        document.getElementById('user_id').value = el.dataset.key;
+        sendSetIdentity(form.action, serialize(form));
+        e.stopPropagation();
     });
+    on(document.getElementById('debug-userswitch__reset-identity-button'), 'click', function (e) {
+        var form = document.getElementById('debug-userswitch__reset-identity');
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        sendSetIdentity(form.action, serialize(form));
+    })
 })();

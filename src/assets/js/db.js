@@ -2,39 +2,42 @@
     'use strict';
 
     var on = function (element, event, handler) {
-            if (element instanceof NodeList) {
-                for (var i = 0, len = element.length; i < len; i++) {
-                    element[i].addEventListener(event, handler, false);
-                }
-                return;
-            }
-            if (!(element instanceof Array)) {
-                element = [element];
-            }
-            for (var i in element) {
-                if (typeof element[i].addEventListener !== 'function') {
-                    continue;
-                }
+        var i;
+        if (null === element) {
+            return;
+        }
+        if (element instanceof NodeList) {
+            for (i = 0; i < element.length; i++) {
                 element[i].addEventListener(event, handler, false);
             }
-        },
-        ajax = function (url, settings) {
-            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            settings = settings || {};
-            xhr.open(settings.method || 'GET', url, true);
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Accept', 'text/html');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200 && settings.success) {
-                        settings.success(xhr);
-                    } else if (xhr.status !== 200 && settings.error) {
-                        settings.error(xhr);
-                    }
+            return;
+        }
+        if (!(element instanceof Array)) {
+            element = [element];
+        }
+        for (i in element) {
+            if (typeof element[i].addEventListener !== 'function') {
+                continue;
+            }
+            element[i].addEventListener(event, handler, false);
+        }
+    }, ajax = function (url, settings) {
+        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        settings = settings || {};
+        xhr.open(settings.method || 'GET', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Accept', 'text/html');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200 && settings.success) {
+                    settings.success(xhr);
+                } else if (xhr.status !== 200 && settings.error) {
+                    settings.error(xhr);
                 }
-            };
-            xhr.send(settings.data || '');
+            }
         };
+        xhr.send(settings.data || '');
+    };
 
     on(document.querySelectorAll('.db-explain a'), 'click', function (e) {
         if (e.target.tagName.toLowerCase() !== 'a') {
@@ -69,7 +72,7 @@
 
         var elements = document.querySelectorAll('.db-explain a');
         for (var i = 0, len = elements.length; i < len; i++) {
-            item.dispatchEvent(elements[i]);
+            elements[i].dispatchEvent(event);
         }
     });
 })();

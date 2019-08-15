@@ -272,12 +272,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => $this->urlRuleClass,
                 'route' => $this->id,
                 'pattern' => $this->id,
+                'normalizer' => false,
                 'suffix' => false
             ],
             [
                 'class' => $this->urlRuleClass,
                 'route' => $this->id . '/<controller>/<action>',
                 'pattern' => $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>',
+                'normalizer' => false,
                 'suffix' => false
             ]
         ], false);
