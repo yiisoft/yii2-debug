@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.8 under development
------------------------
+2.1.8 August 20, 2019
+---------------------
 
 - Bug #333: Ignore normalizer in debug bar URL rules (simialbi)
 - Bug #347: Fixed "Cannot read property 'addEventListener' of null" bug of user switch (simialbi)
