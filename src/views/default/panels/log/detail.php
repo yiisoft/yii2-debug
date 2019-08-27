@@ -62,16 +62,18 @@ echo GridView::widget([
         [
             'attribute' => 'time_since_previous',
             'value' => static function ($data) {
-                $timeOfPrevious = $data['time_of_previous'] / 1000;
-                if (strpos($timeOfPrevious, '.') === false) {
-                    $timeOfPrevious .= '.0';
+
+                if (isset($data['time_of_previous'])) {
+                    $previousDateTime = DateTime::createFromFormat('U.u', number_format($data['time_of_previous'], 6, '.', ''));
+                } else {
+                    $previousDateTime = DateTime::createFromFormat('U.u', number_format(mktime(true), 6, '.', ''));
                 }
-                $time = $data['time'] / 1000;
-                if (strpos($time, '.') === false) {
-                    $time .= '.0';
+
+                if (isset($data['time'])) {
+                    $thisDateTime = DateTime::createFromFormat('U.u', number_format($data['time'], 6, '.', ''));
+                } else {
+                    $thisDateTime = DateTime::createFromFormat('U.u', number_format(mktime(true), 6, '.', ''));
                 }
-                $previousDateTime = \DateTime::createFromFormat('U.u', $timeOfPrevious);
-                $thisDateTime = \DateTime::createFromFormat('U.u', $time);
 
                 $diffInSeconds = ($data['time'] - $data['time_of_previous']) / 1000;
                 $diffInMs = (int) (($diffInSeconds - (int) $diffInSeconds) * 1000);
@@ -82,6 +84,7 @@ echo GridView::widget([
                 $diffSeconds = (int) $diff->format('%s');
 
                 $formattedDiff = [];
+
                 if ($diffHours > 0) {
                     $formattedDiff[] = $diffHours . 'h';
                 }
