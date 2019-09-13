@@ -97,3 +97,16 @@ if (YII_ENV_DEV) {
 ```
 
 以上です。これで、たいしてコードを書くこともなく、もう一つの便利なパネルを手に入れました。
+
+高度なトピック
+--------------
+### ツールバーのサマリー・ブロックで 'click' イベントを許可する
+デフォルトでは、ツールバーのサマリーをクリックすると、インライン・プレビューが表示されます。この動作をオーバーライドするためには、`getSummary()` において、ルートの `<div>` に`yii-debug-toolbar__block_ignore_click` クラスを追加して下さい。
+
+### イベント
+クライアントサイドでツールバーにプログラム的にアクセスする必要がある場合、例えば JavaScript のイベントをバインドしたい場合は、`document` で `yii.debug.toolbar_attached` イベントを理寸して下さい。例えば、
+```js
+document.addEventListener('yii.debug.toolbar_attached', function(event) {
+    var toolbar = event.target;
+}
+```
