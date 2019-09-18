@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.9 under development
------------------------
+2.1.9 September 18, 2019
+------------------------
 
 - Bug #409: Fixed "Since previous" column's value calculation (Ir00man)
 
