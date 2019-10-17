@@ -154,6 +154,11 @@ ul.assets {
     word-break: break-all;
 }
 
+.word-break-keep {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+}
+
 .not-set {
     color: color("red");
     font-style: italic;

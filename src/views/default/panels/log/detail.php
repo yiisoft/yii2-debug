@@ -46,6 +46,9 @@ echo GridView::widget([
         [
             'attribute' => 'id',
             'label' => '#',
+            'contentOptions' => [
+                'class' => 'word-break-keep'
+            ]
         ],
         [
             'attribute' => 'time',
@@ -59,8 +62,8 @@ echo GridView::widget([
                 'class' => 'sort-numerical'
             ],
             'contentOptions' => [
-                'class' => 'text-nowrap'
-            ],
+                'class' => 'word-break-keep'
+            ]
         ],
         [
             'attribute' => 'time_since_previous',
@@ -88,38 +91,11 @@ echo GridView::widget([
                 $formattedDiff[] = $diffMs . 'ms';
                 $formattedDiff = implode('&nbsp;', $formattedDiff);
 
-                $previousBtnOptions = [
-                    'class' => 'btn btn-light',
-                ];
-                $nextBtnOptions = [
-                    'class' => 'btn btn-light',
-                ];
-                if ($data['id_of_previous'] === null) {
-                    Html::addCssClass($previousBtnOptions, 'disabled');
-                }
-                if ($data['id_of_next'] === null) {
-                    Html::addCssClass($nextBtnOptions, 'disabled');
-                }
-
                 return
-                    '<div class="btn-group btn-group-sm" role="group">' .
-                    Html::a(
-                        '◀',
-                        '#log-' . $data['id_of_previous'],
-                        $previousBtnOptions
-                    ) .
-                    Html::a(
-                        $formattedDiff,
-                        '#log-' . $data['id'],
-                        [
-                            'class' => 'btn btn-light',
-                        ]
-                    ) .
-                    Html::a(
-                        '▶',
-                        '#log-' . $data['id_of_next'],
-                        $nextBtnOptions
-                    ) .
+                    '<div class="word-break-keep">' .
+                    ($data['id_of_previous'] !== null ? Html::a('< ', '#log-' . $data['id_of_previous']) : '< ') .
+                    $formattedDiff .
+                    ($data['id_of_next'] !== null ? Html::a(' >', '#log-' . $data['id_of_next']) : ' >') .
                     '</div>';
             },
             'format' => 'raw',

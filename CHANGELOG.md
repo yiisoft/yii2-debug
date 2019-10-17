@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.10 under development
 ------------------------
 
-- Enh #412: Improved layout of the Logs panel (machour)
+- Enh #412: Improved layout of the Logs panel (machour, pistej)
 
 
 2.1.9 September 18, 2019
