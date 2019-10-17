@@ -154,6 +154,20 @@ ul.assets {
     word-break: break-all;
 }
 
+.word-break-keep {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+}
+
+.since-previous {
+    @extend .word-break-keep;
+
+    .button {
+        padding: 0 10px;
+        font-weight: bold;
+    }
+}
+
 .not-set {
     color: color("red");
     font-style: italic;
