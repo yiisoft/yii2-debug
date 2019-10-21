@@ -3,7 +3,7 @@ language: php
 matrix:
   fast_finish: true
   include:
-    - php: "7.4@snapshot"
+    - php: "7.4snapshot"
 
     - php: "7.3"
 
