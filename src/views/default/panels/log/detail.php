@@ -57,7 +57,10 @@ echo GridView::widget([
             },
             'headerOptions' => [
                 'class' => 'sort-numerical'
-            ]
+            ],
+            'contentOptions' => [
+                'class' => 'text-nowrap'
+            ],
         ],
         [
             'attribute' => 'time_since_previous',
@@ -99,7 +102,7 @@ echo GridView::widget([
                 }
 
                 return
-                    '<div class="btn-group" role="group">' .
+                    '<div class="btn-group btn-group-sm" role="group">' .
                     Html::a(
                         '◀',
                         '#log-' . $data['id_of_previous'],
