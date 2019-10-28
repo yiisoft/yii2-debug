@@ -158,6 +158,27 @@ class LogTarget extends Target
                     break;
                 }
             }
+            $this->cleanup($manifest);
+        }
+    }
+
+    /**
+     * Remove staled data files (in case of corrupted or rotated index file)
+     * @param array $manifest
+     */
+    protected function cleanup($manifest)
+    {
+        $storageTags = array_map(
+            function ($file) {
+                return pathinfo($file, PATHINFO_FILENAME);
+            },
+            FileHelper::findFiles($this->module->dataPath, ['except' => ['index.data']])
+        );
+
+        $staledTags = array_diff($storageTags, array_keys($manifest));
+
+        foreach ($staledTags as $tag) {
+            @unlink($this->module->dataPath . "/$tag.data");
         }
     }
 
