@@ -112,3 +112,8 @@ Or you can create a callback for `traceLine` for even more control:
     return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
 },
 ```
+
+Develop
+-------
+
+Implementing new features or fixing bugs is easier with build-in webserver: ```./yii serve```
