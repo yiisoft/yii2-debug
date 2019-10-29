@@ -158,15 +158,17 @@ class LogTarget extends Target
                     break;
                 }
             }
-            $this->cleanup($manifest);
+            $this->removeStaleDataFiles($manifest);
         }
     }
 
     /**
-     * Remove staled data files (in case of corrupted or rotated index file)
+     * Remove staled data files i.e. files that are not in the current index file
+     * (may happen because of corrupted or rotated index file)
+     *
      * @param array $manifest
      */
-    protected function cleanup($manifest)
+    protected function removeStaleDataFiles($manifest)
     {
         $storageTags = array_map(
             function ($file) {
