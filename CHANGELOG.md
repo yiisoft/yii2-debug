@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.11 under development
 ------------------------
 
-- no changes in this release.
+- Bug #325: Remove staled data files i.e. files that are not in the current index file
 
 
 2.1.10 October 22, 2019
