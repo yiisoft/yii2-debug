@@ -158,6 +158,29 @@ class LogTarget extends Target
                     break;
                 }
             }
+            $this->removeStaleDataFiles($manifest);
+        }
+    }
+
+    /**
+     * Remove staled data files i.e. files that are not in the current index file
+     * (may happen because of corrupted or rotated index file)
+     *
+     * @param array $manifest
+     */
+    protected function removeStaleDataFiles($manifest)
+    {
+        $storageTags = array_map(
+            function ($file) {
+                return pathinfo($file, PATHINFO_FILENAME);
+            },
+            FileHelper::findFiles($this->module->dataPath, ['except' => ['index.data']])
+        );
+
+        $staledTags = array_diff($storageTags, array_keys($manifest));
+
+        foreach ($staledTags as $tag) {
+            @unlink($this->module->dataPath . "/$tag.data");
         }
     }
 
