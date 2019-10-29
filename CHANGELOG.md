@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #329: Fix logging AJAX request if URL has domain (zhukovra)
+- Bug #325: Remove staled data files i.e. files that are not in the current index file (zhukovra)
 
 
 2.1.10 October 22, 2019
