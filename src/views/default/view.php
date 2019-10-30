@@ -110,7 +110,7 @@ $this->title = 'Yii Debugger';
     </div>
 </div>
 <script type="text/javascript">
-    if (!window.frameElement) {
+    if (window.top == window) {
         document.querySelector('#yii-debug-toolbar').style.display = 'block';
     }
 </script>
