@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\debug\widgets\NavigationButton;
 
 /* @var $this \yii\web\View */
 /* @var $summary array */
@@ -78,24 +79,12 @@ $this->title = 'Yii Debugger';
 
                     ?>
                     <div class="btn-group btn-group-sm" role="group">
-                        <?php
-                        $previousTag = $nextTag = null;
-                        $previousRoute = $nextRoute = '';
-                        $manifestKeys = array_keys($manifest);
-                        $currentTagIndex = array_search($tag, $manifestKeys, true);
-
-                        if ($currentTagIndex >= 1) {
-                            $previousTag = $manifestKeys[$currentTagIndex - 1];
-                            $previousRoute = ['view', 'panel' => $activePanel->id, 'tag' => $previousTag];
-                        }
-
-                        if ((count($manifestKeys) - $currentTagIndex) > 1) {
-                            $nextTag = $manifestKeys[$currentTagIndex + 1];
-                            $nextRoute = ['view', 'panel' => $activePanel->id, 'tag' => $nextTag];
-                        }
-                        ?>
-                        <?=Html::a('Prev', $previousRoute, ['class' => ['btn', 'btn-light', $previousTag ?: 'disabled']])?>
-                        <?=Html::a('Next', $nextRoute, ['class' => ['btn', 'btn-light', $nextTag ?: 'disabled']])?>
+                        <?= NavigationButton::widget(
+                            ['manifest' => $manifest, 'tag' => $tag, 'panel' => $activePanel, 'button' => 'Prev']
+                        ) ?>
+                        <?= NavigationButton::widget(
+                            ['manifest' => $manifest, 'tag' => $tag, 'panel' => $activePanel, 'button' => 'Next']
+                        ) ?>
                     </div>
                     <div class="btn-group btn-group-sm" role="group">
                         <?=Html::a('All', ['index'], ['class' => ['btn', 'btn-light']]);?>
