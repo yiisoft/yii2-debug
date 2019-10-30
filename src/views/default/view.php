@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\debug\widgets\NavigationButton;
 
 /* @var $this \yii\web\View */
 /* @var $summary array */
@@ -77,6 +78,14 @@ $this->title = 'Yii Debugger';
                     }
 
                     ?>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <?= NavigationButton::widget(
+                            ['manifest' => $manifest, 'tag' => $tag, 'panel' => $activePanel, 'button' => 'Prev']
+                        ) ?>
+                        <?= NavigationButton::widget(
+                            ['manifest' => $manifest, 'tag' => $tag, 'panel' => $activePanel, 'button' => 'Next']
+                        ) ?>
+                    </div>
                     <div class="btn-group btn-group-sm" role="group">
                         <?=Html::a('All', ['index'], ['class' => ['btn', 'btn-light']]);?>
                         <?=Html::a('Latest', ['view', 'panel' => $activePanel->id], ['class' => ['btn', 'btn-light']]);?>
