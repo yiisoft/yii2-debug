@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.11 under development
 ------------------------
 
-- no changes in this release.
+- Enh #202: add buttons for navigation between requests (zhukovra)
 
 
 2.1.10 October 22, 2019
