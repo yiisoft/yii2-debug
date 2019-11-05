@@ -167,6 +167,7 @@ class LogTarget extends Target
      * (may happen because of corrupted or rotated index file)
      *
      * @param array $manifest
+     * @since 2.0.11
      */
     protected function removeStaleDataFiles($manifest)
     {
