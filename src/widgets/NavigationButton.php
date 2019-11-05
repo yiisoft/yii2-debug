@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
+ */
 
 namespace yii\debug\widgets;
 
@@ -14,24 +19,20 @@ class NavigationButton extends Widget
 {
     /** @var array */
     public $manifest;
-
     /** @var string */
     public $tag;
-
     /** @var string */
     public $button;
-
     /** @var Panel */
     public $panel;
 
     /** @var string */
     private $firstTag;
-
     /** @var string */
     private $lastTag;
-
     /** @var int */
     private $currentTagIndex;
+
 
     /**
      * @inheritDoc
