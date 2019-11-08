@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.12 under development
 ------------------------
 
-- no changes in this release.
+- Bug #424: Fixes missing variable link (My6UoT9)
 
 
 2.1.11 November 05, 2019
