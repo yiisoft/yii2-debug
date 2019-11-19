@@ -1,7 +1,7 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.12 under development
+2.1.12 November 19, 2019
 ------------------------
 
 - Bug #424: Fixes missing timeline panel tooltips (My6UoT9)
