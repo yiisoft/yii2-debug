@@ -37,7 +37,7 @@
             for (var i = 0, len = links.length; i < len; i++) {
                 new Tooltip(links[i]);
 
-                on(link, 'show.bs.tooltip', function() {
+                on(links[i], 'show.bs.tooltip', function() {
                     if (this.hasAttribute('data-memory')) {
                         var data = this.dataset.memory;
                         self.options.$memory.textContent = data[0];
