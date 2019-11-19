@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #424: Fixes missing timeline panel tooltips (My6UoT9)
+- Enh #425: Add warning message related to `traceLevel` on db panel (kjusupov)
 
 
 2.1.11 November 05, 2019
