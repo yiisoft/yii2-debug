@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.13 under development
 ------------------------
 
-- no changes in this release.
+- Fix #427: Fix missing import yii\helpers\Html in DumpPanel (zhukovra)
 
 
 2.1.12 November 19, 2019

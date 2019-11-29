@@ -8,6 +8,7 @@
 namespace yii\debug\panels;
 
 use Yii;
+use yii\helpers\Html;
 use yii\log\Logger;
 use yii\debug\models\search\Log;
 use yii\debug\Panel;
