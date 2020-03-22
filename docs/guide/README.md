@@ -25,7 +25,6 @@ Getting Started
 ---------------
 
 * [Installation](installation.md)
-* **TBD** [Basic Usage](basic-usage.md)
 
 Additional topics
 -----------------
