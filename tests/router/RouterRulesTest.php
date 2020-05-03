@@ -2,7 +2,6 @@
 
 namespace yiiunit\debug\router;
 
-use yii\debug\models\router\CurrentRoute;
 use yii\debug\models\router\RouterRules;
 use yii\web\UrlRule;
 use yiiunit\debug\TestCase;
