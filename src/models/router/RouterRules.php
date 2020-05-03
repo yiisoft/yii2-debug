@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Model;
 use yii\rest\UrlRule as RestUrlRule;
 use yii\web\GroupUrlRule;
+use yii\web\UrlManager;
 use yii\web\UrlRule as WebUrlRule;
 
 /**
@@ -58,12 +59,16 @@ class RouterRules extends Model
     {
         parent::init();
 
-        $this->prettyUrl = Yii::$app->urlManager->enablePrettyUrl;
-        $this->suffix = Yii::$app->urlManager->suffix;
-        $this->strictParsing = Yii::$app->urlManager->enableStrictParsing;
+        if (Yii::$app->urlManager instanceof UrlManager) {
+            $this->prettyUrl = Yii::$app->urlManager->enablePrettyUrl;
+            $this->suffix = Yii::$app->urlManager->suffix;
+            $this->strictParsing = Yii::$app->urlManager->enableStrictParsing;
 
-        foreach (Yii::$app->urlManager->rules as $rule) {
-            $this->scanRule($rule);
+            if ($this->prettyUrl) {
+                foreach (Yii::$app->urlManager->rules as $rule) {
+                    $this->scanRule($rule);
+                }
+            }
         }
     }
 
@@ -119,6 +124,7 @@ class RouterRules extends Model
     /**
      * Scans group rule's rules for basic data.
      * @param GroupUrlRule $groupRule
+     * @throws \ReflectionException
      */
     protected function scanGroupRule($groupRule)
     {
