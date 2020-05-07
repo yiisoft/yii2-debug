@@ -105,6 +105,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @var string toolbar position on web page. Use 'top' or 'bottom'.
      * You may add custom value via .yii-debug-toolbar_position_{yourValue} css
+     * @since 2.1.14
      */
     public $toolbarPosition = 'bottom';
     /**
