@@ -322,7 +322,12 @@
     function shouldTrackRequest(requestUrl) {
         var a = document.createElement('a');
         a.href = requestUrl;
-
+        if (window.hasOwnProperty("skipAjaxRequestUrl")) {
+            var requestRoute = requestUrl.split('?')
+            if (skipAjaxRequestUrl.includes(requestRoute[0])) {
+                return false;
+            }
+        }
         return a.host === location.host;
     }
 
