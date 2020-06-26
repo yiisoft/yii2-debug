@@ -385,7 +385,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         if (!empty($this->skipAjaxRequestUrl)) {
             foreach ($this->skipAjaxRequestUrl as $key => $route) {
-                $this->skipAjaxRequestUrl[$key] = Url::to([$route]);
+                $this->skipAjaxRequestUrl[$key] = Url::to($route);
             }
             echo '<script> var skipAjaxRequestUrl =' . json_encode($this->skipAjaxRequestUrl) . '</script>';
         }
