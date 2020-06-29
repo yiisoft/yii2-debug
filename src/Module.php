@@ -364,7 +364,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
             '/' . $this->id . '/default/toolbar',
             'tag' => $this->logTarget->tag,
         ]);
-        return '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
+
+        if (!empty($this->skipAjaxRequestUrl)) {
+            foreach ($this->skipAjaxRequestUrl as $key => $route) {
+                $this->skipAjaxRequestUrl[$key] = Url::to($route);
+            }
+        }
+        return '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" data-skip-urls="' . htmlspecialchars(json_encode($this->skipAjaxRequestUrl)) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
     }
 
     /**
@@ -382,13 +388,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
         /* @var $view View */
         $view = $event->sender;
         echo $view->renderDynamic('return Yii::$app->getModule("' . $this->id . '")->getToolbarHtml();');
-
-        if (!empty($this->skipAjaxRequestUrl)) {
-            foreach ($this->skipAjaxRequestUrl as $key => $route) {
-                $this->skipAjaxRequestUrl[$key] = Url::to($route);
-            }
-            echo '<script> var skipAjaxRequestUrl =' . json_encode($this->skipAjaxRequestUrl) . '</script>';
-        }
 
         // echo is used in order to support cases where asset manager is not available
         echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css') . '</style>';
