@@ -322,9 +322,9 @@
     function shouldTrackRequest(requestUrl) {
         var a = document.createElement('a');
         a.href = requestUrl;
-        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'))
-        if (skipAjaxRequestUrls) {
-            if (skipAjaxRequestUrls.includes(requestUrl)) {
+        if (window.hasOwnProperty("skipAjaxRequestUrl")) {
+            var requestRoute = requestUrl.split('?')
+            if (skipAjaxRequestUrl.includes(requestRoute[0])) {
                 return false;
             }
         }
