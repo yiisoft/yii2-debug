@@ -323,7 +323,7 @@
         var a = document.createElement('a');
         a.href = requestUrl;
         var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'))
-        if (skipAjaxRequestUrls) {
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length) {
             if (skipAjaxRequestUrls.includes(requestUrl)) {
                 return false;
             }
