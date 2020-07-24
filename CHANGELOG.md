@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.14 under development
 ------------------------
 
-- no changes in this release.
+- Fix #434: Toolbar logo could have the wrong size (brandonkelly)
 
 
 2.1.13 January 17, 2020
