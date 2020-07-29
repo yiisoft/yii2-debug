@@ -195,18 +195,23 @@ class LogTarget extends Target
             return [];
         }
 
-        $request = Yii::$app->getRequest();
-        $response = Yii::$app->getResponse();
         $summary = [
             'tag' => $this->tag,
-            'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int) $request->getIsAjax(),
-            'method' => $request->getMethod(),
-            'ip' => $request->getUserIP(),
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
-            'statusCode' => $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
         ];
+
+        if(Yii::$app instanceof yii\web\Application){
+            $request = Yii::$app->getRequest();
+            $response = Yii::$app->getResponse();
+            $summary += [
+                'url' => $request->getAbsoluteUrl(),
+                'ajax' => (int) $request->getIsAjax(),
+                'method' => $request->getMethod(),
+                'ip' => $request->getUserIP(),
+                'statusCode' => $response->statusCode,
+            ];
+        }
 
         if (isset($this->module->panels['mail'])) {
             $mailFiles = $this->module->panels['mail']->getMessagesFileName();
