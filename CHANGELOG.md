@@ -4,13 +4,13 @@ Yii Framework 2 debug extension Change Log
 2.1.14 under development
 ------------------------
 
-- Fix #434: Toolbar logo could have the wrong size (brandonkelly)
+- Bug #434: Toolbar logo could have the wrong size (brandonkelly)
 
 
 2.1.13 January 17, 2020
 -----------------------
 
-- Fix #427: Fix missing import yii\helpers\Html in DumpPanel (zhukovra)
+- Bug #427: Fix missing import yii\helpers\Html in DumpPanel (zhukovra)
 
 
 2.1.12 November 19, 2019
