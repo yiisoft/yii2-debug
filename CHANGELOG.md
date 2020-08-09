@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.14 under development
 ------------------------
 
-- no changes in this release.
+- Enh #433: Add ability for toolbar to skip URLs of AJAX requests from being displayed (naduvko)
 
 
 2.1.13 January 17, 2020
