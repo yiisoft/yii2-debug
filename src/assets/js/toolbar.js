@@ -322,11 +322,9 @@
     function shouldTrackRequest(requestUrl) {
         var a = document.createElement('a');
         a.href = requestUrl;
-        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'))
-        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length) {
-            if (skipAjaxRequestUrls.includes(requestUrl)) {
-                return false;
-            }
+        var skipAjaxRequestUrls = JSON.parse(toolbarEl.getAttribute('data-skip-urls'));
+        if (Array.isArray(skipAjaxRequestUrls) && skipAjaxRequestUrls.length && skipAjaxRequestUrls.includes(requestUrl)) {
+            return false;
         }
         return a.host === location.host;
     }

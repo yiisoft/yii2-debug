@@ -186,7 +186,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     /**
      * @var array of routes used to skip catching of AJAX request
-     *
+     * @since 2.1.14
      */
     public $skipAjaxRequestUrl = [];
 
