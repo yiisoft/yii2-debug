@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.14 under development
 ------------------------
 
+- Enh #433: Add ability for toolbar to skip URLs of AJAX requests from being displayed (naduvko)
 - Bug #434: Toolbar logo could have the wrong size (brandonkelly)
 
 
