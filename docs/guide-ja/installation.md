@@ -269,3 +269,24 @@ return [
 ```
 
 詳細は [権限付与のガイド](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html) を参照して下さい。
+
+### ツールバーに表示される URL から除外する
+
+AJAX によるポーリングなどの場合、すぐにツールバーがその URL だらけになり、使えなくなってしまいます。
+そのような場合に、そういう URL を無視する方法があります。
+
+```php
+return [
+    'bootstrap' => ['debug'],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'skipAjaxRequestUrl' => [
+                'notification/status'
+            ],
+        ],
+        // ...
+    ],
+    ...
+];
+```
