@@ -81,7 +81,7 @@ class UserPanel extends Panel
     public function init()
     {
         if (!$this->isEnabled() || $this->getUser()->isGuest) {
-            return;
+            return false;
         }
 
         $this->userSwitch = new UserSwitch(['userComponent' => $this->userComponent]);
