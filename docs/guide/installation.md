@@ -269,3 +269,24 @@ return [
 ```
 
 For details see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html).
+
+### Skipping URLs from being displayed in toolbar
+
+In some cases, such as AJAX-polling, toolbar is getting spammed quickly and becomes unusable. There is a way to ignore
+these URLs for such cases:
+
+```php
+return [
+    'bootstrap' => ['debug'],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'skipAjaxRequestUrl' => [
+                'notification/status'
+            ],
+        ],
+        // ...
+    ],
+    ...
+];
+```

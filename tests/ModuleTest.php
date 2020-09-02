@@ -82,7 +82,7 @@ class ModuleTest extends TestCase
             ->getMock();
 
         $this->assertEquals(<<<HTML
-<div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" style="display:none" class="yii-debug-toolbar-bottom"></div>
+<div id="yii-debug-toolbar" data-url="/index.php?r=debug%2Fdefault%2Ftoolbar&amp;tag={$module->logTarget->tag}" data-skip-urls="[]" style="display:none" class="yii-debug-toolbar-bottom"></div>
 HTML
             , $module->getToolbarHtml());
     }
@@ -155,4 +155,4 @@ HTML
 
         $this->assertEquals('2.0.7', $module->getVersion());
     }
-} 
+}
