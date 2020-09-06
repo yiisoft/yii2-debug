@@ -10,6 +10,7 @@ namespace yii\debug\models\router;
 use Yii;
 use yii\base\Application;
 use yii\base\Controller;
+use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\Inflector;
 use yii\rest\Controller as RestController;
@@ -170,7 +171,7 @@ class ActionRoutes extends Model
      * Returns all available application routes (non-console) grouped by the controller's name.
      * @return array
      * @throws \ReflectionException
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     protected function getAppRoutes()
     {

@@ -17,7 +17,7 @@ use yii\helpers\Html;
 
 <?php if ($currentRoute->message !== null): ?>
     <div class="alert alert-info">
-        <?= Html::encode($currentRoute->message); ?>
+        <?= Html::encode($currentRoute->message) ?>
     </div>
 <?php endif; ?>
 <?php if (count($currentRoute->logs)): ?>
@@ -34,8 +34,8 @@ use yii\helpers\Html;
             <?php foreach ($currentRoute->logs as $i => $log): ?>
                 <tr<?= $log['match'] ? ' class="table-success"' : '' ?>>
                     <td><?= $i + 1; ?></td>
-                    <td><?= Html::encode($log['rule']); ?></td>
-                    <td><?= Html::encode($log['parent']); ?></td>
+                    <td><?= Html::encode($log['rule']) ?></td>
+                    <td><?= Html::encode($log['parent']) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

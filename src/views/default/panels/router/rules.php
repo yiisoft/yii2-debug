@@ -28,7 +28,7 @@ use yii\helpers\Html;
                         <td><?= Html::encode($rule['route']); ?></td>
                         <td><?= is_array($rule['verb']) ? implode(', ', array_map(function ($element) {
                                 return Html::encode($element);
-                            }, $rule['verb'])) : null; ?></td>
+                            }, $rule['verb'])) : null ?></td>
                         <td><?= Html::encode($rule['suffix']); ?></td>
                         <td><?= Html::encode($rule['mode']); ?></td>
                         <td><?= $rule['type'] ?></td>
