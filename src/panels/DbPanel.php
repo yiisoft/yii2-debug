@@ -104,6 +104,30 @@ class DbPanel extends Panel
         ]);
     }
 
+    public function getSummaryData()
+    {
+        $timings = $this->calculateTimings();
+        $queryCount = count($timings);
+        $queryTime = number_format($this->getTotalQueryTime($timings) * 1000) . ' ms';
+
+        return [
+            "title" => "DB",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "text" => $this->getSummaryName(),
+                ],
+                [
+                    "label" => (string) $queryCount,
+                    "type" => "info"
+                ],
+                [
+                    "label" => (string) $queryTime,
+                ]
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      * @throws InvalidConfigException

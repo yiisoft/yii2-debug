@@ -361,7 +361,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function getToolbarHtml()
     {
         $url = Url::toRoute([
-            '/' . $this->id . '/default/toolbar',
+            '/' . $this->id . '/default/toolbar-data',
             'tag' => $this->logTarget->tag,
         ]);
 
@@ -370,7 +370,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 $this->skipAjaxRequestUrl[$key] = Url::to($route);
             }
         }
-        return '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" data-skip-urls="' . htmlspecialchars(json_encode($this->skipAjaxRequestUrl)) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
+
+        DevbarAsset::register(Yii::$app->view);
+
+        return '<dev-bar url="' . Html::encode($url) . '" skip-urls="' . htmlspecialchars(json_encode($this->skipAjaxRequestUrl)) . '"></dev-bar>';
     }
 
     /**
@@ -390,8 +393,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
         echo $view->renderDynamic('return Yii::$app->getModule("' . $this->id . '")->getToolbarHtml();');
 
         // echo is used in order to support cases where asset manager is not available
-        echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css') . '</style>';
-        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/js/toolbar.js') . '</script>';
+//        echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css') . '</style>';
+//        echo '<script>__YII2_DEVTOOLS__ = ' . json_encode($data) . '</script>';
     }
 
     /**

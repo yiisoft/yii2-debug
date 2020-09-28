@@ -11,6 +11,7 @@ use Yii;
 use yii\debug\models\search\Log;
 use yii\debug\Panel;
 use yii\log\Logger;
+use yii\log\Target;
 
 /**
  * Debugger panel that collects and displays logs.
@@ -40,6 +41,43 @@ class LogPanel extends Panel
     public function getSummary()
     {
         return Yii::$app->view->render('panels/log/summary', ['data' => $this->data, 'panel' => $this]);
+    }
+
+    public function getSummaryData()
+    {
+        $errorCount = count(Target::filterMessages($this->data['messages'], Logger::LEVEL_ERROR));
+        $warningCount = count(Target::filterMessages($this->data['messages'], Logger::LEVEL_WARNING));
+
+        $content = [
+            [
+                "text" => "Logs"
+            ],
+            [
+                "label" => count($this->data['messages'])
+            ]
+        ];
+
+        if ($errorCount) {
+            $content[] = [
+                "url" => $this->getUrl(['Log[level]' => Logger::LEVEL_ERROR]),
+                "label" => $errorCount,
+                "type" => "danger",
+            ];
+        }
+
+        if ($warningCount) {
+            $content[] = [
+                "url" => $this->getUrl(['Log[level]' => Logger::LEVEL_WARNING]),
+                "label" => $warningCount,
+                "type" => "warning"
+            ];
+        }
+
+        return [
+            "title" => "Logs",
+            "iframe" => $this->getUrl(),
+            "content" => $content
+        ];
     }
 
     /**

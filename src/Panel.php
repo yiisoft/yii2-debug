@@ -76,6 +76,14 @@ class Panel extends Component
     }
 
     /**
+     * @return array variables for content that is displayed at debug toolbar
+     */
+    public function getSummaryData()
+    {
+        return [];
+    }
+
+    /**
      * @return string content that is displayed in debugger detail view
      */
     public function getDetail()
