@@ -74,6 +74,22 @@
     margin: 0;
 }
 
+.yii-debug-toolbar_position_upper {
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin: 0;
+}
+
+.yii-debug-toolbar_position_upper.yii-debug-toolbar_iframe_active {
+    border-bottom: 1px solid rgba(0, 0, 0, .11);
+
+    .yii-debug-toolbar__toggle-icon {
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+}
+
 .yii-debug-toolbar__bar {
     position: relative;
     padding: 0;
