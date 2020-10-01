@@ -20,7 +20,7 @@ class DevbarAsset extends AssetBundle
     /**
      * {@inheritdoc}
      */
-    public $sourcePath = '@npm/yii2-devtools.js/dist';
+    public $baseUrl = 'https://unpkg.com/@devbar/toolbar/dist/';
     /**
      * {@inheritdoc}
      */
