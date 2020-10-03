@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Enh #430: Allow to configure toolbar position via `Module::$toolbarPosition` property (sasha-x)
+- Enh #428: Extra routing data in Router panel (bizley)
 - Enh #433: Add ability for toolbar to skip URLs of AJAX requests from being displayed (naduvko)
 - Bug #434: Toolbar logo could have the wrong size (brandonkelly)
 
