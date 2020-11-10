@@ -1,12 +1,12 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.14 under development
+2.1.14 November 10, 2020
 ------------------------
 
+- Bug #434: Toolbar logo could have the wrong size (brandonkelly)
 - Enh #428: Extra routing data in Router panel (bizley)
 - Enh #433: Add ability for toolbar to skip URLs of AJAX requests from being displayed (naduvko)
-- Bug #434: Toolbar logo could have the wrong size (brandonkelly)
 
 
 2.1.13 January 17, 2020

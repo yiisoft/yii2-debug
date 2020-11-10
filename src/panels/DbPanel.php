@@ -17,8 +17,9 @@ use yii\log\Logger;
 /**
  * Debugger panel that collects and displays database queries performed.
  *
- * @property array $profileLogs Returns all profile logs of the current request for this panel. This property is read-only.
- * @property string $summaryName Short name of the panel, which will be use in summary. This property is read-only.
+ * @property-read array $profileLogs This property is read-only.
+ * @property-read string $summaryName Short name of the panel, which will be use in summary. This property is
+ * read-only.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

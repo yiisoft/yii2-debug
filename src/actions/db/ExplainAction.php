@@ -14,8 +14,6 @@ use yii\web\HttpException;
 /**
  * ExplainAction provides EXPLAIN information for SQL queries
  *
- * @property \yii\debug\controllers\DefaultController|\yii\web\Controller|\yii\console\Controller $controller the controller that owns this action
- *
  * @author Laszlo <github@lvlconsultancy.nl>
  * @since 2.0.6
  */
