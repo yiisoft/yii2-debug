@@ -210,7 +210,7 @@ class ActionRoutes extends Model
             foreach (Yii::$app->urlManager->rules as $rule) {
                 $count++;
                 $url = $rule->createUrl(Yii::$app->urlManager, $route, []);
-                if ($url !== false) {
+                if ($url !== false && ($rule instanceof yii\web\UrlRule)) {
                     return [$rule->name, $count];
                 }
             }
