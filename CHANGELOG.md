@@ -1,7 +1,7 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.15 under development
+2.1.15 November 13, 2020
 ------------------------
 
 - Bug #443: Fix bug with fetching wrong URL rule name (bizley)
