@@ -15,6 +15,7 @@ use yii\base\Model;
 use yii\helpers\Inflector;
 use yii\rest\Controller as RestController;
 use yii\web\Controller as WebController;
+use yii\web\GroupUrlRule;
 use yii\web\UrlRule;
 
 /**
@@ -206,16 +207,32 @@ class ActionRoutes extends Model
     {
         $count = 0;
         if (Yii::$app->urlManager->enablePrettyUrl) {
-            /* @var $rule UrlRule */
             foreach (Yii::$app->urlManager->rules as $rule) {
                 $count++;
                 $url = $rule->createUrl(Yii::$app->urlManager, $route, []);
                 if ($url !== false) {
-                    return [$rule->name, $count];
+                    return [$this->getRuleName($rule), $count];
                 }
             }
         }
 
         return [null, $count];
+    }
+
+    private function getRuleName($rule)
+    {
+        $name = null;
+        if ($rule instanceof UrlRule && $rule->getCreateUrlStatus() === UrlRule::CREATE_STATUS_SUCCESS) {
+            $name = $rule->name;
+        } elseif ($rule instanceof GroupUrlRule) {
+            foreach ($rule->rules as $subrule) {
+                $name = $this->getRuleName($subrule);
+                if ($name !== null) {
+                    break;
+                }
+            }
+        }
+
+        return $name;
     }
 }

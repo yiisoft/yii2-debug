@@ -19,10 +19,20 @@ class ActionRoutesTest extends TestCase
                     'urlManager' => [
                         'enablePrettyUrl' => true,
                         'rules' => [
-                            '<controller>/<action>' => '<controller>/<action>'
+                            '<controller>/<action>' => '<controller>/<action>',
+                            [
+                                'class' => 'yii\web\GroupUrlRule',
+                                'prefix' => 'admin',
+                                'rules' => [
+                                    'inside' => 'module-web/inside',
+                                ],
+                            ]
                         ]
                     ],
                 ],
+                'modules' => [
+                    'admin' => 'yiiunit\debug\router\module\Module'
+                ]
             ]
         );
 
@@ -73,6 +83,11 @@ class ActionRoutesTest extends TestCase
                     'route' => 'web/error',
                     'rule' => '<controller>/<action>',
                     'count' => 1,
+                ],
+                'yiiunit\debug\router\module\controllers\ModuleWebController::actionInside()' => [
+                    'route' => 'admin/module-web/inside',
+                    'rule' => 'admin/inside',
+                    'count' => 2,
                 ],
             ],
             $routes->routes
