@@ -1,6 +1,12 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
+2.1.16 under development
+------------------------
+
+- no changes in this release.
+
+
 2.1.15 November 13, 2020
 ------------------------
 
