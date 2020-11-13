@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.16 under development
 ------------------------
 
-- no changes in this release.
+- Enh #441: Added PHP 7.4 and 8.0 compatibility for tests (bizley)
 
 
 2.1.15 November 13, 2020
