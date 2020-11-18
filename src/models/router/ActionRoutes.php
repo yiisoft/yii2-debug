@@ -97,7 +97,11 @@ class ActionRoutes extends Model
 
         $externalActions = $controller->actions();
         foreach ($externalActions as $id => $externalAction) {
-            $actions[$id] = $externalAction['class'];
+            if (is_array($externalAction) && array_key_exists('class', $externalAction)) {
+                $actions[$id] = $externalAction['class'];
+            } elseif (is_string($externalAction)) {
+                $actions[$id] = $externalAction;
+            }
         }
 
         $class = new \ReflectionClass($controller);

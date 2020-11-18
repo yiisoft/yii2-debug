@@ -12,6 +12,7 @@ class WebController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'errorStraight' => 'yii\web\ErrorAction',
         ];
     }
 
