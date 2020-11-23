@@ -79,6 +79,11 @@ class ActionRoutesTest extends TestCase
                     'rule' => '<controller>/<action>',
                     'count' => 1,
                 ],
+                'yiiunit\debug\router\controllers\WebController::actions()[errorStraight] => yii\web\ErrorAction' => [
+                    'route' => 'web/error-straight',
+                    'rule' => '<controller>/<action>',
+                    'count' => 1,
+                ],
                 'yiiunit\debug\router\controllers\WebController::actions()[error] => yii\web\ErrorAction' => [
                     'route' => 'web/error',
                     'rule' => '<controller>/<action>',
