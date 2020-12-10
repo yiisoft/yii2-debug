@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #446: Fix bug with simple action config detection (bizley)
+- Bug #449: Fix bug with scanned controllers being unnecessary initiated (bizley)
 - Enh #441: Added PHP 7.4 and 8.0 compatibility for tests (bizley)
 
 
