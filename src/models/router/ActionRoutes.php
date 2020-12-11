@@ -9,13 +9,10 @@ namespace yii\debug\models\router;
 
 use Yii;
 use yii\base\Application;
-use yii\base\Controller;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\Inflector;
-use yii\rest\Controller as RestController;
-use yii\web\Controller as WebController;
 use yii\web\GroupUrlRule;
+use yii\web\UrlManager;
 use yii\web\UrlRule;
 
 /**
@@ -47,7 +44,10 @@ class ActionRoutes extends Model
                 if ($actionClass === null) {
                     $actionId = substr($actionName, 6);
                 }
-                $route = $controller . '/' . mb_strtolower(trim(preg_replace('/\p{Lu}/u', '-\0', $actionId), '-'), 'UTF-8');
+                $route = $controller . '/' . mb_strtolower(
+                        trim(preg_replace('/\p{Lu}/u', '-\0', $actionId), '-'),
+                        'UTF-8'
+                    );
                 list($rule, $count) = $this->getMatchedCreationRule($route);
 
                 if ($actionClass === null) {
@@ -87,32 +87,36 @@ class ActionRoutes extends Model
 
     /**
      * Returns all available actions of the specified controller.
-     * @param Controller $controller the controller instance
+     * @param \ReflectionClass $controller reflection of the controller
      * @return array all available action IDs with optional action class name (for external actions).
-     * @throws \ReflectionException
      */
     protected function getActions($controller)
     {
         $actions = [];
 
-        $externalActions = $controller->actions();
-        foreach ($externalActions as $id => $externalAction) {
-            if (is_array($externalAction) && array_key_exists('class', $externalAction)) {
-                $actions[$id] = $externalAction['class'];
-            } elseif (is_string($externalAction)) {
-                $actions[$id] = $externalAction;
-            }
+        try {
+            // avoid potential problems with __construct() and init()
+            $instance = $controller->newInstanceWithoutConstructor();
+        } catch (\ReflectionException $e) {
+            $instance = null;
         }
 
-        $class = new \ReflectionClass($controller);
-        foreach ($class->getMethods() as $method) {
+        foreach ($controller->getMethods() as $method) {
             $name = $method->getName();
-            if (
-                $name !== 'actions'
-                && $method->isPublic()
-                && !$method->isStatic()
-                && strncmp($name, 'action', 6) === 0
-            ) {
+            if ($name === 'actions' && $instance !== null) {
+                $externalActions = $instance->actions();
+                foreach ($externalActions as $id => $externalAction) {
+                    if (is_array($externalAction)) {
+                        if (isset($externalAction['class'])) {
+                            $actions[$id] = $externalAction['class'];
+                        } elseif (isset($externalAction['__class'])) {
+                            $actions[$id] = $externalAction['__class'];
+                        }
+                    } elseif (is_string($externalAction)) {
+                        $actions[$id] = $externalAction;
+                    }
+                }
+            } elseif ($method->isPublic() && !$method->isStatic() && strncmp($name, 'action', 6) === 0) {
                 $actions[$name] = null;
             }
         }
@@ -123,7 +127,7 @@ class ActionRoutes extends Model
     /**
      * Returns available controllers of a specified module.
      * @param \yii\base\Module $module the module instance
-     * @return array the available controller names
+     * @return array the available controller IDs and their class names
      * @throws \ReflectionException
      */
     protected function getModuleControllers($module)
@@ -131,16 +135,15 @@ class ActionRoutes extends Model
         $prefix = $module instanceof Application ? '' : $module->getUniqueId() . '/';
 
         $controllers = [];
-        foreach (array_keys($module->controllerMap) as $id) {
-            $controllers[] = $prefix . $id;
-        }
 
-        foreach ($module->getModules() as $id => $child) {
+        $modules = $module->getModules();
+        foreach ($modules as $id => $child) {
             if (($child = $module->getModule($id)) === null) {
                 continue;
             }
-            foreach ($this->getModuleControllers($child) as $controller) {
-                $controllers[] = $controller;
+            $moduleControllers = $this->getModuleControllers($child);
+            foreach ($moduleControllers as $controllerId => $controllerClass) {
+                $controllers[$controllerId] = $controllerClass;
             }
         }
 
@@ -161,12 +164,25 @@ class ActionRoutes extends Model
                 if ($this->validateControllerClass($controllerClass)) {
                     $dir = ltrim(pathinfo($relativePath, PATHINFO_DIRNAME), '\\/');
 
-                    $controller = Inflector::camel2id(substr(basename($file), 0, -14), '-', true);
+                    $controllerId = Inflector::camel2id(substr(basename($file), 0, -14), '-', true);
                     if (!empty($dir)) {
-                        $controller = $dir . '/' . $controller;
+                        $controllerId = $dir . '/' . $controllerId;
                     }
-                    $controllers[] = $prefix . $controller;
+                    $controllers[$prefix . $controllerId] = $controllerClass;
                 }
+            }
+        }
+
+        // controllerMap takes precedence
+        foreach ($module->controllerMap as $controllerId => $controllerConfig) {
+            if (is_array($controllerConfig)) {
+                if (isset($controllerConfig['class'])) {
+                    $controllers[$prefix . $controllerId] = $controllerConfig['class'];
+                } elseif (isset($controllerConfig['__class'])) {
+                    $controllers[$prefix . $controllerId] = $controllerConfig['__class'];
+                }
+            } elseif (is_string($controllerConfig)) {
+                $controllers[$prefix . $controllerId] = $controllerConfig;
             }
         }
 
@@ -177,24 +193,30 @@ class ActionRoutes extends Model
      * Returns all available application routes (non-console) grouped by the controller's name.
      * @return array
      * @throws \ReflectionException
-     * @throws InvalidConfigException
      */
     protected function getAppRoutes()
     {
-        $controllers = array_unique($this->getModuleControllers(Yii::$app));
+        $controllers = $this->getModuleControllers(Yii::$app);
 
         $appRoutes = [];
-        foreach ($controllers as $controller) {
-            $result = Yii::$app->createController($controller);
-            if ($result === false || (!$result[0] instanceof WebController && !$result[0] instanceof RestController)) {
+        foreach ($controllers as $controllerId => $controllerClass) {
+            if (!class_exists($controllerClass)) {
                 continue;
             }
-            $actions = $this->getActions($result[0]);
+            $class = new \ReflectionClass($controllerClass);
+            if (
+                $class->isAbstract()
+                || (!$class->isSubclassOf('yii\web\Controller') && !$class->isSubclassOf('yii\rest\Controller'))
+            ) {
+                continue;
+            }
+
+            $actions = $this->getActions($class);
             if (count($actions) === 0) {
                 continue;
             }
-            $appRoutes[$controller] = [
-                'class' => get_class($result[0]),
+            $appRoutes[$controllerId] = [
+                'class' => $controllerClass,
                 'actions' => $actions
             ];
         }
@@ -210,7 +232,7 @@ class ActionRoutes extends Model
     protected function getMatchedCreationRule($route)
     {
         $count = 0;
-        if (Yii::$app->urlManager->enablePrettyUrl) {
+        if (Yii::$app->urlManager instanceof UrlManager && Yii::$app->urlManager->enablePrettyUrl) {
             foreach (Yii::$app->urlManager->rules as $rule) {
                 $count++;
                 $url = $rule->createUrl(Yii::$app->urlManager, $route, []);

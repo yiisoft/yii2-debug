@@ -101,8 +101,8 @@ class RouterPanel extends Panel
         }
         return [
             'messages' => $this->getLogMessages(Logger::LEVEL_TRACE, $this->_categories),
-            'route'    => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
-            'action'   => $action,
+            'route' => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+            'action' => $action,
         ];
     }
 }

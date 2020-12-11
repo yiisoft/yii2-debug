@@ -39,6 +39,11 @@ class ActionRoutesTest extends TestCase
         $routes = new ActionRoutes();
         $this->assertSame(
             [
+                'yiiunit\debug\router\controllers\BadController::actionOnly()' => [
+                    'route' => 'bad/only',
+                    'rule' => '<controller>/<action>',
+                    'count' => 1,
+                ],
                 'yiiunit\debug\router\controllers\RestController::actions()[create] => yii\rest\CreateAction' => [
                     'route' => 'rest/create',
                     'rule' => '<controller>/<action>',
