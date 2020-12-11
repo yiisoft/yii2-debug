@@ -44,45 +44,25 @@ class ActionRoutesTest extends TestCase
                     'rule' => '<controller>/<action>',
                     'count' => 1,
                 ],
+                'yiiunit\debug\router\controllers\BadController::actions()' => [
+                    'route' => 'bad/[external-action]',
+                    'rule' => null,
+                    'count' => 0,
+                ],
                 'yiiunit\debug\router\controllers\RedirectController::actionOnly()' => [
                     'route' => 'redirect/only',
                     'rule' => '<controller>/<action>',
                     'count' => 1,
                 ],
-                'yiiunit\debug\router\controllers\RedirectController::actions()[test] => yii\web\ErrorAction' => [
-                    'route' => 'redirect/test',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
+                'yiiunit\debug\router\controllers\RedirectController::actions()' => [
+                    'route' => 'redirect/[external-action]',
+                    'rule' => null,
+                    'count' => 0,
                 ],
-                'yiiunit\debug\router\controllers\RestController::actions()[create] => yii\rest\CreateAction' => [
-                    'route' => 'rest/create',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
-                ],
-                'yiiunit\debug\router\controllers\RestController::actions()[delete] => yii\rest\DeleteAction' => [
-                    'route' => 'rest/delete',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
-                ],
-                'yiiunit\debug\router\controllers\RestController::actions()[index] => yii\rest\IndexAction' => [
-                    'route' => 'rest/index',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
-                ],
-                'yiiunit\debug\router\controllers\RestController::actions()[options] => yii\rest\OptionsAction' => [
-                    'route' => 'rest/options',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
-                ],
-                'yiiunit\debug\router\controllers\RestController::actions()[update] => yii\rest\UpdateAction' => [
-                    'route' => 'rest/update',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
-                ],
-                'yiiunit\debug\router\controllers\RestController::actions()[view] => yii\rest\ViewAction' => [
-                    'route' => 'rest/view',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
+                'yiiunit\debug\router\controllers\RestController::actions()' => [
+                    'route' => 'rest/[external-action]',
+                    'rule' => null,
+                    'count' => 0,
                 ],
                 'yiiunit\debug\router\controllers\WebController::actionFirst()' => [
                     'route' => 'web/first',
@@ -94,20 +74,20 @@ class ActionRoutesTest extends TestCase
                     'rule' => '<controller>/<action>',
                     'count' => 1,
                 ],
-                'yiiunit\debug\router\controllers\WebController::actions()[errorStraight] => yii\web\ErrorAction' => [
-                    'route' => 'web/error-straight',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
-                ],
-                'yiiunit\debug\router\controllers\WebController::actions()[error] => yii\web\ErrorAction' => [
-                    'route' => 'web/error',
-                    'rule' => '<controller>/<action>',
-                    'count' => 1,
+                'yiiunit\debug\router\controllers\WebController::actions()' => [
+                    'route' => 'web/[external-action]',
+                    'rule' => null,
+                    'count' => 0,
                 ],
                 'yiiunit\debug\router\module\controllers\ModuleWebController::actionInside()' => [
                     'route' => 'admin/module-web/inside',
                     'rule' => 'admin/inside',
                     'count' => 2,
+                ],
+                'yiiunit\debug\router\module\controllers\ModuleWebController::actions()' => [
+                    'route' => 'admin/module-web/[external-action]',
+                    'rule' => null,
+                    'count' => 0,
                 ],
             ],
             $routes->routes

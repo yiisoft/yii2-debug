@@ -40,22 +40,22 @@ class ActionRoutes extends Model
         $appRoutes = $this->getAppRoutes();
         foreach ($appRoutes as $controller => $details) {
             $controllerClass = $details['class'];
-            foreach ($details['actions'] as $actionName => $actionClass) {
-                $actionId = $actionName;
-                if ($actionClass === null) {
-                    $actionId = substr($actionName, 6);
-                }
-                $route = $controller . '/' . mb_strtolower(
-                        trim(preg_replace('/\p{Lu}/u', '-\0', $actionId), '-'),
-                        'UTF-8'
-                    );
-                list($rule, $count) = $this->getMatchedCreationRule($route);
-
-                if ($actionClass === null) {
-                    $name = $controllerClass . '::' . $actionName . '()';
+            foreach ($details['actions'] as $actionName) {
+                if ($actionName === '__ACTIONS__') {
+                    $name = $controllerClass . '::actions()';
+                    $route = $controller . '/[external-action]';
+                    $rule = null;
+                    $count = 0;
                 } else {
-                    $name = $controllerClass . '::actions()[' . $actionName . '] => ' . $actionClass;
+                    $actionId = substr($actionName, 6);
+                    $route = $controller . '/' . mb_strtolower(
+                            trim(preg_replace('/\p{Lu}/u', '-\0', $actionId), '-'),
+                            'UTF-8'
+                        );
+                    list($rule, $count) = $this->getMatchedCreationRule($route);
+                    $name = $controllerClass . '::' . $actionName . '()';
                 }
+
                 $this->routes[$name] = [
                     'route' => $route,
                     'rule' => $rule,
@@ -89,10 +89,9 @@ class ActionRoutes extends Model
     /**
      * Returns all available actions of the specified controller.
      * @param \ReflectionClass $controller reflection of the controller
-     * @param string $route controller's route
      * @return array all available action IDs with optional action class name (for external actions).
      */
-    protected function getActions($controller, $route)
+    protected function getActions($controller)
     {
         $actions = [];
 
@@ -100,29 +99,9 @@ class ActionRoutes extends Model
         foreach ($methods as $method) {
             $name = $method->getName();
             if ($name === 'actions') {
-                try {
-                    $instance = Yii::$app->createController($route);
-                    if ($instance !== false) {
-                        $externalActions = $instance[0]->actions();
-                        if (is_array($externalActions)) {
-                            foreach ($externalActions as $id => $externalAction) {
-                                if (is_array($externalAction)) {
-                                    if (isset($externalAction['class'])) {
-                                        $actions[$id] = $externalAction['class'];
-                                    } elseif (isset($externalAction['__class'])) {
-                                        $actions[$id] = $externalAction['__class'];
-                                    }
-                                } elseif (is_string($externalAction)) {
-                                    $actions[$id] = $externalAction;
-                                }
-                            }
-                        }
-                    }
-                } catch (\Exception $e) {
-                } catch (\Throwable $e) {
-                }
+                $actions[] = '__ACTIONS__';
             } elseif ($method->isPublic() && !$method->isStatic() && strncmp($name, 'action', 6) === 0) {
-                $actions[$name] = null;
+                $actions[] = $name;
             }
         }
 
@@ -216,7 +195,7 @@ class ActionRoutes extends Model
                 continue;
             }
 
-            $actions = $this->getActions($class, $controllerId);
+            $actions = $this->getActions($class);
             if (count($actions) === 0) {
                 continue;
             }
