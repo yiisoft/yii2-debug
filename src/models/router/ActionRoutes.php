@@ -95,7 +95,7 @@ class ActionRoutes extends Model
         $actions = [];
 
         try {
-            // avoid potential problems with __constructor() and init()
+            // avoid potential problems with __construct() and init()
             $instance = $controller->newInstanceWithoutConstructor();
         } catch (\ReflectionException $e) {
             $instance = null;
