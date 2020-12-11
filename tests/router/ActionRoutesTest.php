@@ -44,6 +44,16 @@ class ActionRoutesTest extends TestCase
                     'rule' => '<controller>/<action>',
                     'count' => 1,
                 ],
+                'yiiunit\debug\router\controllers\RedirectController::actionOnly()' => [
+                    'route' => 'redirect/only',
+                    'rule' => '<controller>/<action>',
+                    'count' => 1,
+                ],
+                'yiiunit\debug\router\controllers\RedirectController::actions()[test] => yii\web\ErrorAction' => [
+                    'route' => 'redirect/test',
+                    'rule' => '<controller>/<action>',
+                    'count' => 1,
+                ],
                 'yiiunit\debug\router\controllers\RestController::actions()[create] => yii\rest\CreateAction' => [
                     'route' => 'rest/create',
                     'rule' => '<controller>/<action>',

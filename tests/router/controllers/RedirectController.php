@@ -4,11 +4,11 @@ namespace yiiunit\debug\router\controllers;
 
 use yii\web\Controller;
 
-class BadController extends Controller
+class RedirectController extends Controller
 {
     public function init()
     {
-        throw new \Exception('Simulates problem with controller when initialing');
+        \Yii::$app->response->redirect('web/first');
     }
 
     public function actionOnly()
@@ -18,6 +18,6 @@ class BadController extends Controller
 
     public function actions()
     {
-        return ['test' => 'Something not important'];
+        return ['test' => 'yii\web\ErrorAction'];
     }
 }

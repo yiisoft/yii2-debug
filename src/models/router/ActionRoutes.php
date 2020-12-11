@@ -9,6 +9,7 @@ namespace yii\debug\models\router;
 
 use Yii;
 use yii\base\Application;
+use yii\base\Controller;
 use yii\base\Model;
 use yii\helpers\Inflector;
 use yii\web\GroupUrlRule;
@@ -88,33 +89,37 @@ class ActionRoutes extends Model
     /**
      * Returns all available actions of the specified controller.
      * @param \ReflectionClass $controller reflection of the controller
+     * @param string $route controller's route
      * @return array all available action IDs with optional action class name (for external actions).
      */
-    protected function getActions($controller)
+    protected function getActions($controller, $route)
     {
         $actions = [];
 
-        try {
-            // avoid potential problems with __construct() and init()
-            $instance = $controller->newInstanceWithoutConstructor();
-        } catch (\ReflectionException $e) {
-            $instance = null;
-        }
-
-        foreach ($controller->getMethods() as $method) {
+        $methods = $controller->getMethods();
+        foreach ($methods as $method) {
             $name = $method->getName();
-            if ($name === 'actions' && $instance !== null) {
-                $externalActions = $instance->actions();
-                foreach ($externalActions as $id => $externalAction) {
-                    if (is_array($externalAction)) {
-                        if (isset($externalAction['class'])) {
-                            $actions[$id] = $externalAction['class'];
-                        } elseif (isset($externalAction['__class'])) {
-                            $actions[$id] = $externalAction['__class'];
+            if ($name === 'actions') {
+                try {
+                    $instance = Yii::$app->createController($route);
+                    if ($instance !== false) {
+                        $externalActions = $instance[0]->actions();
+                        if (is_array($externalActions)) {
+                            foreach ($externalActions as $id => $externalAction) {
+                                if (is_array($externalAction)) {
+                                    if (isset($externalAction['class'])) {
+                                        $actions[$id] = $externalAction['class'];
+                                    } elseif (isset($externalAction['__class'])) {
+                                        $actions[$id] = $externalAction['__class'];
+                                    }
+                                } elseif (is_string($externalAction)) {
+                                    $actions[$id] = $externalAction;
+                                }
+                            }
                         }
-                    } elseif (is_string($externalAction)) {
-                        $actions[$id] = $externalAction;
                     }
+                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                 }
             } elseif ($method->isPublic() && !$method->isStatic() && strncmp($name, 'action', 6) === 0) {
                 $actions[$name] = null;
@@ -211,7 +216,7 @@ class ActionRoutes extends Model
                 continue;
             }
 
-            $actions = $this->getActions($class);
+            $actions = $this->getActions($class, $controllerId);
             if (count($actions) === 0) {
                 continue;
             }
