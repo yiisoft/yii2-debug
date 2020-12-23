@@ -1,7 +1,7 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.16 under development
+2.1.16 December 23, 2020
 ------------------------
 
 - Bug #446: Fix bug with simple action config detection (bizley)
