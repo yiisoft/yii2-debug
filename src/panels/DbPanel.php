@@ -59,7 +59,11 @@ class DbPanel extends Panel
      * @var array current database request timings
      */
     private $_timings;
-
+    /**
+     * @var array of event names used to get profile logs.
+     * @since 2.1.17
+     */
+    public $dbEventNames = ['yii\db\Command::query', 'yii\db\Command::execute'];
 
     /**
      * {@inheritdoc}
@@ -154,13 +158,12 @@ class DbPanel extends Panel
     }
 
     /**
-     * Returns all profile logs of the current request for this panel. It includes categories such as:
-     * 'yii\db\Command::query', 'yii\db\Command::execute'.
+     * Returns all profile logs of the current request for this panel. It includes categories specified in $this->dbEventNames property.
      * @return array
      */
     public function getProfileLogs()
     {
-        return $this->getLogMessages(Logger::LEVEL_PROFILE, ['yii\db\Command::query', 'yii\db\Command::execute']);
+        return $this->getLogMessages(Logger::LEVEL_PROFILE, $this->dbEventNames);
     }
 
     /**
