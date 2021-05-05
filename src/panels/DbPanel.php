@@ -50,7 +50,6 @@ class DbPanel extends Panel
      * @since 2.0.7
      */
     public $defaultFilter = [];
-
     /**
      * @var array db queries info extracted to array as models, to use with data provider.
      */
@@ -59,6 +58,8 @@ class DbPanel extends Panel
      * @var array current database request timings
      */
     private $_timings;
+
+
     /**
      * @var array of event names used to get profile logs.
      * @since 2.1.17

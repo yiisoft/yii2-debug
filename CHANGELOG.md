@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.17 under development
-------------------------
+2.1.17 May 05, 2021
+-------------------
 
 - Enh #454: Add `yii\debug\panels\DbPanel::$dbEventNames` that allows specifying event names used to get profile logs for db panel (atiline)
 

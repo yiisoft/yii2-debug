@@ -19,7 +19,7 @@ use yii\log\Logger;
  * RouterPanel provides a panel which displays information about routing process.
  *
  * @property array $categories Note that the type of this property differs in getter and setter. See
- * [[getCategories()]]  and [[setCategories()]] for details.
+ * [[getCategories()]] and [[setCategories()]] for details.
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.8
