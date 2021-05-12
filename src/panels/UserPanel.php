@@ -19,6 +19,7 @@ use yii\debug\models\UserSwitch;
 use yii\debug\Panel;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\web\IdentityInterface;
 use yii\web\User;
@@ -210,6 +211,52 @@ class UserPanel extends Panel
     public function getSummary()
     {
         return Yii::$app->view->render('panels/user/summary', ['panel' => $this]);
+    }
+
+    public function getSummaryData()
+    {
+        $content = [];
+
+        if (!$this->data['id']) {
+            $content[] = [
+                "label" => "Guest"
+            ];
+        } else {
+            if ($this->getUser()->isGuest || $this->userSwitch->isMainUser()) {
+                $content[] = [
+                    [
+                        "text" => Html::encode($this->getName())
+                    ],
+                    [
+                        "label" => $this->data['id'],
+                        "type" => "info"
+                    ]
+                ];
+            } else {
+                $content[] = [
+                    [
+                        "text" =>  Html::encode($this->getName()) . " switching"
+                    ],
+                    [
+                        "label" => $this->data['id'],
+                        "type" => "warning",
+                    ]
+                ];
+            }
+            if ($this->canSwitchUser()) {
+                $content[] = [
+                    "icon" => "switch",
+                    "action" => "userSwitch", // @TODO: execute global function
+                ];
+            }
+        }
+
+
+        return [
+            "title" => "User",
+            "iframe" => $this->getUrl(),
+            "content" => $content
+        ];
     }
 
     /**

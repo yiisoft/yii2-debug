@@ -68,6 +68,22 @@ class EventPanel extends Panel
         ]);
     }
 
+    public function getSummaryData()
+    {
+        return [
+            "title" => "Events",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "text" => "Events"
+                ],
+                [
+                    "label" => count($this->data)
+                ]
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

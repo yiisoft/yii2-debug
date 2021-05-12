@@ -13,6 +13,7 @@ use yii\debug\models\router\ActionRoutes;
 use yii\debug\models\router\CurrentRoute;
 use yii\debug\models\router\RouterRules;
 use yii\debug\Panel;
+use yii\helpers\Html;
 use yii\log\Logger;
 
 /**
@@ -71,6 +72,22 @@ class RouterPanel extends Panel
     public function getSummary()
     {
         return Yii::$app->view->render('panels/router/summary', ['panel' => $this]);
+    }
+
+    public function getSummaryData()
+    {
+        return [
+            "title" => "Router",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "text" => "Route"
+                ],
+                [
+                    "label" => Html::encode($this->data['route'])
+                ]
+            ]
+        ];
     }
 
     /**

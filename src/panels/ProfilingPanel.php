@@ -46,6 +46,33 @@ class ProfilingPanel extends Panel
         ]);
     }
 
+    public function getSummaryData()
+    {
+        $time = number_format($this->data['time'] * 1000) . ' ms';
+        $memory = sprintf('%.3f MB', $this->data['memory'] / 1048576);
+
+        return [
+            "title" => "Profile",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "icon" => "timer",
+                ],
+                [
+                    "label" => $time,
+                    "type" => "info"
+                ],
+                [
+                    "icon" => "memory",
+                ],
+                [
+                    "label" => $memory,
+                    "type" => "info"
+                ]
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -40,6 +40,44 @@ class ConfigPanel extends Panel
     /**
      * {@inheritdoc}
      */
+    public function getSummaryData()
+    {
+//        {
+//            "title": "Version",
+//      "route": "config",
+//      "content": [
+//        {
+//            "label": "2.0.15-dev"
+//        },
+//        {
+//            "text": "PHP"
+//        },
+//        {
+//            "label": "7.1.13"
+//        }
+//      ]
+//    },
+
+        return [
+            "title" => "Config",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "label" => $this->data['application']['yii']
+                ],
+                [
+                    "text" => "PHP",
+                ],
+                [
+                    "label" => $this->data['php']['version']
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getDetail()
     {
         return Yii::$app->view->render('panels/config/detail', ['panel' => $this]);
