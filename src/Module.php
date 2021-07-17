@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\helpers\Html;
+use yii\helpers\IpHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\ForbiddenHttpException;
@@ -406,7 +407,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         $ip = Yii::$app->getRequest()->getUserIP();
         foreach ($this->allowedIPs as $filter) {
-            if ($filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos))) {
+            if ($filter === '*'
+                || $filter === $ip
+                || (
+                    ($pos = strpos($filter, '*')) !== false
+                    && !strncmp($ip, $filter, $pos)
+                )
+                || (
+                    strpos($filter, '/') !== false
+                    && IpHelper::inRange($ip, $filter)
+                )
+            ) {
                 $allowed = true;
                 break;
             }
