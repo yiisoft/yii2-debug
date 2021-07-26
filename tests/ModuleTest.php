@@ -49,6 +49,31 @@ class ModuleTest extends TestCase
                 '10.20.40.40',
                 false
             ],
+            [
+                ['172.16.0.0/12'],
+                '172.15.1.2', // "below" CIDR range
+                false
+            ],
+            [
+                ['172.16.0.0/12'],
+                '172.16.0.0', // in CIDR range
+                true
+            ],
+            [
+                ['172.16.0.0/12'],
+                '172.22.33.44', // in CIDR range
+                true
+            ],
+            [
+                ['172.16.0.0/12'],
+                '172.31.255.255', // in CIDR range
+                true
+            ],
+            [
+                ['172.16.0.0/12'],
+                '172.32.1.2',  // "above" CIDR range
+                false
+            ],
         ];
     }
 

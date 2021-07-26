@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.18 under development
 ------------------------
 
-- no changes in this release.
+- Enh #458: Added CIDR support for allowedIPs (rhertogh)
 
 
 2.1.17 May 05, 2021
