@@ -34,8 +34,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * - an IP address (e.g. 1.2.3.4),
      * - an address with wildcard (e.g. 192.168.0.*) to represent a network segment
      * - a CIDR range (e.g. 172.16.0.0/12) (available since version 2.1.18).
-     * The default value is `['127.0.0.1', '::1']`, which means the module can only be accessed
-     * by localhost.
+     *   The default value is `['127.0.0.1', '::1']`, which means the module can only be accessed
+     *   by localhost.
      */
     public $allowedIPs = ['127.0.0.1', '::1'];
     /**
