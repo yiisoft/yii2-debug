@@ -65,8 +65,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public $logTarget;
     
     /**
-     *
-     * @var \yii\rbac\BaseManager|string|array the Rbac access checker [[BaseManager]] object or the application component ID of the AuthManager [[BaseManager]].
+     * @var \yii\rbac\BaseManager|string|array the RBAC access checker [[BaseManager]] object or the application 
+     * component ID of the AuthManager [[BaseManager]].
+     * @since 2.1.19
      */
     public $authManager = 'authManager';
     
