@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.19 under development
 ------------------------
 
-- no changes in this release.
+- Enh #459: Add `yii\debug\Module::$authManager` for config RBAC manager used by UserPanel to load current user roles and permissions, default is `authManager`. (jafaripur)
 
 
 2.1.18 August 09, 2021
