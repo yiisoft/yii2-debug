@@ -63,6 +63,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @var LogTarget
      */
     public $logTarget;
+    
+    /**
+     *
+     * @var \yii\rbac\BaseManager|string|array the Rbac access checker [[BaseManager]] object or the application component ID of the AuthManager [[BaseManager]].
+     */
+    public $authManager = 'authManager';
+    
     /**
      * @var array|Panel[] list of debug panels. The array keys are the panel IDs, and values are the corresponding
      * panel class names or configuration arrays. This will be merged with [[corePanels()]].
