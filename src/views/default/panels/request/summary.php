@@ -5,7 +5,7 @@ use yii\web\Response;
 
 /* @var $panel yii\debug\panels\RequestPanel */
 
-$statusCode = $panel->data['statusCode'];
+$statusCode = isset($panel->data['statusCode']) ? $panel->data['statusCode'] : null;
 if ($statusCode === null) {
     $statusCode = 200;
 }
