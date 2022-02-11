@@ -23,8 +23,10 @@ class LogTargetTest extends TestCase
 
     public function testLogPanelClosures()
     {
+        Yii::$app->getRequest()->setUrl('dummy');
         $module = new Module('debug');
-        $logTarget = new LogTarget($module);
+        $module->bootstrap(Yii::$app);
+        $logTarget = $module->logTarget;
 
         // Logs to test
         Yii::debug("qwe");
@@ -36,6 +38,7 @@ class LogTargetTest extends TestCase
         Yii::$app->log->getLogger()->flush(true);
         $manifest = $logTarget->loadManifest();
         $lastLogEntry = reset($manifest);
+        $this->assertNotEmpty($lastLogEntry);
         $logTarget->loadTagToPanels($lastLogEntry['tag']);
         $panelData = $module->panels['log']->data;
 
