@@ -29,8 +29,7 @@
     "require": {
         "php": ">=5.4",
         "ext-mbstring": "*",
-        "yiisoft/yii2": "~2.0.13",
-        "opis/closure": "^3.3"
+        "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {
         "yiisoft/yii2-swiftmailer": "*",
@@ -59,7 +58,8 @@
             },
             "phpunit/phpunit": {
                 "Fix PHP 7 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php7.patch",
-                "Fix PHP 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php8.patch"
+                "Fix PHP 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php8.patch",
+                "Fix PHP 8.1 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php81.patch"
             }
         }
     },
