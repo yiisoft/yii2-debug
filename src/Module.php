@@ -62,7 +62,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @var LogTarget
      */
-    public $logTarget;
+    public $logTarget = 'yii\debug\LogTarget';
     /**
      * @var array|Panel[] list of debug panels. The array keys are the panel IDs, and values are the corresponding
      * panel class names or configuration arrays. This will be merged with [[corePanels()]].
@@ -265,7 +265,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function bootstrap($app)
     {
         /* @var $app \yii\base\Application */
-        $this->logTarget = $app->getLog()->targets['debug'] = new LogTarget($this);
+        $this->logTarget = $app->getLog()->targets['debug'] = Yii::createObject($this->logTarget, [$this]);
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {

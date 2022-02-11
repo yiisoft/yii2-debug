@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.19 under development
 ------------------------
 
-- no changes in this release.
+- Enh #469: Add option to change default LogTarget (laxity7)
 
 
 2.1.18 August 09, 2021
