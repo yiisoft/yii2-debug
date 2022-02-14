@@ -56,7 +56,7 @@ echo GridView::widget([
                 $timeInSeconds = $data['time'] / 1000;
                 $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
-                return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
+                return date('H:i:s.', (int) $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
             'headerOptions' => [
                 'class' => 'sort-numerical'
@@ -69,9 +69,9 @@ echo GridView::widget([
             'attribute' => 'time_since_previous',
             'value' => static function ($data) {
                 $diffInMs = $data['time'] - $data['time_of_previous'];
-                $diffInSeconds = $diffInMs / 1000;
-                $diffInMinutes = $diffInSeconds / 60;
-                $diffInHours = $diffInMinutes / 60;
+                $diffInSeconds = (int)$diffInMs / 1000;
+                $diffInMinutes = (int)$diffInSeconds / 60;
+                $diffInHours = (int)$diffInMinutes / 60;
 
                 $diffMs = $diffInMs % 1000;
                 $diffSeconds = $diffInSeconds % 60;
