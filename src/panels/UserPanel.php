@@ -88,6 +88,7 @@ class UserPanel extends Panel
         $this->addAccessRules();
 
         if (!is_object($this->filterModel)
+            && !is_null($this->filterModel)
             && class_exists($this->filterModel)
             && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
         ) {
