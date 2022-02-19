@@ -11,7 +11,6 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 use yii\log\Target;
-use Opis\Closure;
 
 /**
  * The debug LogTarget is used to store logs for later use in the debugger tool
@@ -63,7 +62,7 @@ class LogTarget extends Target
                     $summary['peakMemory'] = $panelData['memory'];
                     $summary['processingTime'] = $panelData['time'];
                 }
-                $data[$id] = Closure\serialize($panelData);
+                $data[$id] = serialize($panelData);
             } catch (\Exception $exception) {
                 $exceptions[$id] = new FlattenException($exception);
             }
@@ -71,13 +70,59 @@ class LogTarget extends Target
         $data['summary'] = $summary;
         $data['exceptions'] = $exceptions;
 
-        file_put_contents($dataFile, Closure\serialize($data));
+        file_put_contents($dataFile, serialize($data));
         if ($this->module->fileMode !== null) {
             @chmod($dataFile, $this->module->fileMode);
         }
 
         $indexFile = "$path/index.data";
         $this->updateIndexFile($indexFile, $summary);
+    }
+
+    /**
+     * @see DefaultController
+     * @return array
+     */
+    public function loadManifest()
+    {
+        $indexFile = $this->module->dataPath . '/index.data';
+
+        $content = '';
+        $fp = @fopen($indexFile, 'r');
+        if ($fp !== false) {
+            @flock($fp, LOCK_SH);
+            $content = fread($fp, filesize($indexFile));
+            @flock($fp, LOCK_UN);
+            fclose($fp);
+        }
+
+        if ($content !== '') {
+            return array_reverse(unserialize($content), true);
+        }
+
+        return [];
+    }
+
+    /**
+     * @see DefaultController
+     * @return array
+     */
+    public function loadTagToPanels($tag)
+    {
+        $dataFile = $this->module->dataPath . "/$tag.data";
+        $data = unserialize(file_get_contents($dataFile));
+        $exceptions = $data['exceptions'];
+        foreach ($this->module->panels as $id => $panel) {
+            if (isset($data[$id])) {
+                $panel->tag = $tag;
+                $panel->load(unserialize($data[$id]));
+            }
+            if (isset($exceptions[$id])) {
+                $panel->setError($exceptions[$id]);
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -89,7 +134,6 @@ class LogTarget extends Target
      */
     private function updateIndexFile($indexFile, $summary)
     {
-
         if (!@touch($indexFile) || ($fp = @fopen($indexFile, 'r+')) === false) {
             throw new InvalidConfigException("Unable to open debug data index file: $indexFile");
         }
@@ -102,7 +146,7 @@ class LogTarget extends Target
             // error while reading index data, ignore and create new
             $manifest = [];
         } else {
-            $manifest = Closure\unserialize($manifest);
+            $manifest = unserialize($manifest);
         }
 
         $manifest[$this->tag] = $summary;
@@ -110,7 +154,7 @@ class LogTarget extends Target
 
         ftruncate($fp, 0);
         rewind($fp);
-        fwrite($fp, Closure\serialize($manifest));
+        fwrite($fp, serialize($manifest));
 
         @flock($fp, LOCK_UN);
         @fclose($fp);
