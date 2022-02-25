@@ -87,7 +87,8 @@ class UserPanel extends Panel
         $this->userSwitch = new UserSwitch(['userComponent' => $this->userComponent]);
         $this->addAccessRules();
 
-        if (is_string($this->filterModel)
+        if (!empty($this->filterModel)
+            && is_string($this->filterModel)
             && class_exists($this->filterModel)
             && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
         ) {
