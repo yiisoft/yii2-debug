@@ -69,13 +69,13 @@ echo GridView::widget([
             'attribute' => 'time_since_previous',
             'value' => static function ($data) {
                 $diffInMs = $data['time'] - $data['time_of_previous'];
-                $diffInSeconds = (int)$diffInMs / 1000;
-                $diffInMinutes = (int)$diffInSeconds / 60;
-                $diffInHours = (int)$diffInMinutes / 60;
+                $diffInSeconds = $diffInMs / 1000;
+                $diffInMinutes = $diffInSeconds / 60;
+                $diffInHours = $diffInMinutes / 60;
 
-                $diffMs = $diffInMs % 1000;
-                $diffSeconds = $diffInSeconds % 60;
-                $diffMinutes = $diffInMinutes % 60;
+                $diffMs = (int)$diffInMs % 1000;
+                $diffSeconds = (int)$diffInSeconds % 60;
+                $diffMinutes = (int)$diffInMinutes % 60;
                 $diffHours = (int)$diffInHours;
 
                 $formattedDiff = [];
