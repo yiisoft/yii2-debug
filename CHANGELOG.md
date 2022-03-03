@@ -6,7 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Enh #469: Add option to change default LogTarget (laxity7)
 - Bug #466: Remove opis\closure dependency for PHP 8.1 compatibility. Closures in logs still working (sartor)
-
+- Bug #475: Fix PHP Deprecated Warning – yii\base\ErrorException resulting from passing null class string to class_exists() under PHP 8.1 (themikem)  
 
 2.1.18 August 09, 2021
 ----------------------
