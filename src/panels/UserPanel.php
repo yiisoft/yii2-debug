@@ -26,8 +26,8 @@ use yii\web\User;
 /**
  * Debugger panel that collects and displays user data.
  *
- * @property-read DataProviderInterface $userDataProvider This property is read-only.
- * @property-read Model|UserSearchInterface $usersFilterModel This property is read-only.
+ * @property-read DataProviderInterface $userDataProvider
+ * @property-read Model|UserSearchInterface $usersFilterModel
  *
  * @author Daniel Gomez Pan <pana_1990@hotmail.com>
  * @since 2.0.8

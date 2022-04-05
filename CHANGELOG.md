@@ -1,12 +1,12 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.19 under development
-------------------------
+2.1.19 April 05, 2022
+---------------------
 
-- Enh #469: Add option to change default LogTarget (laxity7)
 - Bug #466: Remove opis\closure dependency for PHP 8.1 compatibility. Closures in logs still working (sartor)
 - Bug #470: Fix PHP 8.1 warnings about implicit conversion from float to int loses precision (mishamosher)
+- Enh #469: Add option to change default LogTarget (laxity7)
 
 
 2.1.18 August 09, 2021
