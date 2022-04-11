@@ -30,7 +30,7 @@ class RequestPanel extends Panel
     public $censoredVariableNames = [];
 
     /** @var string value to display instead of the variable value if the name is on the censor list */
-    public $censorString = 'variable name is on the censor list';
+    public $censorString = '****';
 
 
     /**
