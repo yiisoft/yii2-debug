@@ -17,7 +17,7 @@ use yii\mail\BaseMailer;
 /**
  * Debugger panel that collects and displays the generated emails.
  *
- * @property-read array $messagesFileName This property is read-only.
+ * @property-read array $messagesFileName
  *
  * @author Mark Jebri <mark.github@yandex.ru>
  * @since 2.0
