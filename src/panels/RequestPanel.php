@@ -26,10 +26,16 @@ class RequestPanel extends Panel
      */
     public $displayVars = ['_SERVER', '_GET', '_POST', '_COOKIE', '_FILES', '_SESSION'];
 
-    /** @var array list of variable names which values should be censored in the output */
+    /**
+     * @var array list of variable names which values should be censored in the output
+     * @since 2.1.20
+     */
     public $censoredVariableNames = [];
 
-    /** @var string value to display instead of the variable value if the name is on the censor list */
+    /**
+     * @var string value to display instead of the variable value if the name is on the censor list
+     * @since 2.1.20
+     */
     public $censorString = '****';
 
 
@@ -164,6 +170,7 @@ class RequestPanel extends Panel
     /**
      * @param array $data
      * @return array
+     * @since 2.1.20
      */
     protected function censorArray($data)
     {
