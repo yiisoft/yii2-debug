@@ -28,7 +28,7 @@ class Base extends Model
      */
     public function addCondition(Filter $filter, $attribute, $partial = false)
     {
-        $value = $this->$attribute;
+        $value = (string)$this->$attribute;
 
         if (mb_strpos($value, '>') !== false) {
             $value = (int)str_replace('>', '', $value);

@@ -56,7 +56,7 @@ echo GridView::widget([
                 $timeInSeconds = $data['time'] / 1000;
                 $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
-                return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
+                return date('H:i:s.', (int) $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
             'headerOptions' => [
                 'class' => 'sort-numerical'
@@ -73,9 +73,9 @@ echo GridView::widget([
                 $diffInMinutes = $diffInSeconds / 60;
                 $diffInHours = $diffInMinutes / 60;
 
-                $diffMs = $diffInMs % 1000;
-                $diffSeconds = $diffInSeconds % 60;
-                $diffMinutes = $diffInMinutes % 60;
+                $diffMs = (int)$diffInMs % 1000;
+                $diffSeconds = (int)$diffInSeconds % 60;
+                $diffMinutes = (int)$diffInMinutes % 60;
                 $diffHours = (int)$diffInHours;
 
                 $formattedDiff = [];

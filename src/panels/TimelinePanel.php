@@ -17,8 +17,8 @@ use yii\debug\Panel;
  * Debugger panel that collects and displays timeline data.
  *
  * @property array $colors
- * @property-read float $duration This property is read-only.
- * @property-read float $start This property is read-only.
+ * @property-read float $duration
+ * @property-read float $start
  * @property array $svgOptions
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>

@@ -1,10 +1,19 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.19 under development
+2.1.20 under development
 ------------------------
 
 - no changes in this release.
+
+
+2.1.19 April 05, 2022
+---------------------
+
+- Bug #466: Remove opis\closure dependency for PHP 8.1 compatibility. Closures in logs still working (sartor)
+- Bug #470: Fix PHP 8.1 warnings about implicit conversion from float to int loses precision (mishamosher)
+- Enh #469: Add option to change default LogTarget (laxity7)
+- Enh #478: Add option to censor variables in the request panel (dbx12)
 
 
 2.1.18 August 09, 2021
