@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.20 under development
 ------------------------
 
-- Bug #461 Do not crash on empty panel data
+- Bug #461 Do not crash on empty panel data (przepompownia)
 
 
 2.1.19 April 05, 2022
