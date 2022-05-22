@@ -5,7 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Bug #461: Do not crash on empty panel data (przepompownia)
-- Enh #484: Allow logTarget config to be set as either a string, an array with class key, or an LogTarget object (Sarke)
+- Enh #484: Allow `logTarget` config to be set as either a string, an array, or an `LogTarget` object (Sarke)
 
 
 2.1.19 April 05, 2022
