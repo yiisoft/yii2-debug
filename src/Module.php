@@ -60,7 +60,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $controllerNamespace = 'yii\debug\controllers';
     /**
-     * @var LogTarget
+     * @var LogTarget|array|string the logTarget object, or the configuration for creating the logTarget object.
      */
     public $logTarget = 'yii\debug\LogTarget';
     /**
@@ -264,8 +264,16 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function bootstrap($app)
     {
+        if (is_array($this->logTarget)) {
+            if (!isset($this->logTarget['class'])) {
+                $this->logTarget['class'] = 'yii\debug\LogTarget';
+            }
+            $this->logTarget = Yii::createObject($this->logTarget, [$this]);
+        } elseif (is_string($this->logTarget)) {
+            $this->logTarget = Yii::createObject($this->logTarget, [$this]);
+        }
         /* @var $app \yii\base\Application */
-        $this->logTarget = $app->getLog()->targets['debug'] = Yii::createObject($this->logTarget, [$this]);
+        $app->getLog()->targets['debug'] = $this->logTarget;
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
