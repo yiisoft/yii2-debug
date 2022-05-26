@@ -112,6 +112,24 @@ class MailPanel extends Panel
         ]);
     }
 
+    public function getSummaryData()
+    {
+        $mailCount = is_array($this->data) ? count($this->data) : '⚠';
+
+        return [
+            "title" => "Mail",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "text" => "Mail"
+                ],
+                [
+                    "label" => $mailCount,
+                ]
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

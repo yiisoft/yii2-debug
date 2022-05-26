@@ -65,6 +65,23 @@ class DumpPanel extends Panel
         return Yii::$app->view->render('panels/dump/summary', ['panel' => $this]);
     }
 
+    public function getSummaryData()
+    {
+        return [
+            "title" => "Dump",
+            "iframe" => $this->getUrl(),
+            "content" => [
+                [
+                    "text" => "Dump",
+                ],
+                [
+                    "label" => (string) count($this->data),
+                    "type" => "info"
+                ],
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

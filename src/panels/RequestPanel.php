@@ -10,6 +10,8 @@ namespace yii\debug\panels;
 use Yii;
 use yii\base\InlineAction;
 use yii\debug\Panel;
+use yii\helpers\Html;
+use yii\web\Response;
 
 /**
  * Debugger panel that collects and displays request data.
@@ -53,6 +55,36 @@ class RequestPanel extends Panel
     public function getSummary()
     {
         return Yii::$app->view->render('panels/request/summary', ['panel' => $this]);
+    }
+
+    public function getSummaryData()
+    {
+        $statusCode = $this->data['statusCode'];
+        if ($statusCode === null) {
+            $statusCode = 200;
+        }
+        if ($statusCode >= 200 && $statusCode < 300) {
+            $type = 'success';
+        } elseif ($statusCode >= 300 && $statusCode < 400) {
+            $type = 'info';
+        } else {
+            $type = 'danger';
+        }
+
+        $statusText = Html::encode(isset(Response::$httpStatuses[$statusCode]) ? Response::$httpStatuses[$statusCode] : '');
+
+        return [
+            "title" => "Request",
+            "content" => [
+                [
+                    "text" => $statusText . " Status"
+                ],
+                [
+                    "label" => $statusCode,
+                    "type" => $type,
+                ]
+            ]
+        ];
     }
 
     /**

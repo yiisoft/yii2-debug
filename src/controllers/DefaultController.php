@@ -9,6 +9,7 @@ namespace yii\debug\controllers;
 
 use Yii;
 use yii\debug\models\search\Debug;
+use yii\debug\Module;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -143,6 +144,49 @@ class DefaultController extends Controller
             'panels' => $this->module->panels,
             'position' => 'bottom',
             'defaultHeight' => $this->module->defaultHeight,
+        ]);
+    }
+
+    /**
+     * Toolbar action
+     *
+     * @param string $tag
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionToolbarData($tag)
+    {
+        $this->loadData($tag, 5);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $tabs = [];
+        foreach ($this->module->panels as $panel) {
+            $data = $panel->getSummaryData();
+
+            if (!empty($data)) {
+                $tabs[] = $data;
+            } else {
+                $html = $panel->hasError() ? $panel->getError()->getMessage() : $panel->getSummary();
+
+                if ($html) {
+                    $tabs[] = [
+                        "title" => $panel->getName(),
+                        "iframe" => $panel->getUrl(),
+                        "html" => $panel->hasError() ? $panel->getError()->getMessage() : $panel->getSummary()
+                    ];
+                }
+            }
+        }
+
+        return new Response([
+            "format" => "json",
+            "data" => [
+                "title" => "Yii 2 Devtools",
+                "logo" => Module::getYiiLogo(),
+                "placement" => "bottom-right",
+                "tabs" => $tabs,
+            ]
         ]);
     }
 
