@@ -78,11 +78,13 @@ class RouterPanel extends Panel
      */
     public function getDetail()
     {
-        return Yii::$app->view->render('panels/router/detail', [
+        $view = Yii::$app->view->render('panels/router/detail', [
             'currentRoute' => new CurrentRoute($this->data),
             'routerRules' => new RouterRules(),
             'actionRoutes' => new ActionRoutes(),
         ]);
+        Yii::$app->response->format = Response::FORMAT_HTML;
+        return $view;
     }
 
     /**
