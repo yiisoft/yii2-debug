@@ -286,15 +286,15 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $app->getUrlManager()->addRules([
             [
                 'class' => $this->urlRuleClass,
-                'route' => $this->id,
-                'pattern' => $this->id,
+                'route' => $this->getUniqueId(),
+                'pattern' => $this->getUniqueId(),
                 'normalizer' => false,
                 'suffix' => false
             ],
             [
                 'class' => $this->urlRuleClass,
-                'route' => $this->id . '/<controller>/<action>',
-                'pattern' => $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>',
+                'route' => $this->getUniqueId() . '/<controller>/<action>',
+                'pattern' => $this->getUniqueId() . '/<controller:[\w\-]+>/<action:[\w\-]+>',
                 'normalizer' => false,
                 'suffix' => false
             ]
@@ -348,7 +348,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             return;
         }
         $url = Url::toRoute([
-            '/' . $this->id . '/default/view',
+            '/' . $this->getUniqueId() . '/default/view',
             'tag' => $this->logTarget->tag,
         ]);
         $event->sender->getHeaders()
@@ -372,7 +372,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function getToolbarHtml()
     {
         $url = Url::toRoute([
-            '/' . $this->id . '/default/toolbar',
+            '/' . $this->getUniqueId() . '/default/toolbar',
             'tag' => $this->logTarget->tag,
         ]);
 
@@ -398,7 +398,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         /* @var $view View */
         $view = $event->sender;
-        echo $view->renderDynamic('return Yii::$app->getModule("' . $this->id . '")->getToolbarHtml();');
+        echo $view->renderDynamic('return Yii::$app->getModule("' . $this->getUniqueId() . '")->getToolbarHtml();');
 
         // echo is used in order to support cases where asset manager is not available
         echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css') . '</style>';

@@ -111,7 +111,7 @@ class Panel extends Component
     public function getUrl($additionalParams = null)
     {
         $route = [
-            '/' . $this->module->id . '/default/view',
+            '/' . $this->module->getUniqueId() . '/default/view',
             'panel' => $this->id,
             'tag' => $this->tag,
         ];

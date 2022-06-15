@@ -117,13 +117,13 @@ class UserPanel extends Panel
      */
     private function addAccessRules()
     {
-        $this->ruleUserSwitch['controllers'] = [$this->module->id . '/user'];
+        $this->ruleUserSwitch['controllers'] = [$this->module->getUniqueId() . '/user'];
 
         $this->module->attachBehavior(
             'access_debug',
             [
                 'class' => 'yii\filters\AccessControl',
-                'only' => [$this->module->id . '/user', $this->module->id . '/default'],
+                'only' => [$this->module->getUniqueId() . '/user', $this->module->getUniqueId() . '/default'],
                 'user' => $this->userSwitch->getMainUser(),
                 'rules' => [
                     $this->ruleUserSwitch,
