@@ -89,7 +89,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @var string[]
      */
     public $dataStorageConfig = [
-        'class' => FileDataStorage::class,
+        'class' => 'yii\debug\components\data\FileDataStorage',
     ];
 
     /**
