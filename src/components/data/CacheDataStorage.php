@@ -20,8 +20,14 @@ class CacheDataStorage extends Component implements DataStorage
      */
     public $cacheComponent = 'cache';
 
+    /**
+     * @var string
+     */
     public $cacheDebugDataKey = 'debug:';
 
+    /**
+     * @var string
+     */
     public $cacheDebugManifestKey = 'debug:index';
 
     /**
@@ -45,6 +51,9 @@ class CacheDataStorage extends Component implements DataStorage
      */
     private $dataDuration = 3600;
 
+    /**
+     * @return void
+     */
     public function init()
     {
         parent::init();
@@ -52,6 +61,11 @@ class CacheDataStorage extends Component implements DataStorage
         $this->cache = \Yii::$app->get($this->cacheComponent);
     }
 
+    /**
+     * @param string $tag
+     *
+     * @return array
+     */
     public function getData(string $tag): array
     {
         $data = $this->cache->get($this->cacheDebugDataKey . $tag);
@@ -62,12 +76,23 @@ class CacheDataStorage extends Component implements DataStorage
         }
     }
 
+    /**
+     * @param string $tag
+     * @param array  $data
+     *
+     * @return mixed|void
+     */
     public function setData(string $tag, array $data)
     {
         $this->cache->set($this->cacheDebugDataKey . $tag, serialize($data), $this->dataDuration);
         $this->updateIndex($tag, $data['summary' ?? []]);
     }
 
+    /**
+     * @param $forceReload
+     *
+     * @return array|mixed
+     */
     public function getDataManifest($forceReload = false)
     {
         $manifest = $this->cache->get($this->cacheDebugManifestKey);
@@ -78,11 +103,22 @@ class CacheDataStorage extends Component implements DataStorage
         }
     }
 
+    /**
+     * @param Module $module
+     *
+     * @return mixed|void
+     */
     public function setModule(Module $module)
     {
         $this->module = $module;
     }
 
+    /**
+     * @param string $tag
+     * @param        $summary
+     *
+     * @return void
+     */
     private function updateIndex(string $tag, $summary)
     {
         $manifest = $this->cache->get($this->cacheDebugManifestKey);
