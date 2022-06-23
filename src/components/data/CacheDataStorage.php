@@ -66,7 +66,7 @@ class CacheDataStorage extends Component implements DataStorage
      *
      * @return array
      */
-    public function getData(string $tag): array
+    public function getData($tag)
     {
         $data = $this->cache->get($this->cacheDebugDataKey . $tag);
         if (empty($data)) {
@@ -82,10 +82,10 @@ class CacheDataStorage extends Component implements DataStorage
      *
      * @return mixed|void
      */
-    public function setData(string $tag, array $data)
+    public function setData($tag, $data)
     {
         $this->cache->set($this->cacheDebugDataKey . $tag, serialize($data), $this->dataDuration);
-        $this->updateIndex($tag, $data['summary' ?? []]);
+        $this->updateIndex($tag, $data['summary'] ?: []);
     }
 
     /**
@@ -119,7 +119,7 @@ class CacheDataStorage extends Component implements DataStorage
      *
      * @return void
      */
-    private function updateIndex(string $tag, $summary)
+    private function updateIndex($tag, $summary)
     {
         $manifest = $this->cache->get($this->cacheDebugManifestKey);
 

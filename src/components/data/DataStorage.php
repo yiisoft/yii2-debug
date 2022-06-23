@@ -11,7 +11,7 @@ interface DataStorage
      *
      * @return array
      */
-    public function getData(string $tag):array;
+    public function getData($tag);
 
     /**
      * @param string $tag
@@ -19,7 +19,7 @@ interface DataStorage
      *
      * @return mixed
      */
-    public function setData(string $tag,array $data);
+    public function setData($tag,$data);
 
     /**
      * @param $forceReload

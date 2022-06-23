@@ -63,7 +63,7 @@ class FileDataStorage extends Component implements DataStorage
      *
      * @return array
      */
-    public function getData($tag): array
+    public function getData($tag)
     {
         $dataFile = $this->dataPath . "/$tag.data";
         return unserialize(file_get_contents($dataFile));
@@ -77,7 +77,7 @@ class FileDataStorage extends Component implements DataStorage
      * @throws InvalidConfigException
      * @throws \yii\base\Exception
      */
-    public function setData(string $tag, array $data)
+    public function setData($tag, $data)
     {
         $path = $this->dataPath;
         FileHelper::createDirectory($path, $this->dirMode);
@@ -89,7 +89,7 @@ class FileDataStorage extends Component implements DataStorage
         }
 
         $indexFile = "$path/index.data";
-        $this->updateIndexFile($indexFile, $tag, $data['summary' ?? []]);
+        $this->updateIndexFile($indexFile, $tag, $data['summary'] ?: []);
     }
 
     /**

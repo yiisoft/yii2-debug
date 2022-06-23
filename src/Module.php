@@ -359,7 +359,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @return DataStorage
      */
-    public function getDataStorage(): DataStorage
+    public function getDataStorage()
     {
         return $this->dataStorage;
     }
