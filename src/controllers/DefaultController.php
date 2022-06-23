@@ -73,11 +73,12 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $manifest = $this->module->getDataStorage()->getDataManifest();
         $searchModel = new Debug();
-        $dataProvider = $searchModel->search($_GET, $this->getManifest());
+        $dataProvider = $searchModel->search($_GET, $manifest);
 
         // load latest request
-        $tags = array_keys($this->getManifest());
+        $tags = array_keys($manifest);
 
         if (empty($tags)) {
             throw new \Exception("No debug data have been collected yet, try browsing the website first.");
@@ -90,7 +91,7 @@ class DefaultController extends Controller
             'panels' => $this->module->panels,
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
-            'manifest' => $this->getManifest(),
+            'manifest' => $manifest,
         ]);
     }
 
@@ -103,8 +104,10 @@ class DefaultController extends Controller
      */
     public function actionView($tag = null, $panel = null)
     {
+        $manifest = $this->module->getDataStorage()->getDataManifest();
+
         if ($tag === null) {
-            $tags = array_keys($this->getManifest());
+            $tags = array_keys($manifest);
             $tag = reset($tags);
         }
         $this->loadData($tag);
@@ -121,7 +124,7 @@ class DefaultController extends Controller
         return $this->render('view', [
             'tag' => $tag,
             'summary' => $this->summary,
-            'manifest' => $this->getManifest(),
+            'manifest' =>$manifest,
             'panels' => $this->module->panels,
             'activePanel' => $activePanel,
         ]);
@@ -165,22 +168,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param bool $forceReload
-     * @return array
-     */
-    protected function getManifest($forceReload = false)
-    {
-        if ($this->_manifest === null || $forceReload) {
-            if ($forceReload) {
-                clearstatcache();
-            }
-            $this->_manifest = $this->module->logTarget->loadManifest();
-        }
-
-        return $this->_manifest;
-    }
-
-    /**
      * @param string $tag debug data tag.
      * @param int $maxRetry maximum numbers of tag retrieval attempts.
      * @throws NotFoundHttpException if specified tag not found.
@@ -191,7 +178,7 @@ class DefaultController extends Controller
         // which may be delayed in some environment if xdebug is enabled.
         // See: https://github.com/yiisoft/yii2/issues/1504
         for ($retry = 0; $retry <= $maxRetry; ++$retry) {
-            $manifest = $this->getManifest($retry > 0);
+            $manifest = $this->module->getDataStorage()->getDataManifest($retry > 0);
             if (isset($manifest[$tag])) {
                 $data = $this->module->logTarget->loadTagToPanels($tag);
                 $this->summary = $data['summary'];

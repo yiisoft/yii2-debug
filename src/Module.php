@@ -10,11 +10,14 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\debug\components\data\DataStorage;
+use yii\debug\components\data\FileDataStorage;
 use yii\helpers\Html;
 use yii\helpers\IpHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\ForbiddenHttpException;
+use yii\base\InvalidConfigException;
 use yii\web\Response;
 use yii\web\View;
 
@@ -76,30 +79,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.0.7
      */
     public $defaultPanel = 'log';
+
     /**
-     * @var string the directory storing the debugger data files. This can be specified using a path alias.
+     * @var DataStorage
      */
-    public $dataPath = '@runtime/debug';
+    private $dataStorage;
+
     /**
-     * @var int the permission to be set for newly created debugger data files.
-     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
-     * If not set, the permission will be determined by the current environment.
-     * @since 2.0.6
+     * @var string[]
      */
-    public $fileMode;
-    /**
-     * @var int the permission to be set for newly created directories.
-     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
-     * Defaults to 0775, meaning the directory is read-writable by owner and group,
-     * but read-only for other users.
-     * @since 2.0.6
-     */
-    public $dirMode = 0775;
-    /**
-     * @var int the maximum number of debug data files to keep. If there are more files generated,
-     * the oldest ones will be removed.
-     */
-    public $historySize = 50;
+    public $dataStorageConfig = [
+        'class' => FileDataStorage::class,
+    ];
+
     /**
      * @var int the debug bar default height, as a percentage of the total screen height
      * @since 2.1.1
@@ -225,6 +217,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
         if (Yii::$app instanceof \yii\web\Application) {
             $this->initPanels();
         }
+
+        $dataStorage = Yii::createObject($this->dataStorageConfig + ['module' => $this]);
+
+        if (!$dataStorage instanceof DataStorage) {
+            throw new InvalidConfigException();
+        }
+
+        $this->dataStorage = $dataStorage;
     }
 
     /**
@@ -502,5 +502,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
         }
 
         return 'Yii Debugger';
+    }
+
+    /**
+     * @return DataStorage
+     */
+    public function getDataStorage()
+    {
+        return $this->dataStorage;
     }
 }
