@@ -222,9 +222,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         parent::init();
         $this->dataPath = Yii::getAlias($this->dataPath);
 
-        if (Yii::$app instanceof \yii\web\Application) {
-            $this->initPanels();
-        }
+        $this->initPanels();
     }
 
     /**
@@ -465,7 +463,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function corePanels()
     {
-        return [
+        $corePanel = [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
             'request' => ['class' => 'yii\debug\panels\RequestPanel'],
             'router' => ['class' => 'yii\debug\panels\RouterPanel'],
@@ -473,12 +471,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
             'db' => ['class' => 'yii\debug\panels\DbPanel'],
             'event' => ['class' => 'yii\debug\panels\EventPanel'],
-            'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
-            'user' => ['class' => 'yii\debug\panels\UserPanel'],
             'dump' => ['class' => 'yii\debug\panels\DumpPanel'],
         ];
+
+        if (Yii::$app instanceof \yii\web\Application) {
+            $corePanel['user'] = ['class' => 'yii\debug\panels\UserPanel'];
+            $corePanel['asset'] = ['class' => 'yii\debug\panels\AssetPanel'];
+        }
+
+        return $corePanel;
     }
 
     /**

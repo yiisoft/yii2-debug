@@ -134,7 +134,8 @@ $this->title = 'Yii Debugger';
                             'post' => 'POST',
                             'delete' => 'DELETE',
                             'put' => 'PUT',
-                            'head' => 'HEAD'
+                            'head' => 'HEAD',
+                            'command' => 'COMMAND'
                         ]
                     ],
                     [
