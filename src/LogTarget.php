@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      http://www.yiiframework.com/
+ * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license   http://www.yiiframework.com/license/
+ * @license http://www.yiiframework.com/license/
  */
 
 namespace yii\debug;
@@ -16,7 +16,7 @@ use yii\log\Target;
  * The debug LogTarget is used to store logs for later use in the debugger tool
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since  2.0
+ * @since 2.0
  */
 class LogTarget extends Target
 {
@@ -32,7 +32,7 @@ class LogTarget extends Target
 
     /**
      * @param \yii\debug\Module $module
-     * @param array             $config
+     * @param array $config
      */
     public function __construct($module, $config = [])
     {
@@ -44,16 +44,17 @@ class LogTarget extends Target
     /**
      * Exports log messages to a specific destination.
      * Child classes must implement this method.
-     *
      * @throws \yii\base\Exception
      */
     public function export()
     {
+        $path = $this->module->dataPath;
+        FileHelper::createDirectory($path, $this->module->dirMode);
+
         $summary = $this->collectSummary();
 
         $data = [];
         $exceptions = [];
-
         foreach ($this->module->panels as $id => $panel) {
             try {
                 $panelData = $panel->save();
@@ -107,11 +108,9 @@ class LogTarget extends Target
      * Processes the given log messages.
      * This method will filter the given messages with [[levels]] and [[categories]].
      * And if requested, it will also export the filtering result to specific medium (e.g. email).
-     *
      * @param array $messages log messages to be processed. See [[\yii\log\Logger::messages]] for the structure
-     *                        of each message.
-     * @param bool  $final    whether this method is called at the end of the current application
-     *
+     * of each message.
+     * @param bool $final whether this method is called at the end of the current application
      * @throws \yii\base\Exception
      */
     public function collect($messages, $final)
@@ -124,7 +123,6 @@ class LogTarget extends Target
 
     /**
      * Collects summary data of current request.
-     *
      * @return array
      */
     protected function collectSummary()
@@ -138,7 +136,7 @@ class LogTarget extends Target
         $summary = [
             'tag' => $this->tag,
             'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int)$request->getIsAjax(),
+            'ajax' => (int) $request->getIsAjax(),
             'method' => $request->getMethod(),
             'ip' => $request->getUserIP(),
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
@@ -158,7 +156,6 @@ class LogTarget extends Target
     /**
      * Returns total sql count executed in current request. If database panel is not configured
      * returns 0.
-     *
      * @return int
      */
     protected function getSqlTotalCount()

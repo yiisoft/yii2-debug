@@ -63,7 +63,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $controllerNamespace = 'yii\debug\controllers';
     /**
-     * @var LogTarget
+     * @var LogTarget|array|string the logTarget object, or the configuration for creating the logTarget object.
      */
     public $logTarget = 'yii\debug\LogTarget';
     /**
