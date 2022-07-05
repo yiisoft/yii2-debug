@@ -48,9 +48,6 @@ class LogTarget extends Target
      */
     public function export()
     {
-        $path = $this->module->dataPath;
-        FileHelper::createDirectory($path, $this->module->dirMode);
-
         $summary = $this->collectSummary();
 
         $data = [];
