@@ -3,9 +3,7 @@ Yii Framework 2 debug extension Change Log
 
 2.1.21 under development
 ------------------------
-
-- no changes in this release.
-
+- Enh #490: Allow debugging of console apps (chicuongit913)
 
 2.1.20 September 04, 2022
 -------------------------
@@ -13,7 +11,6 @@ Yii Framework 2 debug extension Change Log
 - Bug #461: Do not crash on empty panel data (przepompownia)
 - Enh #484: Allow `logTarget` config to be set as either a string, an array, or an `LogTarget` object (Sarke)
 - Enh #486: Allow to configure debugger as a submodule (achretien)
-
 
 2.1.19 April 05, 2022
 ---------------------
