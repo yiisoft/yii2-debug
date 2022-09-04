@@ -463,7 +463,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function corePanels()
     {
-        $corePanel = [
+        $corePanels = [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
             'request' => ['class' => 'yii\debug\panels\RequestPanel'],
             'router' => ['class' => 'yii\debug\panels\RouterPanel'],
@@ -477,11 +477,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
         ];
 
         if (Yii::$app instanceof \yii\web\Application) {
-            $corePanel['user'] = ['class' => 'yii\debug\panels\UserPanel'];
-            $corePanel['asset'] = ['class' => 'yii\debug\panels\AssetPanel'];
+            $corePanels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
+            $corePanels['asset'] = ['class' => 'yii\debug\panels\AssetPanel'];
         }
 
-        return $corePanel;
+        return $corePanels;
     }
 
     /**

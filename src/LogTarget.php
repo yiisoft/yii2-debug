@@ -241,13 +241,12 @@ class LogTarget extends Target
 
         $request = Yii::$app->getRequest();
         $response = Yii::$app->getResponse();
-        $currentUserName = exec('whoami');
         $summary = [
             'tag' => $this->tag,
             'url' => $request instanceof yii\console\Request ? "php yii " . implode(' ', $request->getParams()): $request->getAbsoluteUrl(),
             'ajax' => $request instanceof yii\console\Request ? 0 : (int) $request->getIsAjax(),
             'method' => $request instanceof yii\console\Request ? 'command' : $request->getMethod(),
-            'ip' => $request instanceof yii\console\Request ? $currentUserName : $request->getUserIP(),
+            'ip' => $request instanceof yii\console\Request ? exec('whoami') : $request->getUserIP(),
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
             'statusCode' => $response instanceof yii\console\Response ? $response->exitStatus : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
