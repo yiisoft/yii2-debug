@@ -1,7 +1,7 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.21 September 04, 2022
+2.1.21 under development
 ------------------------
 - Enh #490: Allow debugging of console apps (chicuongit913)
 
