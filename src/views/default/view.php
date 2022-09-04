@@ -46,10 +46,11 @@ $this->title = 'Yii Debugger';
             <div class="col-md-10">
                 <?php
                 $statusCode = $summary['statusCode'];
+                $method = $summary['method'];
                 if ($statusCode === null) {
                     $statusCode = 200;
                 }
-                if ($statusCode >= 200 && $statusCode < 300) {
+                if (($statusCode >= 200 && $statusCode < 300) || ($method == 'COMMAND' && $statusCode == 0)) {
                     $calloutClass = 'callout-success';
                 } elseif ($statusCode >= 300 && $statusCode < 400) {
                     $calloutClass = 'callout-info';
