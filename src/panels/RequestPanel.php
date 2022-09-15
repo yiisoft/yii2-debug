@@ -10,6 +10,7 @@ namespace yii\debug\panels;
 use Yii;
 use yii\base\InlineAction;
 use yii\debug\Panel;
+use yii\helpers\ArrayHelper;
 
 /**
  * Debugger panel that collects and displays request data.
@@ -130,16 +131,15 @@ class RequestPanel extends Panel
             'requestBody' => Yii::$app->getRequest()->getRawBody() == '' ? [] : [
                 'Content Type' => Yii::$app->getRequest()->getContentType(),
                 'Raw' => Yii::$app->getRequest()->getRawBody(),
-                'Decoded to Params' => Yii::$app->getRequest()->getBodyParams(),
+                'Decoded' => Yii::$app->getRequest()->getBodyParams(),
             ],
         ];
 
         foreach ($this->displayVars as $name) {
-            $data[trim($name, '_')] = empty($GLOBALS[$name]) ? [] : $this->censorArray($GLOBALS[$name]);
-
+            $data[trim($name, '_')] = empty($GLOBALS[$name]) ? [] : $GLOBALS[$name];
         }
 
-        return $data;
+        return $this->censorArray($data);
     }
 
     /**
@@ -175,9 +175,13 @@ class RequestPanel extends Panel
         if (empty($this->censoredVariableNames) || empty($data)) {
             return $data;
         }
-        foreach ($data as $name => &$value) {
-            if (in_array($name, $this->censoredVariableNames, true)) {
-                $value = $this->censorString;
+        foreach ($this->censoredVariableNames as $var) {
+            $key = ltrim($var, '_');
+            if (ArrayHelper::getValue($data, $key) !== null) {
+                ArrayHelper::setValue($data, $key, $this->censorString);
+                if (strpos($key, 'requestBody') === 0) {
+                    ArrayHelper::setValue($data, 'requestBody.Raw', $this->censorString);
+                }
             }
         }
         return $data;

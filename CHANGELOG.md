@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.22 under development
 ------------------------
 
-- no changes in this release.
+- Enh #493: Extend variable masking to `requestBody` (yus-ham)
 
 
 2.1.21 September 06, 2022
