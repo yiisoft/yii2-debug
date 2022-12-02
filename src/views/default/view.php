@@ -46,10 +46,11 @@ $this->title = 'Yii Debugger';
             <div class="col-md-10">
                 <?php
                 $statusCode = $summary['statusCode'];
+                $method = $summary['method'];
                 if ($statusCode === null) {
                     $statusCode = 200;
                 }
-                if ($statusCode >= 200 && $statusCode < 300) {
+                if (($statusCode >= 200 && $statusCode < 300) || ($method == 'COMMAND' && $statusCode == 0)) {
                     $calloutClass = 'callout-success';
                 } elseif ($statusCode >= 300 && $statusCode < 400) {
                     $calloutClass = 'callout-info';
@@ -65,7 +66,7 @@ $this->title = 'Yii Debugger';
                         $label = ($meta['tag'] == $tag ? Html::tag('strong',
                                 '&#9658;&nbsp;' . $meta['tag']) : $meta['tag'])
                             . ': ' . Html::encode($meta['method']) . ' ' . Html::encode($meta['url']) . ($meta['ajax'] ? ' (AJAX)' : '')
-                            . ', ' . date('Y-m-d h:i:s a', $meta['time'])
+                            . ', ' . date('Y-m-d h:i:s a', (int) $meta['time'])
                             . ', ' . $meta['ip'];
                         $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
                         $items[] = [
@@ -110,7 +111,7 @@ $this->title = 'Yii Debugger';
                     <?php
                     echo "\n" . $summary['tag'] . ': ' . Html::encode($summary['method']) . ' ' . Html::a(Html::encode($summary['url']),
                             $summary['url']);
-                    echo ' at ' . date('Y-m-d h:i:s a', $summary['time']) . ' by ' . $summary['ip'];
+                    echo ' at ' . date('Y-m-d h:i:s a', (int) $summary['time']) . ' by ' . $summary['ip'];
                     ?>
                 </div>
                 <?= $activePanel->getDetail(); ?>

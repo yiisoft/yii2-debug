@@ -13,7 +13,7 @@ use yii\helpers\Html;
     <p>
         Total processing time: <b><?= $time ?></b>; Peak memory: <b><?= $memory ?></b>.
         <?= Html::a('Show Profiling Timeline', [
-            '/' . $panel->module->id . '/default/view',
+            '/' . $panel->module->getUniqueId() . '/default/view',
             'panel' => 'timeline',
             'tag' => $panel->tag,
         ]) ?>
@@ -47,7 +47,7 @@ echo GridView::widget([
                 $timeInSeconds = $data['timestamp'] / 1000;
                 $millisecondsDiff = (int)(($timeInSeconds - (int)$timeInSeconds) * 1000);
 
-                return date('H:i:s.', $timeInSeconds) . sprintf('%03d', $millisecondsDiff);
+                return date('H:i:s.', (int)$timeInSeconds) . sprintf('%03d', $millisecondsDiff);
             },
             'headerOptions' => [
                 'class' => 'sort-numerical'
