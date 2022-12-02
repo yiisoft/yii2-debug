@@ -399,7 +399,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         echo $view->renderDynamic('return Yii::$app->getModule("' . $this->getUniqueId() . '")->getToolbarHtml();');
 
         // echo is used in order to support cases where asset manager is not available
-        if ($view->assetManager()) {
+        if ($view->getAssetManager()) {
             $css = $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css');
             echo $view->registerCss($css);
 
