@@ -16,6 +16,7 @@ use yii\web\Response;
 /**
  * Debugger controller provides browsing over available debug logs.
  *
+ *
  * @see    \yii\debug\Panel
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
