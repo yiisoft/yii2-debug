@@ -86,7 +86,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     private $dataStorage;
 
     public $dataStorageConfig = [
-        'class' => FileDataStorage::class,
+        'class' => 'yii\debug\components\dataFileDataStorage',
     ];
 
     /**
