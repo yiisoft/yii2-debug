@@ -122,9 +122,17 @@ class DefaultController extends Controller
             'tag' => $tag,
             'panels' => $this->module->panels,
             'position' => 'bottom',
+            'defaultHeight' => $this->module->defaultHeight,
         ]);
     }
 
+    /**
+     * Download mail action
+     *
+     * @param string $file
+     * @return \yii\console\Response|Response
+     * @throws NotFoundHttpException
+     */
     public function actionDownloadMail($file)
     {
         $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);
