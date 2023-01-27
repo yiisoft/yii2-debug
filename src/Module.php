@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license   http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug;
@@ -141,9 +141,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         parent::init();
 
-        if (Yii::$app instanceof \yii\web\Application) {
-            $this->initPanels();
-        }
+        $this->initPanels();
+
 
         $dataStorage = Yii::createObject($this->dataStorageConfig + ['module' => $this]);
 
@@ -341,19 +340,26 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     protected function corePanels()
     {
-        return [
+        $corePanels = [
             'config' => ['class' => 'yii\debug\panels\ConfigPanel'],
             'request' => ['class' => 'yii\debug\panels\RequestPanel'],
             'log' => ['class' => 'yii\debug\panels\LogPanel'],
             'profiling' => ['class' => 'yii\debug\panels\ProfilingPanel'],
             'db' => ['class' => 'yii\debug\panels\DbPanel'],
             'event' => ['class' => 'yii\debug\panels\EventPanel'],
-            'assets' => ['class' => 'yii\debug\panels\AssetPanel'],
             'mail' => ['class' => 'yii\debug\panels\MailPanel'],
             'timeline' => ['class' => 'yii\debug\panels\TimelinePanel'],
-            'user' => ['class' => 'yii\debug\panels\UserPanel'],
-            'router' => ['class' => 'yii\debug\panels\RouterPanel'],
+            'dump' => ['class' => 'yii\debug\panels\DumpPanel'],
         ];
+
+        if (Yii::$app instanceof \yii\web\Application) {
+            $corePanels['router'] = ['class' => 'yii\debug\panels\RouterPanel'];
+            $corePanels['request'] = ['class' => 'yii\debug\panels\RequestPanel'];
+            $corePanels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
+            $corePanels['asset'] = ['class' => 'yii\debug\panels\AssetPanel'];
+        }
+
+        return $corePanels;
     }
 
     /**

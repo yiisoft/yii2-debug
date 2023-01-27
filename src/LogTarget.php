@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug;
@@ -97,12 +97,12 @@ class LogTarget extends Target
         $response = Yii::$app->getResponse();
         $summary = [
             'tag' => $this->tag,
-            'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int) $request->getIsAjax(),
-            'method' => $request->getMethod(),
-            'ip' => $request->getUserIP(),
+            'url' => $request instanceof yii\console\Request ? "php yii " . implode(' ', $request->getParams()): $request->getAbsoluteUrl(),
+            'ajax' => $request instanceof yii\console\Request ? 0 : (int) $request->getIsAjax(),
+            'method' => $request instanceof yii\console\Request ? 'COMMAND' : $request->getMethod(),
+            'ip' => $request instanceof yii\console\Request ? exec('whoami') : $request->getUserIP(),
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
-            'statusCode' => $response->statusCode,
+            'statusCode' => $response instanceof yii\console\Response ? $response->exitStatus : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
         ];
 
