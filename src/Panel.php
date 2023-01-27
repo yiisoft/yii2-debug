@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug;
@@ -111,7 +111,7 @@ class Panel extends Component
     public function getUrl($additionalParams = null)
     {
         $route = [
-            '/' . $this->module->id . '/default/view',
+            '/' . $this->module->getUniqueId() . '/default/view',
             'panel' => $this->id,
             'tag' => $this->tag,
         ];

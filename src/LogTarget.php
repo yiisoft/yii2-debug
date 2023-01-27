@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug;
@@ -44,7 +44,6 @@ class LogTarget extends Target
     /**
      * Exports log messages to a specific destination.
      * Child classes must implement this method.
-     * @throws \yii\base\Exception
      */
     public function export()
     {
@@ -52,6 +51,7 @@ class LogTarget extends Target
 
         $data = [];
         $exceptions = [];
+
         foreach ($this->module->panels as $id => $panel) {
             try {
                 $panelData = $panel->save();
@@ -96,10 +96,10 @@ class LogTarget extends Target
                 $panel->setError($exceptions[$id]);
             }
         }
+        $this->module->getDataStorage()->setData($this->tag,$data);
 
-        return $data;
+
     }
-
 
     /**
      * Processes the given log messages.
@@ -108,7 +108,6 @@ class LogTarget extends Target
      * @param array $messages log messages to be processed. See [[\yii\log\Logger::messages]] for the structure
      * of each message.
      * @param bool $final whether this method is called at the end of the current application
-     * @throws \yii\base\Exception
      */
     public function collect($messages, $final)
     {
@@ -132,12 +131,12 @@ class LogTarget extends Target
         $response = Yii::$app->getResponse();
         $summary = [
             'tag' => $this->tag,
-            'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int) $request->getIsAjax(),
-            'method' => $request->getMethod(),
-            'ip' => $request->getUserIP(),
+            'url' => $request instanceof yii\console\Request ? "php yii " . implode(' ', $request->getParams()): $request->getAbsoluteUrl(),
+            'ajax' => $request instanceof yii\console\Request ? 0 : (int) $request->getIsAjax(),
+            'method' => $request instanceof yii\console\Request ? 'COMMAND' : $request->getMethod(),
+            'ip' => $request instanceof yii\console\Request ? exec('whoami') : $request->getUserIP(),
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
-            'statusCode' => $response->statusCode,
+            'statusCode' => $response instanceof yii\console\Response ? $response->exitStatus : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
         ];
 

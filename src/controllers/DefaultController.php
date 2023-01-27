@@ -1,25 +1,26 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug\controllers;
 
 use Yii;
-use yii\debug\models\search\Debug;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\debug\models\search\Debug;
 use yii\web\Response;
 
 /**
  * Debugger controller provides browsing over available debug logs.
  *
- * @see \yii\debug\Panel
+ *
+ * @see    \yii\debug\Panel
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class DefaultController extends Controller
 {
@@ -35,11 +36,6 @@ class DefaultController extends Controller
      * @var array the summary data (e.g. URL, time)
      */
     public $summary;
-
-    /**
-     * @var array
-     */
-    private $_manifest;
 
 
     /**
@@ -57,7 +53,6 @@ class DefaultController extends Controller
 
     /**
      * {@inheritdoc}
-     * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
     {
@@ -65,25 +60,14 @@ class DefaultController extends Controller
         return parent::beforeAction($action);
     }
 
-    /**
-     * Index action
-     *
-     * @return string
-     * @throws NotFoundHttpException
-     */
     public function actionIndex()
     {
-        $manifest = $this->module->getDataStorage()->getDataManifest();
         $searchModel = new Debug();
+        $manifest = $this->module->getDataStorage()->getDataManifest();
         $dataProvider = $searchModel->search($_GET, $manifest);
 
         // load latest request
         $tags = array_keys($manifest);
-
-        if (empty($tags)) {
-            throw new \Exception("No debug data have been collected yet, try browsing the website first.");
-        }
-
         $tag = reset($tags);
         $this->loadData($tag);
 
@@ -96,11 +80,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * @see \yii\debug\Panel
-     * @param string|null $tag debug data tag.
+     * @param string|null $tag   debug data tag.
      * @param string|null $panel debug panel ID.
+     *
      * @return mixed response.
      * @throws NotFoundHttpException if debug data not found.
+     * @see \yii\debug\Panel
      */
     public function actionView($tag = null, $panel = null)
     {
@@ -124,19 +109,12 @@ class DefaultController extends Controller
         return $this->render('view', [
             'tag' => $tag,
             'summary' => $this->summary,
-            'manifest' =>$manifest,
+            'manifest' => $manifest,
             'panels' => $this->module->panels,
             'activePanel' => $activePanel,
         ]);
     }
 
-    /**
-     * Toolbar action
-     *
-     * @param string $tag
-     * @return string
-     * @throws NotFoundHttpException
-     */
     public function actionToolbar($tag)
     {
         $this->loadData($tag, 5);
@@ -168,8 +146,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param string $tag debug data tag.
-     * @param int $maxRetry maximum numbers of tag retrieval attempts.
+     * @param string $tag      debug data tag.
+     * @param int    $maxRetry maximum numbers of tag retrieval attempts.
+     *
      * @throws NotFoundHttpException if specified tag not found.
      */
     public function loadData($tag, $maxRetry = 0)
@@ -180,7 +159,17 @@ class DefaultController extends Controller
         for ($retry = 0; $retry <= $maxRetry; ++$retry) {
             $manifest = $this->module->getDataStorage()->getDataManifest($retry > 0);
             if (isset($manifest[$tag])) {
-                $data = $this->module->logTarget->loadTagToPanels($tag);
+                $data=$this->module->getDataStorage()->getData($tag);
+                $exceptions = $data['exceptions'];
+                foreach ($this->module->panels as $id => $panel) {
+                    if (isset($data[$id])) {
+                        $panel->tag = $tag;
+                        $panel->load(unserialize($data[$id]));
+                    }
+                    if (isset($exceptions[$id])) {
+                        $panel->setError($exceptions[$id]);
+                    }
+                }
                 $this->summary = $data['summary'];
 
                 return;

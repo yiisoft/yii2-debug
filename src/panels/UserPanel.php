@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug\panels;
@@ -117,13 +117,13 @@ class UserPanel extends Panel
      */
     private function addAccessRules()
     {
-        $this->ruleUserSwitch['controllers'] = [$this->module->id . '/user'];
+        $this->ruleUserSwitch['controllers'] = [$this->module->getUniqueId() . '/user'];
 
         $this->module->attachBehavior(
             'access_debug',
             [
                 'class' => 'yii\filters\AccessControl',
-                'only' => [$this->module->id . '/user', $this->module->id . '/default'],
+                'only' => [$this->module->getUniqueId() . '/user', $this->module->getUniqueId() . '/default'],
                 'user' => $this->userSwitch->getMainUser(),
                 'rules' => [
                     $this->ruleUserSwitch,

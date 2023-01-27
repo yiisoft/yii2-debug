@@ -1,12 +1,38 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
+2.1.23 under development
+------------------------
+
+- no changes in this release.
+
+
+2.1.22 November 18, 2022
+------------------------
+
+- Enh #493: Extend variable masking to `requestBody` (yus-ham)
+
+
+2.1.21 September 06, 2022
+-------------------------
+
+- Enh #490: Allow debugging of console apps (chicuongit913)
+
+
+2.1.20 September 04, 2022
+-------------------------
+
+- Bug #461: Do not crash on empty panel data (przepompownia)
+- Enh #484: Allow `logTarget` config to be set as either a string, an array, or an `LogTarget` object (Sarke)
+- Enh #486: Allow to configure debugger as a submodule (achretien)
+
 2.1.19 April 05, 2022
 ---------------------
 
 - Bug #466: Remove opis\closure dependency for PHP 8.1 compatibility. Closures in logs still working (sartor)
 - Bug #470: Fix PHP 8.1 warnings about implicit conversion from float to int loses precision (mishamosher)
 - Enh #469: Add option to change default LogTarget (laxity7)
+- Enh #478: Add option to censor variables in the request panel (dbx12)
 
 
 2.1.18 August 09, 2021

@@ -158,5 +158,4 @@ class CacheDataStorage extends Component implements DataStorage
             }
         }
     }
-
 }
