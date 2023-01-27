@@ -1,10 +1,10 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.23 under development
+2.2.0 January 27, 2023
 ------------------------
 
-- no changes in this release.
+- Enh #489: Adds data storage functionality that allows you to replace file storage with any available storage.
 
 
 2.1.22 November 18, 2022
