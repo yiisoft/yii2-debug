@@ -14,6 +14,7 @@ use yii\base\InvalidConfigException;
 use yii\debug\components\data\DataStorage;
 use yii\debug\components\data\FileDataStorage;
 use yii\helpers\Json;
+use yii\helpers\IpHelper;
 use yii\web\Response;
 use yii\helpers\Html;
 use yii\helpers\Url;
