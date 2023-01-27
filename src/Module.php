@@ -89,6 +89,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
     ];
 
     /**
+     * @var int the debug bar default height, as a percentage of the total screen height
+     * @since 2.1.1
+     */
+    public $defaultHeight = 50;
+    /**
      * @var bool whether to enable message logging for the requests about debug module actions.
      * You normally do not want to keep these logs because they may distract you from the logs about your applications.
      * You may want to enable the debug logs if you want to investigate how the debug module itself works.
