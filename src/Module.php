@@ -12,7 +12,7 @@ use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
 use yii\debug\components\data\DataStorage;
-use yii\debug\components\data\FileDataStorage;
+use yii\di\Instance;
 use yii\helpers\Json;
 use yii\helpers\IpHelper;
 use yii\web\Response;
@@ -215,15 +215,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         parent::init();
 
-
-
-        $dataStorage = Yii::createObject($this->dataStorageConfig + ['module' => $this]);
-
-        if (!$dataStorage instanceof DataStorage) {
-            throw new InvalidConfigException();
-        }
-
-        $this->dataStorage = $dataStorage;
+        $this->dataStorage = Instance::ensure($this->dataStorageConfig + ['module' => $this],'yii\debug\components\data\DataStorage');
 
         $this->initPanels();
     }
@@ -494,7 +486,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         return $this->dataStorage;
     }
-
 
     /**
      * {@inheritdoc}
