@@ -214,8 +214,12 @@ class FileDataStorage extends Component implements DataStorage
         }
     }
 
-
-    public function setModule(Module $module)
+    /**
+     * @param Module $module
+     *
+     * @return mixed|void
+     */
+    public function setModule($module)
     {
         $this->module = $module;
     }

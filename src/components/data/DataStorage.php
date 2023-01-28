@@ -33,5 +33,5 @@ interface DataStorage
      *
      * @return mixed
      */
-    public function setModule(Module $module);
+    public function setModule($module);
 }

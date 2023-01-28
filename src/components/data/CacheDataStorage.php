@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link https://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license https://www.yiiframework.com/license/
+ */
 
 namespace yii\debug\components\data;
 
@@ -7,26 +12,28 @@ use yii\base\Component;
 use yii\caching\Cache;
 use yii\debug\Module;
 
+/**
+ *  CacheDataStorage
+ */
 class CacheDataStorage extends Component implements DataStorage
 {
-
     /**
-     * @var Module
+     * @var Module Debug module instance
      */
     private $module;
 
     /**
-     * @var string
+     * @var string Cache component di identifier
      */
     public $cacheComponent = 'cache';
 
     /**
-     * @var string
+     * @var string Cache data key for debug data
      */
     public $cacheDebugDataKey = 'debug:';
 
     /**
-     * @var string
+     * @var string Cache data key for manifest
      */
     public $cacheDebugManifestKey = 'debug:index';
 
@@ -37,17 +44,17 @@ class CacheDataStorage extends Component implements DataStorage
     public $historySize = 50;
 
     /**
-     * @var Cache
+     * @var Cache Cache component instance
      */
     private $cache;
 
     /**
-     * @var int
+     * @var int Manifest cache data ttl
      */
     private $manifestDuration = 10000;
 
     /**
-     * @var int
+     * @var int  Debug cache data ttl
      */
     private $dataDuration = 3600;
 
@@ -68,12 +75,7 @@ class CacheDataStorage extends Component implements DataStorage
      */
     public function getData($tag)
     {
-        $data = $this->cache->get($this->cacheDebugDataKey . $tag);
-        if (empty($data)) {
-            return [];
-        } else {
-            return unserialize($data);
-        }
+        return $this->cache->exists($this->cacheDebugDataKey . $tag) ? unserialize($this->cache->get($this->cacheDebugDataKey . $tag)) : [];
     }
 
     /**
@@ -95,12 +97,7 @@ class CacheDataStorage extends Component implements DataStorage
      */
     public function getDataManifest($forceReload = false)
     {
-        $manifest = $this->cache->get($this->cacheDebugManifestKey);
-        if (empty($manifest)) {
-            return [];
-        } else {
-            return unserialize($manifest);
-        }
+        return $this->cache->exists($this->cacheDebugManifestKey) ? unserialize($this->cache->get($this->cacheDebugManifestKey)) : [];
     }
 
     /**
@@ -108,7 +105,7 @@ class CacheDataStorage extends Component implements DataStorage
      *
      * @return mixed|void
      */
-    public function setModule(Module $module)
+    public function setModule($module)
     {
         $this->module = $module;
     }
