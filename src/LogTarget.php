@@ -91,6 +91,8 @@ class LogTarget extends Target
             if (isset($data[$id])) {
                 $panel->tag = $tag;
                 $panel->load(unserialize($data[$id]));
+            } else {
+                unset($this->module->panels[$id]);
             }
             if (isset($exceptions[$id])) {
                 $panel->setError($exceptions[$id]);
