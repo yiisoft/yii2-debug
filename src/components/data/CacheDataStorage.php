@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Component;
 use yii\caching\Cache;
 use yii\debug\Module;
+use yii\di\Instance;
 
 /**
  *  CacheDataStorage
@@ -65,7 +66,7 @@ class CacheDataStorage extends Component implements DataStorage
     {
         parent::init();
 
-        $this->cache = \Yii::$app->get($this->cacheComponent);
+        $this->cache = Instance::ensure($this->cacheComponent,'yii\caching\Cache');
     }
 
     /**
