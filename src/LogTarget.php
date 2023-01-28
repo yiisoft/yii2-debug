@@ -99,6 +99,8 @@ class LogTarget extends Target
             }
         }
         $this->module->getDataStorage()->setData($this->tag, $data);
+
+        return $data;
     }
 
     /**
