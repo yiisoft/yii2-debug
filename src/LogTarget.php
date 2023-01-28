@@ -98,9 +98,7 @@ class LogTarget extends Target
                 $panel->setError($exceptions[$id]);
             }
         }
-        $this->module->getDataStorage()->setData($this->tag,$data);
-
-
+        $this->module->getDataStorage()->setData($this->tag, $data);
     }
 
     /**
