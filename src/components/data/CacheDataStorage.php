@@ -52,12 +52,12 @@ class CacheDataStorage extends Component implements DataStorage
     /**
      * @var int Manifest cache data ttl
      */
-    private $manifestDuration = 10000;
+    public $manifestDuration = 10000;
 
     /**
      * @var int  Debug cache data ttl
      */
-    private $dataDuration = 3600;
+    public $dataDuration = 3600;
 
     /**
      * @return void
