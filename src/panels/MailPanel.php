@@ -186,6 +186,7 @@ class MailPanel extends Panel
         /** @var \Symfony\Component\Mime\Email $symfonyMessage */
         $symfonyMessage = $message->getSymfonyEmail();
 
+        /** @var \Symfony\Component\Mime\Part\AbstractPart $part */
         $part = $symfonyMessage->getBody();
         $body = null;
         if ($part instanceof \Symfony\Component\Mime\Part\TextPart && 'plain' === $part->getMediaSubtype()) {
