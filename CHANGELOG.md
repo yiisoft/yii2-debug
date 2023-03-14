@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.23 March 14, 2023
 ------------------------
 
-- Add yii2-symfonymailer Support in src/panels/MailPanel.php (vansari)
+- Enh #498: Add yii2-symfonymailer Support in src/panels/MailPanel.php (vansari)
 
 2.1.23 under development
 ------------------------
