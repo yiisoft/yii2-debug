@@ -160,7 +160,7 @@ class DefaultController extends Controller
             $manifest = $this->module->getDataStorage()->getDataManifest($retry > 0);
             if (isset($manifest[$tag])) {
                 $data=$this->module->getDataStorage()->getData($tag);
-                $exceptions = $data['exceptions'];
+                $exceptions = isset($data['exceptions'])?$data['exceptions']:[];
                 foreach ($this->module->panels as $id => $panel) {
                     if (isset($data[$id])) {
                         $panel->tag = $tag;
