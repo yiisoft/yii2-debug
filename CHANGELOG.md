@@ -6,6 +6,16 @@ Yii Framework 2 debug extension Change Log
 
 - Enh #489: Adds data storage functionality that allows you to replace file storage with any available storage (evgenybukharev)
 
+2.1.23 March 14, 2023
+------------------------
+
+- Enh #498: Add yii2-symfonymailer Support in src/panels/MailPanel.php (vansari)
+
+2.1.23 under development
+------------------------
+
+- no changes in this release.
+
 
 2.1.22 November 18, 2022
 ------------------------
