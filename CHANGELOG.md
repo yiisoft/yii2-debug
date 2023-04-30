@@ -9,7 +9,7 @@ Yii Framework 2 debug extension Change Log
 2.1.23 under development
 ------------------------
 
-- no changes in this release.
+- Enh #501: Show repeating DB calls from the same function in DB panel (rhertogh)
 
 
 2.1.22 November 18, 2022
