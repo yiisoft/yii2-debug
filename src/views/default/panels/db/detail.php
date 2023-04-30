@@ -47,7 +47,7 @@ $items['content'][] = $this->render('queries', [
     'sumDuplicates' => $sumDuplicates,
 ]);
 
-$items['nav'][] = "Callers";
+$items['nav'][] = "Repeating Callers";
 $items['content'][] = $this->render('callers', [
     'panel' => $panel,
     'searchModel' => $searchModel,
