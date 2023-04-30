@@ -9,6 +9,7 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\data\ArrayDataProvider;
 use yii\debug\models\search\Db;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
@@ -31,6 +32,15 @@ class DbPanel extends Panel
      * the execution is considered taking critical number of DB queries.
      */
     public $criticalQueryThreshold;
+    /**
+     * @var int Number of DB calls the same line of code can make before considered a "repeating caller".
+     */
+    public $repeatingCallerCallsThreshold = 5;
+    /**
+     * @var string[] Files and/or paths defined here will be ignored by the determination of repeating callers.
+     * Hint: You can use path aliasses here.
+     */
+    public $ignoredPathsInBacktrace = [];
     /**
      * @var string the name of the database component to use for executing (explain) queries
      */
@@ -122,13 +132,15 @@ class DbPanel extends Panel
         }
 
         $models = $this->getModels();
-        $dataProvider = $searchModel->search($models);
-        $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
+        $queryDataProvider = $searchModel->search($models);
+        $queryDataProvider->getSort()->defaultOrder = $this->defaultOrder;
         $sumDuplicates = $this->sumDuplicateQueries($models);
+        $callerDataProvider = $this->generateRepeatingQueryCallersDataProvider($models);
 
         return Yii::$app->view->render('panels/db/detail', [
             'panel' => $this,
-            'dataProvider' => $dataProvider,
+            'queryDataProvider' => $queryDataProvider,
+            'callerDataProvider' => $callerDataProvider,
             'searchModel' => $searchModel,
             'hasExplain' => $this->hasExplain(),
             'sumDuplicates' => $sumDuplicates,
@@ -144,6 +156,29 @@ class DbPanel extends Panel
     {
         if ($this->_timings === null) {
             $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
+
+            // Parse aliases
+            $ignoredPathsInBacktrace = array_map(
+                function($path) {
+                    return Yii::getAlias($path);
+                },
+                $this->ignoredPathsInBacktrace
+            );
+
+            // Generate hash for caller
+            $hashAlgo = in_array('xxh3', hash_algos()) ? 'xxh3' : 'crc32';
+            foreach ($this->_timings as &$timing) {
+                if ($ignoredPathsInBacktrace) {
+                    foreach ($timing['trace'] as $index => $trace) {
+                        foreach ($ignoredPathsInBacktrace as $ignoredPathInBacktrace) {
+                            if (isset($trace['file']) && strpos($trace['file'], $ignoredPathInBacktrace) === 0) {
+                                unset($timing['trace'][$index]);
+                            }
+                        }
+                    }
+                }
+                $timing['traceHash'] = hash($hashAlgo, json_encode($timing['trace']));
+            }
         }
 
         return $this->_timings;
@@ -194,6 +229,7 @@ class DbPanel extends Panel
             $this->_models = [];
             $timings = $this->calculateTimings();
             $duplicates = $this->countDuplicateQuery($timings);
+            $repeatingCallers = $this->countRepeatingQueryCallerCals($timings);
 
             foreach ($timings as $seq => $dbTiming) {
                 $this->_models[] = [
@@ -201,9 +237,11 @@ class DbPanel extends Panel
                     'query' => $dbTiming['info'],
                     'duration' => ($dbTiming['duration'] * 1000), // in milliseconds
                     'trace' => $dbTiming['trace'],
+                    'traceHash' => $dbTiming['traceHash'],
                     'timestamp' => ($dbTiming['timestamp'] * 1000), // in milliseconds
                     'seq' => $seq,
                     'duplicate' => $duplicates[$dbTiming['info']],
+                    'repeatingCallerCalls' => $repeatingCallers[$dbTiming['traceHash']]
                 ];
             }
         }
@@ -236,14 +274,68 @@ class DbPanel extends Panel
     public function sumDuplicateQueries($modelData)
     {
         $numDuplicates = 0;
-        $duplicates = ArrayHelper::getColumn($modelData, 'duplicate');
-        foreach ($duplicates as $duplicate) {
-            if ($duplicate > 1) {
+        foreach ($modelData as $data) {
+            if ($data['duplicate'] > 1) {
                 $numDuplicates++;
             }
         }
 
         return $numDuplicates;
+    }
+
+    /**
+     * Counts the number of times the same line of code makes a DB query.
+     *
+     * @param $timings
+     * @return array Number of DB calls indexed by the hash of the caller.
+     * @since 2.1.23
+     */
+    public function countRepeatingQueryCallerCals($timings)
+    {
+        $query = ArrayHelper::getColumn($timings, 'traceHash');
+
+        return array_count_values($query);
+    }
+
+    /**
+     * Creates an ArrayDataProvider for the repeating DB query callers.
+     *
+     * @param array $modelData
+     * @return ArrayDataProvider
+     * @since 2.1.23
+     */
+    public function generateRepeatingQueryCallersDataProvider($modelData)
+    {
+        $repeatingCallers = [];
+        foreach ($modelData as $data) {
+            if ($data['repeatingCallerCalls'] >= $this->repeatingCallerCallsThreshold) {
+                if (!array_key_exists($data['traceHash'], $repeatingCallers)) {
+                    $repeatingCallers[$data['traceHash']] = [
+                        'trace' => $data['trace'],
+                        'repeatingCallerCalls' => $data['repeatingCallerCalls'],
+                        'totalDuration' => 0,
+                        'queries' => []
+                    ];
+                }
+                $repeatingCallers[$data['traceHash']]['totalDuration'] += $data['duration'];
+                $repeatingCallers[$data['traceHash']]['queries'][] = [
+                    'timestamp' => $data['timestamp'],
+                    'duration' => $data['duration'],
+                    'query' => $data['query'],
+                    'type' => $data['type'],
+                    'seq' => $data['seq'],
+                ];
+            }
+        }
+
+        return new ArrayDataProvider([
+            'allModels' => $repeatingCallers,
+            'pagination' => false,
+            'sort' => [
+                'attributes' => ['repeatingCallerCalls', 'totalDuration'],
+                'defaultOrder' => ['repeatingCallerCalls' => SORT_DESC],
+            ],
+        ]);
     }
 
     /**
