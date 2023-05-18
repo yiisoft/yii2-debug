@@ -1,15 +1,11 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.23 March 14, 2023
-------------------------
-
-- Enh #498: Add yii2-symfonymailer Support in src/panels/MailPanel.php (vansari)
-
 2.1.23 under development
 ------------------------
 
-- Enh #501: Show repeating DB calls from the same function in DB panel (rhertogh)
+- Enh #498: Add yii2-symfonymailer Support in src/panels/MailPanel.php (vansari)
+- Enh #501: Show DB query call location in DB panel (rhertogh)
 
 
 2.1.22 November 18, 2022
