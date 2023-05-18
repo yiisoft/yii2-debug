@@ -1,6 +1,6 @@
 # Database Panel
 
-The Database Panel shows the queries executed by the page and which line of code initiated the call.
+The Database Panel shows the queries executed by the page and the line of code which initiated the call.
 
 ## Duplicates & Repeating Callers
 
@@ -11,8 +11,8 @@ Let's dive into their use and differences based on some examples.
 
 | File:Line  | Query                              | "Duplicates" | "Repeating caller" |
 |------------|------------------------------------|:------------:|:------------------:|
-|User.php:20 | `SELECT * FROM user WHERE id=123;` |       2      |         -          |
-|Test.php:55 | `SELECT * FROM user WHERE id=123;` |       2      |         -          |
+| User.php:20 | `SELECT * FROM user WHERE id=123;` |       2      |         -          |
+| Test.php:55 | `SELECT * FROM user WHERE id=123;` |       2      |         -          |
 
 Results in 2 duplicates (`SELECT * FROM user WHERE id=123;`) and 0 repeating callers.
 
@@ -20,9 +20,9 @@ Results in 2 duplicates (`SELECT * FROM user WHERE id=123;`) and 0 repeating cal
 
 | File:Line  | Query                              | "Duplicates" | "Repeating caller" |
 |------------|------------------------------------|:------------:|:------------------:|
-|User.php:75 | `SELECT * FROM user WHERE id=123;` |      0       |         ✓          |
-|User.php:75 | `SELECT * FROM user WHERE id=456;` |      0       |         ✓          |
-|User.php:75 | `SELECT * FROM user WHERE id=789;` |      0       |         ✓          |
+| User.php:75 | `SELECT * FROM user WHERE id=123;` |      0       |         ✓          |
+| User.php:75 | `SELECT * FROM user WHERE id=456;` |      0       |         ✓          |
+| User.php:75 | `SELECT * FROM user WHERE id=789;` |      0       |         ✓          |
 
 Results in 0 duplicates and 1 repeating caller (`User.php:75`) making 3 calls.
 

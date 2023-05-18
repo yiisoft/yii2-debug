@@ -115,7 +115,7 @@ $config['modules']['debug'] = [
 ];
 ```
 
-More information about the DB panel can be found [here](db-panel.md).  
+More information about the DB panel can be found in [database queries](db-panel.md) section.  
 
 ### Extra configuration for opening in IDE's
 

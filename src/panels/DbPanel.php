@@ -33,12 +33,14 @@ class DbPanel extends Panel
      */
     public $criticalQueryThreshold;
     /**
-     * @var int Number of DB calls the same line of code can make before considered a "repeating caller".
+     * @var int the number of DB calls the same line of code can make before considered a "repeating caller".
+     * @since 2.1.23
      */
     public $repeatingCallerCallsThreshold = 5;
     /**
-     * @var string[] Files and/or paths defined here will be ignored by the determination of repeating callers.
+     * @var string[] the files and/or paths defined here will be ignored by the determination of repeating callers.
      * Hint: You can use path aliasses here.
+     * @since 2.1.23
      */
     public $ignoredPathsInBacktrace = [];
     /**
