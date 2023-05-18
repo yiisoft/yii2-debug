@@ -50,8 +50,18 @@ echo GridView::widget([
             ],
         ],
         [
-            'attribute' => 'repeatingCallerCalls',
-            'label' => 'Repeating Calls',
+            'label' => 'No. of Calls',
+            'attribute' => 'numCalls',
+            'value' => function ($data) use ($panel) {
+                $result = $data['numCalls'];
+                if ($data['numCalls'] >= $panel->excessiveCallerThreshold) {
+                    $result .= ' ' . Html::tag('span', '&#x26a0;', [
+                        'title' => 'Too many calls, number of calls should stay below ' . $panel->excessiveCallerThreshold,
+                    ]);
+                }
+                return $result;
+            },
+            'format' => 'raw',
             'options' => [
                 'width' => '5%',
             ],

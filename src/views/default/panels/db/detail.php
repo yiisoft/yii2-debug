@@ -12,10 +12,9 @@ use yii\web\View;
 /* @var $sumDuplicates int */
 /* @var $this View */
 
-$encodedName = Html::encode($panel->getName());
 ?>
 
-<h1><?= $encodedName ?></h1>
+<h1><?= Html::encode($panel->getName()) ?></h1>
 
 <?php
 if (Yii::$app->log->traceLevel < 1) {
@@ -28,12 +27,14 @@ if ($sumDuplicates === 1) {
     echo "<p><b>$sumDuplicates</b> duplicated queries found.</p>";
 }
 
-$numRepeatingCallers = $callerDataProvider->totalCount;
-$sumRepeatingCallers = array_sum(ArrayHelper::getColumn($callerDataProvider->allModels, 'repeatingCallerCalls'));
-if ($numRepeatingCallers === 1) {
-    echo "<p><b>$numRepeatingCallers</b> repeating caller found making $sumRepeatingCallers repeated cals.</p>";
-} elseif ($sumDuplicates > 1) {
-    echo "<p><b>$numRepeatingCallers</b> repeating callers found making $sumRepeatingCallers repleating cals.</p>";
+
+$excessiveCallers = $panel->getExcessiveCallers();
+$numExcessiveCallers = count($excessiveCallers);
+if ($numExcessiveCallers) {
+    $excessiveCallersInfo = "<p><b>$numExcessiveCallers</b> excessive caller" . ($numExcessiveCallers > 1 ? 's' : '')
+        . ' making '. array_sum($excessiveCallers) .' cals.</p>';
+
+    echo $excessiveCallersInfo;
 }
 
 $items = [];
@@ -47,7 +48,11 @@ $items['content'][] = $this->render('queries', [
     'sumDuplicates' => $sumDuplicates,
 ]);
 
-$items['nav'][] = "Repeating Callers";
+$items['nav'][] = 'Callers' . (
+        !empty($excessiveCallersInfo)
+            ? ' ' . Html::tag('span', '&#x26a0;', ['title' => strip_tags($excessiveCallersInfo)])
+            : ''
+    );
 $items['content'][] = $this->render('callers', [
     'panel' => $panel,
     'searchModel' => $searchModel,
