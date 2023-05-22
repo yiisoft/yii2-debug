@@ -115,6 +115,8 @@ $config['modules']['debug'] = [
 ];
 ```
 
+More information about the DB panel can be found in [database queries](db-panel.md) section.  
+
 ### Extra configuration for opening in IDE's
 
 Wouldn't it be nice to be able to open files directly from the debug trace? 

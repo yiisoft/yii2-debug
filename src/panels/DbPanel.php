@@ -9,6 +9,7 @@ namespace yii\debug\panels;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\data\ArrayDataProvider;
 use yii\debug\models\search\Db;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
@@ -31,6 +32,19 @@ class DbPanel extends Panel
      * the execution is considered taking critical number of DB queries.
      */
     public $criticalQueryThreshold;
+    /**
+     * @var int the number of DB calls the same backtrace can make before considered an "Excessive Caller".
+     * @since 2.1.23
+     */
+    public $excessiveCallerThreshold = 5;
+    /**
+     * @var string[] the files and/or paths defined here will be ignored in the determination of DB "Callers".
+     * The "Caller" is the backtrace lines that aren't included in the `$ignoredPathsInBacktrace`,
+     * Yii files are ignored by default.
+     * Hint: You can use path aliases here.
+     * @since 2.1.23
+     */
+    public $ignoredPathsInBacktrace = [];
     /**
      * @var string the name of the database component to use for executing (explain) queries
      */
@@ -57,6 +71,10 @@ class DbPanel extends Panel
      * @var array current database request timings
      */
     private $_timings;
+    /**
+     * @var array current database profile logs
+     */
+    private $_profileLogs;
 
 
     /**
@@ -100,12 +118,14 @@ class DbPanel extends Panel
         $timings = $this->calculateTimings();
         $queryCount = count($timings);
         $queryTime = number_format($this->getTotalQueryTime($timings) * 1000) . ' ms';
+        $excessiveCallerCount = $this->getExcessiveCallersCount();
 
         return Yii::$app->view->render('panels/db/summary', [
             'timings' => $this->calculateTimings(),
             'panel' => $this,
             'queryCount' => $queryCount,
             'queryTime' => $queryTime,
+            'excessiveCallerCount' => $excessiveCallerCount,
         ]);
     }
 
@@ -122,13 +142,15 @@ class DbPanel extends Panel
         }
 
         $models = $this->getModels();
-        $dataProvider = $searchModel->search($models);
-        $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
+        $queryDataProvider = $searchModel->search($models);
+        $queryDataProvider->getSort()->defaultOrder = $this->defaultOrder;
         $sumDuplicates = $this->sumDuplicateQueries($models);
+        $callerDataProvider = $this->generateQueryCallersDataProvider($models);
 
         return Yii::$app->view->render('panels/db/detail', [
             'panel' => $this,
-            'dataProvider' => $dataProvider,
+            'queryDataProvider' => $queryDataProvider,
+            'callerDataProvider' => $callerDataProvider,
             'searchModel' => $searchModel,
             'hasExplain' => $this->hasExplain(),
             'sumDuplicates' => $sumDuplicates,
@@ -143,7 +165,30 @@ class DbPanel extends Panel
     public function calculateTimings()
     {
         if ($this->_timings === null) {
-            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
+            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : $this->getProfileLogs());
+
+            // Parse aliases
+            $ignoredPathsInBacktrace = array_map(
+                function($path) {
+                    return Yii::getAlias($path);
+                },
+                $this->ignoredPathsInBacktrace
+            );
+
+            // Generate hash for caller
+            $hashAlgo = in_array('xxh3', hash_algos()) ? 'xxh3' : 'crc32';
+            foreach ($this->_timings as &$timing) {
+                if ($ignoredPathsInBacktrace) {
+                    foreach ($timing['trace'] as $index => $trace) {
+                        foreach ($ignoredPathsInBacktrace as $ignoredPathInBacktrace) {
+                            if (isset($trace['file']) && strpos($trace['file'], $ignoredPathInBacktrace) === 0) {
+                                unset($timing['trace'][$index]);
+                            }
+                        }
+                    }
+                }
+                $timing['traceHash'] = hash($hashAlgo, json_encode($timing['trace']));
+            }
         }
 
         return $this->_timings;
@@ -163,7 +208,11 @@ class DbPanel extends Panel
      */
     public function getProfileLogs()
     {
-        return $this->getLogMessages(Logger::LEVEL_PROFILE, $this->dbEventNames);
+        if ($this->_profileLogs === null) {
+            $this->_profileLogs = $this->getLogMessages(Logger::LEVEL_PROFILE, $this->dbEventNames);
+        }
+
+        return $this->_profileLogs;
     }
 
     /**
@@ -201,6 +250,7 @@ class DbPanel extends Panel
                     'query' => $dbTiming['info'],
                     'duration' => ($dbTiming['duration'] * 1000), // in milliseconds
                     'trace' => $dbTiming['trace'],
+                    'traceHash' => $dbTiming['traceHash'],
                     'timestamp' => ($dbTiming['timestamp'] * 1000), // in milliseconds
                     'seq' => $seq,
                     'duplicate' => $duplicates[$dbTiming['info']],
@@ -236,14 +286,93 @@ class DbPanel extends Panel
     public function sumDuplicateQueries($modelData)
     {
         $numDuplicates = 0;
-        $duplicates = ArrayHelper::getColumn($modelData, 'duplicate');
-        foreach ($duplicates as $duplicate) {
-            if ($duplicate > 1) {
+        foreach ($modelData as $data) {
+            if ($data['duplicate'] > 1) {
                 $numDuplicates++;
             }
         }
 
         return $numDuplicates;
+    }
+
+    /**
+     * Counts the number of times the same backtrace makes a DB query.
+     *
+     * @return array the number of DB calls indexed by the backtrace hash of the caller.
+     * @since 2.1.23
+     */
+    public function countCallerCals()
+    {
+        $query = ArrayHelper::getColumn($this->calculateTimings(), 'traceHash');
+
+        return array_count_values($query);
+    }
+
+    /**
+     * Get the backtrace hashes that make excessive DB cals.
+     *
+     * @return array the number of DB calls indexed by the backtrace hash of excessive caller(s).
+     * @since 2.1.23
+     */
+    public function getExcessiveCallers()
+    {
+        return array_filter(
+            $this->countCallerCals(),
+            function ($count) {
+                return $count >= $this->excessiveCallerThreshold;
+            }
+        );
+    }
+
+    /**
+     * Get the number of excessive caller(s).
+     *
+     * @return int
+     * @since 2.1.23
+     */
+    public function getExcessiveCallersCount()
+    {
+        return count($this->getExcessiveCallers());
+    }
+
+    /**
+     * Creates an ArrayDataProvider for the DB query callers.
+     *
+     * @param array $modelData
+     * @return ArrayDataProvider
+     * @since 2.1.23
+     */
+    public function generateQueryCallersDataProvider($modelData)
+    {
+        $callers = [];
+        foreach ($modelData as $data) {
+            if (!array_key_exists($data['traceHash'], $callers)) {
+                $callers[$data['traceHash']] = [
+                    'trace' => $data['trace'],
+                    'numCalls' => 0,
+                    'totalDuration' => 0,
+                    'queries' => []
+                ];
+            }
+            $callers[$data['traceHash']]['numCalls'] += 1;
+            $callers[$data['traceHash']]['totalDuration'] += $data['duration'];
+            $callers[$data['traceHash']]['queries'][] = [
+                'timestamp' => $data['timestamp'],
+                'duration' => $data['duration'],
+                'query' => $data['query'],
+                'type' => $data['type'],
+                'seq' => $data['seq'],
+            ];
+        }
+
+        return new ArrayDataProvider([
+            'allModels' => $callers,
+            'pagination' => false,
+            'sort' => [
+                'attributes' => ['numCalls', 'totalDuration'],
+                'defaultOrder' => ['numCalls' => SORT_DESC],
+            ],
+        ]);
     }
 
     /**

@@ -66,7 +66,7 @@ ul.trace {
     white-space: normal;
 }
 
-#db-panel-detailed-grid table tbody tr td {
+.db-panel-detailed-grid table tbody tr td {
     position: relative;
 }
 
@@ -85,7 +85,7 @@ ul.trace {
     word-break: break-all;
 }
 
-#db-explain-all {
+.db-explain-all {
     position: absolute;
     bottom: 0;
     right: 0;

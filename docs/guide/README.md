@@ -16,7 +16,7 @@ Out of the box these tools allow you to:
 - view the request data, request and response headers, session data, and environment variables;
 - see, search, and filter the logs;
 - view any profiling results;
-- view the database queries executed by the page;
+- view the [database queries](db-panel.md) executed by the page;
 - view the emails sent by the application.
 
 All of this information will be available per request, allowing you to revisit the information for past requests as well.

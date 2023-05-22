@@ -3,6 +3,7 @@
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $manifest array */
@@ -50,7 +51,13 @@ $this->title = 'Yii Debugger';
                         return ['class' => 'table-danger'];
                     }
 
-                    if ($hasDbPanel && $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])) {
+                    if (
+                        $hasDbPanel
+                        && (
+                            $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])
+                            || !empty($model['excessiveCallersCount'])
+                        )
+                    ) {
                         return ['class' => 'table-danger'];
                     }
 
@@ -111,17 +118,29 @@ $this->title = 'Yii Debugger';
                             /* @var $dbPanel \yii\debug\panels\DbPanel */
                             $dbPanel = $this->context->module->panels['db'];
 
+                            $title = "Executed {$data['sqlCount']} database queries.";
+                            $hasError = false;
                             if ($dbPanel->isQueryCountCritical($data['sqlCount'])) {
-                                $content = Html::tag('b', $data['sqlCount']) . ' ' . Html::tag('span', '&#x26a0;');
-
-                                return Html::a($content, ['view', 'panel' => 'db', 'tag' => $data['tag']], [
-                                    'title' => 'Too many queries. Allowed count is ' . $dbPanel->criticalQueryThreshold,
-                                ]);
-
+                                $title .= ' &#10;Too many queries. Allowed count is ' . $dbPanel->criticalQueryThreshold;
+                                $hasError = true;
                             }
-                            return $data['sqlCount'];
+                            if (!empty($data['excessiveCallersCount'])) {
+                                $title .= ' &#10;' . $data['excessiveCallersCount'] . ' '
+                                    . ($data['excessiveCallersCount'] == 1 ? 'caller is' : 'callers are')
+                                    . ' making too many calls.';
+                                $hasError = true;
+                            }
+
+                            if ($hasError) {
+                                $content = Html::tag('b', $data['sqlCount']) . ' ' . Html::tag('span', '&#x26a0;');
+                            } else {
+                                $content = $data['sqlCount'];
+                            }
+
+                            return '<a href="' . Url::to(['view', 'panel' => 'db', 'tag' => $data['tag']]) .'"
+                                        title="' . $title . '">' . $content . '</a>';
                         },
-                        'format' => 'html',
+                        'format' => 'raw',
                     ] : null,
                     [
                         'attribute' => 'mailCount',

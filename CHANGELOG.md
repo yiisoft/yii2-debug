@@ -5,6 +5,7 @@ Yii Framework 2 debug extension Change Log
 ------------------------
 
 - Enh #498: Add yii2-symfonymailer Support in src/panels/MailPanel.php (vansari)
+- Enh #501: Show DB query call location in DB panel (rhertogh)
 
 
 2.1.22 November 18, 2022
