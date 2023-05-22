@@ -18,6 +18,8 @@ use yii\log\Logger;
 /**
  * Debugger panel that collects and displays database queries performed.
  *
+ * @property-read array $excessiveCallers The number of DB calls indexed by the backtrace hash of excessive
+ * caller(s).
  * @property-read array $profileLogs
  * @property-read string $summaryName Short name of the panel, which will be use in summary.
  *
