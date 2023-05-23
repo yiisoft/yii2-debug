@@ -9,6 +9,7 @@ namespace yii\debug;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\debug\panels\DbPanel;
 use yii\helpers\FileHelper;
 use yii\log\Target;
 
@@ -252,6 +253,7 @@ class LogTarget extends Target
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
             'statusCode' => $response instanceof yii\console\Response ? $response->exitStatus : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
+            'excessiveCallersCount' => $this->getExcessiveDbCallersCount(),
         ];
 
         if (isset($this->module->panels['mail'])) {
@@ -278,5 +280,22 @@ class LogTarget extends Target
         # / 2 because messages are in couple (begin/end)
 
         return count($profileLogs) / 2;
+    }
+
+    /**
+     * Get the number of excessive Database caller(s).
+     *
+     * @return int
+     * @since 2.1.23
+     */
+    protected function getExcessiveDbCallersCount()
+    {
+        if (!isset($this->module->panels['db'])) {
+            return 0;
+        }
+        /** @var DbPanel $dbPanel */
+        $dbPanel = $this->module->panels['db'];
+
+        return $dbPanel->getExcessiveCallersCount();
     }
 }
