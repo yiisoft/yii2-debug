@@ -51,16 +51,6 @@ $this->title = 'Yii Debugger';
                         return ['class' => 'table-danger'];
                     }
 
-                    if (
-                        $hasDbPanel
-                        && (
-                            $this->context->module->panels['db']->isQueryCountCritical($model['sqlCount'])
-                            || !empty($model['excessiveCallersCount'])
-                        )
-                    ) {
-                        return ['class' => 'table-danger'];
-                    }
-
                     return [];
                 },
                 'pager' => [
@@ -119,22 +109,19 @@ $this->title = 'Yii Debugger';
                             $dbPanel = $this->context->module->panels['db'];
 
                             $title = "Executed {$data['sqlCount']} database queries.";
-                            $hasError = false;
+                            $warning = '';
                             if ($dbPanel->isQueryCountCritical($data['sqlCount'])) {
-                                $title .= ' &#10;Too many queries. Allowed count is ' . $dbPanel->criticalQueryThreshold;
-                                $hasError = true;
+                                $warning .= 'Too many queries. Allowed count is ' . $dbPanel->criticalQueryThreshold;
                             }
                             if (!empty($data['excessiveCallersCount'])) {
-                                $title .= ' &#10;' . $data['excessiveCallersCount'] . ' '
+                                $warning .= ($warning ? ' &#10;' : '') . $data['excessiveCallersCount'] . ' '
                                     . ($data['excessiveCallersCount'] == 1 ? 'caller is' : 'callers are')
                                     . ' making too many calls.';
-                                $hasError = true;
                             }
 
-                            if ($hasError) {
-                                $content = Html::tag('b', $data['sqlCount']) . ' ' . Html::tag('span', '&#x26a0;');
-                            } else {
-                                $content = $data['sqlCount'];
+                            $content = $data['sqlCount'];
+                            if ($warning) {
+                                $content .= ' <span title="' . $warning . '">&#x26a0;</span>';
                             }
 
                             return '<a href="' . Url::to(['view', 'panel' => 'db', 'tag' => $data['tag']]) .'"
