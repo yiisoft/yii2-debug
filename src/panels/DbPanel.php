@@ -318,6 +318,10 @@ class DbPanel extends Panel
      */
     public function getExcessiveCallers()
     {
+        if ($this->excessiveCallerThreshold === null) {
+            return [];
+        }
+
         return array_filter(
             $this->countCallerCals(),
             function ($count) {
@@ -392,7 +396,7 @@ class DbPanel extends Panel
     }
 
     /**
-     * Check if given queries count is critical according settings.
+     * Check if given queries count is critical according to the settings.
      *
      * @param int $count queries count
      * @return bool
@@ -400,6 +404,17 @@ class DbPanel extends Panel
     public function isQueryCountCritical($count)
     {
         return (($this->criticalQueryThreshold !== null) && ($count > $this->criticalQueryThreshold));
+    }
+
+    /**
+     * Check if the number of calls by "Caller" is excessive according to the settings.
+     *
+     * @param int $numCalls queries count
+     * @return bool
+     */
+    public function isNumberOfCallsExcessive($numCalls)
+    {
+        return (($this->excessiveCallerThreshold !== null) && ($numCalls > $this->excessiveCallerThreshold));
     }
 
     /**
