@@ -57,6 +57,7 @@ $config['modules']['debug'] = [
     'panels' => [
         'db' => [
             'class' => 'yii\debug\panels\DbPanel',
+            'criticalQueryThreshold' => 1000, // Show warning in case the total number of queries exceed this number.
             'excessiveCallerThreshold' => 10, // Increase the "Excessive Caller" threshold
             'ignoredPathsInBacktrace' => [
                 '@common/components/db/MyCustomDbCommand', // Ignore custom DB Command 
@@ -65,3 +66,6 @@ $config['modules']['debug'] = [
     ],
 ];
 ```
+
+> Note: Both `$criticalQueryThreshold` and `$excessiveCallerThreshold` can be disabled by setting their value to `null`.  
+> Changes in `$excessiveCallerThreshold` will only be reflected in new requests.

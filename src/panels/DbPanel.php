@@ -29,13 +29,16 @@ use yii\log\Logger;
 class DbPanel extends Panel
 {
     /**
-     * @var int the threshold for determining whether the request has involved
+     * @var int|null the threshold for determining whether the request has involved
      * critical number of DB queries. If the number of queries exceeds this number,
      * the execution is considered taking critical number of DB queries.
+     * If it is `null`, this feature is disabled.
      */
     public $criticalQueryThreshold;
     /**
-     * @var int the number of DB calls the same backtrace can make before considered an "Excessive Caller".
+     * @var int|null the number of DB calls the same backtrace can make before considered an "Excessive Caller".
+     * If it is `null`, this feature is disabled.
+     * Note: Changes will only be reflected in new requests.
      * @since 2.1.23
      */
     public $excessiveCallerThreshold = 5;
