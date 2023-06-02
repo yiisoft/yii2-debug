@@ -7,7 +7,7 @@
 $title = "Executed $queryCount database queries which took $queryTime.";
 $warning = '';
 
-if ($queryCount >= $panel->criticalQueryThreshold) {
+if ($panel->isQueryCountCritical($queryCount)) {
     $warning .= "Too many queries, allowed count is {$panel->criticalQueryThreshold}.";
 }
 if ($excessiveCallerCount) {

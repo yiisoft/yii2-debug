@@ -54,7 +54,7 @@ echo GridView::widget([
             'attribute' => 'numCalls',
             'value' => function ($data) use ($panel) {
                 $result = $data['numCalls'];
-                if ($data['numCalls'] >= $panel->excessiveCallerThreshold) {
+                if ($panel->isNumberOfCallsExcessive($data['numCalls'])) {
                     $result .= ' ' . Html::tag('span', '&#x26a0;', [
                         'title' => 'Too many calls, number of calls should stay below ' . $panel->excessiveCallerThreshold,
                     ]);
