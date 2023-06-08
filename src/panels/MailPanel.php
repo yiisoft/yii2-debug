@@ -195,7 +195,7 @@ class MailPanel extends Panel
         }
 
         $messageData['body'] = $body;
-        $messageData['headers'] = $part->getPreparedHeaders();
+        $messageData['headers'] = $part->getPreparedHeaders()->toString();
         $messageData['time'] = $symfonyMessage->getDate();
     }
 }
