@@ -6,6 +6,7 @@ Yii Framework 2 debug extension Change Log
 
 - Bug #504: Reduced db panel warnings for "critical query threshold" and "excessive callers" (rhertogh)
 - Bug #506: Correctly handle null values for `DbPanel::$criticalQueryThreshold` and `::$excessiveCallerThreshold` (MarkoNV, rhertogh)
+- Bug #507: Convert Symfonie mailer headers to string in Mail panel (squio)
 
 
 2.1.23 May 22, 2023
