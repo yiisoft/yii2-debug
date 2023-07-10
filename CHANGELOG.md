@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.24 under development
-------------------------
+2.1.24 July 10, 2023
+--------------------
 
 - Bug #504: Reduced db panel warnings for "critical query threshold" and "excessive callers" (rhertogh)
 - Bug #506: Correctly handle null values for `DbPanel::$criticalQueryThreshold` and `::$excessiveCallerThreshold` (MarkoNV, rhertogh)
