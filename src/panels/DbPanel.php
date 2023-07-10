@@ -41,7 +41,7 @@ class DbPanel extends Panel
      * Note: Changes will only be reflected in new requests.
      * @since 2.1.23
      */
-    public $excessiveCallerThreshold = 5;
+    public $excessiveCallerThreshold = null;
     /**
      * @var string[] the files and/or paths defined here will be ignored in the determination of DB "Callers".
      * The "Caller" is the backtrace lines that aren't included in the `$ignoredPathsInBacktrace`,
