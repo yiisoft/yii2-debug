@@ -27,15 +27,14 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.3",
         "ext-mbstring": "*",
         "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {
-        "yiisoft/yii2-swiftmailer": "*",
+        "phpunit/phpunit": "^9.6",
         "yiisoft/yii2-coding-standards": "~2.0",
-        "cweagans/composer-patches": "^1.7",
-        "phpunit/phpunit": "4.8.34"
+        "yiisoft/yii2-swiftmailer": "*"
     },
     "autoload": {
         "psr-4": {
@@ -50,17 +49,6 @@
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
-        },
-        "composer-exit-on-patch-failure": true,
-        "patches": {
-            "phpunit/phpunit-mock-objects": {
-                "Fix PHP 7 and 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_mock_objects.patch"
-            },
-            "phpunit/phpunit": {
-                "Fix PHP 7 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php7.patch",
-                "Fix PHP 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php8.patch",
-                "Fix PHP 8.1 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php81.patch"
-            }
         }
     },
     "repositories": [
@@ -71,7 +59,6 @@
     ],
     "config": {
         "allow-plugins": {
-            "cweagans/composer-patches": true,
             "yiisoft/yii2-composer": true
         }
     }

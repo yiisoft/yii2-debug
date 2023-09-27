@@ -9,7 +9,7 @@ use yii\debug\Module;
 
 class ModuleTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockWebApplication();
