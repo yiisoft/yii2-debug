@@ -3,7 +3,7 @@
 
 ## Composer パッケージを取得する
 
-このエクステンションをインストールするのに推奨される方法は [composer](http://getcomposer.org/download/) によるものです。
+このエクステンションをインストールするのに推奨される方法は [composer](https://getcomposer.org/download/) によるものです。
 
 下記のコマンドを実行してください。
 
@@ -268,7 +268,7 @@ return [
 ];
 ```
 
-詳細は [権限付与のガイド](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html) を参照して下さい。
+詳細は [権限付与のガイド](https://www.yiiframework.com/doc-2.0/guide-security-authorization.html) を参照して下さい。
 
 ### ツールバーに表示される URL から除外する
 
