@@ -6,7 +6,7 @@
     <br>
 </p>
 
-This extension provides a debugger for [Yii framework 2.0](http://www.yiiframework.com) applications. When this extension is used,
+This extension provides a debugger for [Yii framework 2.0](https://www.yiiframework.com) applications. When this extension is used,
 a debugger toolbar will appear at the bottom of every page. The extension also provides
 a set of standalone pages to display more detailed debug information.
 
@@ -22,7 +22,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 Installation
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this extension is through [composer](https://getcomposer.org/download/).
 
 Either run
 
