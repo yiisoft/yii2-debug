@@ -136,7 +136,11 @@ echo GridView::widget([
                     $message .= Html::ul($data['trace'], [
                         'class' => 'trace',
                         'item' => static function ($trace) use ($panel) {
-                            return '<li>' . $panel->getTraceLine($trace) . '</li>';
+                            if (isset($trace['file'])) {
+                                return '<li>' . $panel->getTraceLine($trace) . '</li>';
+                            } else {
+                                return '<li>' . Html::encode(\yii\helpers\VarDumper::dumpAsString($trace)) . '</li>';
+                            }
                         }
                     ]);
                 }
