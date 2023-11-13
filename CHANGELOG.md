@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.26 under development
 ------------------------
 
-- no changes in this release.
+- Enh #464: Add scripts with assetManager registerCss() and registerJs() for compatibility with ContentSecurityPolicy setup (niciz)
 
 
 2.1.25 September 26, 2023
