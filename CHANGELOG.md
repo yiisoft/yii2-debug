@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.26 under development
 ------------------------
 
-- no changes in this release.
+- Fix the backtrace, the 'file' and 'line' not be available (zymeli)
 
 
 2.1.25 September 26, 2023
