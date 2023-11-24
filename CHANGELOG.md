@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.26 under development
 ------------------------
 
-- Bug #528: Fix the backtrace, the 'file' and 'line' not be available (zymeli)
+- Bug #528: Fix `yii\debug\Panel::getTraceLine()` to handle backtrace for internal PHP functions (zymeli)
 
 
 2.1.25 September 26, 2023
