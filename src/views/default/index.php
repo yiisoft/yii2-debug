@@ -17,7 +17,7 @@ $this->title = 'Yii Debugger';
     <div id="yii-debug-toolbar" class="yii-debug-toolbar yii-debug-toolbar_position_top" style="display: none;">
         <div class="yii-debug-toolbar__bar">
             <div class="yii-debug-toolbar__block yii-debug-toolbar__title">
-                <a href="#">
+                <a href="<?= Url::to(['index']) ?>">
                     <img width="30" height="30" alt="" src="<?= \yii\debug\Module::getYiiLogo() ?>">
                 </a>
             </div>
