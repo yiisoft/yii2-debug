@@ -7,7 +7,7 @@ on:
       - '.gitignore'
       - '.gitattributes'
       - 'infection.json.dist'
-      - 'psalm.xml'
+      - 'phpunit.xml.dist'
 
   push:
     paths-ignore:
@@ -17,15 +17,15 @@ on:
       - '.gitignore'
       - '.gitattributes'
       - 'infection.json.dist'
-      - 'psalm.xml'
+      - 'phpunit.xml.dist'
 
-name: build
+name: static analysis
 
 jobs:
-  phpunit:
-    uses: yiisoft/actions/.github/workflows/phpunit.yml@master
+  psalm:
+    uses: yiisoft/actions/.github/workflows/psalm.yml@master
     with:
       os: >-
         ['ubuntu-latest']
       php: >-
-        ['8.1', '8.2', '8.3']
+        ['8.1']

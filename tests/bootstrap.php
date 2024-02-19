@@ -18,5 +18,3 @@ require_once($vendorRoot . '/yiisoft/yii2/Yii.php');
 
 Yii::setAlias('@yiiunit/debug', __DIR__);
 Yii::setAlias('@yii/debug', dirname(__DIR__) . '/src');
-
-require_once(__DIR__ . '/compatibility.php');
