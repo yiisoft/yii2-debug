@@ -106,6 +106,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $defaultHeight = 50;
     /**
+     * @var string toolbar position on web page. Use 'bottom' or 'upper'.
+     * You may add custom value via .yii-debug-toolbar_position_{yourValue} css.
+     * @since 2.1.14
+     */
+    public $toolbarPosition = 'bottom';
+    /**
      * @var bool whether to enable message logging for the requests about debug module actions.
      * You normally do not want to keep these logs because they may distract you from the logs about your applications.
      * You may want to enable the debug logs if you want to investigate how the debug module itself works.

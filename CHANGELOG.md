@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.26 under development
 ------------------------
 
+- Enh #430: Allow to configure toolbar position via `Module::$toolbarPosition` property (sasha-x)
 - Bug #528: Fix `yii\debug\Panel::getTraceLine()` to handle backtrace for internal PHP functions (zymeli)
 
 
