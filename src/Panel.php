@@ -131,6 +131,14 @@ class Panel extends Component
      */
     public function getTraceLine($options)
     {
+        /**
+         * If an internal PHP function, such as `call_user_func`, in the backtrace, the 'file' and 'line' not be available.
+         * @see https://www.php.net/manual/en/function.debug-backtrace.php#59713
+         */
+        if (!isset($options['file'])) {
+            return VarDumper::dumpAsString($options);
+        }
+
         if (!isset($options['text'])) {
             $options['text'] = "{$options['file']}:{$options['line']}";
         }

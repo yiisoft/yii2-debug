@@ -122,7 +122,7 @@ class DefaultController extends Controller
         return $this->renderPartial('toolbar', [
             'tag' => $tag,
             'panels' => $this->module->panels,
-            'position' => 'bottom',
+            'position' => $this->module->toolbarPosition,
             'defaultHeight' => $this->module->defaultHeight,
         ]);
     }
