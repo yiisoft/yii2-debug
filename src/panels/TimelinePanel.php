@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug\panels;
@@ -16,11 +16,9 @@ use yii\debug\Panel;
 /**
  * Debugger panel that collects and displays timeline data.
  *
- * @property array $colors Color indicators item profile
- * @property float $duration Request duration, milliseconds. This property is read-only.
- * @property int $memory Memory peak in request, bytes. (obtained by memory_get_peak_usage()). This property is read-only.
- * @property \yii\base\Model[] $models Returns an array of models that represents logs of the current request. This property is read-only.
- * @property float $start Start request, timestamp (obtained by microtime(true)). This property is read-only.
+ * @property array $colors
+ * @property-read float $duration
+ * @property-read float $start
  * @property array $svgOptions
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>

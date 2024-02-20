@@ -1,17 +1,17 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\debug\panels\DbPanel;
 use yii\helpers\FileHelper;
 use yii\log\Target;
-use Opis\Closure;
 
 /**
  * The debug LogTarget is used to store logs for later use in the debugger tool
@@ -63,7 +63,7 @@ class LogTarget extends Target
                     $summary['peakMemory'] = $panelData['memory'];
                     $summary['processingTime'] = $panelData['time'];
                 }
-                $data[$id] = Closure\serialize($panelData);
+                $data[$id] = serialize($panelData);
             } catch (\Exception $exception) {
                 $exceptions[$id] = new FlattenException($exception);
             }
@@ -71,13 +71,61 @@ class LogTarget extends Target
         $data['summary'] = $summary;
         $data['exceptions'] = $exceptions;
 
-        file_put_contents($dataFile, Closure\serialize($data));
+        file_put_contents($dataFile, serialize($data));
         if ($this->module->fileMode !== null) {
             @chmod($dataFile, $this->module->fileMode);
         }
 
         $indexFile = "$path/index.data";
         $this->updateIndexFile($indexFile, $summary);
+    }
+
+    /**
+     * @see DefaultController
+     * @return array
+     */
+    public function loadManifest()
+    {
+        $indexFile = $this->module->dataPath . '/index.data';
+
+        $content = '';
+        $fp = @fopen($indexFile, 'r');
+        if ($fp !== false) {
+            @flock($fp, LOCK_SH);
+            $content = fread($fp, filesize($indexFile));
+            @flock($fp, LOCK_UN);
+            fclose($fp);
+        }
+
+        if ($content !== '') {
+            return array_reverse(unserialize($content), true);
+        }
+
+        return [];
+    }
+
+    /**
+     * @see DefaultController
+     * @return array
+     */
+    public function loadTagToPanels($tag)
+    {
+        $dataFile = $this->module->dataPath . "/$tag.data";
+        $data = unserialize(file_get_contents($dataFile));
+        $exceptions = $data['exceptions'];
+        foreach ($this->module->panels as $id => $panel) {
+            if (isset($data[$id])) {
+                $panel->tag = $tag;
+                $panel->load(unserialize($data[$id]));
+            } else {
+                unset($this->module->panels[$id]);
+            }
+            if (isset($exceptions[$id])) {
+                $panel->setError($exceptions[$id]);
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -89,7 +137,6 @@ class LogTarget extends Target
      */
     private function updateIndexFile($indexFile, $summary)
     {
-
         if (!@touch($indexFile) || ($fp = @fopen($indexFile, 'r+')) === false) {
             throw new InvalidConfigException("Unable to open debug data index file: $indexFile");
         }
@@ -102,7 +149,7 @@ class LogTarget extends Target
             // error while reading index data, ignore and create new
             $manifest = [];
         } else {
-            $manifest = Closure\unserialize($manifest);
+            $manifest = unserialize($manifest);
         }
 
         $manifest[$this->tag] = $summary;
@@ -110,7 +157,7 @@ class LogTarget extends Target
 
         ftruncate($fp, 0);
         rewind($fp);
-        fwrite($fp, Closure\serialize($manifest));
+        fwrite($fp, serialize($manifest));
 
         @flock($fp, LOCK_UN);
         @fclose($fp);
@@ -199,13 +246,14 @@ class LogTarget extends Target
         $response = Yii::$app->getResponse();
         $summary = [
             'tag' => $this->tag,
-            'url' => $request->getAbsoluteUrl(),
-            'ajax' => (int) $request->getIsAjax(),
-            'method' => $request->getMethod(),
-            'ip' => $request->getUserIP(),
+            'url' => $request instanceof yii\console\Request ? "php yii " . implode(' ', $request->getParams()): $request->getAbsoluteUrl(),
+            'ajax' => $request instanceof yii\console\Request ? 0 : (int) $request->getIsAjax(),
+            'method' => $request instanceof yii\console\Request ? 'COMMAND' : $request->getMethod(),
+            'ip' => $request instanceof yii\console\Request ? exec('whoami') : $request->getUserIP(),
             'time' => $_SERVER['REQUEST_TIME_FLOAT'],
-            'statusCode' => $response->statusCode,
+            'statusCode' => $response instanceof yii\console\Response ? $response->exitStatus : $response->statusCode,
             'sqlCount' => $this->getSqlTotalCount(),
+            'excessiveCallersCount' => $this->getExcessiveDbCallersCount(),
         ];
 
         if (isset($this->module->panels['mail'])) {
@@ -232,5 +280,22 @@ class LogTarget extends Target
         # / 2 because messages are in couple (begin/end)
 
         return count($profileLogs) / 2;
+    }
+
+    /**
+     * Get the number of excessive Database caller(s).
+     *
+     * @return int
+     * @since 2.1.23
+     */
+    protected function getExcessiveDbCallersCount()
+    {
+        if (!isset($this->module->panels['db'])) {
+            return 0;
+        }
+        /** @var DbPanel $dbPanel */
+        $dbPanel = $this->module->panels['db'];
+
+        return $dbPanel->getExcessiveCallersCount();
     }
 }

@@ -145,7 +145,7 @@ class RouterRulesTest extends TestCase
                     'route' => 'route',
                     'verb' => ['POST'],
                     'suffix' => null,
-                    'mode' => 'parsing only',
+                    'mode' => null,
                     'type' => null
                 ]]
             ],
@@ -229,7 +229,7 @@ class RouterRulesTest extends TestCase
                         'route' => 'user/update',
                         'verb' => ['PUT', 'PATCH'],
                         'suffix' => null,
-                        'mode' => 'parsing only',
+                        'mode' => null,
                         'type' => 'REST'
                     ],
                     [
@@ -237,7 +237,7 @@ class RouterRulesTest extends TestCase
                         'route' => 'user/delete',
                         'verb' => ['DELETE'],
                         'suffix' => null,
-                        'mode' => 'parsing only',
+                        'mode' => null,
                         'type' => 'REST'
                     ],
                     [
@@ -253,7 +253,7 @@ class RouterRulesTest extends TestCase
                         'route' => 'user/create',
                         'verb' => ['POST'],
                         'suffix' => null,
-                        'mode' => 'parsing only',
+                        'mode' => null,
                         'type' => 'REST'
                     ],
                     [

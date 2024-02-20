@@ -64,7 +64,7 @@
         }
     });
 
-    on(document.getElementById('db-explain-all').querySelector('a'), 'click', function () {
+    on(document.querySelectorAll('.db-explain-all a'), 'click', function () {
         var event = new MouseEvent('click', {
             cancelable: true,
             bubbles: true

@@ -3,7 +3,7 @@
 
 ## Встановлення через Composer
 
-Рекомендується встановлювати це розширення за допомогою [Composer](http://getcomposer.org/download/).
+Рекомендується встановлювати це розширення за допомогою [Composer](https://getcomposer.org/download/).
 
 Виконайте
 

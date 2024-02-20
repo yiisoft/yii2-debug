@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug\models;
@@ -14,9 +14,6 @@ use yii\web\User;
 
 /**
  * UserSwitch is a model used to temporary logging in another user
- *
- * @property User $mainUser This property is read-only.
- * @property null|User $user This property is read-only.
  *
  * @author Semen Dubina <yii2debug@sam002.net>
  * @since 2.0.10
