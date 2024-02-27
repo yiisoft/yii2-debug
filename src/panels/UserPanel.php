@@ -237,7 +237,7 @@ class UserPanel extends Panel
 
         try {
             
-            $authManager = Instance::ensure($this->module->authManager, \yii\rbac\BaseManager::class);
+            $authManager = Instance::ensure($this->module->authManager, `\yii\rbac\BaseManager`);
 
             if ($authManager instanceof \yii\rbac\ManagerInterface) {
                 $roles = ArrayHelper::toArray($authManager->getRolesByUser($this->getUser()->id));
