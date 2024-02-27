@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\debug\panels;
@@ -10,6 +10,7 @@ namespace yii\debug\panels;
 use Yii;
 use yii\base\InlineAction;
 use yii\debug\Panel;
+use yii\helpers\ArrayHelper;
 
 /**
  * Debugger panel that collects and displays request data.
@@ -25,6 +26,16 @@ class RequestPanel extends Panel
      * @since 2.0.10
      */
     public $displayVars = ['_SERVER', '_GET', '_POST', '_COOKIE', '_FILES', '_SESSION'];
+    /**
+     * @var array list of variable names which values should be censored in the output
+     * @since 2.1.20
+     */
+    public $censoredVariableNames = [];
+    /**
+     * @var string value to display instead of the variable value if the name is on the censor list
+     * @since 2.1.20
+     */
+    public $censorString = '****';
 
 
     /**
@@ -58,7 +69,11 @@ class RequestPanel extends Panel
     {
         $headers = Yii::$app->getRequest()->getHeaders();
         $requestHeaders = [];
+        $hasCensorList = count($this->censoredVariableNames);
         foreach ($headers as $name => $value) {
+            if ($hasCensorList && in_array($name, $this->censoredVariableNames, true)) {
+                $value = $this->censorString;
+            }
             if (is_array($value) && count($value) == 1) {
                 $requestHeaders[$name] = current($value);
             } else {
@@ -70,7 +85,11 @@ class RequestPanel extends Panel
         foreach (headers_list() as $header) {
             if (($pos = strpos($header, ':')) !== false) {
                 $name = substr($header, 0, $pos);
-                $value = trim(substr($header, $pos + 1));
+                if ($hasCensorList && in_array($name, $this->censoredVariableNames, true)) {
+                    $value = $this->censorString;
+                } else {
+                    $value = trim(substr($header, $pos + 1));
+                }
                 if (isset($responseHeaders[$name])) {
                     if (!is_array($responseHeaders[$name])) {
                         $responseHeaders[$name] = [$responseHeaders[$name], $value];
@@ -112,7 +131,7 @@ class RequestPanel extends Panel
             'requestBody' => Yii::$app->getRequest()->getRawBody() == '' ? [] : [
                 'Content Type' => Yii::$app->getRequest()->getContentType(),
                 'Raw' => Yii::$app->getRequest()->getRawBody(),
-                'Decoded to Params' => Yii::$app->getRequest()->getBodyParams(),
+                'Decoded' => Yii::$app->getRequest()->getBodyParams(),
             ],
         ];
 
@@ -120,7 +139,7 @@ class RequestPanel extends Panel
             $data[trim($name, '_')] = empty($GLOBALS[$name]) ? [] : $GLOBALS[$name];
         }
 
-        return $data;
+        return $this->censorArray($data);
     }
 
     /**
@@ -144,5 +163,27 @@ class RequestPanel extends Panel
             }
         }
         return $flashes;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     * @since 2.1.20
+     */
+    protected function censorArray($data)
+    {
+        if (empty($this->censoredVariableNames) || empty($data)) {
+            return $data;
+        }
+        foreach ($this->censoredVariableNames as $var) {
+            $key = ltrim($var, '_');
+            if (ArrayHelper::getValue($data, $key) !== null) {
+                ArrayHelper::setValue($data, $key, $this->censorString);
+                if (strpos($key, 'requestBody') === 0) {
+                    ArrayHelper::setValue($data, 'requestBody.Raw', $this->censorString);
+                }
+            }
+        }
+        return $data;
     }
 }

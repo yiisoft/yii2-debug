@@ -105,6 +105,7 @@ By default an inline preview is shown when clicking on the summary on the toolba
 
 ### Events
 If you need client side programmatic access to the toolbar, for example to bind JavaScript events, you can listen to the `yii.debug.toolbar_attached` event on the document. For example:
+
 ```js
 document.addEventListener('yii.debug.toolbar_attached', function(event) {
     var toolbar = event.target;

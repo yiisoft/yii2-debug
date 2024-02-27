@@ -3,7 +3,7 @@ Installation
 
 ## Getting Composer package
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this extension is through [composer](https://getcomposer.org/download/).
 
 Either run
 
@@ -114,6 +114,8 @@ $config['modules']['debug'] = [
     ],
 ];
 ```
+
+More information about the DB panel can be found in [database queries](db-panel.md) section.  
 
 ### Extra configuration for opening in IDE's
 
@@ -268,7 +270,7 @@ return [
 ];
 ```
 
-For details see [Guide Authorization](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html).
+For details see [Guide Authorization](https://www.yiiframework.com/doc-2.0/guide-security-authorization.html).
 
 ### Skipping URLs from being displayed in toolbar
 

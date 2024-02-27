@@ -96,6 +96,18 @@ class ModuleTest extends TestCase
     }
 
     /**
+     * Test to ensure logTarget can take object as config
+     */
+    public function testLogTargetObject()
+    {
+        $module = new Module('debug');
+        $module->logTarget = new \yii\debug\LogTarget($module);
+        $module->bootstrap(Yii::$app);
+
+        $this->assertInstanceOf('yii\debug\LogTarget', $module->logTarget);
+    }
+
+    /**
      * Test to verify toolbars html
      */
     public function testGetToolbarHtml()
