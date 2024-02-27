@@ -1,8 +1,8 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.26 under development
-------------------------
+2.2.0 under development
+-----------------------
 
 - Enh #489: Adds data storage functionality that allows you to replace file storage with any available storage (evgenybukharev)
 - Enh #430: Allow to configure toolbar position via `Module::$toolbarPosition` property (sasha-x)
