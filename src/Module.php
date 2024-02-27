@@ -62,7 +62,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * @var LogTarget|array|string the logTarget object, or the configuration for creating the logTarget object.
      */
-    public $logTarget;
+    public $logTarget = 'yii\debug\LogTarget';
     
     /**
      * @var \yii\rbac\BaseManager|string|array the RBAC access checker [[BaseManager]] object or the application 
