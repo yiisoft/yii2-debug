@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.26 under development
 ------------------------
 
+- Enh #459: Add `yii\debug\Module::$authManager` to select RBAC manager used by UserPanel (default is `authManager`) (jafaripur)
 - Enh #430: Allow to configure toolbar position via `Module::$toolbarPosition` property (sasha-x)
 - Bug #528: Fix `yii\debug\Panel::getTraceLine()` to handle backtrace for internal PHP functions (zymeli)
 
