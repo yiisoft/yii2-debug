@@ -63,6 +63,28 @@ You will see a debugger toolbar showing at the bottom of every page of your appl
 You can click on the toolbar to see more detailed debug information.
 
 
+Data Storage
+-----
+
+You can save debug data in any storage, for this you need to implement the yii\debug\components\data\DataStorage interface, and configure the module.
+Solves the problem of correct operation of the debug panel in case the application is located on several servers.
+
+```php
+return [
+    'bootstrap' => ['debug'],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'dataStorageConfig'=>[
+                'class'=>'yii\debug\components\data\CacheDataStorage',
+            ],
+        ],
+        // ...
+    ],
+    ...
+];
+```
+
 Open Files in IDE
 -----
 

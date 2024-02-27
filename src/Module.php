@@ -10,19 +10,22 @@ namespace yii\debug;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
-use yii\helpers\Html;
-use yii\helpers\IpHelper;
+use yii\base\InvalidConfigException;
+use yii\debug\components\data\DataStorage;
+use yii\di\Instance;
 use yii\helpers\Json;
-use yii\helpers\Url;
-use yii\web\ForbiddenHttpException;
+use yii\helpers\IpHelper;
 use yii\web\Response;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
+use yii\web\ForbiddenHttpException;
 
 /**
  * The Yii Debug Module provides the debug toolbar and debugger
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
@@ -76,30 +79,20 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.0.7
      */
     public $defaultPanel = 'log';
+
     /**
-     * @var string the directory storing the debugger data files. This can be specified using a path alias.
+     * @var DataStorage
      */
-    public $dataPath = '@runtime/debug';
+    private $dataStorage;
+
     /**
-     * @var int the permission to be set for newly created debugger data files.
-     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
-     * If not set, the permission will be determined by the current environment.
-     * @since 2.0.6
+     * Config options by DataStorage
+     * @var string[]
      */
-    public $fileMode;
-    /**
-     * @var int the permission to be set for newly created directories.
-     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
-     * Defaults to 0775, meaning the directory is read-writable by owner and group,
-     * but read-only for other users.
-     * @since 2.0.6
-     */
-    public $dirMode = 0775;
-    /**
-     * @var int the maximum number of debug data files to keep. If there are more files generated,
-     * the oldest ones will be removed.
-     */
-    public $historySize = 50;
+    public $dataStorageConfig = [
+        'class' => 'yii\debug\components\data\FileDataStorage',
+    ];
+
     /**
      * @var int the debug bar default height, as a percentage of the total screen height
      * @since 2.1.1
@@ -117,6 +110,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * You may want to enable the debug logs if you want to investigate how the debug module itself works.
      */
     public $enableDebugLogs = false;
+
     /**
      * @var bool whether to disable IP address restriction warning triggered by checkAccess function
      * @since 2.0.14
@@ -226,7 +220,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function init()
     {
         parent::init();
-        $this->dataPath = Yii::getAlias($this->dataPath);
+
+        $this->dataStorage = Instance::ensure($this->dataStorageConfig + ['module' => $this],'yii\debug\components\data\DataStorage');
 
         $this->initPanels();
     }
@@ -488,6 +483,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
         }
 
         return $corePanels;
+    }
+
+    /**
+     * @return DataStorage
+     */
+    public function getDataStorage()
+    {
+        return $this->dataStorage;
     }
 
     /**
