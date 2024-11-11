@@ -95,7 +95,7 @@ class RouterRules extends Model
                     case WebUrlRule::CREATION_ONLY:
                         $mode = 'creation only';
                         break;
-                    case null;
+                    case null:
                         $mode = null;
                         break;
                     default:
