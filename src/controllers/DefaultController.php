@@ -7,11 +7,21 @@
 
 namespace yii\debug\controllers;
 
+use HttpSoft\Message\ResponseFactory;
+use HttpSoft\Message\StreamFactory;
 use Yii;
 use yii\debug\models\search\Debug;
+use yii\debug\Module;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use Yiisoft\DataResponse\DataResponse;
+use Yiisoft\DataResponse\DataResponseFactory;
+use Yiisoft\DataResponse\Formatter\JsonDataResponseFormatter;
+use Yiisoft\DataResponse\Middleware\FormatDataResponseAsJson;
+use Yiisoft\Yii\Debug\Api\Debug\Controller\DebugController;
+use Yiisoft\Yii\Debug\Api\Debug\Repository\CollectorRepository;
+use Yiisoft\Yii\Debug\Storage\FileStorage;
 
 /**
  * Debugger controller provides browsing over available debug logs.
@@ -73,6 +83,23 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $dataResponseFactory = Yii::createObject(DataResponseFactory::class, [
+            'responseFactory' => Yii::createObject(ResponseFactory::class, []),
+            'streamFactory' => Yii::createObject(StreamFactory::class, [])
+        ]);
+        $collectorRepository = Yii::createObject(CollectorRepository::class, [
+            'storage' => new FileStorage(Yii::getAlias('@runtime/debug')),
+        ]);
+        $controller = Yii::createObject(DebugController::class, [
+            'responseFactory' => $dataResponseFactory,
+            'collectorRepository' => $collectorRepository
+        ]);
+        $result = $controller->index();
+        return (new JsonDataResponseFormatter())
+            ->format(
+                $dataResponseFactory->createResponse($result->getData())
+            )->getBody();
+
         $searchModel = new Debug();
         $dataProvider = $searchModel->search($_GET, $this->getManifest());
 

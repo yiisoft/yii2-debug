@@ -30,13 +30,18 @@
     "require": {
         "php": ">=5.4",
         "ext-mbstring": "*",
-        "yiisoft/yii2": "~2.0.13"
+        "yiisoft/yii2": "~2.0.13",
+        "samdark/yii2-psr-log-target": "dev-master",
+        "yiisoft/yii-http": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-coding-standards": "~2.0",
         "cweagans/composer-patches": "^1.7",
-        "phpunit/phpunit": "4.8.34"
+        "phpunit/phpunit": "4.8.34",
+        "yiisoft/yii-debug": "dev-master",
+        "yiisoft/router-fastroute": "^3.0",
+        "yiisoft/yii-debug-api": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -73,7 +78,8 @@
     "config": {
         "allow-plugins": {
             "cweagans/composer-patches": true,
-            "yiisoft/yii2-composer": true
+            "yiisoft/yii2-composer": true,
+            "yiisoft/config": false
         }
     }
 }
