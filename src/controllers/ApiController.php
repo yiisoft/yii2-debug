@@ -17,6 +17,9 @@ use yii\web\Response;
 use Yiisoft\DataResponse\DataResponseFactory;
 use Yiisoft\DataResponse\Formatter\JsonDataResponseFormatter;
 use Yiisoft\Yii\Debug\Api\Debug\Controller\DebugController;
+use Yiisoft\Yii\Debug\Api\Debug\Exception\NotFoundException;
+use Yiisoft\Yii\Debug\Api\Debug\HtmlViewProviderInterface;
+use Yiisoft\Yii\Debug\Api\Debug\ModuleFederationProviderInterface;
 use Yiisoft\Yii\Debug\Api\Debug\Repository\CollectorRepository;
 use Yiisoft\Yii\Debug\Storage\FileStorage;
 
@@ -78,9 +81,7 @@ class ApiController extends Controller
             'responseFactory' => Yii::createObject(ResponseFactory::class, []),
             'streamFactory' => Yii::createObject(StreamFactory::class, []),
         ]);
-        $collectorRepository = Yii::createObject(CollectorRepository::class, [
-            'storage' => new FileStorage(Yii::getAlias('@runtime/debug')),
-        ]);
+        $collectorRepository = Yii::$container->get(CollectorRepository::class);
         $controller = Yii::createObject(DebugController::class, [
             'responseFactory' => $dataResponseFactory,
             'collectorRepository' => $collectorRepository,
@@ -90,6 +91,30 @@ class ApiController extends Controller
             ->format(
                 $dataResponseFactory->createResponse([
                     'data' => $collectorRepository->getSummary(),
+                ])
+            )->getBody();
+    }
+
+    public function actionView(string $id, string $collector)
+    {
+        $dataResponseFactory = Yii::createObject(DataResponseFactory::class, [
+            'responseFactory' => Yii::createObject(ResponseFactory::class, []),
+            'streamFactory' => Yii::createObject(StreamFactory::class, []),
+        ]);
+        $collectorRepository = Yii::$container->get(CollectorRepository::class);
+        $data = $collectorRepository->getDetail($id);
+
+        $collectorClass = $collector;
+        if ($collectorClass !== null) {
+            $data = $data[$collectorClass] ?? throw new NotFoundException(
+                sprintf("Requested collector doesn't exist: %s.", $collectorClass)
+            );
+        }
+
+        return (new JsonDataResponseFormatter())
+            ->format(
+                $dataResponseFactory->createResponse([
+                    'data' => $data,
                 ])
             )->getBody();
     }

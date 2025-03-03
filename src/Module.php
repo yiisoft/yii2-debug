@@ -7,29 +7,42 @@
 
 namespace yii\debug;
 
+use HttpSoft\Message\ServerRequest;
+use HttpSoft\Message\Stream;
+use HttpSoft\Message\Uri;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\NullLogger;
 use samdark\log\PsrTarget;
 use stdClass;
+use Symfony\Component\Console\Event\ConsoleEvent;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\base\Event;
 use yii\helpers\Html;
 use yii\helpers\IpHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\log\Target;
 use yii\web\ForbiddenHttpException;
+use yii\web\Request;
 use yii\web\Response;
 use yii\web\View;
 use Yiisoft\VarDumper\VarDumper;
+use Yiisoft\Yii\Debug\Collector\Console\CommandCollector;
 use Yiisoft\Yii\Debug\Collector\LogCollector;
 use Yiisoft\Yii\Debug\Collector\LoggerInterfaceProxy;
 use Yiisoft\Yii\Debug\Collector\TimelineCollector;
 use Yiisoft\Yii\Debug\Collector\VarDumperCollector;
 use Yiisoft\Yii\Debug\Collector\VarDumperHandlerInterfaceProxy;
+use Yiisoft\Yii\Debug\Collector\Web\RequestCollector;
 use Yiisoft\Yii\Debug\Collector\Web\WebAppInfoCollector;
 use Yiisoft\Yii\Debug\Debugger;
 use Yiisoft\Yii\Debug\Storage\FileStorage;
+use Yiisoft\Yii\Debug\Storage\StorageInterface;
+use Yiisoft\Yii\Http\Event\AfterRequest;
+use Yiisoft\Yii\Http\Event\BeforeRequest;
 
 /**
  * The Yii Debug Module provides the debug toolbar and debugger
@@ -293,6 +306,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function bootstrap($app)
     {
+        // temporary disable debug for console
+        if ($app instanceof \yii\console\Application) {
+            return;
+        }
+
+
         $timelineCollector = new TimelineCollector();
         $logCollector = new LogCollector($timelineCollector);
         $logger = new LoggerInterfaceProxy(new NullLogger(), $logCollector);
@@ -304,10 +323,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $varDumper = new VarDumperHandlerInterfaceProxy(VarDumper::getDefaultHandler(), $varDumperCollector);
         VarDumper::setDefaultHandler($varDumper);
 
+        $requestCollector = new RequestCollector($timelineCollector);
+        $commandCollector = new CommandCollector($timelineCollector);
+
+        $fileStorage = new FileStorage($this->dataPath);
+
         $this->debugger = new Debugger(
-            new FileStorage($this->dataPath),
+            $fileStorage,
             [
-                //$logCollector,
+                $logCollector,
+                $requestCollector,
+                $commandCollector,
                 new WebAppInfoCollector($timelineCollector),
                 $varDumperCollector,
             ],
@@ -315,11 +341,24 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $this->logTarget = $psrTarget;
         $app->getLog()->targets['debug'] = $this->logTarget;
 
+        Yii::$container->setSingleton(Debugger::class, $this->debugger);
+        Yii::$container->setSingleton(StorageInterface::class, $fileStorage);
+
         $this->debugger->start(new stdClass());
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
             $app->getResponse()->on(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
+        });
+        $app->on(Application::EVENT_BEFORE_REQUEST, function (Event $event) use ($app, $requestCollector) {
+            $requestCollector->collect(
+                new BeforeRequest($this->createPsr7Request($app->request))
+            );
+        });
+        $app->on(Application::EVENT_AFTER_REQUEST, function (Event $event) use ($app, $requestCollector) {
+            $requestCollector->collect(
+                new AfterRequest($this->createPsr7Response($app->response))
+            );
         });
         $app->on(Application::EVENT_BEFORE_ACTION, function () use ($app) {
             $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
@@ -336,12 +375,47 @@ class Module extends \yii\base\Module implements BootstrapInterface
             ],
             [
                 'class' => $this->urlRuleClass,
+                'route' => $this->getUniqueId() . '/api/view',
+                'pattern' => $this->getUniqueId() . '/api/view/<id:\w+>',
+                'normalizer' => false,
+                'suffix' => false,
+            ],
+            [
+                'class' => $this->urlRuleClass,
                 'route' => $this->getUniqueId() . '/<controller>/<action>',
                 'pattern' => $this->getUniqueId() . '/<controller:[\w\-]+>/<action:[\w\-]+>',
                 'normalizer' => false,
                 'suffix' => false,
             ],
         ], false);
+    }
+
+
+    public function createPsr7Request(Request $request): ServerRequestInterface
+    {
+        $request = new ServerRequest(
+            serverParams: $_SERVER,
+            uploadedFiles: $_FILES,
+            cookieParams: $request->getCookies()->toArray(),
+            queryParams: $request->getQueryParams(),
+            parsedBody: $request->getRawBody(),
+            method: $request->method,
+            uri: new Uri($request->getAbsoluteUrl()),
+            headers: $request->getHeaders()->toArray()
+        );
+
+        return $request;
+    }
+
+    public function createPsr7Response(Response $response): ResponseInterface
+    {
+        $result = new \HttpSoft\Message\Response(
+            statusCode: $response->getStatusCode(),
+            headers: $response->getHeaders()->toArray(),
+            body: $response->content,
+        );
+
+        return $result;
     }
 
     /**
