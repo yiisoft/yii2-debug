@@ -22,6 +22,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use yii\web\IdentityInterface;
 use yii\web\User;
+use yii\di\Instance;
 
 /**
  * Debugger panel that collects and displays user data.
@@ -235,7 +236,8 @@ class UserPanel extends Panel
         $permissionsProvider = null;
 
         try {
-            $authManager = Yii::$app->getAuthManager();
+            
+            $authManager = Instance::ensure($this->module->authManager, '\yii\rbac\BaseManager');
 
             if ($authManager instanceof \yii\rbac\ManagerInterface) {
                 $roles = ArrayHelper::toArray($authManager->getRolesByUser($this->getUser()->id));

@@ -64,6 +64,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $logTarget = 'yii\debug\LogTarget';
     /**
+     * @var \yii\rbac\BaseManager|string|array the RBAC access checker [[BaseManager]] object or the application
+     * component ID of the AuthManager [[BaseManager]].
+     * @since 2.1.19
+     */
+    public $authManager = 'authManager';
+    /**
      * @var array|Panel[] list of debug panels. The array keys are the panel IDs, and values are the corresponding
      * panel class names or configuration arrays. This will be merged with [[corePanels()]].
      * You may reconfigure a core panel via this property by using the same panel ID.
@@ -105,6 +111,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.1.1
      */
     public $defaultHeight = 50;
+    /**
+     * @var string toolbar position on web page. Use 'bottom' or 'upper'.
+     * You may add custom value via .yii-debug-toolbar_position_{yourValue} css.
+     * @since 2.1.14
+     */
+    public $toolbarPosition = 'bottom';
     /**
      * @var bool whether to enable message logging for the requests about debug module actions.
      * You normally do not want to keep these logs because they may distract you from the logs about your applications.
