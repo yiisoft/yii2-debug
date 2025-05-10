@@ -24,6 +24,3 @@ name: build
 jobs:
   phpunit:
     uses: yiisoft/actions/.github/workflows/phpunit.yml@master
-    with:
-      os: >-
-        ['ubuntu-latest']
