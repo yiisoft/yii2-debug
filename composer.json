@@ -47,11 +47,6 @@
             "yiiunit\\debug\\": "tests"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-22": "22.0.x-dev"
-        }
-    },
     "config": {
         "allow-plugins": {
             "yiisoft/yii2-composer": true
