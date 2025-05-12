@@ -49,7 +49,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "22.0.x-dev"
+            "dev-22": "22.0.x-dev"
         }
     },
     "config": {
