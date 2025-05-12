@@ -110,7 +110,7 @@ class PanelTest extends TestCase
             $panel->getTraceLine($traceConfig));
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockWebApplication();
