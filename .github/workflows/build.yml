@@ -6,8 +6,6 @@ on:
       - 'CHANGELOG.md'
       - '.gitignore'
       - '.gitattributes'
-      - 'infection.json.dist'
-      - 'psalm.xml'
 
   push:
     paths-ignore:
@@ -16,8 +14,6 @@ on:
       - 'CHANGELOG.md'
       - '.gitignore'
       - '.gitattributes'
-      - 'infection.json.dist'
-      - 'psalm.xml'
 
 name: build
 
