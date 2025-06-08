@@ -10,7 +10,7 @@ Yii Framework 2 debug extension Change Log
 2.1.27 June 08, 2025
 --------------------
 
-- no changes in this release.
+- Bug #531: Fix unnecessary usage of backticks in UserPanel (danielmorell)
 
 
 2.1.26 February 13, 2025
