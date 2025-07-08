@@ -404,8 +404,6 @@
                     stackElement.loading = false;
                     stackElement.error = true;
                     renderAjaxRequests();
-
-                    throw error;
                 });
                 renderAjaxRequests();
             }
