@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.28 under development
 ------------------------
 
-- no changes in this release.
+- Bug #541: Silence fetch errors (Karkbauer)
 
 
 2.1.27 June 08, 2025
