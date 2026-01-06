@@ -4,6 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.28 under development
 ------------------------
 
+- Bug #543: Fixed a PHP 8.5 deprecation warning caused by using null as an array offset (nadar)
 - Bug #541: Silence fetch errors (Karkbauer)
 
 
