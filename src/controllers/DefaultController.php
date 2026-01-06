@@ -108,7 +108,7 @@ class DefaultController extends Controller
             $tag = reset($tags);
         }
         $this->loadData($tag);
-        if (isset($this->module->panels[$panel])) {
+        if ($panel !== null && isset($this->module->panels[$panel])) {
             $activePanel = $this->module->panels[$panel];
         } else {
             $activePanel = $this->module->panels[$this->module->defaultPanel];
