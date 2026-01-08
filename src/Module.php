@@ -7,16 +7,42 @@
 
 namespace yii\debug;
 
+use HttpSoft\Message\ServerRequest;
+use HttpSoft\Message\Stream;
+use HttpSoft\Message\Uri;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\NullLogger;
+use samdark\log\PsrTarget;
+use stdClass;
+use Symfony\Component\Console\Event\ConsoleEvent;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\base\Event;
 use yii\helpers\Html;
 use yii\helpers\IpHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\log\Target;
 use yii\web\ForbiddenHttpException;
+use yii\web\Request;
 use yii\web\Response;
 use yii\web\View;
+use Yiisoft\VarDumper\VarDumper;
+use Yiisoft\Yii\Debug\Collector\Console\CommandCollector;
+use Yiisoft\Yii\Debug\Collector\LogCollector;
+use Yiisoft\Yii\Debug\Collector\LoggerInterfaceProxy;
+use Yiisoft\Yii\Debug\Collector\TimelineCollector;
+use Yiisoft\Yii\Debug\Collector\VarDumperCollector;
+use Yiisoft\Yii\Debug\Collector\VarDumperHandlerInterfaceProxy;
+use Yiisoft\Yii\Debug\Collector\Web\RequestCollector;
+use Yiisoft\Yii\Debug\Collector\Web\WebAppInfoCollector;
+use Yiisoft\Yii\Debug\Debugger;
+use Yiisoft\Yii\Debug\Storage\FileStorage;
+use Yiisoft\Yii\Debug\Storage\StorageInterface;
+use Yiisoft\Yii\Http\Event\AfterRequest;
+use Yiisoft\Yii\Http\Event\BeforeRequest;
 
 /**
  * The Yii Debug Module provides the debug toolbar and debugger
@@ -50,7 +76,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
      *
      * The signature is the following:
      *
-     * function (Action|null $action) The action can be null when called from a non action context (like set debug header)
+     * function (Action|null $action) The action can be null when called from a non action context (like set debug
+     *     header)
      *
      * @since 2.1.0
      */
@@ -63,12 +90,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @var LogTarget|array|string the logTarget object, or the configuration for creating the logTarget object.
      */
     public $logTarget = 'yii\debug\LogTarget';
+
     /**
      * @var \yii\rbac\BaseManager|string|array the RBAC access checker [[BaseManager]] object or the application
      * component ID of the AuthManager [[BaseManager]].
      * @since 2.1.19
      */
     public $authManager = 'authManager';
+
     /**
      * @var array|Panel[] list of debug panels. The array keys are the panel IDs, and values are the corresponding
      * panel class names or configuration arrays. This will be merged with [[corePanels()]].
@@ -134,8 +163,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $disableCallbackRestrictionWarning = false;
     /**
-     * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace line string.
-     * The placeholders are {file}, {line} and {text} and the string should be as follows:
+     * @var mixed the string with placeholders to be be substituted or an anonymous function that returns the trace
+     *     line string. The placeholders are {file}, {line} and {text} and the string should be as follows:
      *
      * `File: {file} - Line: {line} - Text: {text}`
      *
@@ -204,6 +233,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * @since 2.1.14
      */
     public $skipAjaxRequestUrl = [];
+
+
+    public Debugger|null $debugger = null;
 
     /**
      * Returns the logo URL to be used in `<img src="`
@@ -274,23 +306,63 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        if (is_array($this->logTarget)) {
-            if (!isset($this->logTarget['class'])) {
-                $this->logTarget['class'] = 'yii\debug\LogTarget';
-            }
-            $this->logTarget = Yii::createObject($this->logTarget, [$this]);
-        } elseif (is_string($this->logTarget)) {
-            $this->logTarget = Yii::createObject($this->logTarget, [$this]);
+        // temporary disable debug for console
+        if ($app instanceof \yii\console\Application) {
+            return;
         }
-        /* @var $app \yii\base\Application */
+
+
+        $timelineCollector = new TimelineCollector();
+        $logCollector = new LogCollector($timelineCollector);
+        $logger = new LoggerInterfaceProxy(new NullLogger(), $logCollector);
+
+        $psrTarget = new PsrTarget();
+        $psrTarget->setLogger($logger);
+
+        $varDumperCollector = new VarDumperCollector($timelineCollector);
+        $varDumper = new VarDumperHandlerInterfaceProxy(VarDumper::getDefaultHandler(), $varDumperCollector);
+        VarDumper::setDefaultHandler($varDumper);
+
+        $requestCollector = new RequestCollector($timelineCollector);
+        $commandCollector = new CommandCollector($timelineCollector);
+
+        $fileStorage = new FileStorage($this->dataPath);
+
+        $this->debugger = new Debugger(
+            $fileStorage,
+            [
+                $logCollector,
+                $requestCollector,
+                $commandCollector,
+                new WebAppInfoCollector($timelineCollector),
+                $varDumperCollector,
+            ],
+        );
+        $this->logTarget = $psrTarget;
         $app->getLog()->targets['debug'] = $this->logTarget;
+
+        Yii::$container->setSingleton(Debugger::class, $this->debugger);
+        Yii::$container->setSingleton(StorageInterface::class, $fileStorage);
+
+        $this->debugger->start(new stdClass());
 
         // delay attaching event handler to the view component after it is fully configured
         $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
             $app->getResponse()->on(Response::EVENT_AFTER_PREPARE, [$this, 'setDebugHeaders']);
         });
+        $app->on(Application::EVENT_BEFORE_REQUEST, function (Event $event) use ($app, $requestCollector) {
+            $requestCollector->collect(
+                new BeforeRequest($this->createPsr7Request($app->request))
+            );
+        });
+        $app->on(Application::EVENT_AFTER_REQUEST, function (Event $event) use ($app, $requestCollector) {
+            $requestCollector->collect(
+                new AfterRequest($this->createPsr7Response($app->response))
+            );
+        });
         $app->on(Application::EVENT_BEFORE_ACTION, function () use ($app) {
             $app->getView()->on(View::EVENT_END_BODY, [$this, 'renderToolbar']);
+            $app->getView()->on(View::EVENT_END_BODY, [$this, 'stopDebugger']);
         });
 
         $app->getUrlManager()->addRules([
@@ -299,16 +371,51 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'route' => $this->getUniqueId(),
                 'pattern' => $this->getUniqueId(),
                 'normalizer' => false,
-                'suffix' => false
+                'suffix' => false,
+            ],
+            [
+                'class' => $this->urlRuleClass,
+                'route' => $this->getUniqueId() . '/api/view',
+                'pattern' => $this->getUniqueId() . '/api/view/<id:\w+>',
+                'normalizer' => false,
+                'suffix' => false,
             ],
             [
                 'class' => $this->urlRuleClass,
                 'route' => $this->getUniqueId() . '/<controller>/<action>',
                 'pattern' => $this->getUniqueId() . '/<controller:[\w\-]+>/<action:[\w\-]+>',
                 'normalizer' => false,
-                'suffix' => false
-            ]
+                'suffix' => false,
+            ],
         ], false);
+    }
+
+
+    public function createPsr7Request(Request $request): ServerRequestInterface
+    {
+        $request = new ServerRequest(
+            serverParams: $_SERVER,
+            uploadedFiles: $_FILES,
+            cookieParams: $request->getCookies()->toArray(),
+            queryParams: $request->getQueryParams(),
+            parsedBody: $request->getRawBody(),
+            method: $request->method,
+            uri: new Uri($request->getAbsoluteUrl()),
+            headers: $request->getHeaders()->toArray()
+        );
+
+        return $request;
+    }
+
+    public function createPsr7Response(Response $response): ResponseInterface
+    {
+        $result = new \HttpSoft\Message\Response(
+            statusCode: $response->getStatusCode(),
+            headers: $response->getHeaders()->toArray(),
+            body: $response->content,
+        );
+
+        return $result;
     }
 
     /**
@@ -359,10 +466,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
         }
         $url = Url::toRoute([
             '/' . $this->getUniqueId() . '/default/view',
-            'tag' => $this->logTarget->tag,
+            //'tag' => $this->debugger->getId(),
         ]);
         $event->sender->getHeaders()
-            ->set('X-Debug-Tag', $this->logTarget->tag)
+            //->set('X-Debug-Tag', $this->debugger->getId())
             ->set('X-Debug-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1))
             ->set('X-Debug-Link', $url);
     }
@@ -383,7 +490,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         $url = Url::toRoute([
             '/' . $this->getUniqueId() . '/default/toolbar',
-            'tag' => $this->logTarget->tag,
+            //'tag' => $this->debugger->getId(),
         ]);
 
         if (!empty($this->skipAjaxRequestUrl)) {
@@ -402,7 +509,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function renderToolbar($event)
     {
-        if (!$this->checkAccess() || Yii::$app->getRequest()->getIsAjax()) {
+        if (!$this->checkAccess() || Yii::$app->getRequest()->getIsAjax() || !$this->debugger->isActive() || true) {
             return;
         }
 
@@ -413,6 +520,18 @@ class Module extends \yii\base\Module implements BootstrapInterface
         // echo is used in order to support cases where asset manager is not available
         echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/css/toolbar.css') . '</style>';
         echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/js/toolbar.js') . '</script>';
+    }
+
+    /**
+     * Renders mini-toolbar at the end of page body.
+     *
+     * @param \yii\base\Event $event
+     * @throws \Throwable
+     */
+    public function stopDebugger($event)
+    {
+        Yii::getLogger()->flush(true);
+        $this->debugger->stop();
     }
 
     /**

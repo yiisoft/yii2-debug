@@ -39,7 +39,7 @@ class LogTarget extends Target
     {
         parent::__construct($config);
         $this->module = $module;
-        $this->tag = uniqid();
+        //$this->tag = uniqid();
     }
 
     /**
@@ -53,7 +53,7 @@ class LogTarget extends Target
         FileHelper::createDirectory($path, $this->module->dirMode);
 
         $summary = $this->collectSummary();
-        $dataFile = "$path/{$this->tag}.data";
+        $dataFile = "$path/{$this->module->debugger->getId()}.data";
         $data = [];
         $exceptions = [];
         foreach ($this->module->panels as $id => $panel) {
@@ -115,7 +115,7 @@ class LogTarget extends Target
         $exceptions = $data['exceptions'];
         foreach ($this->module->panels as $id => $panel) {
             if (isset($data[$id])) {
-                $panel->tag = $tag;
+                $panel->tag = $this->module->debugger->getId();
                 $panel->load(unserialize($data[$id]));
             } else {
                 unset($this->module->panels[$id]);
@@ -152,7 +152,7 @@ class LogTarget extends Target
             $manifest = unserialize($manifest);
         }
 
-        $manifest[$this->tag] = $summary;
+        $manifest[$this->module->debugger->getId()] = $summary;
         $this->gc($manifest);
 
         ftruncate($fp, 0);
@@ -245,7 +245,7 @@ class LogTarget extends Target
         $request = Yii::$app->getRequest();
         $response = Yii::$app->getResponse();
         $summary = [
-            'tag' => $this->tag,
+            'tag' => $this->module->debugger->getId(),
             'url' => $request instanceof yii\console\Request ? "php yii " . implode(' ', $request->getParams()): $request->getAbsoluteUrl(),
             'ajax' => $request instanceof yii\console\Request ? 0 : (int) $request->getIsAjax(),
             'method' => $request instanceof yii\console\Request ? 'COMMAND' : $request->getMethod(),
