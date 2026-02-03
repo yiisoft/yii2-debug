@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -49,9 +50,9 @@ class ActionRoutes extends Model
                 } else {
                     $actionId = substr($actionName, 6);
                     $route = $controller . '/' . mb_strtolower(
-                            trim(preg_replace('/\p{Lu}/u', '-\0', $actionId), '-'),
-                            'UTF-8'
-                        );
+                        trim(preg_replace('/\p{Lu}/u', '-\0', $actionId), '-'),
+                        'UTF-8'
+                    );
                     list($rule, $count) = $this->getMatchedCreationRule($route);
                     $name = $controllerClass . '::' . $actionName . '()';
                 }

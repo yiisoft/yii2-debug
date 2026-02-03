@@ -47,8 +47,7 @@ TimelineAsset::register($this);
     <div class="debug-timeline-panel__header">
         <?php foreach ($dataProvider->getRulers() as $ms => $left): ?>
             <span class="ruler"
-                  style="margin-left: <?= StringHelper::normalizeNumber($left) ?>%"><b><?= sprintf('%.1f ms',
-                        $ms) ?></b></span>
+                  style="margin-left: <?= StringHelper::normalizeNumber($left) ?>%"><b><?= sprintf('%.1f ms', $ms) ?></b></span>
         <?php endforeach; ?>
         <div class="control">
             <button type="button" class="inline btn-link">
@@ -89,11 +88,9 @@ TimelineAsset::register($this);
                 if (!empty($model['memory'])) {
                     $diff = null;
                     if ($model['memoryDiff'] !== 0) {
-                        $diff = ' title="' . (($model['memoryDiff'] > 0) ? '+' : '-') . sprintf('%.3f',
-                                $model['memoryDiff'] / 1048576) . '""';
+                        $diff = ' title="' . (($model['memoryDiff'] > 0) ? '+' : '-') . sprintf('%.3f', $model['memoryDiff'] / 1048576) . '""';
                     }
-                    $memory = ' / <span class="memory"' . $diff . '>' . sprintf('%.2f',
-                            $model['memory'] / 1048576) . ' MB</span>';
+                    $memory = ' / <span class="memory"' . $diff . '>' . sprintf('%.2f', $model['memory'] / 1048576) . ' MB</span>';
                 }
                 ?>
                 <div class="debug-timeline-panel__item">
@@ -102,8 +99,7 @@ TimelineAsset::register($this);
                               style="height: <?= StringHelper::normalizeNumber($model['child'] * 21) ?>px; margin-left: <?= StringHelper::normalizeNumber($model['css']['left']) ?>%"></span>
                     <?php endif; ?>
                     <?= Html::tag('a', '
-                        <span class="category">' . Html::encode($model['category']) . ' <span>' . sprintf('%.1f ms',
-                            $model['duration']) . '</span>' . $memory . '</span>', [
+                        <span class="category">' . Html::encode($model['category']) . ' <span>' . sprintf('%.1f ms', $model['duration']) . '</span>' . $memory . '</span>', [
                         'tabindex' => $key + 1,
                         'title' => $model['info'],
                         'class' => $dataProvider->getCssClass($model),

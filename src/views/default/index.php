@@ -79,8 +79,7 @@ $this->title = 'Yii Debugger';
                     [
                         'attribute' => 'time',
                         'value' => function ($data) {
-                            return '<span class="nowrap">' . Yii::$app->formatter->asDatetime($data['time'],
-                                    'yyyy-MM-dd HH:mm:ss') . '</span>';
+                            return '<span class="nowrap">' . Yii::$app->formatter->asDatetime($data['time'], 'yyyy-MM-dd HH:mm:ss') . '</span>';
                         },
                         'format' => 'html',
                     ],
@@ -124,7 +123,7 @@ $this->title = 'Yii Debugger';
                                 $content .= ' <span title="' . $warning . '">&#x26a0;</span>';
                             }
 
-                            return '<a href="' . Url::to(['view', 'panel' => 'db', 'tag' => $data['tag']]) .'"
+                            return '<a href="' . Url::to(['view', 'panel' => 'db', 'tag' => $data['tag']]) . '"
                                         title="' . $title . '">' . $content . '</a>';
                         },
                         'format' => 'raw',

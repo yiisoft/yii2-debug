@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -26,7 +27,7 @@ use yii\web\View;
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
-    const DEFAULT_IDE_TRACELINE = '<a href="ide://open?url=file://{file}&line={line}">{text}</a>';
+    public const DEFAULT_IDE_TRACELINE = '<a href="ide://open?url=file://{file}&line={line}">{text}</a>';
 
     /**
      * @var array the list of IPs that are allowed to access this module.
@@ -427,7 +428,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         $ip = Yii::$app->getRequest()->getUserIP();
         foreach ($this->allowedIPs as $filter) {
-            if ($filter === '*'
+            if (
+                $filter === '*'
                 || $filter === $ip
                 || (
                     ($pos = strpos($filter, '*')) !== false
@@ -517,7 +519,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function htmlTitle()
     {
         if (is_string($this->pageTitle) && !empty($this->pageTitle)) {
-           return $this->pageTitle;
+            return $this->pageTitle;
         }
 
         if (is_callable($this->pageTitle)) {

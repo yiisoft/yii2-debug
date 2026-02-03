@@ -13,7 +13,7 @@ if ($panel->isQueryCountCritical($queryCount)) {
 if ($excessiveCallerCount) {
     $warning .= ($warning ? ' &#10;' : '') . $excessiveCallerCount . ' '
         . ($excessiveCallerCount == 1 ? 'caller is' : 'callers are')
-        .   ' making too many calls.';
+        . ' making too many calls.';
 }
 ?>
 <?php if ($queryCount): ?>

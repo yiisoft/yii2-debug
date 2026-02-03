@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -174,7 +175,7 @@ class DbPanel extends Panel
 
             // Parse aliases
             $ignoredPathsInBacktrace = array_map(
-                function($path) {
+                function ($path) {
                     return Yii::getAlias($path);
                 },
                 $this->ignoredPathsInBacktrace

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -80,7 +81,7 @@ class DefaultController extends Controller
         $tags = array_keys($this->getManifest());
 
         if (empty($tags)) {
-            throw new \Exception("No debug data have been collected yet, try browsing the website first.");
+            throw new \Exception('No debug data have been collected yet, try browsing the website first.');
         }
 
         $tag = reset($tags);

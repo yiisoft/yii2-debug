@@ -1,6 +1,6 @@
 <?php
 
-use \yii\helpers\Html;
+use yii\helpers\Html;
 
 /* @var $panel yii\debug\panels\RouterPanel */
 

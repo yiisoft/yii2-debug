@@ -48,8 +48,7 @@ $items['nav'][] = 'Parameters';
 $items['content'][] = $parametersContent;
 
 $items['nav'][] = 'Headers';
-$items['content'][] = $this->render('table',
-        ['caption' => 'Request Headers', 'values' => $panel->data['requestHeaders']])
+$items['content'][] = $this->render('table', ['caption' => 'Request Headers', 'values' => $panel->data['requestHeaders']])
     . $this->render('table', ['caption' => 'Response Headers', 'values' => $panel->data['responseHeaders']]);
 
 if (isset($panel->data['SESSION'], $panel->data['flashes'])) {
@@ -86,10 +85,10 @@ if (isset($panel->data['SERVER'])) {
 <div class="tab-content">
     <?php
     foreach ($items['content'] as $k => $item) {
-       echo Html::tag('div', $item, [
+        echo Html::tag('div', $item, [
             'class' => $k === 0 ? 'tab-pane fade active show' : 'tab-pane fade',
             'id' => 'r-tab-' . $k
-        ]);
+            ]);
     }
     ?>
 </div>
