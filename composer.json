@@ -52,8 +52,7 @@
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
-        },
-        "composer-exit-on-patch-failure": true
+        }
     },
     "repositories": [
         {
