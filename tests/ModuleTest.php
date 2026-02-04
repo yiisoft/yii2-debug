@@ -9,7 +9,7 @@ use yii\debug\Module;
 
 class ModuleTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockWebApplication();
@@ -21,7 +21,7 @@ class ModuleTest extends TestCase
      * Data provider for [[testCheckAccess()]]
      * @return array test data
      */
-    public function dataProviderCheckAccess()
+    public function dataProviderCheckAccess(): array
     {
         return [
             [
@@ -87,7 +87,7 @@ class ModuleTest extends TestCase
      * @param bool $expectedResult
      * @throws \ReflectionException
      */
-    public function testCheckAccess(array $allowedIPs, $userIp, $expectedResult)
+    public function testCheckAccess(array $allowedIPs, $userIp, $expectedResult): void
     {
         $module = new Module('debug');
         $module->allowedIPs = $allowedIPs;
@@ -98,7 +98,7 @@ class ModuleTest extends TestCase
     /**
      * Test to ensure logTarget can take object as config
      */
-    public function testLogTargetObject()
+    public function testLogTargetObject(): void
     {
         $module = new Module('debug');
         $module->logTarget = new \yii\debug\LogTarget($module);
@@ -110,7 +110,7 @@ class ModuleTest extends TestCase
     /**
      * Test to verify toolbars html
      */
-    public function testGetToolbarHtml()
+    public function testGetToolbarHtml(): void
     {
         $module = new Module('debug');
         $module->bootstrap(Yii::$app);
@@ -127,7 +127,7 @@ HTML
     /**
      * Test to ensure toolbar is never cached
      */
-    public function testNonCachedToolbarHtml()
+    public function testNonCachedToolbarHtml(): void
     {
         $module = new Module('debug');
         $module->allowedIPs = ['*'];
@@ -157,7 +157,7 @@ HTML
      *
      * @see https://github.com/yiisoft/yii2-debug/pull/176/
      */
-    public function testToolbarWithCustomModuleID()
+    public function testToolbarWithCustomModuleID(): void
     {
         $moduleID = 'my_debug';
 
@@ -181,7 +181,7 @@ HTML
         ));
     }
 
-    public function testDefaultVersion()
+    public function testDefaultVersion(): void
     {
         Yii::$app->extensions['yiisoft/yii2-debug'] = [
             'name' => 'yiisoft/yii2-debug',

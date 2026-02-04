@@ -15,7 +15,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * Clean up after test.
      * By default the application created with [[mockApplication]] will be destroyed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->destroyApplication();
@@ -55,7 +55,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * Destroys application in Yii::$app by setting it to null.
      */
-    protected function destroyApplication()
+    protected function destroyApplication(): void
     {
         Yii::$app = null;
         Yii::$container = new Container();

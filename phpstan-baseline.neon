@@ -1,0 +1,2953 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:flattenArgs\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:flattenArgs\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:getPrevious\(\) should return yii\\debug\\FlattenException but returns yii\\debug\\FlattenException\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:getTrace\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setClass\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setCode\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setFile\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setLine\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setMessage\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setPrevious\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setToString\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setTrace\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Method yii\\debug\\FlattenException\:\:setTrace\(\) has parameter \$trace with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Property yii\\debug\\FlattenException\:\:\$_trace type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/FlattenException.php
+
+		-
+			message: '#^Access to an undefined property yii\\debug\\Panel\:\:\$mailPath\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getMessagesFileName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getProfileLogs\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Class yii\\console\\Request referenced with incorrect case\: Yii\\console\\Request\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: src/LogTarget.php
+
+		-
+			message: '#^Class yii\\console\\Response referenced with incorrect case\: Yii\\console\\Response\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:collect\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:collect\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:collectSummary\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:export\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:gc\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:gc\(\) has parameter \$manifest with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:getSqlTotalCount\(\) should return int but returns float\|int\<0, max\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:loadManifest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:loadTagToPanels\(\) has parameter \$tag with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:loadTagToPanels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:removeStaleDataFiles\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:removeStaleDataFiles\(\) has parameter \$manifest with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:updateIndexFile\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Method yii\\debug\\LogTarget\:\:updateIndexFile\(\) has parameter \$summary with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Parameter \#1 \$variable_representation of function unserialize expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/LogTarget.php
+
+		-
+			message: '#^Parameter \#2 \$length of function fread expects int\<1, max\>, int\<0, max\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/LogTarget.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$targets\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getIsAjax\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getUserIP\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Cannot access property \$tag on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: src/Module.php
+
+		-
+			message: '#^Cannot call method getHeaders\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Cannot call method renderDynamic\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Cannot call method renderPhpFile\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:bootstrap\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:checkAccess\(\) has parameter \$action with generic class yii\\base\\Action but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:corePanels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:getToolbarHtml\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:initPanels\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:renderToolbar\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:resetGlobalSettings\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:setDebugHeaders\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Method yii\\debug\\Module\:\:setYiiLogo\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Parameter \#1 \$json of static method yii\\helpers\\BaseJson\:\:decode\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Parameter \#1 \$str1 of function strncmp expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Parameter \#1 \$string of function htmlspecialchars expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Parameter \#1 \$subnet of static method yii\\helpers\\BaseIpHelper\:\:inRange\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Parameter \#1 \$type of static method yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:createObject\(\) expects array\{class\?\: class\-string\<mixed\>, __class\?\: class\-string\<mixed\>\}\|\(callable\(\)\: mixed\)\|class\-string\<mixed\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$allowedHosts type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$allowedIPs type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$authManager type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$logTarget type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$skipAjaxRequestUrl type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$tracePathMappings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Unable to resolve the template type T in call to static method yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:createObject\(\)$#'
+			identifier: argument.templateType
+			count: 3
+			path: src/Module.php
+
+		-
+			message: '#^Cannot access property \$messages on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Cannot call method filterMessages\(\) on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Instanceof between mixed and Exception will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:getLogMessages\(\) has parameter \$categories with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:getLogMessages\(\) has parameter \$except with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:getLogMessages\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:getTraceLine\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:getUrl\(\) has parameter \$additionalParams with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:load\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Method yii\\debug\\Panel\:\:setError\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Property yii\\debug\\Panel\:\:\$actions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Panel.php
+
+		-
+			message: '#^Call to an undefined method yii\\base\\Controller\:\:loadData\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/actions/db/ExplainAction.php
+
+		-
+			message: '#^Class yii\\debug\\actions\\db\\ExplainAction extends generic class yii\\base\\Action but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/actions/db/ExplainAction.php
+
+		-
+			message: '#^Method yii\\debug\\components\\search\\Filter\:\:addMatcher\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/components/search/Filter.php
+
+		-
+			message: '#^Method yii\\debug\\components\\search\\Filter\:\:filter\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/components/search/Filter.php
+
+		-
+			message: '#^Method yii\\debug\\components\\search\\Filter\:\:filter\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/components/search/Filter.php
+
+		-
+			message: '#^Method yii\\debug\\components\\search\\Filter\:\:passesFilter\(\) has parameter \$row with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/components/search/Filter.php
+
+		-
+			message: '#^Property yii\\debug\\components\\search\\Filter\:\:\$rules type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/components/search/Filter.php
+
+		-
+			message: '#^Method yii\\debug\\components\\search\\matchers\\Base\:\:setValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/components/search/matchers/Base.php
+
+		-
+			message: '#^Method yii\\debug\\components\\search\\matchers\\MatcherInterface\:\:setValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/components/search/matchers/MatcherInterface.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function mb_stripos expects string, bool\|float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/components/search/matchers/SameAs.php
+
+		-
+			message: '#^Parameter \#1 \$str of function mb_strtoupper expects string, bool\|float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/components/search/matchers/SameAs.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Response\|yii\\web\\Response\:\:\$format\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Access to an undefined property yii\\debug\\Panel\:\:\$mailPath\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Response\|yii\\web\\Response\:\:sendFile\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Cannot call method loadManifest\(\) on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Cannot call method loadTagToPanels\(\) on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Class yii\\debug\\controllers\\DefaultController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Method yii\\debug\\controllers\\DefaultController\:\:getManifest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Method yii\\debug\\controllers\\DefaultController\:\:loadData\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Parameter \#1 \$exception of method yii\\base\\ErrorHandler\:\:handleException\(\) expects Throwable, yii\\debug\\FlattenException\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Parameter \#1 \$tag of method yii\\debug\\controllers\\DefaultController\:\:loadData\(\) expects string, int\|string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Property yii\\debug\\controllers\\DefaultController\:\:\$_manifest type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Property yii\\debug\\controllers\\DefaultController\:\:\$summary type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:\$session\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:\$user\.$#'
+			identifier: property.notFound
+			count: 3
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Response\|yii\\web\\Response\:\:\$format\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:post\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Cannot call method findIdentity\(\) on yii\\web\\IdentityInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Class yii\\debug\\controllers\\UserController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Method yii\\debug\\controllers\\UserController\:\:actionResetIdentity\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Method yii\\debug\\controllers\\UserController\:\:actionSetIdentity\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Parameter \#1 \$identity of method yii\\debug\\models\\UserSwitch\:\:setUserByIdentity\(\) expects yii\\web\\IdentityInterface, yii\\web\\IdentityInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:getSession\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot access property \$identity on yii\\web\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot access property \$identityClass on yii\\web\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot call method getId\(\) on yii\\web\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot call method getIsGuest\(\) on yii\\web\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot call method switchIdentity\(\) on yii\\web\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot clone non\-object variable \$currentUser of type yii\\web\\User\|null\.$#'
+			identifier: clone.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot clone yii\\web\\User\|null\.$#'
+			identifier: clone.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:getMainUser\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:getUser\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:getUser\(\) should return yii\\web\\User\|null but returns object\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:reset\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:setUser\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:setUser\(\) has parameter \$user with generic class yii\\web\\User but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Method yii\\debug\\models\\UserSwitch\:\:setUserByIdentity\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$_mainUser with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$_user \(yii\\web\\User\) does not accept object\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$_user with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$userComponent with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Binary operation "\." between string\|null and array\<string\>\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Instanceof between yii\\web\\UrlManager and yii\\web\\UrlManager will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getActions\(\) has parameter \$controller with generic class ReflectionClass but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getActions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getAppRoutes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getMatchedCreationRule\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getModuleControllers\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getRuleName\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:getRuleName\(\) has parameter \$rule with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\ActionRoutes\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Parameter \#1 \$str of function trim expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Property yii\\debug\\models\\router\\ActionRoutes\:\:\$routes type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\CurrentRoute\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/CurrentRoute.php
+
+		-
+			message: '#^Property yii\\debug\\models\\router\\CurrentRoute\:\:\$logs type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/CurrentRoute.php
+
+		-
+			message: '#^Property yii\\debug\\models\\router\\CurrentRoute\:\:\$messages type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/CurrentRoute.php
+
+		-
+			message: '#^Instanceof between yii\\web\\UrlManager and yii\\web\\UrlManager will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\RouterRules\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\RouterRules\:\:scanGroupRule\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\RouterRules\:\:scanRestRule\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\RouterRules\:\:scanRule\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Method yii\\debug\\models\\router\\RouterRules\:\:scanRule\(\) has parameter \$rule with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Parameter \#2 \$type of method yii\\debug\\models\\router\\RouterRules\:\:scanRule\(\) expects null, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Property yii\\debug\\models\\router\\RouterRules\:\:\$rules type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/router/RouterRules.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Base\:\:addCondition\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/search/Base.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Db\:\:search\(\) has parameter \$models with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Db.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Debug\:\:search\(\) has parameter \$models with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Debug.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Debug\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Debug.php
+
+		-
+			message: '#^Property yii\\debug\\models\\search\\Debug\:\:\$criticalCodes type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Debug.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Event\:\:search\(\) has parameter \$models with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Event.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Event\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Event.php
+
+		-
+			message: '#^Property yii\\debug\\models\\search\\Event\:\:\$class has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/models/search/Event.php
+
+		-
+			message: '#^Property yii\\debug\\models\\search\\Event\:\:\$name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/models/search/Event.php
+
+		-
+			message: '#^Property yii\\debug\\models\\search\\Event\:\:\$senderClass has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/models/search/Event.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Log\:\:search\(\) has parameter \$models with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Log.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Log\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Log.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Mail\:\:search\(\) has parameter \$models with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Mail.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Mail\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Mail.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Profile\:\:search\(\) has parameter \$models with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Profile.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\Profile\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/Profile.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:\$user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\User\:\:__set\(\) with return type void returns mixed but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\User\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\User\:\:search\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\User\:\:search\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\User\:\:searchActiveDataProvider\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/User.php
+
+		-
+			message: '#^Method yii\\debug\\models\\search\\UserSearchInterface\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/search/UserSearchInterface.php
+
+		-
+			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$memory\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Class yii\\debug\\models\\timeline\\DataProvider has PHPDoc tag @property\-read for property \$rulers with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getColor\(\) has parameter \$model with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getCssClass\(\) has parameter \$model with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getLeft\(\) has parameter \$model with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getMemory\(\) has parameter \$model with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getMemory\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getRulers\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getTime\(\) has parameter \$model with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:getWidth\(\) has parameter \$model with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\DataProvider\:\:prepareModels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between array and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: src/models/timeline/DataProvider.php
+
+		-
+			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$models\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/models/timeline/Search.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\Search\:\:search\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/Search.php
+
+		-
+			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$memory\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/models/timeline/Svg.php
+
+		-
+			message: '#^Method yii\\debug\\models\\timeline\\Svg\:\:addPoints\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/Svg.php
+
+		-
+			message: '#^Property yii\\debug\\models\\timeline\\Svg\:\:\$gradient type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/Svg.php
+
+		-
+			message: '#^Property yii\\debug\\models\\timeline\\Svg\:\:\$listenMessages type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/Svg.php
+
+		-
+			message: '#^Property yii\\debug\\models\\timeline\\Svg\:\:\$points type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/models/timeline/Svg.php
+
+		-
+			message: '#^Variable \$y might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/models/timeline/Svg.php
+
+		-
+			message: '#^Access to an undefined property yii\\base\\View\:\:\$assetManager\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and array\<mixed\>\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Dead catch \- yii\\base\\InvalidConfigException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\AssetPanel\:\:formatOptions\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\AssetPanel\:\:formatOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Parameter \#1 \$text of static method yii\\helpers\\BaseHtml\:\:a\(\) expects string, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\ConfigPanel has PHPDoc tag @property\-read for property \$extensions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\ConfigPanel has PHPDoc tag @property\-read for property \$phpInfo with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\ConfigPanel\:\:getExtensions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\ConfigPanel\:\:getPhpInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\ConfigPanel\:\:getPhpInfo\(\) should return array but returns string\.$#'
+			identifier: return.type
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Cannot access property \$defaultOrder on bool\|yii\\data\\Sort\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\DbPanel has PHPDoc tag @property\-read for property \$excessiveCallers with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\DbPanel has PHPDoc tag @property\-read for property \$profileLogs with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Instanceof between yii\\db\\Connection and yii\\db\\Connection will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:calculateTimings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:countCallerCals\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:countDuplicateQuery\(\) has parameter \$timings with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:countDuplicateQuery\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:generateQueryCallersDataProvider\(\) has parameter \$modelData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:getDb\(\) should return yii\\db\\Connection but returns object\.$#'
+			identifier: return.type
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:getExcessiveCallers\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:getProfileLogs\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:getTotalQueryTime\(\) has parameter \$timings with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:getTypes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DbPanel\:\:sumDuplicateQueries\(\) has parameter \$modelData with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Parameter \#2 \$data of function hash expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DbPanel\:\:\$_models type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DbPanel\:\:\$_profileLogs type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DbPanel\:\:\$_timings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DbPanel\:\:\$dbEventNames type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DbPanel\:\:\$defaultFilter type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DbPanel\:\:\$defaultOrder type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Call to function is_callable\(\) with callable\(\)\: mixed will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DumpPanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DumpPanel\:\:varDump\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\DumpPanel\:\:varDump\(\) has parameter \$var with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DumpPanel\:\:\$_models type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\DumpPanel\:\:\$categories type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:get\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/EventPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\EventPanel\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/EventPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\EventPanel\:\:\$_events type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/EventPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/LogPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/LogPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\LogPanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/LogPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\LogPanel\:\:\$_models type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/LogPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:get\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\mail\\MessageInterface\:\:getSwiftMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\mail\\MessageInterface\:\:getSymfonyEmail\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method asDebugString\(\) on an unknown class Symfony\\Component\\Mime\\Part\\AbstractPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method asDebugString\(\) on an unknown class Symfony\\Component\\Mime\\Part\\TextPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getBody\(\) on an unknown class Symfony\\Component\\Mime\\Email\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getBody\(\) on an unknown class Symfony\\Component\\Mime\\Part\\AbstractPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getBody\(\) on an unknown class Symfony\\Component\\Mime\\Part\\TextPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getDate\(\) on an unknown class Symfony\\Component\\Mime\\Email\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getMediaSubtype\(\) on an unknown class Symfony\\Component\\Mime\\Part\\AbstractPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getMediaSubtype\(\) on an unknown class Symfony\\Component\\Mime\\Part\\TextPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to method getPreparedHeaders\(\) on an unknown class Symfony\\Component\\Mime\\Part\\AbstractPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Class Symfony\\Component\\Mime\\Part\\TextPart not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\MailPanel has PHPDoc tag @property\-read for property \$messagesFileName with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Class yii\\symfonymailer\\Message not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:addMoreInformation\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:addMoreInformation\(\) has parameter \$messageData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:addMoreInformationFromSwiftMailer\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:addMoreInformationFromSwiftMailer\(\) has parameter \$messageData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:addMoreInformationFromSymfonyMailer\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:addMoreInformationFromSymfonyMailer\(\) has parameter \$messageData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:getMessagesFileName\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\MailPanel\:\:save\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$part contains unknown class Symfony\\Component\\Mime\\Part\\AbstractPart\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$symfonyMessage contains unknown class Symfony\\Component\\Mime\\Email\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\MailPanel\:\:\$_messages type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/ProfilingPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\ProfilingPanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/ProfilingPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\ProfilingPanel\:\:\$_models type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/ProfilingPanel.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$flashParam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method object\:\:get\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getIsActive\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getBodyParams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getContentType\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getHeaders\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getIsAjax\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getIsFlash\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getIsPjax\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getIsSecureConnection\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getMethod\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getRawBody\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Response\|yii\\web\\Response\:\:getStatusCode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\RequestPanel\:\:censorArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\RequestPanel\:\:censorArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\RequestPanel\:\:getFlashes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\RequestPanel\:\:\$censoredVariableNames type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\RequestPanel\:\:\$displayVars type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\RouterPanel has PHPDoc tag @property for property \$categories with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\RouterPanel\:\:getCategories\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\RouterPanel\:\:setCategories\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\RouterPanel\:\:setCategories\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\RouterPanel\:\:\$_categories type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\TimelinePanel has PHPDoc tag @property for property \$colors with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\TimelinePanel has PHPDoc tag @property for property \$svgOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:getColors\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:getSvgOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:load\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:setColors\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:setColors\(\) has parameter \$colors with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:setSvgOptions\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\TimelinePanel\:\:setSvgOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\TimelinePanel\:\:\$_colors type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\TimelinePanel\:\:\$_models type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\TimelinePanel\:\:\$_svgOptions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Unable to resolve the template type T in call to static method yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:createObject\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Request\|yii\\web\\Request\:\:\$queryParams\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Call to an undefined method yii\\base\\Model\|yii\\debug\\models\\search\\UserSearchInterface\:\:search\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Call to function is_string\(\) with yii\\base\\Model\|yii\\debug\\models\\search\\UserSearchInterface will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Cannot access property \$id on yii\\web\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Cannot access property \$isGuest on yii\\web\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Instanceof between yii\\rbac\\BaseManager and yii\\rbac\\ManagerInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\UserPanel\:\:addAccessRules\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\UserPanel\:\:getUser\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\UserPanel\:\:getUser\(\) should return yii\\web\\User\|null but returns object\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\UserPanel\:\:identityData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Method yii\\debug\\panels\\UserPanel\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$userController contains generic class yii\\base\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^PHPDoc tag @var with type yii\\base\\Controller is not subtype of native type null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Parameter \#1 \$action of method yii\\filters\\AccessRule\:\:allows\(\) expects yii\\base\\Action\<yii\\base\\Controller\<yii\\base\\Module\>\>, yii\\base\\Action\<yii\\base\\Controller\>\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Parameter \#1 \$userId of method yii\\rbac\\ManagerInterface\:\:getPermissionsByUser\(\) expects int\|string, int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Parameter \#1 \$userId of method yii\\rbac\\ManagerInterface\:\:getRolesByUser\(\) expects int\|string, int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Parameter \#3 \$request of method yii\\filters\\AccessRule\:\:allows\(\) expects yii\\web\\Request, yii\\console\\Request\|yii\\web\\Request given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\UserPanel\:\:\$filterColumns type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\UserPanel\:\:\$filterModel \(yii\\base\\Model\|yii\\debug\\models\\search\\UserSearchInterface\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\UserPanel\:\:\$ruleUserSwitch type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Property yii\\debug\\panels\\UserPanel\:\:\$userComponent with generic class yii\\web\\User does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 2
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Anonymous function has an unused use \$hasDbPanel\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Undefined variable\: \$this$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Variable \$manifest might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Variable \$panels might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/index.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/assets/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: src/views/default/panels/config/detail.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/config/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/config/summary.php
+
+		-
+			message: '#^Variable \$caption might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/config/table.php
+
+		-
+			message: '#^Anonymous function has an unused use \$hasExplain\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Cannot access property \$summary on yii\\console\\Controller\<yii\\base\\Module\>\|yii\\web\\Controller\<yii\\base\\Module\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Variable \$callerDataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Variable \$hasExplain might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Variable \$callerDataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Variable \$hasExplain might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Variable \$queryDataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Variable \$sumDuplicates might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Cannot access property \$summary on yii\\console\\Controller\<yii\\base\\Module\>\|yii\\web\\Controller\<yii\\base\\Module\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/db/queries.php
+
+		-
+			message: '#^Variable \$hasExplain might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/db/queries.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/db/queries.php
+
+		-
+			message: '#^Variable \$queryDataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/queries.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/queries.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/queries.php
+
+		-
+			message: '#^Variable \$excessiveCallerCount might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/db/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/db/summary.php
+
+		-
+			message: '#^Variable \$queryCount might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/db/summary.php
+
+		-
+			message: '#^Variable \$queryTime might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/db/summary.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/dump/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/dump/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/dump/detail.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/dump/summary.php
+
+		-
+			message: '#^Parameter \#2 \$timestamp of function date expects int, \(float\|false\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/views/default/panels/event/detail.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/event/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/event/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/event/detail.php
+
+		-
+			message: '#^Variable \$eventCount might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/event/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/event/summary.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/log/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/log/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/log/detail.php
+
+		-
+			message: '#^Offset ''errors'' might not exist on array\{all\: string, errors\?\: string, warnings\?\: string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: src/views/default/panels/log/summary.php
+
+		-
+			message: '#^Variable \$data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/log/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/log/summary.php
+
+		-
+			message: '#^Variable \$model might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/mail/_item.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:get\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/mail/detail.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/mail/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: src/views/default/panels/mail/detail.php
+
+		-
+			message: '#^Variable \$mailCount might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/mail/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/mail/summary.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/profile/detail.php
+
+		-
+			message: '#^Variable \$memory might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/profile/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/profile/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/profile/detail.php
+
+		-
+			message: '#^Variable \$time might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/profile/detail.php
+
+		-
+			message: '#^Variable \$memory might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/profile/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/profile/summary.php
+
+		-
+			message: '#^Variable \$time might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/profile/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: src/views/default/panels/request/detail.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 12
+			path: src/views/default/panels/request/detail.php
+
+		-
+			message: '#^Variable \$caption might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/request/table.php
+
+		-
+			message: '#^Variable \$actionRoutes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/router/actions.php
+
+		-
+			message: '#^Variable \$currentRoute might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: src/views/default/panels/router/current.php
+
+		-
+			message: '#^Variable \$actionRoutes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/router/detail.php
+
+		-
+			message: '#^Variable \$currentRoute might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/router/detail.php
+
+		-
+			message: '#^Variable \$routerRules might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: src/views/default/panels/router/detail.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/router/detail.php
+
+		-
+			message: '#^Variable \$routerRules might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/router/rules.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: src/views/default/panels/router/summary.php
+
+		-
+			message: '#^Access to an undefined property yii\\console\\Request\|yii\\web\\Request\:\:\$isPjax\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/views/default/panels/timeline/detail.php
+
+		-
+			message: '#^Variable \$dataProvider might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/timeline/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: src/views/default/panels/timeline/detail.php
+
+		-
+			message: '#^Variable \$searchModel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/timeline/detail.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/timeline/detail.php
+
+		-
+			message: '#^Call to an undefined method object\:\:canSwitchUser\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/user/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/user/detail.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/panels/user/detail.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/panels/user/roles.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$userSwitch\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/views/default/panels/user/summary.php
+
+		-
+			message: '#^Call to an undefined method object\:\:canSwitchUser\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/user/summary.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: src/views/default/panels/user/summary.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getUser\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/user/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/user/summary.php
+
+		-
+			message: '#^Variable \$panel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: src/views/default/panels/user/switch.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/panels/user/switch.php
+
+		-
+			message: '#^Variable \$defaultHeight might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/toolbar.php
+
+		-
+			message: '#^Variable \$panels might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: src/views/default/toolbar.php
+
+		-
+			message: '#^Variable \$position might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/toolbar.php
+
+		-
+			message: '#^Variable \$activePanel might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: src/views/default/view.php
+
+		-
+			message: '#^Variable \$manifest might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/view.php
+
+		-
+			message: '#^Variable \$panels might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/view.php
+
+		-
+			message: '#^Variable \$summary might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: src/views/default/view.php
+
+		-
+			message: '#^Variable \$tag might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: src/views/default/view.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/default/view.php
+
+		-
+			message: '#^Call to an undefined method yii\\base\\Module\:\:htmlTitle\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/views/layouts/main.php
+
+		-
+			message: '#^Cannot access property \$module on yii\\console\\Controller\<yii\\base\\Module\>\|yii\\web\\Controller\<yii\\base\\Module\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/layouts/main.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: src/views/layouts/main.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: src/views/layouts/main.php
+
+		-
+			message: '#^Method yii\\debug\\widgets\\NavigationButton\:\:getRoute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/widgets/NavigationButton.php
+
+		-
+			message: '#^Property yii\\debug\\widgets\\NavigationButton\:\:\$currentTagIndex \(int\) does not accept int\<0, max\>\|false\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/widgets/NavigationButton.php
+
+		-
+			message: '#^Property yii\\debug\\widgets\\NavigationButton\:\:\$firstTag \(string\) does not accept int\|string\|false\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/widgets/NavigationButton.php
+
+		-
+			message: '#^Property yii\\debug\\widgets\\NavigationButton\:\:\$lastTag \(string\) does not accept int\|string\|false\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/widgets/NavigationButton.php
+
+		-
+			message: '#^Property yii\\debug\\widgets\\NavigationButton\:\:\$manifest type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/widgets/NavigationButton.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''resource'' and ''object'' will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\FlattenExceptionTest\:\:createException\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\FlattenExceptionTest\:\:createException\(\) has parameter \$foo with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Parameter \#1 \$dir_handle of function closedir expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Parameter \#2 \$newvalue of function ini_set expects string, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:setUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/LogTargetTest.php
+
+		-
+			message: '#^Cannot call method loadManifest\(\) on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/LogTargetTest.php
+
+		-
+			message: '#^Cannot call method loadTagToPanels\(\) on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/LogTargetTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''yii\\\\debug\\\\LogTarget'' and yii\\debug\\LogTarget will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Cannot access property \$tag on array\|string\|yii\\debug\\LogTarget\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\ModuleTest\:\:dataProviderCheckAccess\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\ModuleTest\:\:testCheckAccess\(\) has parameter \$allowedIPs with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\PanelTest\:\:getPanel\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/PanelTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\TestCase\:\:invoke\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\debug\\TestCase\:\:mockApplication\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\debug\\TestCase\:\:mockApplication\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\debug\\TestCase\:\:mockWebApplication\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\debug\\TestCase\:\:mockWebApplication\(\) has parameter \$appClass with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\debug\\TestCase\:\:mockWebApplication\(\) has parameter \$config with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Static property yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:\$app \(yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\CustomRuleStub\:\:createUrl\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/router/CustomRuleStub.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\CustomRuleStub\:\:parseRequest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/router/CustomRuleStub.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\RouterRulesTest\:\:providerForWebRules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/router/RouterRulesTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\RouterRulesTest\:\:shouldProperlyScanWebRule\(\) has parameter \$expected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/router/RouterRulesTest.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\RouterRulesTest\:\:shouldProperlyScanWebRule\(\) has parameter \$rules with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/router/RouterRulesTest.php
+
+		-
+			message: '#^Class yiiunit\\debug\\router\\controllers\\BadController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/router/controllers/BadController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\BadController\:\:actionOnly\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/BadController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\BadController\:\:actions\(\) should return array\<array\{class\: class\-string\}\|class\-string\> but returns array\{test\: ''Something not…''\}\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/router/controllers/BadController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\BadController\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/BadController.php
+
+		-
+			message: '#^Call to an undefined method yii\\console\\Response\|yii\\web\\Response\:\:redirect\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/router/controllers/RedirectController.php
+
+		-
+			message: '#^Class yiiunit\\debug\\router\\controllers\\RedirectController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/router/controllers/RedirectController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\RedirectController\:\:actionOnly\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/RedirectController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\RedirectController\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/RedirectController.php
+
+		-
+			message: '#^Class yiiunit\\debug\\router\\controllers\\RestController extends generic class yii\\rest\\ActiveController but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/router/controllers/RestController.php
+
+		-
+			message: '#^Class yiiunit\\debug\\router\\controllers\\WebController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/router/controllers/WebController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\WebController\:\:actionFirst\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/WebController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\WebController\:\:actionSecond\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/WebController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\controllers\\WebController\:\:someMethod\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/controllers/WebController.php
+
+		-
+			message: '#^Class yiiunit\\debug\\router\\module\\controllers\\ModuleWebController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/router/module/controllers/ModuleWebController.php
+
+		-
+			message: '#^Method yiiunit\\debug\\router\\module\\controllers\\ModuleWebController\:\:actionInside\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/router/module/controllers/ModuleWebController.php

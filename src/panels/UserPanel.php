@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -88,11 +89,12 @@ class UserPanel extends Panel
         $this->userSwitch = new UserSwitch(['userComponent' => $this->userComponent]);
         $this->addAccessRules();
 
-        if (is_string($this->filterModel)
+        if (
+            is_string($this->filterModel)
             && class_exists($this->filterModel)
             && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
         ) {
-            $this->filterModel = new $this->filterModel;
+            $this->filterModel = new $this->filterModel();
         } elseif ($this->getUser() && $this->getUser()->identityClass) {
             if (is_subclass_of($this->getUser()->identityClass, 'yii\db\ActiveRecord')) {
                 $this->filterModel = new \yii\debug\models\search\User();
@@ -236,7 +238,6 @@ class UserPanel extends Panel
         $permissionsProvider = null;
 
         try {
-            
             $authManager = Instance::ensure($this->module->authManager, '\yii\rbac\BaseManager');
 
             if ($authManager instanceof \yii\rbac\ManagerInterface) {

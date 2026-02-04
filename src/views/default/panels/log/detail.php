@@ -1,4 +1,5 @@
 <?php
+
 /* @var $panel yii\debug\panels\LogPanel */
 /* @var $searchModel yii\debug\models\search\Log */
 /* @var $dataProvider yii\data\ArrayDataProvider */
@@ -22,9 +23,15 @@ echo GridView::widget([
             'id' => 'log-' . $model['id']
         ];
         switch ($model['level']) {
-            case Logger::LEVEL_ERROR : Html::addCssClass($options, 'table-danger'); break;
-            case Logger::LEVEL_WARNING : Html::addCssClass($options, 'table-warning'); break;
-            case Logger::LEVEL_INFO : Html::addCssClass($options, 'table-success'); break;
+            case Logger::LEVEL_ERROR:
+                Html::addCssClass($options, 'table-danger');
+            break;
+            case Logger::LEVEL_WARNING:
+                Html::addCssClass($options, 'table-warning');
+            break;
+            case Logger::LEVEL_INFO:
+                Html::addCssClass($options, 'table-success');
+            break;
         }
         return $options;
     },

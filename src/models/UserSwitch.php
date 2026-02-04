@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -66,8 +67,7 @@ class UserSwitch extends Model
     {
         if ($this->_user === null) {
             /* @var $user User */
-            $this->_user = is_string($this->userComponent) ? Yii::$app->get($this->userComponent,
-                false) : $this->userComponent;
+            $this->_user = is_string($this->userComponent) ? Yii::$app->get($this->userComponent, false) : $this->userComponent;
         }
         return $this->_user;
     }

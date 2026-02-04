@@ -63,8 +63,7 @@ $this->title = 'Yii Debugger';
                     $count = 0;
                     $items = [];
                     foreach ($manifest as $meta) {
-                        $label = ($meta['tag'] == $tag ? Html::tag('strong',
-                                '&#9658;&nbsp;' . $meta['tag']) : $meta['tag'])
+                        $label = ($meta['tag'] == $tag ? Html::tag('strong', '&#9658;&nbsp;' . $meta['tag']) : $meta['tag'])
                             . ': ' . Html::encode($meta['method']) . ' ' . Html::encode($meta['url']) . ($meta['ajax'] ? ' (AJAX)' : '')
                             . ', ' . date('Y-m-d h:i:s a', (int) $meta['time'])
                             . ', ' . $meta['ip'];
@@ -109,8 +108,7 @@ $this->title = 'Yii Debugger';
                         </div>
                     </div>
                     <?php
-                    echo "\n" . $summary['tag'] . ': ' . Html::encode($summary['method']) . ' ' . Html::a(Html::encode($summary['url']),
-                            $summary['url']);
+                    echo "\n" . $summary['tag'] . ': ' . Html::encode($summary['method']) . ' ' . Html::a(Html::encode($summary['url']), $summary['url']);
                     echo ' at ' . date('Y-m-d h:i:s a', (int) $summary['time']) . ' by ' . $summary['ip'];
                     ?>
                 </div>

@@ -10,7 +10,7 @@ class ActionRoutesTest extends TestCase
     /**
      * @test
      */
-    public function shouldDetectPrettyUrlEnabled()
+    public function shouldDetectPrettyUrlEnabled(): void
     {
         $this->mockWebApplication(
             [

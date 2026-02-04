@@ -9,7 +9,7 @@ use yii\log\Logger;
 
 class LogTargetTest extends TestCase
 {
-    public function testGetRequestTime()
+    public function testGetRequestTime(): void
     {
         Yii::$app->getRequest()->setUrl('dummy');
 
@@ -21,7 +21,7 @@ class LogTargetTest extends TestCase
         self::assertSame($_SERVER['REQUEST_TIME_FLOAT'], $data['time']);
     }
 
-    public function testLogPanelClosures()
+    public function testLogPanelClosures(): void
     {
         Yii::$app->getRequest()->setUrl('dummy');
         $module = new Module('debug');
@@ -29,9 +29,9 @@ class LogTargetTest extends TestCase
         $logTarget = $module->logTarget;
 
         // Logs to test
-        Yii::debug("qwe");
-        Yii::warning("asd");
-        Yii::info(['test_callback' => function($cbArg) {
+        Yii::debug('qwe');
+        Yii::warning('asd');
+        Yii::info(['test_callback' => function ($cbArg) {
             return $cbArg . 'cbResult';
         }]);
 
@@ -51,13 +51,13 @@ class LogTargetTest extends TestCase
         $this->assertEquals('asd', $panelData['messages'][1][0]);
         $this->assertEquals(Logger::LEVEL_WARNING, $panelData['messages'][1][1]);
 
-        $this->assertContains('test_callback', $panelData['messages'][2][0]);
-        $this->assertContains('function($cbArg)', $panelData['messages'][2][0]);
-        $this->assertContains("return \$cbArg . 'cbResult'", $panelData['messages'][2][0]);
+        $this->assertStringContainsString('test_callback', $panelData['messages'][2][0]);
+        $this->assertStringContainsString('function ($cbArg)', $panelData['messages'][2][0]);
+        $this->assertStringContainsString("return \$cbArg . 'cbResult'", $panelData['messages'][2][0]);
         $this->assertEquals(Logger::LEVEL_INFO, $panelData['messages'][2][1]);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockWebApplication();
