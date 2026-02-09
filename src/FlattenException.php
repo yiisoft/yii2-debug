@@ -292,7 +292,7 @@ class FlattenException
      */
     private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value)
     {
-        $array = new \ArrayObject($value);
+        $array = new \ArrayObject(\get_object_vars($value));
 
         return $array['__PHP_Incomplete_Class_Name'];
     }
