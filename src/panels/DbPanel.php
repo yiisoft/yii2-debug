@@ -25,7 +25,7 @@ use yii\log\Logger;
  * @property-read int $excessiveCallersCount
  * @property-read array $profileLogs
  * @property-read string $summaryName Short name of the panel, which will be use in summary.
- * @property-read array $types
+ * @property-read array<string, string> $types
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

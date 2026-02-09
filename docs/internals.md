@@ -13,13 +13,13 @@ Tool references:
 Run code style checks.
 
 ```bash
-composer phpdoc
+composer cs
 ```
 
 Fix code style issues.
 
 ```bash
-composer phpdoc-fixer
+composer cs-fix
 ```
 
 ## Static analysis (PHPStan)

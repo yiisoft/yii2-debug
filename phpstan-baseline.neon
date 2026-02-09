@@ -1195,12 +1195,6 @@ parameters:
 			path: src/panels/DbPanel.php
 
 		-
-			message: '#^Class yii\\debug\\panels\\DbPanel has PHPDoc tag @property\-read for property \$types with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/panels/DbPanel.php
-
-		-
 			message: '#^Instanceof between yii\\db\\Connection and yii\\db\\Connection will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
