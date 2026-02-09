@@ -28,6 +28,7 @@ use yii\di\Instance;
 /**
  * Debugger panel that collects and displays user data.
  *
+ * @property-read User|null $user
  * @property-read DataProviderInterface $userDataProvider
  * @property-read Model|UserSearchInterface $usersFilterModel
  *

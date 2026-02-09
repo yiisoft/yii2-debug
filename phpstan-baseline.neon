@@ -973,12 +973,6 @@ parameters:
 			path: src/models/search/UserSearchInterface.php
 
 		-
-			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$memory\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/models/timeline/DataProvider.php
-
-		-
 			message: '#^Class yii\\debug\\models\\timeline\\DataProvider has PHPDoc tag @property\-read for property \$rulers with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1061,12 +1055,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/models/timeline/Search.php
-
-		-
-			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$memory\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/models/timeline/Svg.php
 
 		-
 			message: '#^Method yii\\debug\\models\\timeline\\Svg\:\:addPoints\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
@@ -1287,6 +1275,12 @@ parameters:
 		-
 			message: '#^Method yii\\debug\\panels\\DbPanel\:\:sumDuplicateQueries\(\) has parameter \$modelData with no type specified\.$#'
 			identifier: missingType.parameter
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Parameter \#1 \$id of method yii\\base\\Module\:\:get\(\) expects string, yii\\db\\Connection given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/panels/DbPanel.php
 
