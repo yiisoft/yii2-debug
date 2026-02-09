@@ -144,7 +144,7 @@ class RouterRules extends Model
         $reflectionClass = new \ReflectionClass($restRule);
         $reflectionProperty = $reflectionClass->getProperty('rules');
 
-        if (PHP_VERSION_ID < 80500) {
+        if (PHP_VERSION_ID < 80100) {
             $reflectionProperty->setAccessible(true);
         }
 

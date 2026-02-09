@@ -74,13 +74,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         $classReflection = new \ReflectionClass(get_class($object));
         $methodReflection = $classReflection->getMethod($method);
 
-        if (PHP_VERSION_ID < 80500) {
+        if (PHP_VERSION_ID < 80100) {
             $methodReflection->setAccessible(true);
         }
 
         $result = $methodReflection->invokeArgs($object, $args);
 
-        if (PHP_VERSION_ID < 80500) {
+        if (PHP_VERSION_ID < 80100) {
             $methodReflection->setAccessible(false);
         }
 
