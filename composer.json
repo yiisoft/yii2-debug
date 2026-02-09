@@ -64,5 +64,11 @@
         "allow-plugins": {
             "yiisoft/yii2-composer": true
         }
+    },
+    "scripts": {
+        "phpdoc": "./vendor/bin/phpcs -q src tests",
+        "phpdoc-fixer": "./vendor/bin/phpcbf -q src tests",
+        "static": "./vendor/bin/phpstan --memory-limit=-1",
+        "tests": "./vendor/bin/phpunit"
     }
 }

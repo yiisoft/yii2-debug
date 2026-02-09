@@ -14,10 +14,11 @@ For license information check the [LICENSE](LICENSE.md)-file.
 
 Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-debug/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-debug)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-debug/downloads.png)](https://packagist.org/packages/yiisoft/yii2-debug)
-[![Build Status](https://github.com/yiisoft/yii2-debug/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-debug/actions)
-[![codecov](https://codecov.io/gh/yiisoft/yii2-debug/graph/badge.svg)](https://codecov.io/gh/yiisoft/yii2-debug)
+[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-debug.svg?style=for-the-badge&label=Stable&logo=packagist)](https://packagist.org/packages/yiisoft/yii2-debug)
+[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-debug.svg?style=for-the-badge&label=Downloads)](https://packagist.org/packages/yiisoft/yii2-debug)
+[![build](https://img.shields.io/github/actions/workflow/status/yiisoft/yii2-debug/build.yml?style=for-the-badge&logo=github&label=Build)](https://github.com/yiisoft/yii2-debug/actions?query=workflow%3Abuild)
+[![codecov](https://img.shields.io/codecov/c/github/yiisoft/yii2-debug.svg?style=for-the-badge&logo=codecov&logoColor=white&label=Codecov)](https://codecov.io/gh/yiisoft/yii2-debug)
+[![Static Analysis](https://img.shields.io/github/actions/workflow/status/yiisoft/yii2-debug/static.yml?style=for-the-badge&label=Static)](https://github.com/yiisoft/yii2-debug/actions/workflows/static.yml)
 
 
 Installation
@@ -117,3 +118,18 @@ Or you can create a callback for `traceLine` for even more control:
     return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
 },
 ```
+
+## Documentation
+
+- [Internals](docs/internals.md)
+
+## Support the project
+
+[![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?style=for-the-badge&logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/yiisoft)
+
+## Follow updates
+
+[![Official website](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=for-the-badge&logo=yii)](https://www.yiiframework.com/)
+[![Twitter](https://img.shields.io/badge/twitter-follow-1DA1F2?style=for-the-badge&logo=twitter&logoColor=1DA1F2&labelColor=555555?style=flat)](https://twitter.com/yiiframework)
+[![Telegram](https://img.shields.io/badge/telegram-join-1DA1F2?style=for-the-badge&logo=telegram)](https://t.me/yii2en)
+[![Slack](https://img.shields.io/badge/slack-join-1DA1F2?style=for-the-badge&logo=slack)](https://yiiframework.com/go/slack)

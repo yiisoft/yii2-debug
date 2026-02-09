@@ -20,6 +20,8 @@ use yii\helpers\StringHelper;
  * what should be displayed at debug toolbar and on debugger details view.
  *
  * @property-read string $detail Content that is displayed in debugger detail view.
+ * @property FlattenException|null $error Note that the type of this property differs in getter and setter.
+ * See [[getError()]] and [[setError()]] for details.
  * @property-read string $name Name of the panel.
  * @property-read string $summary Content that is displayed at debug toolbar.
  * @property-read string $url URL pointing to panel detail view.

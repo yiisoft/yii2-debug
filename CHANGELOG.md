@@ -8,7 +8,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #541: Silence fetch errors (Karkbauer)
 - Enh #546: Applying Yii2 coding standards (@s1lver)
 - Enh #546: Raise min version to PHP 7.4 (@s1lver)
-
+- Bug #549: Enhance documentation and add scripts for `composer.json` (@terabytesoftw)
 
 2.1.27 June 08, 2025
 --------------------
