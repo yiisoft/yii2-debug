@@ -16,6 +16,11 @@ use yii\web\User;
 /**
  * UserSwitch is a model used to temporary logging in another user
  *
+ * @property-read User $mainUser
+ * @property null|User $user Note that the type of this property differs in getter and setter. See
+ * [[getUser()]] and [[setUser()]] for details.
+ * @property-write IdentityInterface $userByIdentity
+ *
  * @author Semen Dubina <yii2debug@sam002.net>
  * @since 2.0.10
  */

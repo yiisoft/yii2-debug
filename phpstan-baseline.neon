@@ -265,12 +265,6 @@ parameters:
 			path: src/Module.php
 
 		-
-			message: '#^Method yii\\debug\\Module\:\:checkAccess\(\) has parameter \$action with generic class yii\\base\\Action but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Module.php
-
-		-
 			message: '#^Method yii\\debug\\Module\:\:corePanels\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -463,12 +457,6 @@ parameters:
 			path: src/actions/db/ExplainAction.php
 
 		-
-			message: '#^Class yii\\debug\\actions\\db\\ExplainAction extends generic class yii\\base\\Action but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/actions/db/ExplainAction.php
-
-		-
 			message: '#^Method yii\\debug\\components\\search\\Filter\:\:addMatcher\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -553,12 +541,6 @@ parameters:
 			path: src/controllers/DefaultController.php
 
 		-
-			message: '#^Class yii\\debug\\controllers\\DefaultController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/controllers/DefaultController.php
-
-		-
 			message: '#^Method yii\\debug\\controllers\\DefaultController\:\:getManifest\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -625,24 +607,6 @@ parameters:
 			path: src/controllers/UserController.php
 
 		-
-			message: '#^Class yii\\debug\\controllers\\UserController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/controllers/UserController.php
-
-		-
-			message: '#^Method yii\\debug\\controllers\\UserController\:\:actionResetIdentity\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/controllers/UserController.php
-
-		-
-			message: '#^Method yii\\debug\\controllers\\UserController\:\:actionSetIdentity\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/controllers/UserController.php
-
-		-
 			message: '#^Parameter \#1 \$identity of method yii\\debug\\models\\UserSwitch\:\:setUserByIdentity\(\) expects yii\\web\\IdentityInterface, yii\\web\\IdentityInterface\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -697,18 +661,6 @@ parameters:
 			path: src/models/UserSwitch.php
 
 		-
-			message: '#^Method yii\\debug\\models\\UserSwitch\:\:getMainUser\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/models/UserSwitch.php
-
-		-
-			message: '#^Method yii\\debug\\models\\UserSwitch\:\:getUser\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/models/UserSwitch.php
-
-		-
 			message: '#^Method yii\\debug\\models\\UserSwitch\:\:getUser\(\) should return yii\\web\\User\|null but returns object\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -727,38 +679,14 @@ parameters:
 			path: src/models/UserSwitch.php
 
 		-
-			message: '#^Method yii\\debug\\models\\UserSwitch\:\:setUser\(\) has parameter \$user with generic class yii\\web\\User but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/models/UserSwitch.php
-
-		-
 			message: '#^Method yii\\debug\\models\\UserSwitch\:\:setUserByIdentity\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/models/UserSwitch.php
 
 		-
-			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$_mainUser with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/models/UserSwitch.php
-
-		-
 			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$_user \(yii\\web\\User\) does not accept object\|null\.$#'
 			identifier: assign.propertyType
-			count: 1
-			path: src/models/UserSwitch.php
-
-		-
-			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$_user with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/models/UserSwitch.php
-
-		-
-			message: '#^Property yii\\debug\\models\\UserSwitch\:\:\$userComponent with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
 			count: 1
 			path: src/models/UserSwitch.php
 
@@ -1045,12 +973,6 @@ parameters:
 			path: src/models/search/UserSearchInterface.php
 
 		-
-			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$memory\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/models/timeline/DataProvider.php
-
-		-
 			message: '#^Class yii\\debug\\models\\timeline\\DataProvider has PHPDoc tag @property\-read for property \$rulers with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1133,12 +1055,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/models/timeline/Search.php
-
-		-
-			message: '#^Access to an undefined property yii\\debug\\panels\\TimelinePanel\:\:\$memory\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/models/timeline/Svg.php
 
 		-
 			message: '#^Method yii\\debug\\models\\timeline\\Svg\:\:addPoints\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
@@ -1359,6 +1275,12 @@ parameters:
 		-
 			message: '#^Method yii\\debug\\panels\\DbPanel\:\:sumDuplicateQueries\(\) has parameter \$modelData with no type specified\.$#'
 			identifier: missingType.parameter
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Parameter \#1 \$id of method yii\\base\\Module\:\:get\(\) expects string, yii\\db\\Connection given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/panels/DbPanel.php
 
@@ -1963,12 +1885,6 @@ parameters:
 			path: src/panels/UserPanel.php
 
 		-
-			message: '#^Method yii\\debug\\panels\\UserPanel\:\:getUser\(\) return type with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/panels/UserPanel.php
-
-		-
 			message: '#^Method yii\\debug\\panels\\UserPanel\:\:getUser\(\) should return yii\\web\\User\|null but returns object\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -1987,19 +1903,13 @@ parameters:
 			path: src/panels/UserPanel.php
 
 		-
-			message: '#^PHPDoc tag @var for variable \$userController contains generic class yii\\base\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/panels/UserPanel.php
-
-		-
 			message: '#^PHPDoc tag @var with type yii\\base\\Controller is not subtype of native type null\.$#'
 			identifier: varTag.nativeType
 			count: 1
 			path: src/panels/UserPanel.php
 
 		-
-			message: '#^Parameter \#1 \$action of method yii\\filters\\AccessRule\:\:allows\(\) expects yii\\base\\Action\<yii\\base\\Controller\<yii\\base\\Module\>\>, yii\\base\\Action\<yii\\base\\Controller\>\|null given\.$#'
+			message: '#^Parameter \#1 \$action of method yii\\filters\\AccessRule\:\:allows\(\) expects yii\\base\\Action, yii\\base\\Action\<yii\\base\\Controller\>\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/panels/UserPanel.php
@@ -2037,12 +1947,6 @@ parameters:
 		-
 			message: '#^Property yii\\debug\\panels\\UserPanel\:\:\$ruleUserSwitch type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/panels/UserPanel.php
-
-		-
-			message: '#^Property yii\\debug\\panels\\UserPanel\:\:\$userComponent with generic class yii\\web\\User does not specify its types\: T$#'
-			identifier: missingType.generics
 			count: 1
 			path: src/panels/UserPanel.php
 
@@ -2131,7 +2035,7 @@ parameters:
 			path: src/views/default/panels/db/callers.php
 
 		-
-			message: '#^Cannot access property \$summary on yii\\console\\Controller\<yii\\base\\Module\>\|yii\\web\\Controller\<yii\\base\\Module\>\|null\.$#'
+			message: '#^Cannot access property \$summary on yii\\console\\Controller\|yii\\web\\Controller\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/views/default/panels/db/callers.php
@@ -2203,7 +2107,7 @@ parameters:
 			path: src/views/default/panels/db/detail.php
 
 		-
-			message: '#^Cannot access property \$summary on yii\\console\\Controller\<yii\\base\\Module\>\|yii\\web\\Controller\<yii\\base\\Module\>\|null\.$#'
+			message: '#^Cannot access property \$summary on yii\\console\\Controller\|yii\\web\\Controller\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/views/default/panels/db/queries.php
@@ -2665,7 +2569,7 @@ parameters:
 			path: src/views/layouts/main.php
 
 		-
-			message: '#^Cannot access property \$module on yii\\console\\Controller\<yii\\base\\Module\>\|yii\\web\\Controller\<yii\\base\\Module\>\|null\.$#'
+			message: '#^Cannot access property \$module on yii\\console\\Controller\|yii\\web\\Controller\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/views/layouts/main.php
@@ -2863,12 +2767,6 @@ parameters:
 			path: tests/router/RouterRulesTest.php
 
 		-
-			message: '#^Class yiiunit\\debug\\router\\controllers\\BadController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: tests/router/controllers/BadController.php
-
-		-
 			message: '#^Method yiiunit\\debug\\router\\controllers\\BadController\:\:actionOnly\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -2893,12 +2791,6 @@ parameters:
 			path: tests/router/controllers/RedirectController.php
 
 		-
-			message: '#^Class yiiunit\\debug\\router\\controllers\\RedirectController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: tests/router/controllers/RedirectController.php
-
-		-
 			message: '#^Method yiiunit\\debug\\router\\controllers\\RedirectController\:\:actionOnly\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -2909,18 +2801,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/router/controllers/RedirectController.php
-
-		-
-			message: '#^Class yiiunit\\debug\\router\\controllers\\RestController extends generic class yii\\rest\\ActiveController but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: tests/router/controllers/RestController.php
-
-		-
-			message: '#^Class yiiunit\\debug\\router\\controllers\\WebController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: tests/router/controllers/WebController.php
 
 		-
 			message: '#^Method yiiunit\\debug\\router\\controllers\\WebController\:\:actionFirst\(\) has no return type specified\.$#'
@@ -2939,12 +2819,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/router/controllers/WebController.php
-
-		-
-			message: '#^Class yiiunit\\debug\\router\\module\\controllers\\ModuleWebController extends generic class yii\\web\\Controller but does not specify its types\: T$#'
-			identifier: missingType.generics
-			count: 1
-			path: tests/router/module/controllers/ModuleWebController.php
 
 		-
 			message: '#^Method yiiunit\\debug\\router\\module\\controllers\\ModuleWebController\:\:actionInside\(\) has no return type specified\.$#'

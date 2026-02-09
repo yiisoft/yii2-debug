@@ -22,6 +22,8 @@ use yii\web\View;
 /**
  * The Yii Debug Module provides the debug toolbar and debugger
  *
+ * @property-write \yii\base\Event $debugHeaders
+ *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
