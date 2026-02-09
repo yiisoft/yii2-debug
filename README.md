@@ -1,7 +1,9 @@
 <p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://www.yiiframework.com/image/yii_logo_light.svg">
+        <source media="(prefers-color-scheme: light)" srcset="https://www.yiiframework.com/image/yii_logo_dark.svg">
+        <img src="https://www.yiiframework.com/image/yii_logo_dark.svg" alt="Yii Framework" height="100px">
+    </picture>
     <h1 align="center">Debug Extension for Yii 2</h1>
     <br>
 </p>
