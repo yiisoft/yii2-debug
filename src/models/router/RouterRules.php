@@ -143,7 +143,11 @@ class RouterRules extends Model
     {
         $reflectionClass = new \ReflectionClass($restRule);
         $reflectionProperty = $reflectionClass->getProperty('rules');
-        $reflectionProperty->setAccessible(true);
+
+        if (PHP_VERSION_ID < 80100) {
+            $reflectionProperty->setAccessible(true);
+        }
+
         $rulesGroups = $reflectionProperty->getValue($restRule);
 
         foreach ($rulesGroups as $rules) {

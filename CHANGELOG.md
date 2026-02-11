@@ -8,6 +8,7 @@ Yii Framework 2 debug extension Change Log
 - Bug #541: Silence fetch errors (Karkbauer)
 - Enh #546: Applying Yii2 coding standards (@s1lver)
 - Enh #546: Raise min version to PHP 7.4 (@s1lver)
+- Bug #548: Fix `Deprecated ArrayObject::__construct()` and Method `ReflectionMethod::setAccessible()` in PHP 8.5 (@terabytesoftw)
 - Bug #549: Enhance documentation and add scripts for `composer.json` (@terabytesoftw)
 - Bug #550: Fix logo image sources in `README.md` for correct color scheme display (@terabytesoftw)
 
