@@ -235,6 +235,12 @@ parameters:
 			path: src/Module.php
 
 		-
+			message: '#^Cannot access property \$assetManager on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/Module.php
+
+		-
 			message: '#^Cannot access property \$tag on array\|string\|yii\\debug\\LogTarget\.$#'
 			identifier: property.nonObject
 			count: 3
@@ -242,6 +248,24 @@ parameters:
 
 		-
 			message: '#^Cannot call method getHeaders\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Cannot call method getRequest\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/Module.php
+
+		-
+			message: '#^Cannot call method getResponse\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Cannot call method getView\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: src/Module.php
@@ -499,6 +523,12 @@ parameters:
 			path: src/components/search/matchers/MatcherInterface.php
 
 		-
+			message: '#^Cannot access property \$charset on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: src/components/search/matchers/SameAs.php
+
+		-
 			message: '#^Parameter \#1 \$haystack of function mb_stripos expects string, bool\|float\|int\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -526,6 +556,18 @@ parameters:
 			message: '#^Call to an undefined method yii\\console\\Response\|yii\\web\\Response\:\:sendFile\(\)\.$#'
 			identifier: method.notFound
 			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Cannot access property \$errorHandler on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/controllers/DefaultController.php
+
+		-
+			message: '#^Cannot access property \$response on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
 			path: src/controllers/DefaultController.php
 
 		-
@@ -577,18 +619,6 @@ parameters:
 			path: src/controllers/DefaultController.php
 
 		-
-			message: '#^Access to an undefined property yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/controllers/UserController.php
-
-		-
-			message: '#^Access to an undefined property yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:\$user\.$#'
-			identifier: property.notFound
-			count: 3
-			path: src/controllers/UserController.php
-
-		-
 			message: '#^Access to an undefined property yii\\console\\Response\|yii\\web\\Response\:\:\$format\.$#'
 			identifier: property.notFound
 			count: 1
@@ -598,6 +628,30 @@ parameters:
 			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:post\(\)\.$#'
 			identifier: method.notFound
 			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Cannot access property \$response on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Cannot access property \$session on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/controllers/UserController.php
+
+		-
+			message: '#^Cannot access property \$user on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 3
 			path: src/controllers/UserController.php
 
 		-
@@ -613,12 +667,6 @@ parameters:
 			path: src/controllers/UserController.php
 
 		-
-			message: '#^Call to an undefined method yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:getSession\(\)\.$#'
-			identifier: method.notFound
-			count: 3
-			path: src/models/UserSwitch.php
-
-		-
 			message: '#^Cannot access property \$identity on yii\\web\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -627,6 +675,12 @@ parameters:
 		-
 			message: '#^Cannot access property \$identityClass on yii\\web\\User\|null\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot call method get\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/models/UserSwitch.php
 
@@ -640,6 +694,12 @@ parameters:
 			message: '#^Cannot call method getIsGuest\(\) on yii\\web\\User\|null\.$#'
 			identifier: method.nonObject
 			count: 2
+			path: src/models/UserSwitch.php
+
+		-
+			message: '#^Cannot call method getSession\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 3
 			path: src/models/UserSwitch.php
 
 		-
@@ -697,6 +757,12 @@ parameters:
 			path: src/models/router/ActionRoutes.php
 
 		-
+			message: '#^Cannot access property \$urlManager on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: src/models/router/ActionRoutes.php
+
+		-
 			message: '#^Instanceof between yii\\web\\UrlManager and yii\\web\\UrlManager will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -751,6 +817,12 @@ parameters:
 			path: src/models/router/ActionRoutes.php
 
 		-
+			message: '#^Parameter \#1 \$module of method yii\\debug\\models\\router\\ActionRoutes\:\:getModuleControllers\(\) expects yii\\base\\Module, yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/models/router/ActionRoutes.php
+
+		-
 			message: '#^Parameter \#1 \$str of function trim expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -779,6 +851,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/models/router/CurrentRoute.php
+
+		-
+			message: '#^Cannot access property \$urlManager on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 5
+			path: src/models/router/RouterRules.php
 
 		-
 			message: '#^Instanceof between yii\\web\\UrlManager and yii\\web\\UrlManager will always evaluate to true\.$#'
@@ -925,9 +1003,9 @@ parameters:
 			path: src/models/search/Profile.php
 
 		-
-			message: '#^Access to an undefined property yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\:\:\$user\.$#'
-			identifier: property.notFound
-			count: 1
+			message: '#^Cannot access property \$user on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 3
 			path: src/models/search/User.php
 
 		-
@@ -1105,6 +1183,12 @@ parameters:
 			path: src/panels/AssetPanel.php
 
 		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: src/panels/AssetPanel.php
+
+		-
 			message: '#^Dead catch \- yii\\base\\InvalidConfigException is never thrown in the try block\.$#'
 			identifier: catch.neverThrown
 			count: 1
@@ -1127,6 +1211,48 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: src/panels/AssetPanel.php
+
+		-
+			message: '#^Cannot access property \$charset on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Cannot access property \$extensions on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Cannot access property \$language on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Cannot access property \$name on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Cannot access property \$sourceLanguage on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Cannot access property \$version on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ConfigPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/ConfigPanel.php
 
 		-
 			message: '#^Class yii\\debug\\panels\\ConfigPanel has PHPDoc tag @property\-read for property \$extensions with no value type specified in iterable type array\.$#'
@@ -1179,6 +1305,24 @@ parameters:
 		-
 			message: '#^Cannot access property \$defaultOrder on bool\|yii\\data\\Sort\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Cannot call method get\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/panels/DbPanel.php
 
@@ -1279,8 +1423,8 @@ parameters:
 			path: src/panels/DbPanel.php
 
 		-
-			message: '#^Parameter \#1 \$id of method yii\\base\\Module\:\:get\(\) expects string, yii\\db\\Connection given\.$#'
-			identifier: argument.type
+			message: '#^Offset 0 might not exist on non\-empty\-list\{0\?\: string, 1\?\: string\}\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
 			path: src/panels/DbPanel.php
 
@@ -1345,6 +1489,18 @@ parameters:
 			path: src/panels/DumpPanel.php
 
 		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/DumpPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/DumpPanel.php
+
+		-
 			message: '#^Method yii\\debug\\panels\\DumpPanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1387,6 +1543,18 @@ parameters:
 			path: src/panels/EventPanel.php
 
 		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/EventPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/EventPanel.php
+
+		-
 			message: '#^Method yii\\debug\\panels\\EventPanel\:\:init\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -1408,6 +1576,18 @@ parameters:
 			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
 			identifier: method.notFound
 			count: 1
+			path: src/panels/LogPanel.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/LogPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
 			path: src/panels/LogPanel.php
 
 		-
@@ -1492,6 +1672,18 @@ parameters:
 			message: '#^Call to method getPreparedHeaders\(\) on an unknown class Symfony\\Component\\Mime\\Part\\AbstractPart\.$#'
 			identifier: class.notFound
 			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/MailPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
 			path: src/panels/MailPanel.php
 
 		-
@@ -1591,6 +1783,18 @@ parameters:
 			path: src/panels/ProfilingPanel.php
 
 		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/ProfilingPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/ProfilingPanel.php
+
+		-
 			message: '#^Method yii\\debug\\panels\\ProfilingPanel\:\:getModels\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1681,6 +1885,54 @@ parameters:
 			path: src/panels/RequestPanel.php
 
 		-
+			message: '#^Cannot access property \$requestedAction on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 7
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot access property \$requestedParams on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot access property \$requestedRoute on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot call method get\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot call method getRequest\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 10
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot call method getResponse\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot call method has\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/panels/RequestPanel.php
+
+		-
 			message: '#^Method yii\\debug\\panels\\RequestPanel\:\:censorArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1709,6 +1961,24 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/panels/RequestPanel.php
+
+		-
+			message: '#^Cannot access property \$requestedAction on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 7
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Cannot access property \$requestedRoute on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/RouterPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/RouterPanel.php
 
 		-
 			message: '#^Class yii\\debug\\panels\\RouterPanel has PHPDoc tag @property for property \$categories with no value type specified in iterable type array\.$#'
@@ -1743,6 +2013,18 @@ parameters:
 		-
 			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/panels/TimelinePanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
 			count: 1
 			path: src/panels/TimelinePanel.php
 
@@ -1867,6 +2149,24 @@ parameters:
 			path: src/panels/UserPanel.php
 
 		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/panels/UserPanel.php
+
+		-
+			message: '#^Cannot call method get\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/panels/UserPanel.php
+
+		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -1909,7 +2209,7 @@ parameters:
 			path: src/panels/UserPanel.php
 
 		-
-			message: '#^Parameter \#1 \$action of method yii\\filters\\AccessRule\:\:allows\(\) expects yii\\base\\Action, yii\\base\\Action\<yii\\base\\Controller\>\|null given\.$#'
+			message: '#^Parameter \#1 \$action of method yii\\filters\\AccessRule\:\:allows\(\) expects yii\\base\\Action, yii\\base\\Action\<covariant yii\\base\\Controller\>\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/panels/UserPanel.php
@@ -1959,6 +2259,12 @@ parameters:
 		-
 			message: '#^Anonymous function has an unused use \$hasDbPanel\.$#'
 			identifier: closure.unusedUse
+			count: 1
+			path: src/views/default/index.php
+
+		-
+			message: '#^Cannot access property \$formatter on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
 			count: 1
 			path: src/views/default/index.php
 
@@ -2035,6 +2341,12 @@ parameters:
 			path: src/views/default/panels/db/callers.php
 
 		-
+			message: '#^Cannot access property \$controller on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/db/callers.php
+
+		-
 			message: '#^Cannot access property \$summary on yii\\console\\Controller\|yii\\web\\Controller\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2063,6 +2375,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Cannot access property \$log on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/db/detail.php
 
 		-
 			message: '#^Variable \$callerDataProvider might not be defined\.$#'
@@ -2105,6 +2423,12 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: src/views/default/panels/db/detail.php
+
+		-
+			message: '#^Cannot access property \$controller on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/db/queries.php
 
 		-
 			message: '#^Cannot access property \$summary on yii\\console\\Controller\|yii\\web\\Controller\|null\.$#'
@@ -2245,6 +2569,12 @@ parameters:
 			path: src/views/default/panels/log/detail.php
 
 		-
+			message: '#^Cannot access property \$i18n on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: src/views/default/panels/log/summary.php
+
+		-
 			message: '#^Offset ''errors'' might not exist on array\{all\: string, errors\?\: string, warnings\?\: string\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -2271,6 +2601,12 @@ parameters:
 		-
 			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:get\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: src/views/default/panels/mail/detail.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
 			count: 1
 			path: src/views/default/panels/mail/detail.php
 
@@ -2359,6 +2695,12 @@ parameters:
 			path: src/views/default/panels/request/detail.php
 
 		-
+			message: '#^Cannot access property \$charset on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/request/table.php
+
+		-
 			message: '#^Variable \$caption might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -2369,6 +2711,12 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: src/views/default/panels/router/actions.php
+
+		-
+			message: '#^Cannot access property \$i18n on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/default/panels/router/current.php
 
 		-
 			message: '#^Variable \$currentRoute might not be defined\.$#'
@@ -2415,6 +2763,12 @@ parameters:
 		-
 			message: '#^Access to an undefined property yii\\console\\Request\|yii\\web\\Request\:\:\$isPjax\.$#'
 			identifier: property.notFound
+			count: 1
+			path: src/views/default/panels/timeline/detail.php
+
+		-
+			message: '#^Cannot access property \$request on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
 			count: 1
 			path: src/views/default/panels/timeline/detail.php
 
@@ -2569,6 +2923,12 @@ parameters:
 			path: src/views/layouts/main.php
 
 		-
+			message: '#^Cannot access property \$controller on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/views/layouts/main.php
+
+		-
 			message: '#^Cannot access property \$module on yii\\console\\Controller\|yii\\web\\Controller\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2617,8 +2977,20 @@ parameters:
 			path: src/widgets/NavigationButton.php
 
 		-
+			message: '#^Call to function is_subclass_of\(\) with \*NEVER\* and ''\\\\Closure'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''resource'' and ''object'' will always evaluate to false\.$#'
 			identifier: method.impossibleType
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true and ''Expect object class…'' will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
 			count: 1
 			path: tests/FlattenExceptionTest.php
 
@@ -2647,8 +3019,32 @@ parameters:
 			path: tests/FlattenExceptionTest.php
 
 		-
+			message: '#^Result of \|\| is always true\.$#'
+			identifier: booleanOr.alwaysTrue
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''Closure'' and \*NEVER\* will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: tests/FlattenExceptionTest.php
+
+		-
 			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:setUrl\(\)\.$#'
 			identifier: method.notFound
+			count: 2
+			path: tests/LogTargetTest.php
+
+		-
+			message: '#^Cannot access property \$log on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/LogTargetTest.php
+
+		-
+			message: '#^Cannot call method getRequest\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
 			count: 2
 			path: tests/LogTargetTest.php
 
@@ -2665,14 +3061,44 @@ parameters:
 			path: tests/LogTargetTest.php
 
 		-
+			message: '#^Parameter \#1 \$app of method yii\\debug\\Module\:\:bootstrap\(\) expects yii\\base\\Application, yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/LogTargetTest.php
+
+		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''yii\\\\debug\\\\LogTarget'' and yii\\debug\\LogTarget will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
 			path: tests/ModuleTest.php
 
 		-
+			message: '#^Cannot access property \$extensions on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/ModuleTest.php
+
+		-
 			message: '#^Cannot access property \$tag on array\|string\|yii\\debug\\LogTarget\.$#'
 			identifier: property.nonObject
+			count: 2
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Cannot access property \$view on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Cannot call method set\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Cannot call method setModule\(\) on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: method.nonObject
 			count: 2
 			path: tests/ModuleTest.php
 
@@ -2686,6 +3112,12 @@ parameters:
 			message: '#^Method yiiunit\\debug\\ModuleTest\:\:testCheckAccess\(\) has parameter \$allowedIPs with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
+			path: tests/ModuleTest.php
+
+		-
+			message: '#^Parameter \#1 \$app of method yii\\debug\\Module\:\:bootstrap\(\) expects yii\\base\\Application, yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null given\.$#'
+			identifier: argument.type
+			count: 4
 			path: tests/ModuleTest.php
 
 		-
@@ -2727,12 +3159,6 @@ parameters:
 		-
 			message: '#^Method yiiunit\\debug\\TestCase\:\:mockWebApplication\(\) has parameter \$config with no type specified\.$#'
 			identifier: missingType.parameter
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: '#^Static property yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:\$app \(yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\) does not accept null\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: tests/TestCase.php
 
@@ -2787,6 +3213,12 @@ parameters:
 		-
 			message: '#^Call to an undefined method yii\\console\\Response\|yii\\web\\Response\:\:redirect\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: tests/router/controllers/RedirectController.php
+
+		-
+			message: '#^Cannot access property \$response on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
+			identifier: property.nonObject
 			count: 1
 			path: tests/router/controllers/RedirectController.php
 
