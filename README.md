@@ -123,7 +123,7 @@ Or you can create a callback for `traceLine` for even more control:
 
 ## Documentation
 
-- [Internals](docs/internals.md)
+- [Internals](docs/guide/internals.md)
 
 ## Support the project
 
