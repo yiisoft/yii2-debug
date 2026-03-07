@@ -20,7 +20,7 @@ use yii\helpers\Html;
  * Debugger panel that collects and displays request context:
  * controller/action, layout, rendered views tree and applied behaviors.
  *
- * @since 2.2
+ * @since 2.1.28
  */
 class RequestContextPanel extends Panel
 {
