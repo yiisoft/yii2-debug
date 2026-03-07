@@ -20,6 +20,9 @@ use yii\helpers\Html;
  * Debugger panel that collects and displays request context:
  * controller/action, layout, rendered views tree and applied behaviors.
  *
+ * @phpstan-type ViewNode array{file: string, short: string, children: list<array<string, mixed>>}
+ * @phpstan-type GroupedViewNode array{node: ViewNode, count: int, children: list<array<string, mixed>>}
+ *
  * @since 2.1.28
  */
 class RequestContextPanel extends Panel
@@ -30,12 +33,12 @@ class RequestContextPanel extends Panel
     private $_renderedViews = [];
 
     /**
-     * @var list<array{file: string, short: string, children: list<mixed>}>
+     * @var list<ViewNode>
      */
     private $_viewTree = [];
 
     /**
-     * @var list<array{file: string, short: string, children: list<mixed>}>
+     * @var list<ViewNode>
      */
     private $_renderStack = [];
 
@@ -82,7 +85,9 @@ class RequestContextPanel extends Panel
      */
     public function getSummary()
     {
-        return Yii::$app->view->render('panels/requestContext/summary', ['panel' => $this]);
+        $app = $this->getWebApplication();
+
+        return $app === null ? '' : $app->view->render('panels/requestContext/summary', ['panel' => $this]);
     }
 
     /**
@@ -90,7 +95,9 @@ class RequestContextPanel extends Panel
      */
     public function getDetail()
     {
-        return Yii::$app->view->render('panels/requestContext/detail', ['panel' => $this]);
+        $app = $this->getWebApplication();
+
+        return $app === null ? '' : $app->view->render('panels/requestContext/detail', ['panel' => $this]);
     }
 
     /**
@@ -113,7 +120,7 @@ class RequestContextPanel extends Panel
     {
         $data = $this->data;
         $rows = [
-            'Route' => $this->renderCopyableValue($data['route']),
+            'Route' => $this->renderCopyableValue((string) ($data['route'] ?? '')),
             'Controller' => $data['controllerClass'] !== null ? $this->renderCopyableValue($data['controllerClass']) : null,
             'Controller File' => $data['controllerFile'] !== null ? $this->renderCopyableValue($data['controllerFile']) : null,
             'Action' => $data['actionMethod'] !== null ? $this->renderCopyableValue($data['actionMethod']) : null,
@@ -132,7 +139,8 @@ class RequestContextPanel extends Panel
      */
     public function save()
     {
-        $controller = Yii::$app->controller;
+        $app = $this->getWebApplication();
+        $controller = $app !== null ? $app->controller : null;
 
         return [
             'controllerClass' => $controller !== null ? get_class($controller) : null,
@@ -141,9 +149,9 @@ class RequestContextPanel extends Panel
             'actionMethod' => $this->resolveActionMethod(),
             'actionLine' => $this->resolveActionLine(),
             'layout' => $this->resolveLayout(),
-            'route' => Yii::$app->requestedAction
-                ? Yii::$app->requestedAction->getUniqueId()
-                : Yii::$app->requestedRoute,
+            'route' => $app === null
+                ? ''
+                : ($app->requestedAction ? $app->requestedAction->getUniqueId() : $app->requestedRoute),
             'routeParams' => $this->resolveRouteParams(),
             'behaviors' => $this->resolveBehaviors(),
             'viewTree' => $this->_viewTree,
@@ -154,7 +162,7 @@ class RequestContextPanel extends Panel
     /**
      * Renders the view tree as nested HTML list.
      *
-     * @param array $nodes
+     * @param list<array<string, mixed>> $nodes
      * @return string
      */
     public function renderViewTree($nodes)
@@ -183,17 +191,18 @@ class RequestContextPanel extends Panel
     }
 
     /**
-     * @param array $nodes
+     * @param list<array<string, mixed>> $nodes
      * @param list<array{short: string, type: string, depth: int, count: int}> $rows
      * @param int $depth
+     * @return void
      */
     private function flattenTree($nodes, &$rows, $depth)
     {
         $grouped = $this->groupNodes($nodes);
         foreach ($grouped as $item) {
             $rows[] = [
-                'short' => $item['node']['short'],
-                'type' => $this->classifyView($item['node']['short']),
+                'short' => (string) $item['node']['short'],
+                'type' => $this->classifyView((string) $item['node']['short']),
                 'depth' => $depth,
                 'count' => $item['count'],
             ];
@@ -214,14 +223,11 @@ class RequestContextPanel extends Panel
         $lines = [];
 
         $lines[] = 'Route: ' . ($data['route'] ?? '');
-        if ($data['controllerClass'] !== null) {
-            $actionInfo = $data['controllerClass'] . '::' . ($data['actionMethod'] ?? '') . '()';
-            if ($data['actionLine'] !== null) {
-                $actionInfo .= ' (line ' . $data['actionLine'] . ')';
-            }
+        $actionInfo = $this->buildActionInfo($data);
+        if ($actionInfo !== null) {
             $lines[] = 'Controller: ' . $actionInfo;
         }
-        if ($data['layout'] !== null) {
+        if (($data['layout'] ?? null) !== null) {
             $lines[] = 'Layout: ' . $data['layout'];
         }
 
@@ -249,11 +255,42 @@ class RequestContextPanel extends Panel
     }
 
     /**
+     * @param array<string, mixed> $data
+     * @return string|null
+     */
+    private function buildActionInfo(array $data)
+    {
+        $controllerClass = isset($data['controllerClass']) && is_string($data['controllerClass']) ? $data['controllerClass'] : null;
+        $actionMethod = isset($data['actionMethod']) && is_string($data['actionMethod']) ? $data['actionMethod'] : null;
+
+        if ($controllerClass === null && $actionMethod === null) {
+            return null;
+        }
+
+        if ($actionMethod === null) {
+            $actionInfo = $controllerClass;
+        } elseif (strpos($actionMethod, '::') !== false) {
+            $actionInfo = $actionMethod;
+        } elseif ($controllerClass !== null) {
+            $actionInfo = $controllerClass . '::' . $actionMethod . '()';
+        } else {
+            $actionInfo = $actionMethod . '()';
+        }
+
+        if (($data['actionLine'] ?? null) !== null) {
+            $actionInfo .= ' (line ' . $data['actionLine'] . ')';
+        }
+
+        return $actionInfo;
+    }
+
+    /**
      * @return string|null
      */
     private function resolveControllerFile()
     {
-        $controller = Yii::$app->controller;
+        $app = $this->getWebApplication();
+        $controller = $app !== null ? $app->controller : null;
         if ($controller === null) {
             return null;
         }
@@ -272,7 +309,8 @@ class RequestContextPanel extends Panel
      */
     private function resolveActionMethod()
     {
-        $action = Yii::$app->requestedAction;
+        $app = $this->getWebApplication();
+        $action = $app !== null ? $app->requestedAction : null;
         if ($action instanceof InlineAction) {
             return $action->actionMethod;
         }
@@ -287,8 +325,9 @@ class RequestContextPanel extends Panel
      */
     private function resolveActionLine()
     {
-        $controller = Yii::$app->controller;
-        $action = Yii::$app->requestedAction;
+        $app = $this->getWebApplication();
+        $controller = $app !== null ? $app->controller : null;
+        $action = $app !== null ? $app->requestedAction : null;
         if ($controller === null || !$action instanceof InlineAction) {
             return null;
         }
@@ -306,12 +345,13 @@ class RequestContextPanel extends Panel
      */
     private function resolveLayout()
     {
-        $controller = Yii::$app->controller;
+        $app = $this->getWebApplication();
+        $controller = $app !== null ? $app->controller : null;
         if ($controller === null) {
             return null;
         }
         $layout = $controller->findLayoutFile($controller->getView());
-        if ($layout === false) {
+        if (!is_string($layout)) {
             return null;
         }
         return $this->shortenPath($layout);
@@ -322,11 +362,13 @@ class RequestContextPanel extends Panel
      */
     private function resolveRouteParams()
     {
-        $request = Yii::$app->getRequest();
-        if (!$request instanceof \yii\web\Request) {
+        $app = $this->getApplication();
+        $requestedParams = $app !== null ? $app->requestedParams : null;
+        if (!is_array($requestedParams)) {
             return [];
         }
-        return $request->getQueryParams();
+
+        return $requestedParams;
     }
 
     /**
@@ -334,7 +376,8 @@ class RequestContextPanel extends Panel
      */
     private function resolveBehaviors()
     {
-        $controller = Yii::$app->controller;
+        $app = $this->getWebApplication();
+        $controller = $app !== null ? $app->controller : null;
         if ($controller === null) {
             return [];
         }
@@ -389,21 +432,17 @@ class RequestContextPanel extends Panel
     }
 
     /**
-     * @param string $type
-     * @return string
-     */
-
-    /**
-     * @param array $nodes
+     * @param list<array<string, mixed>> $nodes
      * @param list<string> $lines
      * @param string $prefix
+     * @return void
      */
     private function buildPlainTreeLines($nodes, &$lines, $prefix)
     {
         $grouped = $this->groupNodes($nodes);
         foreach ($grouped as $item) {
             $countSuffix = $item['count'] > 1 ? ' (' . $item['count'] . ')' : '';
-            $lines[] = $prefix . '  - ' . $item['node']['short'] . $countSuffix;
+            $lines[] = $prefix . '  - ' . (string) $item['node']['short'] . $countSuffix;
             if (!empty($item['children'])) {
                 $this->buildPlainTreeLines($item['children'], $lines, $prefix . '    ');
             }
@@ -413,28 +452,54 @@ class RequestContextPanel extends Panel
     /**
      * Groups consecutive nodes with the same short path and merges their children.
      *
-     * @param array $nodes
-     * @return list<array{node: array, count: int, children: array}>
+     * @param list<array<string, mixed>> $nodes
+     * @return list<GroupedViewNode>
      */
     private function groupNodes($nodes)
     {
         $grouped = [];
         foreach ($nodes as $node) {
-            $last = end($grouped);
-            if ($last !== false && $last['node']['short'] === $node['short']) {
-                $grouped[key($grouped)]['count']++;
-                $grouped[key($grouped)]['children'] = array_merge(
-                    $grouped[key($grouped)]['children'],
-                    isset($node['children']) ? $node['children'] : []
-                );
+            if (!isset($node['file'], $node['short']) || !array_key_exists('children', $node) || !is_array($node['children'])) {
+                continue;
+            }
+
+            /** @var ViewNode $viewNode */
+            $viewNode = [
+                'file' => (string) $node['file'],
+                'short' => (string) $node['short'],
+                'children' => $node['children'],
+            ];
+
+            $lastIndex = count($grouped) - 1;
+            if ($lastIndex >= 0 && $grouped[$lastIndex]['node']['short'] === $viewNode['short']) {
+                $grouped[$lastIndex]['count']++;
+                $grouped[$lastIndex]['children'] = array_merge($grouped[$lastIndex]['children'], $viewNode['children']);
             } else {
                 $grouped[] = [
-                    'node' => $node,
+                    'node' => $viewNode,
                     'count' => 1,
-                    'children' => isset($node['children']) ? $node['children'] : [],
+                    'children' => $viewNode['children'],
                 ];
             }
         }
         return $grouped;
+    }
+
+    /**
+     * @return \yii\base\Application|null
+     */
+    private function getApplication()
+    {
+        return Yii::$app;
+    }
+
+    /**
+     * @return \yii\web\Application|null
+     */
+    private function getWebApplication()
+    {
+        $app = $this->getApplication();
+
+        return $app instanceof \yii\web\Application ? $app : null;
     }
 }
