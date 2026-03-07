@@ -15,7 +15,7 @@ Yii Framework 2 debug extension Change Log
 2.1.28 under development
 ------------------------
 
-- Enh #553: Add `RequestContextPanel` showing route, controller/action, layout, view tree, controller behaviors, and route parameters (@shandori)
+- Enh #553: Add `RequestContextPanel` showing route, controller/action, layout, view tree, controller behaviors, and route parameters (@WarLikeLaux)
 
 2.1.27 June 08, 2025
 --------------------
