@@ -18,6 +18,8 @@ use yii\base\View;
 use yii\base\ViewEvent;
 use yii\debug\Module;
 use yii\debug\panels\RequestContextPanel;
+use yii\debug\panels\RequestContextTreeFormatter;
+use yii\debug\panels\RequestContextValueRenderer;
 use yii\filters\ContentNegotiator;
 use yiiunit\debug\support\TestController;
 
@@ -39,6 +41,11 @@ class RequestContextPanelTest extends TestCase
     private function getPanel(): RequestContextPanel
     {
         return new RequestContextPanel(['module' => new Module('debug')]);
+    }
+
+    private function getTreeFormatter(): RequestContextTreeFormatter
+    {
+        return new RequestContextTreeFormatter(new RequestContextValueRenderer());
     }
 
     private function getWebApplication(): \yii\web\Application
@@ -558,8 +565,7 @@ class RequestContextPanelTest extends TestCase
      */
     public function testClassifyView(string $path, string $expected): void
     {
-        $panel = $this->getPanel();
-        $this->assertSame($expected, $this->invoke($panel, 'classifyView', [$path]));
+        $this->assertSame($expected, $this->getTreeFormatter()->classifyView($path));
     }
 
     /**
@@ -578,13 +584,12 @@ class RequestContextPanelTest extends TestCase
 
     public function testGroupNodesConsecutive(): void
     {
-        $panel = $this->getPanel();
         $nodes = [
             ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => [['file' => '/app/views/child1.php', 'short' => 'child1.php', 'children' => []]]],
             ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => [['file' => '/app/views/child2.php', 'short' => 'child2.php', 'children' => []]]],
             ['file' => '/app/views/b.php', 'short' => 'b.php', 'children' => []],
         ];
-        $result = $this->invoke($panel, 'groupNodes', [$nodes]);
+        $result = $this->getTreeFormatter()->groupNodes($nodes);
 
         $this->assertCount(2, $result);
         $this->assertSame(2, $result[0]['count']);
@@ -594,13 +599,12 @@ class RequestContextPanelTest extends TestCase
 
     public function testGroupNodesNonConsecutiveSameNotGrouped(): void
     {
-        $panel = $this->getPanel();
         $nodes = [
             ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => []],
             ['file' => '/app/views/b.php', 'short' => 'b.php', 'children' => []],
             ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => []],
         ];
-        $result = $this->invoke($panel, 'groupNodes', [$nodes]);
+        $result = $this->getTreeFormatter()->groupNodes($nodes);
 
         $this->assertCount(3, $result);
     }

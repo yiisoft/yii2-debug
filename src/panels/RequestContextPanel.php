@@ -17,7 +17,6 @@ use yii\base\InlineAction;
 use yii\base\View;
 use yii\base\ViewEvent;
 use yii\debug\Panel;
-use yii\helpers\Html;
 
 /**
  * Debugger panel that collects and displays request context:
@@ -44,6 +43,21 @@ class RequestContextPanel extends Panel
      * @var list<ViewNode>
      */
     private $_renderStack = [];
+
+    /**
+     * @var RequestContextTreeFormatter|null
+     */
+    private $_treeFormatter;
+
+    /**
+     * @var RequestContextTextFormatter|null
+     */
+    private $_textFormatter;
+
+    /**
+     * @var RequestContextValueRenderer|null
+     */
+    private $_valueRenderer;
 
     /**
      * {@inheritdoc}
@@ -113,11 +127,7 @@ class RequestContextPanel extends Panel
      */
     public function renderCopyableValue($value)
     {
-        return Html::tag('code', Html::encode($value), ['class' => 'copyable-value', 'style' => 'cursor:pointer'])
-            . ' ' . Html::tag('span', 'Copied!', [
-                'class' => 'copyable-status text-success font-weight-bold',
-                'hidden' => true,
-            ]);
+        return $this->getValueRenderer()->renderCopyableValue($value);
     }
 
     /**
@@ -176,49 +186,7 @@ class RequestContextPanel extends Panel
      */
     public function renderViewTree($nodes)
     {
-        $rows = [];
-        $this->flattenTree($nodes, $rows, 0);
-
-        $html = '<table class="table table-condensed table-bordered table-striped table-hover">';
-        $html .= '<thead><tr><th style="width:15%">Type</th><th>View <small class="text-muted font-weight-normal">(click to copy)</small></th></tr></thead><tbody>';
-
-        foreach ($rows as $row) {
-            $indent = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $row['depth']);
-            $count = $row['count'] > 1 ? ' (' . $row['count'] . ')' : '';
-            $html .= '<tr>';
-            $html .= '<td>' . Html::encode(ucfirst($row['type'])) . '</td>';
-            $html .= '<td>'
-                . '<code class="copyable-value" style="cursor:pointer">' . $indent . Html::encode($row['short']) . $count . '</code>'
-                . ' ' . Html::tag('span', 'Copied!', ['class' => 'copyable-status text-success font-weight-bold', 'hidden' => true])
-                . '</td>';
-            $html .= '</tr>';
-        }
-
-        $html .= '</tbody></table>';
-
-        return $html;
-    }
-
-    /**
-     * @param list<array<string, mixed>> $nodes
-     * @param list<array{short: string, type: string, depth: int, count: int}> $rows
-     * @param int $depth
-     * @return void
-     */
-    private function flattenTree($nodes, &$rows, $depth)
-    {
-        $grouped = $this->groupNodes($nodes);
-        foreach ($grouped as $item) {
-            $rows[] = [
-                'short' => (string) $item['node']['short'],
-                'type' => $this->classifyView((string) $item['node']['short']),
-                'depth' => $depth,
-                'count' => $item['count'],
-            ];
-            if (!empty($item['children'])) {
-                $this->flattenTree($item['children'], $rows, $depth + 1);
-            }
-        }
+        return $this->getTreeFormatter()->renderViewTree($nodes);
     }
 
     /**
@@ -228,69 +196,7 @@ class RequestContextPanel extends Panel
      */
     public function buildPlainText()
     {
-        $data = $this->data;
-        $lines = [];
-
-        $lines[] = 'Route: ' . ($data['route'] ?? '');
-        $actionInfo = $this->buildActionInfo($data);
-        if ($actionInfo !== null) {
-            $lines[] = 'Controller: ' . $actionInfo;
-        }
-        if (($data['layout'] ?? null) !== null) {
-            $lines[] = 'Layout: ' . $data['layout'];
-        }
-
-        $routeParams = $data['routeParams'] ?? [];
-        if (!empty($routeParams)) {
-            $lines[] = 'Route Params: ' . http_build_query($routeParams);
-        }
-
-        $viewTree = $data['viewTree'] ?? [];
-        if (!empty($viewTree)) {
-            $lines[] = 'Views:';
-            $this->buildPlainTreeLines($viewTree, $lines, '');
-        }
-
-        $behaviors = $data['behaviors'] ?? [];
-        if (!empty($behaviors)) {
-            $names = array_map(function ($b) {
-                $parts = explode('\\', $b['class']);
-                return end($parts);
-            }, $behaviors);
-            $lines[] = 'Behaviors: ' . implode(', ', $names);
-        }
-
-        return implode("\n", $lines);
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     * @return string|null
-     */
-    private function buildActionInfo(array $data)
-    {
-        $controllerClass = isset($data['controllerClass']) && is_string($data['controllerClass']) ? $data['controllerClass'] : null;
-        $actionMethod = isset($data['actionMethod']) && is_string($data['actionMethod']) ? $data['actionMethod'] : null;
-
-        if ($controllerClass === null && $actionMethod === null) {
-            return null;
-        }
-
-        if ($actionMethod === null) {
-            $actionInfo = $controllerClass;
-        } elseif (strpos($actionMethod, '::') !== false) {
-            $actionInfo = $actionMethod;
-        } elseif ($controllerClass !== null) {
-            $actionInfo = $controllerClass . '::' . $actionMethod . '()';
-        } else {
-            $actionInfo = $actionMethod . '()';
-        }
-
-        if (($data['actionLine'] ?? null) !== null) {
-            $actionInfo .= ' (line ' . $data['actionLine'] . ')';
-        }
-
-        return $actionInfo;
+        return $this->getTextFormatter()->buildPlainText($this->data);
     }
 
     /**
@@ -417,74 +323,38 @@ class RequestContextPanel extends Panel
     }
 
     /**
-     * @param string $path
-     * @return string one of: layout, widget, partial, view
+     * @return RequestContextTreeFormatter
      */
-    private function classifyView($path)
+    private function getTreeFormatter()
     {
-        if (strpos($path, 'layouts/') !== false) {
-            return 'layout';
+        if ($this->_treeFormatter === null) {
+            $this->_treeFormatter = new RequestContextTreeFormatter($this->getValueRenderer());
         }
-        if (strpos($path, 'widgets/') !== false || strpos($path, 'widget/') !== false) {
-            return 'widget';
-        }
-        if (strpos(basename($path), '_') === 0) {
-            return 'partial';
-        }
-        return 'view';
+
+        return $this->_treeFormatter;
     }
 
     /**
-     * @param list<array<string, mixed>> $nodes
-     * @param list<string> $lines
-     * @param string $prefix
-     * @return void
+     * @return RequestContextTextFormatter
      */
-    private function buildPlainTreeLines($nodes, &$lines, $prefix)
+    private function getTextFormatter()
     {
-        $grouped = $this->groupNodes($nodes);
-        foreach ($grouped as $item) {
-            $countSuffix = $item['count'] > 1 ? ' (' . $item['count'] . ')' : '';
-            $lines[] = $prefix . '  - ' . (string) $item['node']['short'] . $countSuffix;
-            if (!empty($item['children'])) {
-                $this->buildPlainTreeLines($item['children'], $lines, $prefix . '    ');
-            }
+        if ($this->_textFormatter === null) {
+            $this->_textFormatter = new RequestContextTextFormatter($this->getTreeFormatter());
         }
+
+        return $this->_textFormatter;
     }
 
     /**
-     * Groups consecutive nodes with the same short path and merges their children.
-     *
-     * @param list<array<string, mixed>> $nodes
-     * @return list<GroupedViewNode>
+     * @return RequestContextValueRenderer
      */
-    private function groupNodes($nodes)
+    private function getValueRenderer()
     {
-        $grouped = [];
-        foreach ($nodes as $node) {
-            if (!isset($node['file'], $node['short']) || !array_key_exists('children', $node) || !is_array($node['children'])) {
-                continue;
-            }
-
-            /** @var ViewNode $viewNode */
-            $viewNode = [
-                'file' => (string) $node['file'],
-                'short' => (string) $node['short'],
-                'children' => $node['children'],
-            ];
-
-            $lastIndex = count($grouped) - 1;
-            if ($lastIndex >= 0 && $grouped[$lastIndex]['node']['short'] === $viewNode['short']) {
-                $grouped[$lastIndex]['count']++;
-                $grouped[$lastIndex]['children'] = array_merge($grouped[$lastIndex]['children'], $viewNode['children']);
-            } else {
-                $grouped[] = [
-                    'node' => $viewNode,
-                    'count' => 1,
-                    'children' => $viewNode['children'],
-                ];
-            }
+        if ($this->_valueRenderer === null) {
+            $this->_valueRenderer = new RequestContextValueRenderer();
         }
-        return $grouped;
+
+        return $this->_valueRenderer;
     }
 }
