@@ -26,12 +26,33 @@ class RequestContextPanelTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->resetViewRenderListeners();
         $this->mockWebApplication();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->resetViewRenderListeners();
+        parent::tearDown();
     }
 
     private function getPanel(): RequestContextPanel
     {
         return new RequestContextPanel(['module' => new Module('debug')]);
+    }
+
+    private function getWebApplication(): \yii\web\Application
+    {
+        /** @var \yii\web\Application $app */
+        $app = Yii::$app;
+
+        return $app;
+    }
+
+    private function resetViewRenderListeners(): void
+    {
+        Event::off(View::class, View::EVENT_BEFORE_RENDER);
+        Event::off(View::class, View::EVENT_AFTER_RENDER);
     }
 
     public function testGetName(): void
@@ -73,7 +94,8 @@ class RequestContextPanelTest extends TestCase
 
     public function testSaveWithNoController(): void
     {
-        Yii::$app->controller = null;
+        $app = $this->getWebApplication();
+        $app->controller = null;
         $panel = $this->getPanel();
         $data = $panel->save();
 
@@ -88,11 +110,12 @@ class RequestContextPanelTest extends TestCase
 
     public function testSaveWithController(): void
     {
-        $controller = new TestController('test', Yii::$app);
+        $app = $this->getWebApplication();
+        $controller = new TestController('test', $app);
         $action = new InlineAction('index', $controller, 'actionIndex');
         $controller->action = $action;
-        Yii::$app->controller = $controller;
-        Yii::$app->requestedAction = $action;
+        $app->controller = $controller;
+        $app->requestedAction = $action;
 
         $panel = $this->getPanel();
         $data = $panel->save();
@@ -107,9 +130,10 @@ class RequestContextPanelTest extends TestCase
 
     public function testSaveWithControllerBehaviors(): void
     {
-        $controller = new TestController('test', Yii::$app);
-        $controller->attachBehavior('testBehavior', new ContentNegotiator());
-        Yii::$app->controller = $controller;
+        $app = $this->getWebApplication();
+        $controller = new TestController('test', $app);
+        $controller->attachBehavior('testBehavior', ['class' => ContentNegotiator::class]);
+        $app->controller = $controller;
 
         $panel = $this->getPanel();
         $data = $panel->save();
@@ -121,21 +145,22 @@ class RequestContextPanelTest extends TestCase
 
     public function testSaveRouteParams(): void
     {
-        $_GET = ['id' => '42', 'slug' => 'test'];
+        $app = $this->getWebApplication();
+        $app->requestedParams = ['id' => '42', 'slug' => 'test'];
         $panel = $this->getPanel();
         $data = $panel->save();
 
         $this->assertSame(['id' => '42', 'slug' => 'test'], $data['routeParams']);
-        $_GET = [];
     }
 
     public function testSaveActionLineWithInlineAction(): void
     {
-        $controller = new TestController('test', Yii::$app);
+        $app = $this->getWebApplication();
+        $controller = new TestController('test', $app);
         $action = new InlineAction('index', $controller, 'actionIndex');
         $controller->action = $action;
-        Yii::$app->controller = $controller;
-        Yii::$app->requestedAction = $action;
+        $app->controller = $controller;
+        $app->requestedAction = $action;
 
         $panel = $this->getPanel();
         $data = $panel->save();
@@ -146,8 +171,9 @@ class RequestContextPanelTest extends TestCase
 
     public function testSaveActionLineNullWithoutInlineAction(): void
     {
-        Yii::$app->controller = null;
-        Yii::$app->requestedAction = null;
+        $app = $this->getWebApplication();
+        $app->controller = null;
+        $app->requestedAction = null;
 
         $panel = $this->getPanel();
         $data = $panel->save();
@@ -280,6 +306,49 @@ class RequestContextPanelTest extends TestCase
 
         $this->assertStringNotContainsString('line', $text);
         $this->assertStringNotContainsString('Layout:', $text);
+    }
+
+    public function testBuildPlainTextWithStandaloneActionMethod(): void
+    {
+        $panel = $this->getPanel();
+        $panel->data = [
+            'route' => 'test/external',
+            'controllerClass' => TestController::class,
+            'actionMethod' => Action::class . '::run()',
+            'actionLine' => null,
+            'layout' => null,
+            'viewTree' => [],
+            'behaviors' => [],
+            'routeParams' => [],
+            'controllerFile' => null,
+            'viewCount' => 0,
+        ];
+        $text = $panel->buildPlainText();
+
+        $this->assertStringContainsString('Controller: ' . Action::class . '::run()', $text);
+        $this->assertStringNotContainsString(TestController::class . '::' . Action::class, $text);
+        $this->assertStringNotContainsString('()()', $text);
+    }
+
+    public function testBuildPlainTextWithoutResolvedActionMethod(): void
+    {
+        $panel = $this->getPanel();
+        $panel->data = [
+            'route' => 'site/index',
+            'controllerClass' => TestController::class,
+            'actionMethod' => null,
+            'actionLine' => null,
+            'layout' => null,
+            'viewTree' => [],
+            'behaviors' => [],
+            'routeParams' => [],
+            'controllerFile' => null,
+            'viewCount' => 0,
+        ];
+        $text = $panel->buildPlainText();
+
+        $this->assertStringContainsString('Controller: ' . TestController::class, $text);
+        $this->assertStringNotContainsString('::()', $text);
     }
 
     public function testBuildPlainTextWithRouteParams(): void
@@ -511,9 +580,9 @@ class RequestContextPanelTest extends TestCase
     {
         $panel = $this->getPanel();
         $nodes = [
-            ['short' => 'a.php', 'children' => [['short' => 'child1.php', 'children' => []]]],
-            ['short' => 'a.php', 'children' => [['short' => 'child2.php', 'children' => []]]],
-            ['short' => 'b.php', 'children' => []],
+            ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => [['file' => '/app/views/child1.php', 'short' => 'child1.php', 'children' => []]]],
+            ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => [['file' => '/app/views/child2.php', 'short' => 'child2.php', 'children' => []]]],
+            ['file' => '/app/views/b.php', 'short' => 'b.php', 'children' => []],
         ];
         $result = $this->invoke($panel, 'groupNodes', [$nodes]);
 
@@ -527,9 +596,9 @@ class RequestContextPanelTest extends TestCase
     {
         $panel = $this->getPanel();
         $nodes = [
-            ['short' => 'a.php', 'children' => []],
-            ['short' => 'b.php', 'children' => []],
-            ['short' => 'a.php', 'children' => []],
+            ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => []],
+            ['file' => '/app/views/b.php', 'short' => 'b.php', 'children' => []],
+            ['file' => '/app/views/a.php', 'short' => 'a.php', 'children' => []],
         ];
         $result = $this->invoke($panel, 'groupNodes', [$nodes]);
 
@@ -538,7 +607,6 @@ class RequestContextPanelTest extends TestCase
 
     public function testInitTracksViewEvents(): void
     {
-        Event::offAll();
         $panel = $this->getPanel();
 
         $view = new View();
@@ -556,7 +624,6 @@ class RequestContextPanelTest extends TestCase
 
     public function testInitTracksNestedViews(): void
     {
-        Event::offAll();
         $panel = $this->getPanel();
 
         $view = new View();
@@ -579,7 +646,7 @@ class RequestContextPanelTest extends TestCase
         $viewPath = dirname(__DIR__) . '/src/views/default';
         $panel = $this->getPanel();
         $panel->data = ['route' => 'site/index'];
-        $summary = Yii::$app->view->renderFile($viewPath . '/panels/requestContext/summary.php', ['panel' => $panel]);
+        $summary = $this->getWebApplication()->view->renderFile($viewPath . '/panels/requestContext/summary.php', ['panel' => $panel]);
 
         $this->assertStringContainsString('Context', $summary);
         $this->assertStringContainsString('&#9881;', $summary);
@@ -601,7 +668,7 @@ class RequestContextPanelTest extends TestCase
             'behaviors' => [],
             'routeParams' => [],
         ];
-        $detail = Yii::$app->view->renderFile($viewPath . '/panels/requestContext/detail.php', ['panel' => $panel]);
+        $detail = $this->getWebApplication()->view->renderFile($viewPath . '/panels/requestContext/detail.php', ['panel' => $panel]);
 
         $this->assertStringContainsString('Request Context', $detail);
         $this->assertStringContainsString('site/index', $detail);
@@ -609,9 +676,10 @@ class RequestContextPanelTest extends TestCase
 
     public function testResolveLayoutWithControllerLayoutFalse(): void
     {
-        $controller = new TestController('test', Yii::$app);
+        $app = $this->getWebApplication();
+        $controller = new TestController('test', $app);
         $controller->layout = false;
-        Yii::$app->controller = $controller;
+        $app->controller = $controller;
 
         $panel = $this->getPanel();
         $data = $panel->save();
@@ -621,10 +689,11 @@ class RequestContextPanelTest extends TestCase
 
     public function testSaveWithStandaloneAction(): void
     {
-        $controller = new TestController('test', Yii::$app);
+        $app = $this->getWebApplication();
+        $controller = new TestController('test', $app);
         $action = new Action('external', $controller);
-        Yii::$app->requestedAction = $action;
-        Yii::$app->controller = $controller;
+        $app->requestedAction = $action;
+        $app->controller = $controller;
 
         $panel = $this->getPanel();
         $data = $panel->save();
@@ -646,7 +715,6 @@ class RequestContextPanelTest extends TestCase
 
     public function testInitAfterRenderWithEmptyStack(): void
     {
-        Event::offAll();
         $panel = $this->getPanel();
 
         $view = new View();
