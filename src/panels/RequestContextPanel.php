@@ -88,6 +88,10 @@ class RequestContextPanel extends Panel
      */
     public function getSummary()
     {
+        if (Yii::$app === null) {
+            return '';
+        }
+
         return Yii::$app->view->render('panels/requestContext/summary', ['panel' => $this]);
     }
 
@@ -96,6 +100,10 @@ class RequestContextPanel extends Panel
      */
     public function getDetail()
     {
+        if (Yii::$app === null) {
+            return '';
+        }
+
         return Yii::$app->view->render('panels/requestContext/detail', ['panel' => $this]);
     }
 
@@ -138,6 +146,10 @@ class RequestContextPanel extends Panel
      */
     public function save()
     {
+        if (Yii::$app === null) {
+            return [];
+        }
+
         $controller = Yii::$app->controller;
         $action = Yii::$app->requestedAction;
 
@@ -148,7 +160,7 @@ class RequestContextPanel extends Panel
             'actionMethod' => $this->resolveActionMethod($action),
             'actionLine' => $this->resolveActionLine($controller, $action),
             'layout' => $this->resolveLayout($controller),
-            'route' => $action ? $action->getUniqueId() : Yii::$app->requestedRoute,
+            'route' => $action !== null ? $action->getUniqueId() : Yii::$app->requestedRoute,
             'routeParams' => $this->resolveRouteParams(),
             'behaviors' => $this->resolveBehaviors($controller),
             'viewTree' => $this->_viewTree,
@@ -355,7 +367,7 @@ class RequestContextPanel extends Panel
      */
     private function resolveRouteParams()
     {
-        $requestedParams = Yii::$app->requestedParams;
+        $requestedParams = Yii::$app !== null ? Yii::$app->requestedParams : null;
         if (!is_array($requestedParams)) {
             return [];
         }
