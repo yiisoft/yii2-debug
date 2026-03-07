@@ -12,6 +12,11 @@ Yii Framework 2 debug extension Change Log
 - Bug #549: Enhance documentation and add scripts for `composer.json` (@terabytesoftw)
 - Bug #550: Fix logo image sources in `README.md` for correct color scheme display (@terabytesoftw)
 
+2.1.28 under development
+------------------------
+
+- Enh #553: Add `RequestContextPanel` showing route, controller/action, layout, view tree, controller behaviors, and route parameters (@WarLikeLaux)
+
 2.1.27 June 08, 2025
 --------------------
 

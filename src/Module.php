@@ -495,6 +495,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             $corePanels['request'] = ['class' => 'yii\debug\panels\RequestPanel'];
             $corePanels['user'] = ['class' => 'yii\debug\panels\UserPanel'];
             $corePanels['asset'] = ['class' => 'yii\debug\panels\AssetPanel'];
+            $corePanels['context'] = ['class' => 'yii\debug\panels\RequestContextPanel'];
         }
 
         return $corePanels;
