@@ -52,14 +52,17 @@ $viewTree = isset($panel->data['viewTree']) ? $panel->data['viewTree'] : [];
             <thead>
                 <tr>
                     <th style="width:15%">Name</th>
-                    <th>Class</th>
+                    <th>
+                        Class
+                        <small class="text-muted font-weight-normal">(click to copy)</small>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($behaviors as $behavior): ?>
                     <tr>
                         <td><?= Html::encode($behavior['name']) ?></td>
-                        <td><?= Html::encode($behavior['class']) ?></td>
+                        <td><?= $panel->renderCopyableValue($behavior['class']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -74,7 +77,10 @@ $viewTree = isset($panel->data['viewTree']) ? $panel->data['viewTree'] : [];
             <thead>
                 <tr>
                     <th style="width:15%">Name</th>
-                    <th>Value</th>
+                    <th>
+                        Value
+                        <small class="text-muted font-weight-normal">(click to copy)</small>
+                    </th>
                 </tr>
             </thead>
             <tbody>
