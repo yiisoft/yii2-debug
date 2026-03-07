@@ -8,6 +8,9 @@
 
 namespace yii\debug\panels;
 
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 use Yii;
 use yii\base\Event;
 use yii\base\InlineAction;
@@ -85,9 +88,7 @@ class RequestContextPanel extends Panel
      */
     public function getSummary()
     {
-        $app = $this->getWebApplication();
-
-        return $app === null ? '' : $app->view->render('panels/requestContext/summary', ['panel' => $this]);
+        return Yii::$app->view->render('panels/requestContext/summary', ['panel' => $this]);
     }
 
     /**
@@ -95,9 +96,7 @@ class RequestContextPanel extends Panel
      */
     public function getDetail()
     {
-        $app = $this->getWebApplication();
-
-        return $app === null ? '' : $app->view->render('panels/requestContext/detail', ['panel' => $this]);
+        return Yii::$app->view->render('panels/requestContext/detail', ['panel' => $this]);
     }
 
     /**
@@ -139,21 +138,19 @@ class RequestContextPanel extends Panel
      */
     public function save()
     {
-        $app = $this->getWebApplication();
-        $controller = $app !== null ? $app->controller : null;
+        $controller = Yii::$app->controller;
+        $action = Yii::$app->requestedAction;
 
         return [
             'controllerClass' => $controller !== null ? get_class($controller) : null,
-            'controllerFile' => $this->resolveControllerFile(),
+            'controllerFile' => $this->resolveControllerFile($controller),
             'actionId' => $controller !== null && $controller->action !== null ? $controller->action->id : null,
-            'actionMethod' => $this->resolveActionMethod(),
-            'actionLine' => $this->resolveActionLine(),
-            'layout' => $this->resolveLayout(),
-            'route' => $app === null
-                ? ''
-                : ($app->requestedAction ? $app->requestedAction->getUniqueId() : $app->requestedRoute),
+            'actionMethod' => $this->resolveActionMethod($action),
+            'actionLine' => $this->resolveActionLine($controller, $action),
+            'layout' => $this->resolveLayout($controller),
+            'route' => $action ? $action->getUniqueId() : Yii::$app->requestedRoute,
             'routeParams' => $this->resolveRouteParams(),
-            'behaviors' => $this->resolveBehaviors(),
+            'behaviors' => $this->resolveBehaviors($controller),
             'viewTree' => $this->_viewTree,
             'viewCount' => count($this->_renderedViews),
         ];
@@ -285,32 +282,30 @@ class RequestContextPanel extends Panel
     }
 
     /**
+     * @param \yii\base\Controller|null $controller
      * @return string|null
      */
-    private function resolveControllerFile()
+    private function resolveControllerFile($controller)
     {
-        $app = $this->getWebApplication();
-        $controller = $app !== null ? $app->controller : null;
         if ($controller === null) {
             return null;
         }
 
         try {
-            $reflector = new \ReflectionClass(get_class($controller));
+            $reflector = new ReflectionClass(get_class($controller));
             $fileName = $reflector->getFileName();
             return $fileName !== false ? $this->shortenPath($fileName) : null;
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return null;
         }
     }
 
     /**
+     * @param \yii\base\Action|null $action
      * @return string|null
      */
-    private function resolveActionMethod()
+    private function resolveActionMethod($action)
     {
-        $app = $this->getWebApplication();
-        $action = $app !== null ? $app->requestedAction : null;
         if ($action instanceof InlineAction) {
             return $action->actionMethod;
         }
@@ -321,32 +316,30 @@ class RequestContextPanel extends Panel
     }
 
     /**
+     * @param \yii\base\Controller|null $controller
+     * @param \yii\base\Action|null $action
      * @return int|null
      */
-    private function resolveActionLine()
+    private function resolveActionLine($controller, $action)
     {
-        $app = $this->getWebApplication();
-        $controller = $app !== null ? $app->controller : null;
-        $action = $app !== null ? $app->requestedAction : null;
         if ($controller === null || !$action instanceof InlineAction) {
             return null;
         }
         try {
-            $method = new \ReflectionMethod($controller, $action->actionMethod);
+            $method = new ReflectionMethod($controller, $action->actionMethod);
             $line = $method->getStartLine();
             return $line !== false ? $line : null;
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return null;
         }
     }
 
     /**
+     * @param \yii\base\Controller|null $controller
      * @return string|null
      */
-    private function resolveLayout()
+    private function resolveLayout($controller)
     {
-        $app = $this->getWebApplication();
-        $controller = $app !== null ? $app->controller : null;
         if ($controller === null) {
             return null;
         }
@@ -362,8 +355,7 @@ class RequestContextPanel extends Panel
      */
     private function resolveRouteParams()
     {
-        $app = $this->getApplication();
-        $requestedParams = $app !== null ? $app->requestedParams : null;
+        $requestedParams = Yii::$app->requestedParams;
         if (!is_array($requestedParams)) {
             return [];
         }
@@ -372,12 +364,11 @@ class RequestContextPanel extends Panel
     }
 
     /**
+     * @param \yii\base\Controller|null $controller
      * @return list<array{name: string, class: string}>
      */
-    private function resolveBehaviors()
+    private function resolveBehaviors($controller)
     {
-        $app = $this->getWebApplication();
-        $controller = $app !== null ? $app->controller : null;
         if ($controller === null) {
             return [];
         }
@@ -483,23 +474,5 @@ class RequestContextPanel extends Panel
             }
         }
         return $grouped;
-    }
-
-    /**
-     * @return \yii\base\Application|null
-     */
-    private function getApplication()
-    {
-        return Yii::$app;
-    }
-
-    /**
-     * @return \yii\web\Application|null
-     */
-    private function getWebApplication()
-    {
-        $app = $this->getApplication();
-
-        return $app instanceof \yii\web\Application ? $app : null;
     }
 }
