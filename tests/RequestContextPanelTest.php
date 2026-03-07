@@ -51,6 +51,9 @@ class RequestContextPanelTest extends TestCase
         $this->assertArrayHasKey($key, $data);
     }
 
+    /**
+     * @return array<int, array{string}>
+     */
     public function saveKeysProvider(): array
     {
         return [
@@ -202,6 +205,9 @@ class RequestContextPanelTest extends TestCase
         $this->assertStringContainsString($expectedType, $html);
     }
 
+    /**
+     * @return array<string, array{string, string}>
+     */
     public function classifyViewProvider(): array
     {
         return [
@@ -487,6 +493,9 @@ class RequestContextPanelTest extends TestCase
         $this->assertSame($expected, $this->invoke($panel, 'classifyView', [$path]));
     }
 
+    /**
+     * @return array<string, array{string, string}>
+     */
     public function classifyViewDataProvider(): array
     {
         return [
