@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -80,7 +81,7 @@ class DefaultController extends Controller
         $tags = array_keys($this->getManifest());
 
         if (empty($tags)) {
-            throw new \Exception("No debug data have been collected yet, try browsing the website first.");
+            throw new \Exception('No debug data have been collected yet, try browsing the website first.');
         }
 
         $tag = reset($tags);
@@ -108,7 +109,7 @@ class DefaultController extends Controller
             $tag = reset($tags);
         }
         $this->loadData($tag);
-        if (isset($this->module->panels[$panel])) {
+        if ($panel !== null && isset($this->module->panels[$panel])) {
             $activePanel = $this->module->panels[$panel];
         } else {
             $activePanel = $this->module->panels[$this->module->defaultPanel];

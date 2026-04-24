@@ -11,7 +11,7 @@ class RouterRulesTest extends TestCase
     /**
      * @test
      */
-    public function shouldDetectPrettyUrlEnabled()
+    public function shouldDetectPrettyUrlEnabled(): void
     {
         $this->mockWebApplication(
             [
@@ -32,7 +32,7 @@ class RouterRulesTest extends TestCase
     /**
      * @test
      */
-    public function shouldDetectPrettyUrlDisabled()
+    public function shouldDetectPrettyUrlDisabled(): void
     {
         $this->mockWebApplication(
             [
@@ -53,7 +53,7 @@ class RouterRulesTest extends TestCase
     /**
      * @test
      */
-    public function shouldDetectStrictParsingEnabled()
+    public function shouldDetectStrictParsingEnabled(): void
     {
         $this->mockWebApplication(
             [
@@ -74,7 +74,7 @@ class RouterRulesTest extends TestCase
     /**
      * @test
      */
-    public function shouldDetectStrictParsingDisabled()
+    public function shouldDetectStrictParsingDisabled(): void
     {
         $this->mockWebApplication(
             [
@@ -95,7 +95,7 @@ class RouterRulesTest extends TestCase
     /**
      * @test
      */
-    public function shouldDetectGlobalSuffix()
+    public function shouldDetectGlobalSuffix(): void
     {
         $this->mockWebApplication(
             [
@@ -113,7 +113,7 @@ class RouterRulesTest extends TestCase
         $this->assertSame('test', $router->suffix);
     }
 
-    public function providerForWebRules()
+    public function providerForWebRules(): array
     {
         return [
             'simple' => [
@@ -291,7 +291,7 @@ class RouterRulesTest extends TestCase
      * @param array $rules
      * @param array $expected
      */
-    public function shouldProperlyScanWebRule($rules, $expected)
+    public function shouldProperlyScanWebRule($rules, $expected): void
     {
         $this->mockWebApplication(
             [

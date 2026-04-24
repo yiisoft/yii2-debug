@@ -18,7 +18,7 @@ use yii\web\View;
 
 <?php
 if (Yii::$app->log->traceLevel < 1) {
-    echo "<div class=\"callout callout-warning\">Check application configuration section [log] for <b>traceLevel</b></div>";
+    echo '<div class="callout callout-warning">Check application configuration section [log] for <b>traceLevel</b></div>';
 }
 
 if ($sumDuplicates === 1) {
@@ -32,7 +32,7 @@ $excessiveCallers = $panel->getExcessiveCallers();
 $numExcessiveCallers = count($excessiveCallers);
 if ($numExcessiveCallers) {
     $excessiveCallersInfo = "<p><b>$numExcessiveCallers</b> excessive caller" . ($numExcessiveCallers > 1 ? 's' : '')
-        . ' making '. array_sum($excessiveCallers) .' cals.</p>';
+        . ' making ' . array_sum($excessiveCallers) . ' cals.</p>';
 
     echo $excessiveCallersInfo;
 }

@@ -9,7 +9,7 @@ use yii\log\Logger;
 
 class LogTargetTest extends TestCase
 {
-    public function testGetRequestTime()
+    public function testGetRequestTime(): void
     {
         Yii::$app->getRequest()->setUrl('dummy');
 
@@ -21,7 +21,7 @@ class LogTargetTest extends TestCase
         self::assertSame($_SERVER['REQUEST_TIME_FLOAT'], $data['time']);
     }
 
-    public function testLogPanelClosures()
+    public function testLogPanelClosures(): void
     {
         Yii::$app->getRequest()->setUrl('dummy');
         $module = new Module('debug');
@@ -29,9 +29,9 @@ class LogTargetTest extends TestCase
         $logTarget = $module->logTarget;
 
         // Logs to test
-        Yii::debug("qwe");
-        Yii::warning("asd");
-        Yii::info(['test_callback' => function($cbArg) {
+        Yii::debug('qwe');
+        Yii::warning('asd');
+        Yii::info(['test_callback' => function ($cbArg) {
             return $cbArg . 'cbResult';
         }]);
 
