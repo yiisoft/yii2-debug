@@ -430,7 +430,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         $ip = Yii::$app->getRequest()->getUserIP();
         foreach ($this->allowedIPs as $filter) {
-            if ($filter === '*'
+            if (
+                $filter === '*'
                 || $filter === $ip
                 || (
                     ($pos = strpos($filter, '*')) !== false

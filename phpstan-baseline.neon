@@ -2257,6 +2257,12 @@ parameters:
 			path: src/views/default/index.php
 
 		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/index.php
+
+		-
 			message: '#^Cannot access property \$formatter on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2331,6 +2337,12 @@ parameters:
 		-
 			message: '#^Anonymous function has an unused use \$hasExplain\.$#'
 			identifier: closure.unusedUse
+			count: 1
+			path: src/views/default/panels/db/callers.php
+
+		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
 			count: 1
 			path: src/views/default/panels/db/callers.php
 
@@ -2419,6 +2431,12 @@ parameters:
 			path: src/views/default/panels/db/detail.php
 
 		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/panels/db/queries.php
+
+		-
 			message: '#^Cannot access property \$controller on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2485,6 +2503,12 @@ parameters:
 			path: src/views/default/panels/db/summary.php
 
 		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/panels/dump/detail.php
+
+		-
 			message: '#^Variable \$dataProvider might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -2507,6 +2531,12 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: src/views/default/panels/dump/summary.php
+
+		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/panels/event/detail.php
 
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, \(float\|false\) given\.$#'
@@ -2543,6 +2573,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/event/summary.php
+
+		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/panels/log/detail.php
 
 		-
 			message: '#^Variable \$dataProvider might not be defined\.$#'
@@ -2627,6 +2663,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/mail/summary.php
+
+		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/panels/profile/detail.php
 
 		-
 			message: '#^Variable \$dataProvider might not be defined\.$#'
@@ -2809,6 +2851,12 @@ parameters:
 			path: src/views/default/panels/user/detail.php
 
 		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/views/default/panels/user/roles.php
+
+		-
 			message: '#^Variable \$panel might not be defined\.$#'
 			identifier: variable.undefined
 			count: 4
@@ -2843,6 +2891,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/user/summary.php
+
+		-
+			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/views/default/panels/user/switch.php
 
 		-
 			message: '#^Variable \$panel might not be defined\.$#'

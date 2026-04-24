@@ -52,7 +52,7 @@ class LogTargetTest extends TestCase
         $this->assertEquals(Logger::LEVEL_WARNING, $panelData['messages'][1][1]);
 
         $this->assertStringContainsString('test_callback', $panelData['messages'][2][0]);
-        $this->assertStringContainsString('function($cbArg)', $panelData['messages'][2][0]);
+        $this->assertStringContainsString('function ($cbArg)', $panelData['messages'][2][0]);
         $this->assertStringContainsString("return \$cbArg . 'cbResult'", $panelData['messages'][2][0]);
         $this->assertEquals(Logger::LEVEL_INFO, $panelData['messages'][2][1]);
     }
