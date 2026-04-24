@@ -189,8 +189,7 @@ class ActionRoutes extends Model
                 continue;
             }
             $class = new \ReflectionClass($controllerClass);
-            if (
-                $class->isAbstract()
+            if ($class->isAbstract()
                 || (!$class->isSubclassOf('yii\web\Controller') && !$class->isSubclassOf('yii\rest\Controller'))
             ) {
                 continue;
