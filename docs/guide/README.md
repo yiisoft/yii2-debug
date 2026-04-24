@@ -30,3 +30,7 @@ Additional topics
 -----------------
 
 * [Creating your own panels](topics-creating-your-own-panels.md)
+
+Contributing
+------------
+* [Internals](internals.md)

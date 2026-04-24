@@ -62,5 +62,4 @@ if ($panel->data['permissionsProvider']) {
             'updatedAt:datetime'
         ]
     ]);
-} ?>
-
+}

@@ -1,10 +1,26 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
-2.1.27 under development
+2.1.29 under development
 ------------------------
 
 - no changes in this release.
+
+2.1.28 April 22, 2026
+---------------------
+
+- Bug #541: Silence fetch errors (Karkbauer)
+- Bug #543: Fixed a PHP 8.5 deprecation warning caused by using null as an array offset (nadar)
+- Bug #548: Fix `Deprecated ArrayObject::__construct()` and Method `ReflectionMethod::setAccessible()` in PHP 8.5 (@terabytesoftw)
+- Bug #549: Enhance documentation and add scripts for `composer.json` (@terabytesoftw)
+- Bug #550: Fix logo image sources in `README.md` for correct color scheme display (@terabytesoftw)
+- Enh #546: Applying Yii2 coding standards (@s1lver)
+- Enh #546: Raise min version to PHP 7.4 (@s1lver)
+
+2.1.27 June 08, 2025
+--------------------
+
+- Bug #531: Fix unnecessary usage of backticks in UserPanel (danielmorell)
 
 
 2.1.26 February 13, 2025

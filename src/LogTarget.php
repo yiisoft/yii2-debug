@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -246,7 +247,7 @@ class LogTarget extends Target
         $response = Yii::$app->getResponse();
         $summary = [
             'tag' => $this->tag,
-            'url' => $request instanceof yii\console\Request ? "php yii " . implode(' ', $request->getParams()): $request->getAbsoluteUrl(),
+            'url' => $request instanceof yii\console\Request ? 'php yii ' . implode(' ', $request->getParams()) : $request->getAbsoluteUrl(),
             'ajax' => $request instanceof yii\console\Request ? 0 : (int) $request->getIsAjax(),
             'method' => $request instanceof yii\console\Request ? 'COMMAND' : $request->getMethod(),
             'ip' => $request instanceof yii\console\Request ? exec('whoami') : $request->getUserIP(),

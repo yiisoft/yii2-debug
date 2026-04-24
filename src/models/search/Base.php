@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -33,7 +34,6 @@ class Base extends Model
         if (mb_strpos($value, '>') !== false) {
             $value = (int)str_replace('>', '', $value);
             $filter->addMatcher($attribute, new matchers\GreaterThan(['value' => $value]));
-
         } elseif (mb_strpos($value, '<') !== false) {
             $value = (int)str_replace('<', '', $value);
             $filter->addMatcher($attribute, new matchers\LowerThan(['value' => $value]));

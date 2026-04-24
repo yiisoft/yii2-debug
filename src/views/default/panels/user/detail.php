@@ -13,7 +13,6 @@ $encodedName = Html::encode($panel->getName());
 
 <?php
 if (isset($panel->data['identity'])) {
-    $name = 
     $items = [
         'nav' => [$encodedName],
         'content' => [
@@ -64,7 +63,6 @@ if (isset($panel->data['identity'])) {
         ?>
     </div>
     <?php
-
 } else {
     echo 'Is guest.';
 } ?>

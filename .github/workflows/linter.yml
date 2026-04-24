@@ -1,0 +1,20 @@
+---
+on:
+  pull_request: &ignore-paths
+    paths-ignore:
+      - ".gitattributes"
+      - ".gitignore"
+      - "CHANGELOG.md"
+      - "docs/**"
+      - "README.md"
+
+  push: *ignore-paths
+
+name: linter
+
+permissions:
+  contents: read
+
+jobs:
+  phpcs:
+    uses: yiisoft/yii2-actions/.github/workflows/linter.yml@master

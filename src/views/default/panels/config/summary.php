@@ -1,4 +1,5 @@
 <?php
+
 /* @var $panel yii\debug\panels\ConfigPanel */
 ?>
 <div class="yii-debug-toolbar__block">
