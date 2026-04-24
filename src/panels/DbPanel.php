@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -18,10 +19,13 @@ use yii\log\Logger;
 /**
  * Debugger panel that collects and displays database queries performed.
  *
+ * @property-read \yii\db\Connection $db
  * @property-read array $excessiveCallers The number of DB calls indexed by the backtrace hash of excessive
  * caller(s).
+ * @property-read int $excessiveCallersCount
  * @property-read array $profileLogs
  * @property-read string $summaryName Short name of the panel, which will be use in summary.
+ * @property-read array<string, string> $types
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -174,7 +178,7 @@ class DbPanel extends Panel
 
             // Parse aliases
             $ignoredPathsInBacktrace = array_map(
-                function($path) {
+                function ($path) {
                     return Yii::getAlias($path);
                 },
                 $this->ignoredPathsInBacktrace

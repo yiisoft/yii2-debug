@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -291,8 +292,8 @@ class FlattenException
      */
     private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value)
     {
-        $array = new \ArrayObject($value);
+        $array = \get_object_vars($value);
 
-        return $array['__PHP_Incomplete_Class_Name'];
+        return (string) ($array['__PHP_Incomplete_Class_Name'] ?? '');
     }
 }

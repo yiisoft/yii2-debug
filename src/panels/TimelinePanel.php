@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -18,7 +19,9 @@ use yii\debug\Panel;
  *
  * @property array $colors
  * @property-read float $duration
+ * @property-read int $memory
  * @property-read float $start
+ * @property-read Svg $svg
  * @property array $svgOptions
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -35,7 +36,6 @@ class SameAs extends Base
             return mb_stripos($value, $this->baseValue, 0, \Yii::$app->charset) !== false;
         }
 
-        return strcmp(mb_strtoupper($this->baseValue, \Yii::$app->charset),
-                mb_strtoupper($value, \Yii::$app->charset)) === 0;
+        return strcmp(mb_strtoupper($this->baseValue, \Yii::$app->charset), mb_strtoupper($value, \Yii::$app->charset)) === 0;
     }
 }

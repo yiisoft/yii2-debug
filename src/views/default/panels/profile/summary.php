@@ -1,4 +1,5 @@
 <?php
+
 /* @var $panel yii\debug\panels\ProfilingPanel */
 /* @var $time int */
 /* @var $memory int */

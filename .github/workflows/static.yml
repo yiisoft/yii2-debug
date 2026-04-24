@@ -1,0 +1,20 @@
+---
+on:
+  pull_request: &ignore-paths
+    paths-ignore:
+      - ".gitattributes"
+      - ".gitignore"
+      - "CHANGELOG.md"
+      - "docs/**"
+      - "README.md"
+
+  push: *ignore-paths
+
+name: static analysis
+
+permissions:
+  contents: read
+
+jobs:
+  phpstan:
+    uses: yiisoft/yii2-actions/.github/workflows/phpstan.yml@master

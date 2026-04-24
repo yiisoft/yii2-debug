@@ -22,7 +22,9 @@ UserswitchAsset::register($this);
             ]);
             echo $formSet->field(
                 $panel->userSwitch,
-                'user[id]', ['options' => ['class' => '']])
+                'user[id]',
+                ['options' => ['class' => '']]
+            )
                 ->textInput(['id' => 'user_id', 'name' => 'user_id'])
                 ->label('Switch User');
             echo Html::submitButton('Switch', ['class' => 'btn btn-primary']);

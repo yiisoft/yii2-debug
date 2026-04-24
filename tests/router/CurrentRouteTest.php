@@ -11,7 +11,7 @@ class CurrentRouteTest extends TestCase
     /**
      * @test
      */
-    public function shouldDoNothingForNoMessages()
+    public function shouldDoNothingForNoMessages(): void
     {
         $router = new CurrentRoute();
 
@@ -27,7 +27,7 @@ class CurrentRouteTest extends TestCase
     /**
      * @test
      */
-    public function shouldStoreMessageForProperOne()
+    public function shouldStoreMessageForProperOne(): void
     {
         $router = new CurrentRoute(['messages' => [['test', Logger::LEVEL_TRACE]]]);
 
@@ -42,7 +42,7 @@ class CurrentRouteTest extends TestCase
     /**
      * @test
      */
-    public function shouldStoreLogForProperOneAndTrueMatch()
+    public function shouldStoreLogForProperOneAndTrueMatch(): void
     {
         $router = new CurrentRoute(
             [
@@ -66,7 +66,7 @@ class CurrentRouteTest extends TestCase
     /**
      * @test
      */
-    public function shouldStoreLogForProperOneAndFalseMatch()
+    public function shouldStoreLogForProperOneAndFalseMatch(): void
     {
         $router = new CurrentRoute(
             [
@@ -90,7 +90,7 @@ class CurrentRouteTest extends TestCase
     /**
      * @test
      */
-    public function shouldSkipParent()
+    public function shouldSkipParent(): void
     {
         $router = new CurrentRoute(
             [
@@ -118,7 +118,7 @@ class CurrentRouteTest extends TestCase
     /**
      * @test
      */
-    public function shouldIncreaseCounter()
+    public function shouldIncreaseCounter(): void
     {
         $router = new CurrentRoute(
             [

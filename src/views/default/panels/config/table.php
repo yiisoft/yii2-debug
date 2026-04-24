@@ -9,7 +9,6 @@ use yii\helpers\Html;
 <h3><?= $caption ?></h3>
 
 <?php if (empty($values)): ?>
-
     <p>Empty.</p>
 
 <?php else: ?>
