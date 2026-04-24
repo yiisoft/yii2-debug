@@ -17,6 +17,11 @@ Yii Framework 2 debug extension Change Log
 - Enh #546: Applying Yii2 coding standards (@s1lver)
 - Enh #546: Raise min version to PHP 7.4 (@s1lver)
 
+2.1.28 under development
+------------------------
+
+- Enh #553: Add `RequestContextPanel` showing route, controller/action, layout, view tree, controller behaviors, and route parameters (@WarLikeLaux)
+
 2.1.27 June 08, 2025
 --------------------
 
