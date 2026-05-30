@@ -506,6 +506,20 @@ class RequestContextPanelTest extends TestCase
         $this->assertArrayNotHasKey('Layout', $rows);
     }
 
+    public function testGetContextRowsWithMissingKeys(): void
+    {
+        $panel = $this->getPanel();
+        $panel->data = [];
+        $rows = $panel->getContextRows();
+
+        $this->assertArrayNotHasKey('Controller', $rows);
+        $this->assertArrayNotHasKey('Controller File', $rows);
+        $this->assertArrayNotHasKey('Action', $rows);
+        $this->assertArrayNotHasKey('Action Line', $rows);
+        $this->assertArrayNotHasKey('Layout', $rows);
+        $this->assertArrayNotHasKey('Views Rendered', $rows);
+    }
+
     public function testRenderCopyableValue(): void
     {
         $panel = $this->getPanel();
@@ -545,11 +559,16 @@ class RequestContextPanelTest extends TestCase
 
     public function testShortenPathWithRuntimeAlias(): void
     {
+        $original = Yii::getAlias('@runtime', false);
         Yii::setAlias('@runtime', '/tmp/test-runtime');
-        $panel = $this->getPanel();
-        $result = $this->invoke($panel, 'shortenPath', ['/tmp/test-runtime/logs/app.log']);
+        try {
+            $panel = $this->getPanel();
+            $result = $this->invoke($panel, 'shortenPath', ['/tmp/test-runtime/logs/app.log']);
 
-        $this->assertSame('@runtime/logs/app.log', $result);
+            $this->assertSame('@runtime/logs/app.log', $result);
+        } finally {
+            Yii::setAlias('@runtime', $original === false ? null : $original);
+        }
     }
 
     public function testShortenPathUnknownReturnsAsIs(): void

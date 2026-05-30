@@ -138,12 +138,12 @@ class RequestContextPanel extends Panel
         $data = $this->data;
         $rows = [
             'Route' => $this->renderCopyableValue((string) ($data['route'] ?? '')),
-            'Controller' => $data['controllerClass'] !== null ? $this->renderCopyableValue($data['controllerClass']) : null,
-            'Controller File' => $data['controllerFile'] !== null ? $this->renderCopyableValue($data['controllerFile']) : null,
-            'Action' => $data['actionMethod'] !== null ? $this->renderCopyableValue($data['actionMethod']) : null,
-            'Action Line' => $data['actionLine'],
-            'Layout' => $data['layout'] !== null ? $this->renderCopyableValue($data['layout']) : null,
-            'Views Rendered' => $data['viewCount'],
+            'Controller' => isset($data['controllerClass']) ? $this->renderCopyableValue($data['controllerClass']) : null,
+            'Controller File' => isset($data['controllerFile']) ? $this->renderCopyableValue($data['controllerFile']) : null,
+            'Action' => isset($data['actionMethod']) ? $this->renderCopyableValue($data['actionMethod']) : null,
+            'Action Line' => $data['actionLine'] ?? null,
+            'Layout' => isset($data['layout']) ? $this->renderCopyableValue($data['layout']) : null,
+            'Views Rendered' => $data['viewCount'] ?? null,
         ];
 
         return array_filter($rows, function ($value) {
