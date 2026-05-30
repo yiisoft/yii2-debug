@@ -25,7 +25,7 @@ use yii\debug\Panel;
  * @phpstan-type ViewNode array{file: string, short: string, children: list<array<string, mixed>>}
  * @phpstan-type GroupedViewNode array{node: ViewNode, count: int, children: list<array<string, mixed>>}
  *
- * @since 2.1.28
+ * @since 2.1.29
  */
 class RequestContextPanel extends Panel
 {
