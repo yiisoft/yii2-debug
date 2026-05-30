@@ -1423,12 +1423,6 @@ parameters:
 			path: src/panels/DbPanel.php
 
 		-
-			message: '#^Offset 0 might not exist on non\-empty\-list\{0\?\: string, 1\?\: string\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: src/panels/DbPanel.php
-
-		-
 			message: '#^Parameter \#2 \$data of function hash expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2977,20 +2971,8 @@ parameters:
 			path: src/widgets/NavigationButton.php
 
 		-
-			message: '#^Call to function is_subclass_of\(\) with \*NEVER\* and ''\\\\Closure'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: tests/FlattenExceptionTest.php
-
-		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''resource'' and ''object'' will always evaluate to false\.$#'
 			identifier: method.impossibleType
-			count: 1
-			path: tests/FlattenExceptionTest.php
-
-		-
-			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true and ''Expect object class…'' will always evaluate to true\.$#'
-			identifier: method.alreadyNarrowedType
 			count: 1
 			path: tests/FlattenExceptionTest.php
 
@@ -3015,18 +2997,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$newvalue of function ini_set expects string, false given\.$#'
 			identifier: argument.type
-			count: 1
-			path: tests/FlattenExceptionTest.php
-
-		-
-			message: '#^Result of \|\| is always true\.$#'
-			identifier: booleanOr.alwaysTrue
-			count: 1
-			path: tests/FlattenExceptionTest.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between ''Closure'' and \*NEVER\* will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
 			count: 1
 			path: tests/FlattenExceptionTest.php
 
