@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.29 under development
 ------------------------
 
-- no changes in this release.
+- Bug #TBD: Fix `@property` annotations in `Panel`, `UserSwitch`, `DbPanel` and `RouterPanel` (mspirkov)
 
 2.1.28 April 22, 2026
 ---------------------
