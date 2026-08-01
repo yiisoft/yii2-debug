@@ -4,7 +4,7 @@ Yii Framework 2 debug extension Change Log
 2.1.29 under development
 ------------------------
 
-- no changes in this release.
+- Bug #561: Fix union types in PHPDoc annotations (mspirkov)
 
 2.1.28 April 22, 2026
 ---------------------
