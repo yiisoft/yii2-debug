@@ -85,24 +85,6 @@ parameters:
 			path: src/FlattenException.php
 
 		-
-			message: '#^Access to an undefined property yii\\debug\\Panel\:\:\$mailPath\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/LogTarget.php
-
-		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getMessagesFileName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/LogTarget.php
-
-		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getProfileLogs\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/LogTarget.php
-
-		-
 			message: '#^Class yii\\console\\Request referenced with incorrect case\: Yii\\console\\Request\.$#'
 			identifier: class.nameCase
 			count: 4
@@ -391,6 +373,12 @@ parameters:
 			path: src/Module.php
 
 		-
+			message: '#^Property yii\\debug\\Module\:\:\$panels type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
 			message: '#^Property yii\\debug\\Module\:\:\$skipAjaxRequestUrl type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -547,12 +535,6 @@ parameters:
 			path: src/controllers/DefaultController.php
 
 		-
-			message: '#^Access to an undefined property yii\\debug\\Panel\:\:\$mailPath\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/controllers/DefaultController.php
-
-		-
 			message: '#^Call to an undefined method yii\\console\\Response\|yii\\web\\Response\:\:sendFile\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -591,12 +573,6 @@ parameters:
 		-
 			message: '#^Method yii\\debug\\controllers\\DefaultController\:\:loadData\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: src/controllers/DefaultController.php
-
-		-
-			message: '#^Parameter \#1 \$exception of method yii\\base\\ErrorHandler\:\:handleException\(\) expects Throwable, yii\\debug\\FlattenException\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/controllers/DefaultController.php
 
@@ -1477,12 +1453,6 @@ parameters:
 			path: src/panels/DumpPanel.php
 
 		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/panels/DumpPanel.php
-
-		-
 			message: '#^Call to function is_callable\(\) with callable\(\)\: mixed will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -1568,12 +1538,6 @@ parameters:
 
 		-
 			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/panels/LogPanel.php
-
-		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: src/panels/LogPanel.php
