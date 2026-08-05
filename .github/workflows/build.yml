@@ -1,4 +1,3 @@
----
 on:
   pull_request: &ignore-paths
     paths-ignore:
@@ -10,11 +9,8 @@ on:
 
   push: *ignore-paths
 
-name: build
-
 permissions:
   contents: read
-
 jobs:
   phpunit:
     uses: yiisoft/yii2-actions/.github/workflows/phpunit.yml@master

@@ -19,8 +19,8 @@ use yii\log\Logger;
 /**
  * RouterPanel provides a panel which displays information about routing process.
  *
- * @property array $categories Note that the type of this property differs in getter and setter. See
- * [[getCategories()]] and [[setCategories()]] for details.
+ * @property-read array $categories
+ * @property-write string|array $categories
  *
  * @author Dmitriy Bashkarev <dmitriy@bashkarev.com>
  * @since 2.0.8
@@ -36,7 +36,6 @@ class RouterPanel extends Panel
         'yii\web\CompositeUrlRule::parseRequest',
         'yii\rest\UrlRule::parseRequest'
     ];
-
 
     /**
      * @param string|array $values
@@ -91,18 +90,21 @@ class RouterPanel extends Panel
      */
     public function save()
     {
-        if (Yii::$app->requestedAction) {
-            if (Yii::$app->requestedAction instanceof InlineAction) {
-                $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
+        $requestedAction = Yii::$app->requestedAction;
+
+        if ($requestedAction !== null) {
+            if ($requestedAction instanceof InlineAction && $requestedAction->controller !== null) {
+                $action = get_class($requestedAction->controller) . '::' . $requestedAction->actionMethod . '()';
             } else {
-                $action = get_class(Yii::$app->requestedAction) . '::run()';
+                $action = get_class($requestedAction) . '::run()';
             }
         } else {
             $action = null;
         }
+
         return [
             'messages' => $this->getLogMessages(Logger::LEVEL_TRACE, $this->_categories),
-            'route' => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+            'route' => $requestedAction !== null ? $requestedAction->getUniqueId() : Yii::$app->requestedRoute,
             'action' => $action,
         ];
     }

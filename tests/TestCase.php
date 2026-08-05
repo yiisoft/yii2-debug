@@ -72,18 +72,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function invoke($object, $method, array $args = [])
     {
         $classReflection = new \ReflectionClass(get_class($object));
+
         $methodReflection = $classReflection->getMethod($method);
 
-        if (PHP_VERSION_ID < 80100) {
-            $methodReflection->setAccessible(true);
-        }
-
-        $result = $methodReflection->invokeArgs($object, $args);
-
-        if (PHP_VERSION_ID < 80100) {
-            $methodReflection->setAccessible(false);
-        }
-
-        return $result;
+        return $methodReflection->invokeArgs($object, $args);
     }
 }

@@ -38,7 +38,6 @@ class RequestPanel extends Panel
      */
     public $censorString = '****';
 
-
     /**
      * {@inheritdoc}
      */
@@ -104,11 +103,14 @@ class RequestPanel extends Panel
                 $responseHeaders[] = $header;
             }
         }
-        if (Yii::$app->requestedAction) {
-            if (Yii::$app->requestedAction instanceof InlineAction) {
-                $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
+
+        $requestedAction = Yii::$app->requestedAction;
+
+        if ($requestedAction !== null) {
+            if ($requestedAction instanceof InlineAction && $requestedAction->controller !== null) {
+                $action = get_class($requestedAction->controller) . '::' . $requestedAction->actionMethod . '()';
             } else {
-                $action = get_class(Yii::$app->requestedAction) . '::run()';
+                $action = get_class($requestedAction) . '::run()';
             }
         } else {
             $action = null;
@@ -119,7 +121,7 @@ class RequestPanel extends Panel
             'statusCode' => Yii::$app->getResponse()->getStatusCode(),
             'requestHeaders' => $requestHeaders,
             'responseHeaders' => $responseHeaders,
-            'route' => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+            'route' => $requestedAction !== null ? $requestedAction->getUniqueId() : Yii::$app->requestedRoute,
             'action' => $action,
             'actionParams' => Yii::$app->requestedParams,
             'general' => [

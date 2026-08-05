@@ -52,7 +52,6 @@ class RouterRules extends Model
      */
     public $rules = [];
 
-
     /**
      * {@inheritdoc}
      */
@@ -142,11 +141,8 @@ class RouterRules extends Model
     protected function scanRestRule($restRule)
     {
         $reflectionClass = new \ReflectionClass($restRule);
-        $reflectionProperty = $reflectionClass->getProperty('rules');
 
-        if (PHP_VERSION_ID < 80100) {
-            $reflectionProperty->setAccessible(true);
-        }
+        $reflectionProperty = $reflectionClass->getProperty('rules');
 
         $rulesGroups = $reflectionProperty->getValue($restRule);
 

@@ -85,24 +85,6 @@ parameters:
 			path: src/FlattenException.php
 
 		-
-			message: '#^Access to an undefined property yii\\debug\\Panel\:\:\$mailPath\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/LogTarget.php
-
-		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getMessagesFileName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/LogTarget.php
-
-		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getProfileLogs\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/LogTarget.php
-
-		-
 			message: '#^Class yii\\console\\Request referenced with incorrect case\: Yii\\console\\Request\.$#'
 			identifier: class.nameCase
 			count: 4
@@ -205,7 +187,7 @@ parameters:
 			path: src/LogTarget.php
 
 		-
-			message: '#^Parameter \#1 \$variable_representation of function unserialize expects string, string\|false given\.$#'
+			message: '#^Parameter \#1 \$data of function unserialize expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/LogTarget.php
@@ -343,13 +325,13 @@ parameters:
 			path: src/Module.php
 
 		-
-			message: '#^Parameter \#1 \$str1 of function strncmp expects string, string\|null given\.$#'
+			message: '#^Parameter \#1 \$string of function htmlspecialchars expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Module.php
 
 		-
-			message: '#^Parameter \#1 \$string of function htmlspecialchars expects string, string\|false given\.$#'
+			message: '#^Parameter \#1 \$string1 of function strncmp expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Module.php
@@ -361,7 +343,7 @@ parameters:
 			path: src/Module.php
 
 		-
-			message: '#^Parameter \#1 \$type of static method yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:createObject\(\) expects array\{class\?\: class\-string\<mixed\>, __class\?\: class\-string\<mixed\>\}\|\(callable\(\)\: mixed\)\|class\-string\<mixed\>, string given\.$#'
+			message: '#^Parameter \#1 \$type of static method yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:createObject\(\) expects array\{class\?\: class\-string\<mixed\>, __class\?\: class\-string\<mixed\>, \.\.\.\}\|\(callable\(\)\: mixed\)\|class\-string\<mixed\>, string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Module.php
@@ -386,6 +368,12 @@ parameters:
 
 		-
 			message: '#^Property yii\\debug\\Module\:\:\$logTarget type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Module.php
+
+		-
+			message: '#^Property yii\\debug\\Module\:\:\$panels type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Module.php
@@ -475,12 +463,6 @@ parameters:
 			path: src/Panel.php
 
 		-
-			message: '#^Call to an undefined method yii\\base\\Controller\:\:loadData\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/actions/db/ExplainAction.php
-
-		-
 			message: '#^Method yii\\debug\\components\\search\\Filter\:\:addMatcher\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -535,19 +517,13 @@ parameters:
 			path: src/components/search/matchers/SameAs.php
 
 		-
-			message: '#^Parameter \#1 \$str of function mb_strtoupper expects string, bool\|float\|int\|string given\.$#'
+			message: '#^Parameter \#1 \$string of function mb_strtoupper expects string, bool\|float\|int\|string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/components/search/matchers/SameAs.php
 
 		-
 			message: '#^Access to an undefined property yii\\console\\Response\|yii\\web\\Response\:\:\$format\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/controllers/DefaultController.php
-
-		-
-			message: '#^Access to an undefined property yii\\debug\\Panel\:\:\$mailPath\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/controllers/DefaultController.php
@@ -591,12 +567,6 @@ parameters:
 		-
 			message: '#^Method yii\\debug\\controllers\\DefaultController\:\:loadData\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: src/controllers/DefaultController.php
-
-		-
-			message: '#^Parameter \#1 \$exception of method yii\\base\\ErrorHandler\:\:handleException\(\) expects Throwable, yii\\debug\\FlattenException\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/controllers/DefaultController.php
 
@@ -823,7 +793,7 @@ parameters:
 			path: src/models/router/ActionRoutes.php
 
 		-
-			message: '#^Parameter \#1 \$str of function trim expects string, string\|null given\.$#'
+			message: '#^Parameter \#1 \$string of function trim expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/models/router/ActionRoutes.php
@@ -1213,6 +1183,12 @@ parameters:
 			path: src/panels/AssetPanel.php
 
 		-
+			message: '#^Property yii\\web\\AssetBundle\:\:\$depends \(array\<class\-string\>\) does not accept array\<string\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/panels/AssetPanel.php
+
+		-
 			message: '#^Cannot access property \$charset on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -1285,12 +1261,6 @@ parameters:
 			path: src/panels/ConfigPanel.php
 
 		-
-			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/panels/ConfigPanel.php
-
-		-
 			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1334,6 +1304,12 @@ parameters:
 
 		-
 			message: '#^Class yii\\debug\\panels\\DbPanel has PHPDoc tag @property\-read for property \$profileLogs with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/panels/DbPanel.php
+
+		-
+			message: '#^Class yii\\debug\\panels\\DbPanel has PHPDoc tag @property\-read for property \$types with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/panels/DbPanel.php
@@ -1471,12 +1447,6 @@ parameters:
 			path: src/panels/DumpPanel.php
 
 		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/panels/DumpPanel.php
-
-		-
 			message: '#^Call to function is_callable\(\) with callable\(\)\: mixed will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -1562,12 +1532,6 @@ parameters:
 
 		-
 			message: '#^Call to an undefined method yii\\console\\Request\|yii\\web\\Request\:\:getQueryParams\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/panels/LogPanel.php
-
-		-
-			message: '#^Call to an undefined method yii\\debug\\Panel\:\:getCategories\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: src/panels/LogPanel.php
@@ -1881,7 +1845,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$requestedAction on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: property.nonObject
-			count: 7
+			count: 1
 			path: src/panels/RequestPanel.php
 
 		-
@@ -1959,7 +1923,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$requestedAction on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: property.nonObject
-			count: 7
+			count: 1
 			path: src/panels/RouterPanel.php
 
 		-
@@ -1977,7 +1941,7 @@ parameters:
 		-
 			message: '#^Class yii\\debug\\panels\\RouterPanel has PHPDoc tag @property for property \$categories with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
+			count: 2
 			path: src/panels/RouterPanel.php
 
 		-
@@ -2247,18 +2211,12 @@ parameters:
 		-
 			message: '#^Result of && is always false\.$#'
 			identifier: booleanAnd.alwaysFalse
-			count: 2
+			count: 1
 			path: src/panels/UserPanel.php
 
 		-
 			message: '#^Anonymous function has an unused use \$hasDbPanel\.$#'
 			identifier: closure.unusedUse
-			count: 1
-			path: src/views/default/index.php
-
-		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
 			count: 1
 			path: src/views/default/index.php
 
@@ -2337,12 +2295,6 @@ parameters:
 		-
 			message: '#^Anonymous function has an unused use \$hasExplain\.$#'
 			identifier: closure.unusedUse
-			count: 1
-			path: src/views/default/panels/db/callers.php
-
-		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
 			count: 1
 			path: src/views/default/panels/db/callers.php
 
@@ -2431,12 +2383,6 @@ parameters:
 			path: src/views/default/panels/db/detail.php
 
 		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/views/default/panels/db/queries.php
-
-		-
 			message: '#^Cannot access property \$controller on yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -2503,12 +2449,6 @@ parameters:
 			path: src/views/default/panels/db/summary.php
 
 		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/views/default/panels/dump/detail.php
-
-		-
 			message: '#^Variable \$dataProvider might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -2533,13 +2473,7 @@ parameters:
 			path: src/views/default/panels/dump/summary.php
 
 		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/views/default/panels/event/detail.php
-
-		-
-			message: '#^Parameter \#2 \$timestamp of function date expects int, \(float\|false\) given\.$#'
+			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, float given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/views/default/panels/event/detail.php
@@ -2573,12 +2507,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/event/summary.php
-
-		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/views/default/panels/log/detail.php
 
 		-
 			message: '#^Variable \$dataProvider might not be defined\.$#'
@@ -2663,12 +2591,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/mail/summary.php
-
-		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/views/default/panels/profile/detail.php
 
 		-
 			message: '#^Variable \$dataProvider might not be defined\.$#'
@@ -2851,12 +2773,6 @@ parameters:
 			path: src/views/default/panels/user/detail.php
 
 		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 2
-			path: src/views/default/panels/user/roles.php
-
-		-
 			message: '#^Variable \$panel might not be defined\.$#'
 			identifier: variable.undefined
 			count: 4
@@ -2891,12 +2807,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/views/default/panels/user/summary.php
-
-		-
-			message: '#^Call to static method widget\(\) on an unknown class yii\\grid\\GridView\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/views/default/panels/user/switch.php
 
 		-
 			message: '#^Variable \$panel might not be defined\.$#'
@@ -3043,13 +2953,7 @@ parameters:
 			path: tests/FlattenExceptionTest.php
 
 		-
-			message: '#^Parameter \#1 \$dir_handle of function closedir expects resource, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/FlattenExceptionTest.php
-
-		-
-			message: '#^Parameter \#2 \$newvalue of function ini_set expects string, false given\.$#'
+			message: '#^Parameter \#1 \$dir_handle of function closedir expects resource\|null, resource\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/FlattenExceptionTest.php
@@ -3223,7 +3127,7 @@ parameters:
 			path: tests/router/controllers/BadController.php
 
 		-
-			message: '#^Method yiiunit\\debug\\router\\controllers\\BadController\:\:actions\(\) should return array\<array\{class\: class\-string\}\|class\-string\> but returns array\{test\: ''Something not…''\}\.$#'
+			message: '#^Method yiiunit\\debug\\router\\controllers\\BadController\:\:actions\(\) should return array\<array\{class\: class\-string, \.\.\.\}\|class\-string\> but returns array\{test\: ''Something not…''\}\.$#'
 			identifier: return.type
 			count: 1
 			path: tests/router/controllers/BadController.php

@@ -26,7 +26,6 @@ class DataProvider extends ArrayDataProvider
      */
     protected $panel;
 
-
     /**
      * DataProvider constructor.
      * @param TimelinePanel $panel
@@ -134,14 +133,17 @@ class DataProvider extends ArrayDataProvider
         if ($line == 0) {
             return [];
         }
+
         $data = [0];
         $percent = ($this->panel->duration / 100);
         $row = $this->panel->duration / $line;
         $precision = $row > 100 ? -2 : -1;
+
         for ($i = 1; $i < $line; $i++) {
-            $ms = round($i * $row, $precision);
+            $ms = (int) round($i * $row, $precision);
             $data[$ms] = $ms / $percent;
         }
+
         return $data;
     }
 
