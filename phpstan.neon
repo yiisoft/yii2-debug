@@ -3,7 +3,7 @@ includes:
   - phpstan-baseline.neon
 parameters:
   phpVersion:
-    min: 70400
+    min: 80300
     max: 80500
   level: 8
   dynamicConstantNames:

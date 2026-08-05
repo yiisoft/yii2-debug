@@ -9,6 +9,8 @@
 namespace yii\debug\actions\db;
 
 use yii\base\Action;
+use yii\base\InvalidConfigException;
+use yii\debug\controllers\DefaultController;
 use yii\debug\panels\DbPanel;
 use yii\web\HttpException;
 
@@ -17,6 +19,8 @@ use yii\web\HttpException;
  *
  * @author Laszlo <github@lvlconsultancy.nl>
  * @since 2.0.6
+ *
+ * @extends Action<DefaultController>
  */
 class ExplainAction extends Action
 {
@@ -24,7 +28,6 @@ class ExplainAction extends Action
      * @var DbPanel
      */
     public $panel;
-
 
     /**
      * Runs the action.
@@ -35,11 +38,17 @@ class ExplainAction extends Action
      * @throws HttpException
      * @throws \yii\db\Exception
      * @throws \yii\web\NotFoundHttpException if the view file cannot be found
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException if the action is not owned by a controller.
      */
     public function run($seq, $tag)
     {
-        $this->controller->loadData($tag);
+        $controller = $this->controller;
+
+        if ($controller === null) {
+            throw new InvalidConfigException('The "' . self::class . '" action must be run by a controller.');
+        }
+
+        $controller->loadData($tag);
 
         $timings = $this->panel->calculateTimings();
 
