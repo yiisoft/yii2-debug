@@ -13,6 +13,8 @@ use yii\base\Component;
 /**
  * Base class for matchers that are used in a filter.
  *
+ * @property-write mixed $value
+ *
  * @author Mark Jebri <mark.github@yandex.ru>
  * @since 2.0
  */

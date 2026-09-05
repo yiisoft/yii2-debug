@@ -2959,7 +2959,7 @@ parameters:
 			path: tests/FlattenExceptionTest.php
 
 		-
-			message: '#^Parameter \#1 \$dir_handle of function closedir expects resource, resource\|false given\.$#'
+			message: '#^Parameter \#1 \$dir_handle of function closedir expects resource\|null, resource\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/FlattenExceptionTest.php
