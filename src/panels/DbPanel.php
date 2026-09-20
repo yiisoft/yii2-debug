@@ -85,7 +85,6 @@ class DbPanel extends Panel
      */
     private $_profileLogs;
 
-
     /**
      * @var array of event names used to get profile logs.
      * @since 2.1.17
